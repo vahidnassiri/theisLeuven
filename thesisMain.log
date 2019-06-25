@@ -1,0 +1,1660 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.6960 64-bit) (preloaded format=pdflatex 2019.5.5)  21 MAY 2019 08:18
+entering extended mode
+**./thesisMain.tex
+(thesisMain.tex
+LaTeX2e <2018-12-01>
+(C:\Users\ASUS\AppData\Roaming\MiKTeX\2.9\tex/latex/koma-script\scrbook.cls
+Document Class: scrbook 2019/02/01 v3.26b KOMA-Script document class (book)
+(C:\Users\ASUS\AppData\Roaming\MiKTeX\2.9\tex/latex/koma-script\scrkbase.sty
+Package: scrkbase 2019/02/01 v3.26b KOMA-Script package (KOMA-Script-dependent 
+basics and keyval usage)
+
+(C:\Users\ASUS\AppData\Roaming\MiKTeX\2.9\tex/latex/koma-script\scrbase.sty
+Package: scrbase 2019/02/01 v3.26b KOMA-Script package (KOMA-Script-independent
+ basics and keyval usage)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(C:\Users\ASUS\AppData\Roaming\MiKTeX\2.9\tex/latex/koma-script\scrlfile.sty
+Package: scrlfile 2019/02/01 v3.26b KOMA-Script package (loading files)
+))) (C:\Users\ASUS\AppData\Roaming\MiKTeX\2.9\tex/latex/koma-script\tocbasic.st
+y
+Package: tocbasic 2019/02/01 v3.26b KOMA-Script package (handling toc-files)
+\scr@dte@tocline@numberwidth=\skip41
+\scr@dte@tocline@numbox=\box27
+)
+Package tocbasic Info: omitting babel extension for `toc'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `toc' on input line 136.
+Class scrbook Info: You've used standard option `oneside'.
+(scrbook)           This is correct!
+(scrbook)           Internally I'm using `twoside=false'.
+(scrbook)           If you'd like to set the option with \KOMAoptions,
+(scrbook)           you'd have to use `twoside=false' there
+(scrbook)           instead of `oneside', too.
+Class scrbook Info: File `scrsize11pt.clo' used instead of
+(scrbook)           file `scrsize11.clo' to setup font sizes on input line 2376
+.
+
+(C:\Users\ASUS\AppData\Roaming\MiKTeX\2.9\tex/latex/koma-script\scrsize11pt.clo
+File: scrsize11pt.clo 2019/02/01 v3.26b KOMA-Script font size class option (11p
+t)
+) (C:\Users\ASUS\AppData\Roaming\MiKTeX\2.9\tex/latex/koma-script\typearea.sty
+Package: typearea 2019/02/01 v3.26b KOMA-Script package (type area)
+\ta@bcor=\skip42
+\ta@div=\count80
+Package typearea Info: You've used standard option `oneside'.
+(typearea)             This is correct!
+(typearea)             Internally I'm using `twoside=false'.
+(typearea)             If you'd like to set the option with \KOMAoptions,
+(typearea)             you'd have to use `twoside=false' there
+(typearea)             instead of `oneside', too.
+\ta@hblk=\skip43
+\ta@vblk=\skip44
+\ta@temp=\skip45
+\footheight=\skip46
+Package typearea Info: These are the values describing the layout:
+(typearea)             DIV  = 10
+(typearea)             BCOR = 0.0pt
+(typearea)             \paperwidth      = 597.50793pt
+(typearea)              \textwidth      = 418.25555pt
+(typearea)              DIV departure   = -6%
+(typearea)              \evensidemargin = 17.3562pt
+(typearea)              \oddsidemargin  = 17.3562pt
+(typearea)             \paperheight     = 845.04694pt
+(typearea)              \textheight     = 595.80026pt
+(typearea)              \topmargin      = -25.16531pt
+(typearea)              \headheight     = 17.0pt
+(typearea)              \headsep        = 20.40001pt
+(typearea)              \topskip        = 11.0pt
+(typearea)              \footskip       = 47.6pt
+(typearea)              \baselineskip   = 13.6pt
+(typearea)              on input line 1715.
+)
+\c@part=\count81
+\c@chapter=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\scr@dte@chapter@maxnumwidth=\skip47
+Class scrbook Info: using compatibility default `afterindent=bysign'
+(scrbook)           for `\chapter on input line 5303.
+\scr@dte@section@maxnumwidth=\skip48
+Class scrbook Info: using compatibility default `runin=bysign'
+(scrbook)           for `\section on input line 5313.
+Class scrbook Info: using compatibility default `afterindent=bysign'
+(scrbook)           for `\section on input line 5313.
+\scr@dte@part@maxnumwidth=\skip49
+Class scrbook Info: using compatibility default `afterindent=true'
+(scrbook)           for `\part on input line 5322.
+\scr@dte@subsection@maxnumwidth=\skip50
+Class scrbook Info: using compatibility default `runin=bysign'
+(scrbook)           for `\subsection on input line 5332.
+Class scrbook Info: using compatibility default `afterindent=bysign'
+(scrbook)           for `\subsection on input line 5332.
+\scr@dte@subsubsection@maxnumwidth=\skip51
+Class scrbook Info: using compatibility default `runin=bysign'
+(scrbook)           for `\subsubsection on input line 5342.
+Class scrbook Info: using compatibility default `afterindent=bysign'
+(scrbook)           for `\subsubsection on input line 5342.
+\scr@dte@paragraph@maxnumwidth=\skip52
+Class scrbook Info: using compatibility default `runin=bysign'
+(scrbook)           for `\paragraph on input line 5352.
+Class scrbook Info: using compatibility default `afterindent=bysign'
+(scrbook)           for `\paragraph on input line 5352.
+\scr@dte@subparagraph@maxnumwidth=\skip53
+Class scrbook Info: using compatibility default `runin=bysign'
+(scrbook)           for `\subparagraph on input line 5362.
+Class scrbook Info: using compatibility default `afterindent=bysign'
+(scrbook)           for `\subparagraph on input line 5362.
+\abovecaptionskip=\skip54
+\belowcaptionskip=\skip55
+\c@pti@nb@sid@b@x=\box28
+Package tocbasic Info: omitting babel extension for `lof'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `lof' on input line 6617.
+\scr@dte@figure@maxnumwidth=\skip56
+\c@figure=\count88
+Package tocbasic Info: omitting babel extension for `lot'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `lot' on input line 6638.
+\scr@dte@table@maxnumwidth=\skip57
+\c@table=\count89
+Class scrbook Info: Redefining `\numberline' on input line 6811.
+\bibindent=\dimen102
+)
+No file thesisMain.aux.
+\openout1 = `thesisMain.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 11.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 11.
+[1
+
+
+
+{C:/Users/ASUS/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+No file thesisMain.toc.
+\tf@toc=\write3
+\openout3 = `thesisMain.toc'.
+
+[1
+
+
+
+]
+No file thesisMain.lof.
+\tf@lof=\write4
+\openout4 = `thesisMain.lof'.
+
+[2
+
+
+]
+No file thesisMain.lot.
+\tf@lot=\write5
+\openout5 = `thesisMain.lot'.
+
+[3
+
+
+]
+chapter without number
+[4
+
+
+]
+chapter without number
+[5
+
+
+]
+\openout2 = `intro.aux'.
+
+ (intro.tex
+chapter 1.
+
+LaTeX Warning: Reference `tab_comptime1' on page 1 undefined on input line 8.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 8.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 8.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 8.
+
+Overfull \hbox (48.97745pt too wide) in paragraph at lines 8--9
+[]\OT1/cmr/m/n/10.95 In Ta-ble [] we com-pare the com-pu-ta-tion when the sam-p
+le sizes $\OML/cmm/m/it/10.95 n \OT1/cmr/m/n/10.95 = 10\OML/cmm/m/it/10.95 ; \O
+T1/cmr/m/n/10.95 10[]\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 10[]\OML/cmm/m/it
+/10.95 ; \OT1/cmr/m/n/10.95 10[]\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 10[]\O
+ML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 10[]\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/1
+0.95 10[]$,
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 11.
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 11.
+
+Overfull \hbox (55.68596pt too wide) in paragraph at lines 22--35
+ [][] 
+ []
+
+
+LaTeX Warning: Citation `matloff2014' on page 1 undefined on input line 43.
+
+! Undefined control sequence.
+l.43 ... the heart of MadReduce methodology \citep
+                                                  {dean2008}. The split-appl...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! Class scrbook Error: undefined old font command `\tt'.
+
+See the scrbook class documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.43 ...ly-combine strategy in the R packages {\tt
+                                                  {plyr}} and {\tt{dplyr}} a...
+
+You should note that since 1994 LaTeX2e provides a new font selection scheme
+called NFSS2 with several new, combinable font commands. KOMA-Script
+classes had defined the old font commands like `\tt' only for compatibility
+with old LaTeX 2.09 document styles of Script 2.0. Nevertheless, these
+commands are deprecated and undocumented at least since 2003. Since 2013
+KOMA-Script classes warned about soon removement of these deprecated commands.
+Now, after two decades of LaTeX2e and NFSS2, these commands will not work any
+more. If loading a package results in this error message, you should contact
+the author of that package and ask him to replace the deprecated font command
+`\tt', e.g., by `\normalfont \ttfamily `. Otherwise you should reconfigure
+or replace the package. If you have used the old font command `\tt' yourself,
+you should replace it, e.g., by `\normalfont \ttfamily '.
+To make it work for now, you can use the already also deprecated class option
+`enabledeprecatedfontcommands'.
+
+
+! Class scrbook Error: undefined old font command `\tt'.
+
+See the scrbook class documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.43 ...egy in the R packages {\tt{plyr}} and {\tt
+                                                  {dplyr}} also uses this id...
+
+You should note that since 1994 LaTeX2e provides a new font selection scheme
+called NFSS2 with several new, combinable font commands. KOMA-Script
+classes had defined the old font commands like `\tt' only for compatibility
+with old LaTeX 2.09 document styles of Script 2.0. Nevertheless, these
+commands are deprecated and undocumented at least since 2003. Since 2013
+KOMA-Script classes warned about soon removement of these deprecated commands.
+Now, after two decades of LaTeX2e and NFSS2, these commands will not work any
+more. If loading a package results in this error message, you should contact
+the author of that package and ask him to replace the deprecated font command
+`\tt', e.g., by `\normalfont \ttfamily `. Otherwise you should reconfigure
+or replace the package. If you have used the old font command `\tt' yourself,
+you should replace it, e.g., by `\normalfont \ttfamily '.
+To make it work for now, you can use the already also deprecated class option
+`enabledeprecatedfontcommands'.
+
+! Undefined control sequence.
+l.43 ...nd {\tt{dplyr}} also uses this idea \citep
+                                                  {wickham2011}. All these w...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Reference `fig_bigdata' on page 1 undefined on input line 43.
+
+[1
+
+
+
+
+]
+! Undefined control sequence.
+l.50 \includegraphics
+                     [width=\textwidth]{bigdata.eps}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   ]
+l.50 \includegraphics[width=\textwidth]
+                                       {bigdata.eps}
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   ]
+l.50 \includegraphics[width=\textwidth]
+                                       {bigdata.eps}
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+
+LaTeX Warning: Reference `tab_comptime1' on page 2 undefined on input line 60.
+
+[2]
+
+LaTeX Warning: Reference `fig_scheme' on page 3 undefined on input line 70.
+
+! Undefined control sequence.
+l.74 \includegraphics
+                     [width=\textwidth]{scheme_new.eps}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   ]
+l.74 \includegraphics[width=\textwidth]
+                                       {scheme_new.eps}
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   ]
+l.74 \includegraphics[width=\textwidth]
+                                       {scheme_new.eps}
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.74 \includegraphics[width=\textwidth]{scheme_
+                                               new.eps}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+l.74 ...graphics[width=\textwidth]{scheme_new.eps}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.75 ...red data we consider through this thesis.}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.77 \end{figure}
+                 
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+! Class scrbook Error: undefined old font command `\bf'.
+
+See the scrbook class documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.92 ..._{ri}$ (see Amazon book ratings data ({\bf
+                                                  {give reference to the sec...
+
+You should note that since 1994 LaTeX2e provides a new font selection scheme
+called NFSS2 with several new, combinable font commands. KOMA-Script
+classes had defined the old font commands like `\bf' only for compatibility
+with old LaTeX 2.09 document styles of Script 2.0. Nevertheless, these
+commands are deprecated and undocumented at least since 2003. Since 2013
+KOMA-Script classes warned about soon removement of these deprecated commands.
+Now, after two decades of LaTeX2e and NFSS2, these commands will not work any
+more. If loading a package results in this error message, you should contact
+the author of that package and ask him to replace the deprecated font command
+`\bf', e.g., by `\normalfont \bfseries `. Otherwise you should reconfigure
+or replace the package. If you have used the old font command `\bf' yourself,
+you should replace it, e.g., by `\normalfont \bfseries '.
+To make it work for now, you can use the already also deprecated class option
+`enabledeprecatedfontcommands'.
+
+
+! Class scrbook Error: undefined old font command `\bf'.
+
+See the scrbook class documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.92 ...er of outcomes $m$ (see Hearing data)({\bf
+                                                  {give reference to the sec...
+
+You should note that since 1994 LaTeX2e provides a new font selection scheme
+called NFSS2 with several new, combinable font commands. KOMA-Script
+classes had defined the old font commands like `\bf' only for compatibility
+with old LaTeX 2.09 document styles of Script 2.0. Nevertheless, these
+commands are deprecated and undocumented at least since 2003. Since 2013
+KOMA-Script classes warned about soon removement of these deprecated commands.
+Now, after two decades of LaTeX2e and NFSS2, these commands will not work any
+more. If loading a package results in this error message, you should contact
+the author of that package and ask him to replace the deprecated font command
+`\bf', e.g., by `\normalfont \bfseries `. Otherwise you should reconfigure
+or replace the package. If you have used the old font command `\bf' yourself,
+you should replace it, e.g., by `\normalfont \bfseries '.
+To make it work for now, you can use the already also deprecated class option
+`enabledeprecatedfontcommands'.
+
+[3]
+
+LaTeX Warning: Reference `fig_scheme' on page 4 undefined on input line 124.
+
+[4] [5]
+
+LaTeX Warning: Reference `eq_variance1' on page 6 undefined on input line 168.
+
+
+LaTeX Warning: Reference `eq_variance1' on page 6 undefined on input line 168.
+
+
+LaTeX Warning: Reference `eq_objective_opt_w' on page 6 undefined on input line
+ 175.
+
+[6]
+
+LaTeX Warning: Reference `tab_litter_size' on page 7 undefined on input line 19
+5.
+
+[7]
+
+LaTeX Warning: Reference `eq_estimate' on page 8 undefined on input line 230.
+
+[8]
+
+LaTeX Warning: Citation `Iddi2011' on page 9 undefined on input line 251.
+
+
+LaTeX Warning: Reference `eq_clt_pseudolikelihood' on page 9 undefined on input
+ line 251.
+
+
+LaTeX Warning: Citation `hoffman2001' on page 9 undefined on input line 251.
+
+
+LaTeX Warning: Citation `follmann2003' on page 9 undefined on input line 251.
+
+[9]
+
+LaTeX Warning: Citation `hoffman2001' on page 10 undefined on input line 255.
+
+
+LaTeX Warning: Citation `hoffman2001' on page 10 undefined on input line 255.
+
+
+LaTeX Warning: Reference `eq_estimate' on page 10 undefined on input line 255.
+
+
+LaTeX Warning: Citation `hoffman2001' on page 10 undefined on input line 255.
+
+
+LaTeX Warning: Reference `eq_combination_variance' on page 10 undefined on inpu
+t line 267.
+
+
+LaTeX Warning: Citation `follmann2003' on page 10 undefined on input line 267.
+
+
+LaTeX Warning: Citation `rubin1978' on page 10 undefined on input line 269.
+
+
+LaTeX Warning: Citation `rubin1987' on page 10 undefined on input line 272.
+
+[10]
+
+LaTeX Warning: Reference `eq_comb_var_MI' on page 11 undefined on input line 27
+9.
+
+
+LaTeX Warning: Reference `eq_combination_variance' on page 11 undefined on inpu
+t line 279.
+
+! Undefined control sequence.
+l.289 \widetilde{\bftheta
+                         }_{M_0} = \sum_{i=1}^{M_0} \widehat{\bftheta}_i,\;\...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.289 ...M_0} = \sum_{i=1}^{M_0} \widehat{\bftheta
+                                                  }_i,\;\; \Sigma_{\widetild...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.294 	\widetilde{{\bftheta
+                           }}_{m+1}=\frac{m\widetilde{\bftheta}_m + \widehat...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument> m\widetilde {\bftheta 
+                                 }_m + \widehat {\bftheta }_{m+1}
+l.294 ...theta}_m + \widehat{\bftheta}_{m+1}}{m+1}
+                                                  ,\; \Sigma_{\widetilde{\th...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument> ... {\bftheta }_m + \widehat {\bftheta 
+                                                  }_{m+1}
+l.294 ...theta}_m + \widehat{\bftheta}_{m+1}}{m+1}
+                                                  ,\; \Sigma_{\widetilde{\th...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.296 ...} Compute: $d_{m+1}=d(\widetilde{\bftheta
+                                                  }_{m+1},\widetilde{\bfthet...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.296 ...tilde{\bftheta}_{m+1},\widetilde{\bftheta
+                                                  }_{m})$ using an appropria...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[11]
+
+LaTeX Warning: Citation `fieuws2006' on page 12 undefined on input line 313.
+
+
+LaTeX Warning: Citation `fieuws2007' on page 12 undefined on input line 313.
+
+
+LaTeX Warning: Citation `fieuws2006' on page 12 undefined on input line 313.
+
+
+LaTeX Warning: Citation `fieuws2007' on page 12 undefined on input line 313.
+
+
+! LaTeX Error: Environment bmatrix undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.328 \begin{bmatrix}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: \begin{equation} on input line 326 ended by \end{bmatrix}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.332 \end{bmatrix}
+                    \sim N \left (
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Environment bmatrix undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.333 \begin{bmatrix}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: \begin{equation} on input line 326 ended by \end{bmatrix}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.337 \end{bmatrix}
+                   ,
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Environment bmatrix undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.338 D=\begin{bmatrix}
+                       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Misplaced alignment tab character &.
+l.339 D_{11} &
+               D_{12} & D_{13}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.339 D_{11} & D_{12} &
+                        D_{13}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+<recently read> &
+                 
+l.340  &
+         D_{22} & D_{23}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.340  & D_{22} &
+                  D_{23}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+<recently read> &
+                 
+l.341 &
+       & D_{33}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.341 &&
+         D_{33}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+
+! LaTeX Error: \begin{equation} on input line 326 ended by \end{bmatrix}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.342 \end{bmatrix}
+                   
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Undefined control sequence.
+<recently read> \bftheta 
+                         
+l.345 ...ore, the parameter of interest, $\bftheta
+                                                  $, is as follows:
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.348 \bftheta
+              = (\beta_1,\beta_2,\beta_3, D_{11},D_{22},D_{33},D_{12}, D_{13...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \bftheta 
+                         
+l.350 ...ameters estimated in each pair ($\bftheta
+                                                  ^{(s)}$) are as follows:
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument> \bftheta 
+                    
+l.354 \bftheta
+              ^{(1)}=\theta_{(y_{1ij},y_{2ij})} = (\beta_{1_1},\beta_{2_1},D...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \bftheta 
+                         
+l.356 \bftheta
+              ^{(2)}=\theta_{(y_{1ij},y_{3ij})} = (\beta_{1_2},\beta_{3_2},D...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \bftheta 
+                         
+l.358 \bftheta
+              ^{(3)}=\theta_{(y_{2ij},y_{3ij})} = (\beta_{2_3},\beta_{3_3},D...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (234.86522pt too wide) detected at line 361
+[][][] \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 [] \OT1/cmr/m/n/10.95 = (\OML/
+cmm/m/it/10.95 []; []; D[]; ; D[]; D[]\OT1/cmr/m/n/10.95 )[] [] = \OML/cmm/m/
+it/10.95 [] \OT1/cmr/m/n/10.95 = (\OML/cmm/m/it/10.95 []; []; D[]; ; D[]; D[
+]\OT1/cmr/m/n/10.95 )[] [] = \OML/cmm/m/it/10.95 [] \OT1/cmr/m/n/10.95 = (\OML
+/cmm/m/it/10.95 []; []; D[]; ; D[]; D[]\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.9
+5 ;
+ []
+
+
+LaTeX Warning: Reference `eq_SV_pairs' on page 12 undefined on input line 362.
+
+! Undefined control sequence.
+<recently read> \bftheta 
+                         
+l.362 ...ee in (\ref{eq_SV_pairs}), each $\bftheta
+                                                  ^{(s)}$ ($s=1,2,3)$ is a s...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \bftheta 
+                         
+l.362 ...s)}$ ($s=1,2,3)$ is a subset of $\bftheta
+                                                  $ in (\ref{eq_SV_theta}. N...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Reference `eq_SV_theta' on page 12 undefined on input line 362.
+
+! Undefined control sequence.
+<recently read> \boldsymbol 
+                            
+l.362 ...ted in different sub-samples $\boldsymbol
+                                                  {\Theta}'=(\bftheta^{(1)},...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.362 ...b-samples $\boldsymbol{\Theta}'=(\bftheta
+                                                  ^{(1)},\bftheta^{(2)},\bft...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.362 ...dsymbol{\Theta}'=(\bftheta^{(1)},\bftheta
+                                                  ^{(2)},\bftheta^{(3)})$ ca...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.362 ...'=(\bftheta^{(1)},\bftheta^{(2)},\bftheta
+                                                  ^{(3)})$ can be constructe...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.365 \boldsymbol
+                 {\Theta}'=(\beta_{1_1},\beta_{2_1},D_{11_1},
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Reference `eq_estimate' on page 12 undefined on input line 370.
+
+
+! LaTeX Error: Command \kbldelim undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.372 \renewcommand{\kbldelim}
+                              {(}% Left delimiter
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Command \kbrdelim undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.373 \renewcommand{\kbrdelim}
+                              {)}% Right delimiter
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[12]
+! Undefined control sequence.
+l.376   A = \kbordermatrix
+                          {
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+l.377     &
+            \beta_{1_1}&\beta_{2_1}&D_{11_1}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.377     & \beta_{1_1}&
+                        \beta_{2_1}&D_{11_1}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.377     & \beta_{1_1}&\beta_{2_1}&
+                                    D_{11_1}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.378 	&
+        D_{22_1}&D_{12_1}& \beta_{1_2}&\beta_{3_2}&D_{11_2}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.378 	&D_{22_1}&
+                 D_{12_1}& \beta_{1_2}&\beta_{3_2}&D_{11_2}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.378 	&D_{22_1}&D_{12_1}&
+                           \beta_{1_2}&\beta_{3_2}&D_{11_2}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.378 	&D_{22_1}&D_{12_1}& \beta_{1_2}&
+                                       \beta_{3_2}&D_{11_2}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.378 ...{22_1}&D_{12_1}& \beta_{1_2}&\beta_{3_2}&
+                                                  D_{11_2}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.379 	&
+        D_{33_2}&D_{13_2}&\beta_{2_3}&\beta_{3_3}&D_{22_3}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.379 	&D_{33_2}&
+                 D_{13_2}&\beta_{2_3}&\beta_{3_3}&D_{22_3}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.379 	&D_{33_2}&D_{13_2}&
+                          \beta_{2_3}&\beta_{3_3}&D_{22_3}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.379 	&D_{33_2}&D_{13_2}&\beta_{2_3}&
+                                      \beta_{3_3}&D_{22_3}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.379 	&D_{33_2}&D_{13_2}&\beta_{2_3}&\beta_{3_3}&
+                                                  D_{22_3}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.380 	&
+        D_{33_3}&D_{23_3} \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.380 	&D_{33_3}&
+                 D_{23_3} \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 \beta_1 &
+                1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 \beta_1 & 1 &
+                    0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 \beta_1 & 1 & 0 &
+                        0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 \beta_1 & 1 & 0 & 0 &
+                            0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 \beta_1 & 1 & 0 & 0 & 0 &
+                                0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 \beta_1 & 1 & 0 & 0 & 0 & 0 &
+                                    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 \beta_1 & 1 & 0 & 0 & 0 & 0 & 1 &
+                                        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 \beta_1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 &
+                                            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 \beta_1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 &
+                                                0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 ...a_1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 &
+                                                   0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 ...& 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 &
+                                                   0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 ...& 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 &
+                                                   0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 ...& 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 &
+                                                   0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 ...& 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
+                                                   0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.381 ...& 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
+                                                   0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382   \beta_2 &
+                  0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382   \beta_2 & 0 &
+                      1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382   \beta_2 & 0 & 1 &
+                          0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382   \beta_2 & 0 & 1 & 0 &
+                              0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382   \beta_2 & 0 & 1 & 0 & 0 &
+                                  0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382   \beta_2 & 0 & 1 & 0 & 0 & 0 &
+                                      0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382   \beta_2 & 0 & 1 & 0 & 0 & 0 & 0 &
+                                          0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382   \beta_2 & 0 & 1 & 0 & 0 & 0 & 0 & 0 &
+                                              0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382   \beta_2 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 &
+                                                  0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382 ...a_2 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
+                                                   0 & 1 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382 ...& 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
+                                                   1 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382 ...& 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 &
+                                                   0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382 ...& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 &
+                                                   0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382 ...& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 &
+                                                   0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.382 ...& 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 &
+                                                   0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383   \beta_3 &
+                  0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383   \beta_3 & 0 &
+                      0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383   \beta_3 & 0 & 0 &
+                          0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383   \beta_3 & 0 & 0 & 0 &
+                              0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383   \beta_3 & 0 & 0 & 0 & 0 &
+                                  0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383   \beta_3 & 0 & 0 & 0 & 0 & 0 &
+                                      0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383   \beta_3 & 0 & 0 & 0 & 0 & 0 & 0 &
+                                          1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383   \beta_3 & 0 & 0 & 0 & 0 & 0 & 0 & 1 &
+                                              0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383   \beta_3 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 &
+                                                  0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383 ...a_3 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 &
+                                                   0 & 0 & 1 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383 ...& 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 &
+                                                   0 & 1 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383 ...& 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 &
+                                                   1 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383 ...& 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 &
+                                                   0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383 ...& 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 &
+                                                   0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.383 ...& 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 &
+                                                   0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.384   D_{11} &
+                 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.384   D_{11} & 0 &
+                     0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.384   D_{11} & 0 & 0 &
+                         1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.384   D_{11} & 0 & 0 & 1 &
+                             0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.384   D_{11} & 0 & 0 & 1 & 0 &
+                                 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.384   D_{11} & 0 & 0 & 1 & 0 & 0 &
+                                     0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.384   D_{11} & 0 & 0 & 1 & 0 & 0 & 0 &
+                                         0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.384   D_{11} & 0 & 0 & 1 & 0 & 0 & 0 & 0 &
+                                             1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.384   D_{11} & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 &
+                                                 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.384 ...11} & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 &
+                                                   0 & 0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.384 ...& 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 &
+                                                   0 & 0 & 0 & 0 & 0 \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.384 ...& 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 &
+                                                   0 & 0 & 0 & 0 \\
+(That makes 100 errors; please try again.) 
+Here is how much of TeX's memory you used:
+ 2484 strings out of 492946
+ 48781 string characters out of 3135531
+ 240224 words of memory out of 3000000
+ 6424 multiletter control sequences out of 15000+200000
+ 10569 words of font info for 37 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 41i,8n,66p,9091b,222s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+!  ==> Fatal error occurred, no output PDF file produced!

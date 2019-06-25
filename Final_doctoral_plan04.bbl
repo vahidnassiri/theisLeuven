@@ -1,0 +1,51 @@
+\begin{thebibliography}{8}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Fieuws and Verbeke(2006)]{Verbeke2006}
+S.~Fieuws and G.~Verbeke.
+\newblock Pairwise fitting of mixed models for the joint modeling of
+  multivariate longitudinal profiles.
+\newblock \emph{Biometrics}, 62\penalty0 (2):\penalty0 424--431, 2006.
+
+\bibitem[Fieuws et~al.(2007)Fieuws, Verbeke, and Molenberghs]{Verbeke2007}
+S.~Fieuws, G.~Verbeke, and G.~Molenberghs.
+\newblock Random-effects models for multivariate repeated measures.
+\newblock \emph{Statistical methods in medical research}, 16\penalty0
+  (5):\penalty0 387--397, 2007.
+
+\bibitem[Follmann et~al.(2003)Follmann, Proschan, and Leifer]{follmann2003}
+D.~Follmann, M.~Proschan, and E.~Leifer.
+\newblock Multiple outputation: inference for complex clustered data by
+  averaging analyses from independent data.
+\newblock \emph{Biometrics}, 59\penalty0 (2):\penalty0 420--429, 2003.
+
+\bibitem[Hoffman et~al.(2001)Hoffman, Sen, and Weinberg]{hoffman2001}
+E.~B. Hoffman, P.~K. Sen, and C.~R. Weinberg.
+\newblock Within-cluster resampling.
+\newblock \emph{Biometrika}, 88\penalty0 (4):\penalty0 1121--1134, 2001.
+
+\bibitem[Laird and Ware(1982)]{laird1982}
+N.~M. Laird and J.~H. Ware.
+\newblock Random-effects models for longitudinal data.
+\newblock \emph{Biometrics}, pages 963--974, 1982.
+
+\bibitem[Molenberghs and Verbeke(2005)]{molenberghs2005}
+G.~Molenberghs and G.~Verbeke.
+\newblock \emph{Models for discrete longitudinal data}.
+\newblock 2005.
+
+\bibitem[Verbeke and Molenberghs(2009)]{verbeke2009}
+G.~Verbeke and G.~Molenberghs.
+\newblock \emph{Linear mixed models for longitudinal data}.
+\newblock Springer Science \& Business Media, 2009.
+
+\bibitem[Zeger and Liang(1986)]{zeger1986}
+S.~L. Zeger and K.-Y. Liang.
+\newblock Longitudinal data analysis for discrete and continuous outcomes.
+\newblock \emph{Biometrics}, pages 121--130, 1986.
+
+\end{thebibliography}

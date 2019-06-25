@@ -1,0 +1,179 @@
+\section{Fieller's method and Delta method}
+\label{app1}
+
+Here, the Fieller's method to construct a confidence interval for (\ref{nf_var_min_cs}) as well as the Delta method  are discussed. The ratio which we require a confidence interval for is:
+$$n_f=\frac{\hat{\sigma^2}}{\widehat{\tau} \varepsilon}.$$
+Suppose $n_1$ is a small-feasible sub-sampling size chosen to estimate the parameters in the model (e.g., $n_1=5$). From \cite{Iddi2011}, one finds:
+
+
+
+\begin{multline}
+%\label{cov_sigma2_tau}
+\mathrm{Var}  \left(
+\begin{array}{c}
+\widehat{\sigma^2}\\
+\widehat{\tau\varepsilon}
+\end{array} \right) =  \\ \frac{2 \sigma^4}{Nn_1(n_1-1)}  \left(
+\begin{array}{cc}
+n_1 & -\varepsilon \\
+-\varepsilon & \varepsilon^2\frac{\sigma^4 + 2(n_1-1) \tau \sigma^2 + n_1 (n_1-1) \tau^2}{\sigma^4}
+\end{array} \right) \\ = \left(
+\begin{array}{cc}
+s_{11} &  s_{12} \\ s_{12} & s_{22}
+\end{array} \right).
+\end{multline}
+
+The Fieller's confidence interval for (\ref{nf_var_min_cs}) can be calculated following these steps.
+\begin{equation}
+\begin{aligned}
+C_1^2 =&\frac{s_{11}}{\widehat{\sigma^2}^2}, \\
+C_2^2=& \frac{s_{22}}{\left(\varepsilon\widehat{\tau}\right)^2},\\
+r= & \frac{s_{12}}{\sqrt{s_{11} s_{22}}},\\
+A= &C_1^2 + C_2^2 - 2r C_1C_2,\\
+B=& t^2 C_1^2 C_2^2 (1-r^2),\\
+L=& \frac{\widehat{\sigma^2}}{\varepsilon\widehat{\tau}} \frac{1-z_{\alpha/2}^2 r C_1C_2 - z_{\alpha/2}\sqrt{A-B}}{1-z_{\alpha/2}^2C_2^2},\\
+U=& \frac{\widehat{\sigma^2}}{\varepsilon\widehat{\tau}} \frac{1-z_{\alpha/2}^2 r C_1C_2 + z_{\alpha/2}\sqrt{A-B}}{1-z_{\alpha/2}^2C_2^2}.
+\end{aligned}
+\end{equation}
+One may take $n_f=\max\{L,U\}$. Of course, in case were $z_{\alpha/2}^2 C_2^2 <1$, there would be no finite interval. As it was mentioned, one may also use the Delta method as follows:
+
+\begin{equation}
+\label{var_delta_method}
+\mathrm{Var}(\frac{\widehat{\sigma^2}}{\varepsilon \widehat{\tau}}) \approx \frac{1}{\varepsilon^2 \widehat{\tau}^2} \left( s_{11} - 2 \frac{\sigma^2}{\tau} s_{12} + \frac{\sigma^4}{\tau^2} s_{22} \right).
+\end{equation}
+
+\section{Random vertical data splitting for compound-symmetry structure}
+\label{app2}
+Assume a single cluster of size $N$ with multivariate normal distribution and compound-symmetry structure for its covariance matrix, see Section~\ref{sec_CS_effect}. Suppose we take $M_0$ sub-samples of size $n_0$ from this cluster. Following \cite{hoffman2001}, the parameter $\mu$ should be estimated within each sub-sample, $\widehat{\mu}^{(m)}$ ($m=1,\ldots,M_0$) and then the overall estimate can be obtained by averaging these estimates. Furthermore, one needs the within and between sub-samples variabilities to compute the overall variability, see (\ref{mo_cov}).
+
+Within each sub-sample the variance of $\widehat{\mu}^{(m)}$ can be computed using the variance formula for a mean estimator in CS-multivariate normal \cite{Iddi2011} :
+
+\begin{equation}
+\label{within}
+S_W= \frac{\sigma^2}{n_0} \left[ 1+ (n_0-1) \rho \right ].
+\end{equation}
+Estimating the between variability requires computing $\mathrm{E}\left\{ (\widehat{\mu}^{(m)} - \bar{\mu})^2 \right\}$, where $\bar{\mu}$ is the average of $\widehat{\mu}^{(m)}$'s ($m=1,\ldots,M_0$). Set $S_m$ as the index of members of sub-sample $m$ and $S_{m'}$ the rest of the sample, then,
+\begin{equation*}
+\widehat{\mu}^{(m)} - \bar{\mu} = \frac{1}{n_0}\left\{(1-\frac{1}{M_0})\sum_{i\in S_m} y_i - \frac{1}{M_0} \sum_{m=1}^ {M_0} \sum_{i\in S_{m'}} y_i \right\}.
+\end{equation*}
+Therefore,
+\begin{equation}
+\label{T1_T4}
+\mathrm{E}\left\{(\widehat{\mu}^{(m)} - \bar{\mu})^2 \right\} = \frac{1}{n_0} \left( T_1 + T_2 + T_3+ T_4\right),
+\end{equation}
+where,
+\begin{equation}
+\label{eq_T1_T4}
+\begin{cases}
+T_1= \left( 1- \frac{1}{M_0} \right) \mathrm{E} \left [ \sum_{i\in S_m} y_i \right]^2\\
+T_2= \frac{1}{M_0^2} (M_0-1) \mathrm{E} \left[ \sum_{i \in S_m} y_i \right]^2\\
+T_3=  -2 \left(1-\frac{1}{M_0} \right) \frac{1}{M_0} (M_0-1) \mathrm{E} \left\{ \left(\sum_{i\in S_{m'}} y_i \right) \left( \sum_{i'\in S_{m'}} y_{i'} \right) \right\} \\
+T_4= 2 \frac{1}{M_0} \frac{(M_0-1) (M_0-2)}{2} \mathrm{E} \left\{ \left(\sum_{i \in S_m} y_i \right) \left(\sum_{i'\in S_{m'}} y_{i'} \right) \right\}.
+\end{cases}
+\end{equation}
+From (\ref{eq_T1_T4}) one may find,
+\begin{equation}
+\label{sum_T}
+\begin{cases}
+T_1+ T_2 = \frac{M_0-1}{M_0} n_0 \sigma^2 \left [1+ (n_0-1) \rho \right]\\
+T_3 + T_4= - \frac{M_0-1}{M_0} \frac{\sigma^2 n_0^2}{N} \left[ 1+ (N_1) \rho \right].
+\end{cases}
+\end{equation}
+Therefore, the between variability can be computed as follows,
+\begin{equation}
+\label{between}
+S_B=\mathrm{E} \left\{ (\widehat{\mu}^{(m)} - \bar{\mu} )^2 \right\} = \frac{M_0-1}{M_0} \left[\frac{1+(n_0-1)\rho}{n_0} - \frac{1+(N_1)\rho}{N} \right].
+\end{equation}
+Using (\ref{within}) and (\ref{between}), the total variability can be computed as follows,
+\begin{equation}
+\label{total_variability}
+S_T= \frac{1}{M_0} \sigma^2 \frac{1+ (n_0-1) \rho }{n_0} + \frac{M_0-1}{M_0} \sigma^2 \frac{1+ (N-1) \rho}{N}
+\end{equation}
+Comparing the variance in (\ref{total_variability}) with the variance when estimating $\mu$ using the full sample would give,
+\begin{equation}
+\label{ARE}
+\mathrm{ARE} = \frac{M_0-1}{M_0} + \frac{1}{M_0} \frac{N}{n_0} \frac{1+(n_0-1) \rho}{1+ (N-1) \rho}
+\end{equation}
+For example, if sub-sampling is done only once ($M_0=1$), then,
+\begin{equation}
+\label{ARE_M1}
+\mathrm{ARE} = \frac{N}{n_0} \frac{1+(n_0-1) \rho}{1+(N-1) \rho},
+\end{equation}
+The same calculation is possible for $M_0=2$,
+\begin{equation}
+\label{are_M02}
+\mathrm{ARE}= \frac{1}{2} + \frac{1}{2} \frac{N}{n_0} \frac{1+(n_0-1) \rho}{1+ (N-1) \rho}.
+\end{equation}
+By considering the desired ARE as $1+\epsilon$, one may find $n_0$.
+
+
+
+\section{Combination rule for $p$-values in LES dataset analysis (IMI)}
+
+
+The Kruskal-Wallis test statistic asymptotically follows a $\chi^2$ distribution. Therefore, in order to find the combined $p$-value, we may follow the procedure proposed by \cite{li1991}. More details can be found in \cite{rubin2004} and \cite{enders2010}. The combination is done using {\tt{micombine.chisquare}} in package {\tt{miceadds}} in \textsf{R}, \cite{miceadds}.
+
+\begin{itemize}
+	\item \textbf{Averaging.} Compute the test statistic for each imputed data and take their average: $\overline{\chi^2} = \frac{1}{M} \sum_{m=1}^M \chi^2_m$.
+	\item \textbf{Relative variance increase.} $r=\left(1+\frac{1}{M} \right) \frac{\sum_{m=1}^M (\sqrt{\chi^2_m} - \sqrt{\overline{\chi^2}})^2}{M-1}$
+	\item \textbf{Test statistic.} $D=\frac{\frac{\overline{\chi^2}}{\kappa} - \frac{M+1}{M-1}r}{1+r}$, where $\kappa$ is the degrees-of-freedom of the $\chi^2_m$. For a $\chi^2$-test of independence, it is $(k_1-1)(k_2-1)$ where $k_1$ and $k_2$ are the number of levels of two categorical variables. Take five diagnosis groups and variable \textsf{Eye} with two levels, then $\kappa=(5-1)(2-1)=4$. For the Kruskal-Wallis test, $\kappa$ is the number of groups minus 1. So, when comparing values of a continuous variable among three types of diagnosis, $\kappa=2$. When this comparison is done for all five types, $\kappa=4$. 
+	\item \textbf{Computing $p$-value.} $p$-value$=P(F_{\kappa,\nu} > D)$, where $F$ is the $F$-distribution and $\nu=\kappa^{-3/M} (M-1) \left(1+\frac{1}{r}\right)^2$
+\end{itemize}
+
+\section{The surrogate model}
+The model takes the form:
+\begin{equation}
+\label{model}
+\left\{
+\begin{array}{l}
+S_{ij}=\mu_S + m_{S_i} + (\alpha + a_i) Z_{ij} + \varepsilon_{S_{ij}},\\
+T_{ij}= \mu_T + m_{T_i} + (\beta + b_i) Z_{ij} + \varepsilon_{T_{ij}},
+\end{array} \right.
+\end{equation}
+where $S_{ij}$ and $T_{ij}$ are the surrogate and true endpoints, and $Z_{ij}$ is the treatment indicator (1 for active; 0 for placebo), respectively. Index $i$ refers to the trial and $j$ to the subject. Further, $\mu_{S}$ and $\mu_{T}$ are fixed intercepts and $m_{S_i}$ and $m_{T_i}$ are  random intercepts, for surrogate and true endpoint, respectively. The fixed treatment effects are $\alpha$ (for $S$) and $\beta$ (for $T$), and the centre-specific treatment effects are $a_i$ (for $S$) and $b_i$ (for $T$). 
+Random intercepts and slopes are assumed to follow
+$(m_{S_i}, m_{T_i}, a_i, b_i)'\sim N(0,D)$,
+where 
+\begin{equation}
+\label{D}
+D = \left(
+\begin{array}{cccc}
+d_{SS} & & &\\
+d_{ST} & d_{TT} & &\\
+d_{Sa} & d_{Ta} & d_{aa} &\\
+d_{Sb} & d_{Tb} & d_{ab} & d_{bb}
+\end{array} \right).
+\end{equation}
+Furthermore, for the error terms,
+\begin{equation}
+\label{Sigma}
+\left(\begin{array}{c}
+\varepsilon_{S_{ij}}\\
+\varepsilon_{T_{ij}}
+\end{array} \right)
+\sim N(0,\Sigma),\; \Sigma = \left(
+\begin{array}{cc}
+\sigma_{SS} & \\
+\sigma_{ST} & \sigma_{TT}
+\end{array} \right).
+\end{equation}
+The parameters of interest for the surrogate evaluation are trial- and individual-level coefficients of determination, $R^2_{\mbox{\tiny trial}}$ and $R^2_{\mbox{\tiny indiv}}$, respectively:
+\begin{equation}
+\label{R2}
+R^2_{\mbox{\tiny trial}} = \frac{1}{d_{ab}}
+\left(
+\begin{array}{c}
+d_{Sb}  \\
+d_{ab}
+\end{array} \right)^{\prime} 
+\left(
+\begin{array}{cc}
+d_{SS} & d_{Sa}\\
+d_{Sa} & d_{aa}
+\end{array} \right)^{-1}
+\left(
+\begin{array}{c}
+d_{Sb}  \\
+d_{ab}
+\end{array} \right),\quad R^2_{\mbox{\tiny indiv}}=\frac{\sigma_{ST}^2}{\sigma_{SS} \sigma_{TT}}.
+\end{equation}
