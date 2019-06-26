@@ -5,6 +5,7 @@
 \usepackage{amsmath, amsthm, amscd, amsfonts}
 \usepackage{graphicx}
 \usepackage{pstricks}
+\usepackage{bm}
 \usepackage[authoryear]{natbib}
 \usepackage{multirow}
 \usepackage{tocbibind}
@@ -711,19 +712,21 @@ As we have $3$ outcomes, the number of pairs will be $M=3\times (3-1) /2 =3$. Ho
 \end{cases}
 \end{equation}
 as one may see in (\ref{eq_SV_pairs}), each $\bftheta^{(s)}$ ($s=1,2,3)$ is a subset of $\bftheta$ in (\ref{eq_SV_theta}. Now, the stacked vector combining all parameters estimated in different sub-samples $\boldsymbol{\Theta}'=(\bftheta^{(1)},\bftheta^{(2)},\bftheta^{(3)})$ can be constructed as follows:
-\begin{equation}
+\begin{multline}
 \label{eq_SV_Theta}
 \boldsymbol{\Theta}'=(\beta_{1_1},\beta_{2_1},D_{11_1},
 ,D_{22_1},D_{12_1}, \beta_{1_2},\beta_{3_2},D_{11_2},
-,D_{33_2},D_{13_2},\beta_{2_3},\beta_{3_3},D_{22_3},
+,D_{33_2},D_{13_2},\beta_{2_3},\beta_{3_3},\\ D_{22_3},
 ,D_{33_3},D_{23_3}).
-\end{equation}
+\end{multline}
 As one may see, the covariance parameters ($D_{12},D_{13}, D_{23}$) are only estimated once using their corresponding pair, but the rest of parameters are appearing in two out of three pairs. Therefore, to combine these estimates we cannot just average all estimates as we did in (\ref{eq_estimate}). The weight matrix to perform the appropriate combination can be defined as follows,
 \vspace*{2mm}
+
 \renewcommand{\kbldelim}{(}% Left delimiter
 \renewcommand{\kbrdelim}{)}% Right delimiter
-% \resizebox{\textwidth}{!}{  
+
 \[
+ \resizebox{\textwidth}{!}{  
   A = \kbordermatrix{
     & \beta_{1_1}&\beta_{2_1}&D_{11_1}
 	&D_{22_1}&D_{12_1}& \beta_{1_2}&\beta_{3_2}&D_{11_2}
@@ -739,8 +742,9 @@ As one may see, the covariance parameters ($D_{12},D_{13}, D_{23}$) are only est
   D_{13} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ 
   D_{23} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 
   }
+}
 \] 
-%}
+
 
 \vspace*{2mm}
 \noindent Obviously, $\sum_i A_i$ (with $A_i$ the $i$th row of $A$) shows the number of times each parameter is estimated. Therefore, by defining $W$ with each of its rows computed as $A_i / \sum_i A_i$, and pre-multiplying it by $\widehat{\boldsymbol{\Theta}}$ would provide the appropriate averaging. The same goes for the variance combination rule. \cite{fieuws2006, fieuws2007} used a pseuo-likelihood approach to find the combined covariance matrix (the same as in \ref{eq_clt_pseudolikelihood}), we could show using \ref{eq_combination_variance} with appropriate weights works the same, but much faster.
@@ -847,6 +851,7 @@ Note that, this data is analyzed in \cite{ivanova2017}, and here we only use it 
 These data consist of the ratings of the books on the Amazon website which are recently made publicly available. The dataset contains $2,330,066$ books, which are rated at least $1$ and at most $21,398$ times. This is an example of clustered data with large highly unbalanced clusters and a large sample size. Therefore, it provides an ideal situation where the conventional methods would fail and we may need alternative methods to deal with the big data issue.
 
 \section{Clinical Trials in Schizophrenia} 
+
 These data were collected from five double-blind randomized clinical trials to compare the effects of two treatments for chronic schizophrenia: risperidone and conventional antipsychotic agents. Subjects who received doses of risperidone (4–6 mg/day) or an active control (haloperidol, perphenazine, zuclopenthixol) have been included in the analysis. Patients were clustered within country, and longitudinal measurements were made on each subject over time. The number of patients ranges from 9 to 128 per country with a total of 2039. 
 
 The positive and negative syndrome scale (PANSS) was used to asses the global condition of a patient. This scale is constructed from 30 items, each taking values between 1 and 7, giving an overall range of 30 to 210. PANSS provides an operationalized, drug-sensitive instrument, which is useful for both typological and dimensional assessment of schizophrenia. Depending on the trial, treatment was administered for a duration of 48 weeks with at most 12 monthly measurements. Because not all subjects received treatment at the same time points and, not the same amount, the final dataset is unbalanced. Our analysis shows the AR(1) structure could be a good candidate for modelling the covariance matrix of the random effects, which makes it a suitable example to illustrate our contribution to structured horizontal splitting based on cluster sizes for AR(1) models.
@@ -896,7 +901,7 @@ $b_{ij}$'s ($i=1,\ldots,15, j=1,\ldots,m_j$) are the random effects (latent vari
 %{\afterpage{\clearpage % begin landscape tables
 %   \begin{landscape}
 \begin{equation}
-\scalemath{0.7}{
+\scalemath{0.5}{
 \label{D_matrix}
  D= \left(
 \begin{array}{ccccccccccccccc}
@@ -1124,6 +1129,7 @@ The sub-models would still include all family roles, but the personality factors
 \caption{Comparing full sample and sample splitting results for each factor separately}
 \label{full_split_comp}
 \centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{cccccc}
 & &Estimate & & Std & \\
   \hline
@@ -1165,7 +1171,7 @@ Factor&Parameter & Split & Full & Split & Full \\
       &  (mother,father)  & 0.063 & 0.071 & 0.009 & 0.010 \\ 
       &  mother  & 0.269 & 0.311 & 0.010 & 0.011 \\ 
    \hline
-\end{tabular}
+\end{tabular}}
 
 \end{table}
 %use the report in "D:\GOOD\BFI\personality_report": 
@@ -1293,7 +1299,9 @@ Suppose that there is a sample of $N$ independent clusters, among which $K$ diff
 \subsubsection{Incompleteness}
 
 The data-dependent terms in the log-likelihood can  be written as:
-\begin{eqnarray}
+\begin{equation}
+\label{driestats}
+\begin{aligned}
 \lefteqn{\sum_{k=1}^K\sum_{i=1}^{c_k}-\frac{1}{2}\left(\BY_i^{(k)}-\mu\mathbf{1}_{n_k}\right)'\left(\sigma^2I_{n_k}+dJ_{n_k}\right)^{-1}\left(\BY_i^{(k)}-\mu\mathbf{1}_{n_k}\right)}\\
 &=&\sum_{k=1}^K\sum_{i=1}^{c_k}-\frac{1}{2}\left(\BY_i^{(k)}-\mu\mathbf{1}_{n_k}\right)'\left(I_{n_k}-\frac{d}{\sigma^2+n_kd}J_{n_k}\right)\left(\BY_i^{(k)}-\mu\mathbf{1}_{n_k}\right)\\
 &=&
@@ -1303,8 +1311,9 @@ The data-dependent terms in the log-likelihood can  be written as:
 &+&
 \sum_{k=1}^K\sum_{i=1}^{c_k}\frac{d}{2\sigma^2(\sigma^2+n_kd)}\left(
 \sum_{j=1}^{n_k}Y_{ij}^{(k)}
-\right)^2.\label{driestats}
-\end{eqnarray}
+\right)^2.
+\end{aligned}
+\end{equation}
 The three terms in (\ref{driestats}) are qualitatively different. Indeed, the middle one corresponds to a single sufficient statistic, the sum of all squares across clusters, while the first and last split into as many sufficient statistics as there are unique cluster sizes.
 
 \cite{Lisa2015_2} proved a characterization of incompleteness, essentially stating that when the dimension of the sufficient statistic is larger than the dimension of the parameter vector, the sufficient statistic is no longer complete. More details can be found in Supplementary Materials Section~S1.
@@ -1320,22 +1329,30 @@ Similar in spirit to (\ref{driestats}), but now using all terms, the log-likelih
 \ell(\mu,\sigma^2,d)=\sum_{k=1}^K\ell_k(\mu,\sigma^2,d),
 \end{equation}
 with the cluster size specific log-likelihood term
-\begin{eqnarray}
+
+
+\begin{equation}
+\label{loglikcsk}
+\begin{aligned}
 &&\ell_k(\mu,\sigma^2,d)=
 -\frac{1}{2}\sum_{i=1}^{c_k}
 \left\{\ln
 \left[\sigma^{2n_k}+n_k\sigma^{2(n_k-1)}d\right]\phantom{\frac{d_m}{\sigma_m^2+nd_m}}
 \phantom{-\frac{1}{2}\sum_{i=1}^N} \right.\\
 &+&\left.(\BY_{i}^{(k)}-\mu\mathbf{1}_{n_k})'\frac{1}{\sigma^2}\left(I_{n_k}-\frac{d}{\sigma^2+n_kd}J_{n_k}\right)(\BY_{i}^{(k)}-\mu\mathbf{1}_{n_k})\right\}.
-\label{loglikcsk}
-\end{eqnarray}
+\end{aligned}
+\end{equation}
+
+
 Using derivations similar to those in \cite{Iddi2011}, the cluster size specific log-likelihood can be maximized analytically {\em assuming that there is a separate parameter per cluster size}. By replacing $\ell_k(\mu,\sigma^2,d)$ by
 $\ell_k(\mu_k,\sigma^2_k,d_k)$, we can consider the kernel of the log-likelihood, in general for $K$ cluster sizes, and allowing for the parameter vector to change with cluster size:
-\begin{eqnarray}
+\begin{equation}
+   \label{jloglik}
+\begin{aligned}
 \ell\left(\left\{\mu_k\right\}_k,\left\{\sigma_k^2\right\}_k,\left\{d_k\right\}_k\right)  &\propto& - \frac{1}{2}\sum_{k=1}^K\sum_{i=1}^{c_k} \left\{\ln|\Sigma_{n_k}| \right. \\ 
 &+& \left. \left(\by_{i}^{(k)}-\bmu_{n_k}\right)'\Sigma_{n_k}^{-1} \left(\by_{i}^{(k)}-\bmu_{n_k}\right) \right\},
-   \label{jloglik}
- \end{eqnarray}
+\end{aligned}
+\end{equation}
 where $\bmu_k=\mu_k\mathbf{1}_{n_k}$  $\Sigma_{n_k}=\sigma_k^2 I_{n_k}+ d_k J_{n_k}$. The score functions are presented in Supplementary Materials Section~S.2.
 %\ref{likelihoodapp}.
 Solving these score functions (S2.1)-(S2.3)
@@ -1453,8 +1470,8 @@ whence $I_p=\sum_{k=1}^KA_k$. This requirement is satisfied for (S4.5).
 %(\ref{amtrix}).
 This suggests two obvious choices:
 \begin{description}
-\item[\sffamily Constant weights.] Set $A_k=(1/K)I_{p}$.
-\item[\sffamily  Proportional weights.] Set $A_k=(c_k/N)I_p$.
+\item[Constant weights.] Set $A_k=(1/K)I_{p}$.
+\item[Proportional weights.] Set $A_k=(c_k/N)I_p$.
 \end{description}
 Constant weights are the clear choice when all subjects are i.i.d.\ 
 and partitioning is in sub-samples of equal size. Proportional weights 
@@ -1468,7 +1485,7 @@ to $A_k=\Lambda V_k^{-1}/2$. Because the $A_k$ sum to the
 identity,  $\Lambda=2\left(\sum_{m=1}^KV_m^{-1}\right)^{-1}$ 
 and we have the following.
 \begin{description}
-  \item[\sffamily Optimal weights.] These take the form:
+  \item[Optimal weights.] These take the form:
 \begin{equation}
 \label{optimalwt}
 A_k^{\mbox{\scriptsize opt}}=\left(\sum_{m=1}^KV_m^{-1}\right)^{-1}V_k^{-1}.
@@ -1490,7 +1507,7 @@ unknown parameters. The optimal weights can suggest
 sensible choices and we describe a couple of these. They will be illustrated 
 in the next section for the CS case.
 
-{\bfseries\sffamily Scalar weights.} While optimal weights 
+{\bfseries Scalar weights.} While optimal weights 
 may be unwieldy, one could consider scalar weights by requiring the $A_k$ 
 to be diagonal. This implies that each component of 
 $\bftheta^\ast$, $\theta_r^\ast$, say, is a linear combination
@@ -1503,7 +1520,7 @@ does not necessarily correspond to the maximum likelihood solution.
 The rationale for choosing this route is computational convenience, and its advantages  
 vary from problem to problem. 
 
-{\bfseries\sffamily Iterated optimal weights.} An iterative 
+{\bfseries Iterated optimal weights.} An iterative 
 scheme can be followed:
 \begin{enumerate}
 \item Estimate $\widehat{\bftheta}_k$.
@@ -1524,7 +1541,7 @@ This scheme can always be followed and it has the advantage that the data
 need only be analyzed once, to yield $\widehat{\bftheta}_k$. From this point on, 
 calculations involve algebraic expressions for the parameters only.
 
-{\bfseries\sffamily Approximate optimal weighting.} Related to the previous 
+{\bfseries Approximate optimal weighting.} Related to the previous 
 method, a non-iterative approximation consists of replacing 
 $V_k$ by $V_k(\widetilde{\bftheta_k})$ in (\ref{schatteropt}). 
 Here, $\widetilde{\bftheta_k}$ could be, for example,  the 
@@ -2351,7 +2368,7 @@ in this paper with a model for cluster size.
 
 
 
-
+\newpage
 
 
 \section[AR1 structure]{Fast, closed-form, and efficient estimators for hierarchical models with AR (1) covariance and unequal cluster sizes}
@@ -2360,7 +2377,7 @@ in this paper with a model for cluster size.
 
 \subsection{Introduction}
 \label{secintroar1}
-\vspace*{-3.5mm}
+
 It is common for the number of study units in a design, the sample size, to be fixed {\em a priori\/}. However,
 there are many exceptions to this. \cite{molenberghs2014random} provides an overview of such designs. Some examples are sequential trials, for which the sample size is determined by a stopping rule, missing data, and censored time-to-event data.
 The focus of this paper is hierarchical data where independent replicates take the form of compound units, generically termed {\em clusters}.  Clustering can occur in many settings, for example, longitudinal data, toxicology \citep{aerts2002}, cluster randomized trials and, more generally, multi-level designs. The sizes of the resulting clusters can be fixed by design, or may be random. Random sample sizes can be due to missingness in the data, governed by a stochastic mechanism. And, in some cases, the cluster sizes may be associated with the outcomes, often termed `informative cluster sizes', see for example \cite{williamson2003marginal, benhin2005mean, hoffman2001, cong2007marginal, chiang2008efficient, wang2011inference,aerts2011incomplete}. However, our interest here is not on informative cluster sizes, but rather unequal cluster sizes that are themselves independent of observed and unobserved outcomes. We concentrate solely on the non-constant nature of the cluster sizes, for which joint modelling of outcomes and cluster size is not required.
@@ -2382,7 +2399,7 @@ The rest of paper is organised as follows. In Section~\ref{secmodel} the model f
 
 \subsection{Model Formulation}
 \label{secmodel}
-\vspace*{-3.5mm}
+
 Suppose that there is a sample of $N$ independent clusters, among which $K$ different cluster sizes $n_{k}$ ($k=1,\dots,K$) can be distinguished. Let the multiplicity of cluster size $n_k$ be $c_k$. The total number of clusters is then $N=\sum_{k=1}^Kc_k$. Denote the outcome vector for the $i$th  ($i=1,\dots,c_k$) replicate among the clusters of size $n_k$ by $\BY_i^{(k)}$.
 
 All models considered in this paper will be versions of the following general linear mixed model:
@@ -2401,7 +2418,7 @@ Note that this is very different from the a so-called balanced conditionally ind
 
 \subsection{Estimators}
 \label{secestimators}
-\vspace*{-3.5mm}
+
 
 We begin by assuming that there is only one cluster size occurring, that is, $n_k\equiv n$ and the index $k$ will be dropped from notation throughout this section. The resulting expressions are required for our eventual goal, clusters with variable size, which we reach in Section~\ref{secvariable}.
 
@@ -2539,7 +2556,7 @@ yielding a very simple inverse:
 
 \subsection{Complete and Incomplete Sufficient Statistics}
 \label{secincomplete}
-\vspace*{-3.5mm}
+
 The property of central interest in this section is that of  {\em completeness\/} \citep[pp.~285--286]{casella2002statistical}. It means that any measurable function of a sufficient statistic, that has the zero expectation for every value of the parameter indexing the parametric model class, is the zero function almost everywhere.  As has been shown in the sequential trial context, a lack of completeness does not preclude the existence of estimators with desirable properties  \citep{molenberghs2014random}.
 
 \cite{liu1999unbiased} established the incompleteness of the sufficient statistic for a clinical trial with a stopping rule, for the case of normally distributed endpoints. \citet{LH06} generalized this result to the exponential family. \citet{molenberghs2014random} and \citet{milanzi2016properties} broadened it further to a stochastic rather than a deterministic stopping rule.
@@ -2553,13 +2570,13 @@ In what follows, we will establish completeness for the balanced conditional ind
 
 
 \subsubsection{Balanced Conditionally Independent Model}
-\vspace*{-3.5mm}
+
 This model of which the estimators are spelt out in Section~\ref{setting1est}, obviously admits a complete minimal sufficient statistic because the numbers of sufficient statistics (\ref{suffstat1})--(\ref{suffstat4}) and estimators match (\ref{est1})--(\ref{est4}).
 
 
 
 \subsubsection{AR(1) Model}
-\vspace*{-3.5mm}
+
 The mean estimator (\ref{ar1mlemean}) consists of two sufficient statistics:
 \begin{equation}
 K_1=\sum_{i=1}^c\sum_{j=1}^nY_{ij},\qquad
@@ -2575,18 +2592,18 @@ In all of these cases, dependency on adjacent observations gives rise to tri-dia
 
 Because there is no complete minimal sufficient statistic, the MLE is not {\em a priori\/} guaranteed to be optimal. Any claims of optimality need to be demonstrated directly.
 \begin{proposition}
-\label{prop1}\sffamily
+\label{prop1}
 In the AR(1) model with constant mean $\mu$ and variance-covariance parameters $\sigma^2$ and $\rho$, and with constant cluster size, the MLE for $\mu$ is optimal (in the sense of asymptotically most efficient) and linear in the observations, with weights that depend on the parameters only through $\rho$.
 \end{proposition}
 Note that this is not the ordinary uniform optimality. In case we demand an estimator that does not depend on the parameters at all, it cannot be uniformly more efficient than the MLE, implying that there is no such uniform estimator. The proof is given in separate Appendix~\ref{suppproof}. This results offers the opportunity to consider estimators, based on weighting that, while not statistically fully efficient, have computational advantages such as stability (e.g., by being entirely non-iterative) and speed. 
 
-\begin{proposition}\sffamily
+\begin{proposition}
 The result of Proposition~\ref{prop1} easily generalizes to a mean of the form $\mathbf{\mu}=X\bfbeta$, when the design is constant among clusters.\end{proposition}
 
 
 \subsection{Clusters Of Variable Size}
 \label{secvariable}
-\vspace*{-3.5mm}
+
 \cite{hermans2017_cs} studied various weighting schemes for clusters of unequal size in the compound-symmetry case. Their work was rooted in the pseudo-likelihood and split-sample methods of \cite{Verbeke2006} and \cite{Iddi2011}. We will not reproduce their entire argument here, it suffices to focus on the following two-stage procedure:
 \begin{enumerate}
   \item Consider the MLE estimator for each of the $K$ strata, defined by cluster sizes $n_k$ and with $c_k$ replicates. Denote these estimators generically by $\widehat{\bftheta}_k$, with variance $V_k$. 
@@ -2650,7 +2667,7 @@ When estimating the variance of
 \label{weightedmu}
 \end{equation}
  using (\ref{meanweighta}), the fact that the weights depend on $\rho_k$ needs to be taken into account. Applying the delta method to (\ref{weightedmu}), and using the variance expressions in both (\ref{varmuk}) and (\ref{imatsigmarhotildeinverse}), we find:
-\begin{equation}
+\begin{multline}
 \label{deltavareen}
 \mbox{var}(\widetilde{\mu})=
 \frac{
@@ -2658,16 +2675,16 @@ When estimating the variance of
 }{
 \left(\sum_{k=1}^Ka_k'\right)^2
 }
-+
++\\
 \frac{
 \sum_{k=1}^K\left[c_k(n_k-2)\sum_{m=1}^Ka_m'(\mu_k-\mu_m)\right]^2\frac{1-\rho^2_k}{c_k(n_k-1)}
 }
 {
 \left(\sum_{k=1}^Ka_k'\right)^4
 }.
-\end{equation}
+\end{multline}
 We can plug in the stratum-specific $\widehat{\rho}_k$ and $\widehat{\sigma}^2_k$, or instead use the overall $\widehat{\rho}$ and $\widehat{\sigma}^2$. In the latter case, (\ref{deltavareen}) becomes:
-\begin{equation}
+\begin{multline}
 \label{deltavartwee}
 \mbox{var}(\widetilde{\mu})=
 \sigma^2(1+\rho)
@@ -2678,7 +2695,7 @@ We can plug in the stratum-specific $\widehat{\rho}_k$ and $\widehat{\sigma}^2_k
 \sum_{k=1}^Ka_k'
 }
 \right\}
-+
++\\
 (1-\rho^2)
 \left\{
 \frac{
@@ -2688,7 +2705,7 @@ We can plug in the stratum-specific $\widehat{\rho}_k$ and $\widehat{\sigma}^2_k
 \left(\sum_{k=1}^Ka_k'\right)^4
 }
 \right\}.
-\end{equation}
+\end{multline}
 
 
 Turning to the variance components, we start from (\ref{imatsigmarhotilde}), and use $V_k^{-1}c_k(n_k-1)P$ with
@@ -2721,7 +2738,7 @@ Algebraic details on formulas can be found in separate Appendix~\ref{suppgenmean
 
 \subsection{Computational Considerations and Simulation Study}
 \label{seccompu}
-\vspace*{-3.5mm}
+
 In the compound-symmetry covariance structure case it has been seen that the proportional weights perform very well. Due to a constant correlation $d$, additional observations within a cluster contribute increasingly less  information relative to that already observed. By contrast, with an AR(1) covariance structure, 
 the roles of $c_k$ and $n_k$ are quite different.
 
@@ -2744,7 +2761,7 @@ A second simulation study was conducted to compare computation time for closed f
 Details can be found in the separate Appendix~\ref{suppsimul}.
 
 \subsection{Application: Clinical Trials in Schizophrenia}\label{secapp}
-\vspace*{-3.5mm}
+
 The data, introduced in Section~\ref{secmotex}, are analysed here. The active treatments are: risperidone, haloperidol, perphenazine, and zuclopernthixol. We included for analysis patients with at least one follow-up measurement. Table~\ref{Tab_freq} shows the number of patients participating in each trial for all different time patterns in receiving the treatments. As one may see, there are 26 different time patterns, therefore, the final dataset is unbalanced. This makes it suitable for examining the performance of sample splitting according to the cluster size.
 
 \begin{table}[ht!]
@@ -2814,7 +2831,7 @@ Justification of the chosen model and further details as confidence limits of th
 \caption[PANSS data. Contributing splits in estimating each parameter]{PANSS data. Contributing splits in estimating each parameter. A checkmark signifies that a split contributes, a hyphen the reverse.}
 \label{Tab_participate}
 
-\vspace*{2mm}\sffamily
+\vspace*{2mm}
 
 \begin{tabular}{lcccccc}
   \hline\hline
@@ -2841,8 +2858,8 @@ Justification of the chosen model and further details as confidence limits of th
 \caption[PANSS data. Estimating fixed effects and variance components and the standard deviations of these estimates using sample splitting without trials]{PANSS data. Estimating fixed effects and variance components and the standard deviations of these estimates using sample splitting (combined with proportional (Prop.) and size-proportional (Size.Prop.) weights) and full likelihood. The model used in here is without trial effect (\ref{model_no_trial}).}
 \label{tab_without_trial}
 
-\vspace*{2mm}\sffamily
-
+\vspace*{2mm}
+ \resizebox{\textwidth}{!}{%
 \begin{tabular}{lcrrr}
 \hline\hline
 Effect&Par.&\multicolumn{1}{c}{Prop.}&\multicolumn{1}{c}{Size Prop.}&\multicolumn{1}{c}{Full}\\
@@ -2860,7 +2877,7 @@ time$\times$zuclopenthixol   &$(\alpha\beta)_4$& 1.551 (3.609) & 1.103 (2.655) &
  Correlation        &$\rho$  & 0.805 (0.006) & 0.818 (0.005) & 0.825 (0.005)\\
  Variance           &$\sigma^2$ & 419.782 (10.202) & 412.850 (10.018) & 429.611 (10.363)\\
 \hline\hline
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 
@@ -2868,8 +2885,8 @@ time$\times$zuclopenthixol   &$(\alpha\beta)_4$& 1.551 (3.609) & 1.103 (2.655) &
 \centering
 \caption[ PANSS data. Estimating fixed effects and variance components and the standard deviations of these estimates using sample splitting with trials]{PANSS data. Estimating fixed effects and variance components and the standard deviations of these estimates using sample splitting (combined with proportional (Prop.) and size-proportional (Size.Prop.) weights) and full likelihood. The model used in here is with trial effect (\ref{model_trial}).}
 \label{tab_with_trial}
-\vspace*{2mm}\sffamily
-
+\vspace*{2mm}
+ \resizebox{\textwidth}{!}{%
 \begin{tabular}{lcrrr}
 \hline\hline
 Effect&Par.&\multicolumn{1}{c}{Prop.}&\multicolumn{1}{c}{Size Prop.}&\multicolumn{1}{c}{Full}\\
@@ -2888,12 +2905,12 @@ time$\times$zuclopenthixol   &$(\alpha\beta)_4$& 5.218 (5.746) & 2.041 (4.188) &
  Variance           &$\sigma^2$ & 416.190 (10.139) & 410.819 (10.006) & 425.741 (10.257) \\
    \hline
 \hline
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \subsection{Concluding Remarks}
 \label{secconcl}
-\vspace*{-3.5mm}
+
 As an extension to the normal-compound symmetry model, discussed in \cite{hermans2017_cs}, the normal AR(1) model was studied in the light of computationally effective estimation for clustered data with unequal cluster sizes.
 
 For constant cluster size there are closed-form solutions but no complete minimal sufficient statistics. However the MLE is shown to be optimal, with weights depending on $\rho$ for the mean. Returning to unequal cluster sizes, there are, in general, no closed form solutions. But again estimators have been obtained using a two-stage procedure. Estimators are calculated separately within each stratum (typically defined by cluster size) and combined in an overall estimator. Both theoretical and simulation results show excellent performance of the size-proportional weights, that is through weighting according to the number of measurements in a cluster ($c_k\cdot n_k$), rather than the number of clusters $c_k$ in a subsample, that is, proportional weights. By contrast, the latter are a good choice for the compound-symmetry structure. Under AR(1) they are worse than equal weights. Approximate optimal weights can also be used, but this leads to an estimate of $\rho$ with a large sample variance. 
@@ -2938,14 +2955,14 @@ Where for $m=r$ we have,
 
 One important step in this procedure is the Stopping rule step where we need to decide when to stop sub-sampling. It is important because early termination of the procedure would lead to imprecise results, and continuing too long would be against the initial motivation behind using such a procedure which was saving time. 
 
-As it was discussed, instead of studying the number of sub-samples in an IMO procedure, we have introduced the iterative multiple imputation (IMI) procedure and studied the stopping rule for the number of imputed datasets. The same conclusions as there can be made for the case of IMO. More details on this topic can be found in Section \ref{IMI}. In brief, we proposed to use Mahalanobis distance \citep{mahalanobis1936} between estimated parameters and their covariance matrices between two successive steps. 
+As it was discussed, instead of studying the number of sub-samples in an IMO procedure, we have introduced the iterative multiple imputation (IMI) procedure and studied the stopping rule for the number of imputed datasets. The same conclusions as there can be made for the case of IMO. More details on this topic can be found in Section \ref{secc_IMI}. In brief, we proposed to use Mahalanobis distance \citep{mahalanobis1936} between estimated parameters and their covariance matrices between two successive steps. 
 
 \begin{equation}
 \label{mal_dis0}
 d_{m+1}^{\mathrm{Mah}} = \sqrt{\left(\widetilde{\bftheta}_{m+1}- \widetilde{\bftheta}_{m}\right)^T S^{-1} \left(\widetilde{\bftheta}_{m+1}- \widetilde{\bftheta}_{m}\right)},
 \end{equation}
 
-For $S$ in (\ref{main_model} we proposed to use the combined covariance matrix at step $m+1$. The combination rule is the same as in (\ref{eq_combination_variance}). More details on the reasons behin this choice can be found in Section \ref{IMI}.
+For $S$ in (\ref{main_model} we proposed to use the combined covariance matrix at step $m+1$. The combination rule is the same as in (\ref{eq_combination_variance}). More details on the reasons behin this choice can be found in Section \ref{secc_IMI}.
 
 Furthermore, as one may see the procedure will terminate if the stopping rule stays valid for $k_0$ successive steps. That is to prevent an early termination, because the convergence here is not monotone. In an extensive simulation study we have observed $k_0=3$ is a reasonable choice (see Section \ref{IMI}).
 
@@ -2962,7 +2979,11 @@ When all clusters are of equal size, the sub-set selection can be done for all o
 		\end{tabular}
 	\end{center}
 	\item [Step2. ] Form a vector consists of repeating each cluster size. For example:
-	$$(5,5,5,5,5,7,7,7,7,7,7,7,3,3,3,3,3,3,5,5,5,5,5,7,7,7,7,7,7,7,5,5,5,5,5)$$
+	\[	
+	\begin{aligned}
+	(5,5,5,5,5,7,7,7,7,7,7,7,3,3,3,3,3,3,5,5,5,5,5,7,7,7,7,7,7,7,\\ 5,5,5,5,5)
+	\end{aligned}
+	\]
 	\item [Step3. ] Define the unique cluster sizes. For example,
 	$$(5,7,3)$$
 	\item [Step4. ] Take all clusters which their size is smaller than or equal to $m$ (the predefined sub-sampling size). Exclude such cluster sizes from unique cluster sizes. For example, if $m=4$ then all cluster of size $4$ will always be fully present in all of the sub-samples. The remaining of unique cluster sizes will be $5$ and $7$.
@@ -3783,10 +3804,10 @@ d_{m+1}^{\mathrm{Mah}} = \sqrt{\left(\widetilde{\bftheta}_{m+1}- \widetilde{\bft
 \widetilde{{\bftheta}}_{m+1}-\widetilde{{\bftheta}}_m = \frac{\widehat{\bftheta}_{m+1}- \widetilde{{\bftheta}}_m}{m+1}.
 \end{equation}
 Considering the fact that $\widehat{\bftheta}_{m+1}$ and $\widetilde{{\bftheta}}_m$ are independent given the observed part of the sample, one may use:
-\begin{equation}
+\begin{multline}
 \label{diff_cov}
-\mathrm{Cov}\left(\frac{\widehat{\bftheta}_{m+1}- \widetilde{\bftheta}_m}{m+1} \right)=\frac{1}{(m+1)^2}\left[\mathrm{Var}(\widehat{\bftheta}_{m+1})+[\mathrm{Var}(\widetilde{\bftheta}_{m})\right] = \frac{1}{(m+1)^2}[\mathrm{Var}(\widehat{\theta}_{m+1})+\widehat{W}_m].
-\end{equation}
+\mathrm{Cov}\left(\frac{\widehat{\bftheta}_{m+1}- \widetilde{\bftheta}_m}{m+1} \right)=\frac{1}{(m+1)^2}\left[\mathrm{Var}(\widehat{\bftheta}_{m+1})+[\mathrm{Var}(\widetilde{\bftheta}_{m})\right] = \\ \frac{1}{(m+1)^2}[\mathrm{Var}(\widehat{\theta}_{m+1})+\widehat{W}_m].
+\end{multline}
 The division by $m+1$ in (\ref{diff_cov_bad}) makes this an inappropriate candidate for $S$, as it changes every time, while we need to monitor convergence of the procedure, relative to a sufficiently stable yardstick. 
 
 Other choices for $S$ include the within, between, or combined covariance matrix of the parameters at step $m+1$, i.e., $\widehat{W}_{m+1}$, $\widehat{B}_{m+1}$, or $\widehat{V}_{m+1}$, respectively; here $\widehat{V}$ is computed as in \ref{finite_M}.}}
@@ -4130,7 +4151,7 @@ Our method has several advantages. First, it is applicable in any context where 
 
 
 
-
+\newpage
 
 
 
@@ -4352,6 +4373,7 @@ This incomplete dataset was imputed using the fully conditional specification (F
 \caption{Factor loadings using oblimin rotation of DiF data using the estimated covariance matrix from multiply imputed data using $M=25$ imputations.}
 \label{tab_load}
 \centering
+ \resizebox{\textwidth}{!}{%
 \begin{tabular}{lccccc}
   \hline\hline\vspace{2mm}
 \multirow{2}{*}{English items$^*$}   & \multicolumn{5}{c}{Factor loadings}\\ \vspace{2mm}
@@ -4407,7 +4429,7 @@ This incomplete dataset was imputed using the fully conditional specification (F
 \multicolumn{6}{l}{{\small{N = Neuroticism, E = Extraversion, O = Openness to Experience,}}}\\ 
 \multicolumn{6}{l}{{\small{C = Conscientiousness, A = Agreeableness.}}}\\ 
    \hline\hline
-\end{tabular}
+\end{tabular}}
 \end{table*}
 
 \subsection{Conclusions}
@@ -4567,7 +4589,8 @@ W_{3k}&=&\sum_{i=1}^{c_k}\left(\sum_{j=1}^{n_k}Y_{ij}^{(k)}\right)^2,\label{kdri
 W_{4k}&=&c_k.\label{kvier}
 \end{eqnarray}
 The conditional and marginal expectations of (\ref{keen})--(\ref{kvier}) are:
-\begin{eqnarray}
+\[
+\begin{aligned}
 E(W_{1k}|c_k)&=&c_k n_k\mu,\\
 E(W_{1k})&=&N\mu\pi_k n_k,\\
 E(W_{2}|c_k)&=&\sum_{k=1}^Lc_k n_k(\sigma^2+d+\mu^2),\\
@@ -4580,7 +4603,8 @@ E(W_{3k})&=&N\pi_k n_k
 \right\}
 ,\\
 E(W_{4k})&=&N\pi_k.
-\end{eqnarray}
+\end{aligned}
+\]
 Group all sufficient statistics in $\BW$ and define a function
 \begin{equation}
 \label{gcluster}
@@ -4597,13 +4621,13 @@ $$E\left\{g(\BW)\right\}=
 Thus, every solution $\bflambda \perp \bn$, where $\bn=(n_1,\dots,n_K)'$, provides a counterexample, establishing incompleteness.
 
 Such a vector $\bflambda$ exists if and only if $K\ge 2$, for which it is assumed that at least two $c_k>0$ (i.e., at least two different cluster sizes occur).
-}
+
 
 \section{Likelihood-based Estimation of the CS Model}
 \label{likelihoodapp}
 
 \subsection{Score Functions}
-\vspace*{-3.5mm}
+
 The score function has components:
 \begin{eqnarray}
 \frac{\partial \ell}{\partial \mu_k} & =&
@@ -4629,7 +4653,7 @@ T_k & =&\frac{1}{c_{kn_k}}R_k= \frac{1}{c_{kn_k}}\sum_{i=1}^{c_k} \BZ_i^{(k)'}\m
 
 \subsection{Lack of Closed-form Solution when $K\ge 2$}
 \label{twodifferent}
-\vspace*{-3.5mm}
+
 The lack of a closed form when $K\ge 2$ is well known, but we highlight a few relevant features here. More detail is given in Supplementary Materials~\ref{appB}.
 Function (4.4)
 %(\ref{jloglik}) 
@@ -4677,86 +4701,99 @@ Referring to the conventional situations, i.e. $\ell(\mu,\sigma^2,d)$ in (4.2)
 %(\ref{loglikcs}) 
 and the score equation in (\ref{jscorelik}), also second derivatives can be calculated:
 
-%
-%\begin{equation}
-%\label{jhessian1}
-%\frac{\partial^2\ell}{\partial \mu^2}  = \sum_{k=1}^K\frac{-c_kn_k}{\sigma^2+n_kd} 
-%\end{equation}
-%
-%\begin{equation}
-%\label{jhessian2}
-%\frac{\partial^2\ell}{\partial \sigma^2 \partial \mu}  = \sum_{k=1}^K \frac{-1}{(\sigma^2+n_kd)^2} \left( \sum_{i=1}^{c_k} \sum_{j=1}^{n_k} \mathbf{y}_{ij}^{(k)}-c_k n_k \mu_k\right)
-%\end{equation}
-%
-%\begin{equation}
-%\label{jhessian3}
-%\frac{\partial^2\ell}{\partial d \partial \mu_k}  = \sum_{k=1}^K\frac{-n_k}{(\sigma^2+n_kd)^2} \left( \sum_{i=1}^{c_k} \sum_{j=1}^{n_k} \mathbf{y}_{ij}^{(k)}-c_k n_k \mu_k\right)
-%\end{equation}
-%
-%\begin{equation}
-%\label{jhessian4}
-%\frac{\partial^2\ell}{\partial \mu \partial \sigma^2} = \sum_{k=1}^K \left(\frac{-1}{\sigma^4} + \frac{d(2\sigma^2+n_kd)n_k}{\sigma^4(\sigma^2+n_kd)^2} \right) \sum_{i=1}^{c_k}\sum_{j=1}^{n_k}Z_{ij}^{(k)}
-%\end{equation}
 
-%\frac{\partial^2\ell}{\partial \sigma^2 \partial \mu} & = \sum_{k=1}^K \frac{-1}{(\sigma^2+n_kd)^2} \left( \sum_{i=1}^{c_k} \sum_{j=1}^{n_k} \y_{ij}^{(k)}-c_k n_k \mu_k\right) \label{jhessian2} \\
-%\frac{\partial^2\ell}{\partial d \partial \mu_k} & = \sum_{k=1}^K\frac{-n_k}{(\sigma^2+n_kd)^2} \left( \sum_{i=1}^{c_k} \sum_{j=1}^{n_k} \y_{ij}^{(k)}-c_k n_k \mu_k\right) \label{jhessian3} \\
-%\frac{\partial^2\ell}{\partial \mu \partial \sigma^2} &= \sum_{k=1}^K \left(\frac{-1}{\sigma^4} + \frac{d(2\sigma^2+n_kd)n_k}{\sigma^4(\sigma^2+n_kd)^2} \right) \sum_{i=1}^{c_k}\sum_{j=1}^{n_k}Z_{ij}^{(k)} \label{jhessian4} 
-%\end{align}
+\begin{equation}
+\frac{\partial^2\ell}{\partial \mu^2}  = \sum_{k=1}^K\frac{-c_kn_k}{\sigma^2+n_kd} \label{jhessian1}
+\end{equation}
+\begin{equation}
+\frac{\partial^2\ell}{\partial \sigma^2 \partial \mu}  = \sum_{k=1}^K \frac{-1}{(\sigma^2+n_kd)^2} \left( \sum_{i=1}^{c_k} \sum_{j=1}^{n_k} y_{ij}^{(k)}-c_k n_k \mu_k\right) \label{jhessian2}
+\end{equation}
+\begin{equation}
+\frac{\partial^2\ell}{\partial d \partial \mu_k}  = \sum_{k=1}^K\frac{-n_k}{(\sigma^2+n_kd)^2} \left( \sum_{i=1}^{c_k} \sum_{j=1}^{n_k} y_{ij}^{(k)}-c_k n_k \mu_k\right) \label{jhessian3}
+\end{equation}
+\begin{equation}
+\frac{\partial^2\ell}{\partial \mu \partial \sigma^2} = \sum_{k=1}^K \left(\frac{-1}{\sigma^4} + \frac{d(2\sigma^2+n_kd)n_k}{\sigma^4(\sigma^2+n_kd)^2} \right) \sum_{i=1}^{c_k}\sum_{j=1}^{n_k}Z_{ij}^{(k)} \label{jhessian4} 
+\end{equation}
+
+\begin{multline}
+\frac{\partial^2\ell}{(\partial \sigma^2)^2} = \sum_{k=1}^K\left( \frac{c_kn_k}{2\sigma^4} \cdot \frac{\sigma^2+(n_k-1)d}{\sigma^2+n_kd}- \frac{c_kn_k}{2\sigma^2} \cdot \frac{d}{(\sigma^2+n_kd)^2} - \frac{c_kn_k S_k}{\sigma^6} \right. \\
+ \left.- d c_kn_kT_k \frac{\sigma^2(\sigma^2+n_kd)-(2\sigma^2+n_kd)^2}{\sigma^6(\sigma^2+n_kd)^3}\right) \label{jhessian5}
+\end{multline}
+
+\begin{equation}
+\frac{\partial^2\ell}{\partial d \partial \sigma^2} = \sum_{i=1}^K\left( \frac{c_kn_k}{2(\sigma^2+n_kd)}- \frac{c_kn_k T_k}{\sigma^4} \cdot \frac{(\sigma^2+n_kd)^2 - n_k d (2\sigma^2+n_kd)}{(\sigma^2+n_kd)^3} \right)\label{jhessian6}
+\end{equation}
+
+\begin{equation}
+\frac{\partial^2\ell}{\partial \mu \partial d} =\sum_{k=1}^K \frac{-n_k}{(\sigma^2+n_kd)^2}\sum_{i=1}^{c_k} \sum_{j=1}^{n_k} Z_{ij}^{(k)} \label{jhessian7}
+\end{equation}
+
+\begin{equation}
+\frac{\partial^2\ell}{\partial \sigma^2 \partial d} = \sum_{k=1}^K\left( \frac{c_kn_k}{2(\sigma^2+n_kd)^2}-\frac{c_kn_kT_k}{(\sigma^2+n_kd)^3} \right) \label{jhessian8}
+\end{equation}
+
+\begin{equation}
+\frac{\partial^2\ell}{\partial d^2} = \sum_{k=1}^K \left(\frac{c_kn_k^2}{2(\sigma^2+n_kd)^2}-\frac{c_kn_k^2T_k}{(\sigma^2+n_kd)^3} \right) \label{jhessian9} 
+\end{equation}
 
 
-$$\begin{aligned}
-\frac{\partial^2\ell}{\partial \mu^2} & = \sum_{k=1}^K\frac{-c_kn_k}{\sigma^2+n_kd} \label{jhessian1}\\
-\frac{\partial^2\ell}{\partial \sigma^2 \partial \mu}  = \sum_{k=1}^K \frac{-1}{(\sigma^2+n_kd)^2} \left( \sum_{i=1}^{c_k} \sum_{j=1}^{n_k} \mathbf{y}_{ij}^{(k)}-c_k n_k \mu_k\right) \label{jhessian2} \\
-\frac{\partial^2\ell}{\partial d \partial \mu_k}  = \sum_{k=1}^K\frac{-n_k}{(\sigma^2+n_kd)^2} \left( \sum_{i=1}^{c_k} \sum_{j=1}^{n_k} \mathbf{y}_{ij}^{(k)}-c_k n_k \mu_k\right) \label{jhessian3} \\
-\frac{\partial^2\ell}{\partial \mu \partial \sigma^2} &= \sum_{k=1}^K \left(\frac{-1}{\sigma^4} + \frac{d(2\sigma^2+n_kd)n_k}{\sigma^4(\sigma^2+n_kd)^2} \right) \sum_{i=1}^{c_k}\sum_{j=1}^{n_k}Z_{ij}^{(k)} \label{jhessian4} 
-\end{aligned}$$
 
-$$
-\begin{aligned}
-\frac{\partial^2\ell}{(\partial \sigma^2)^2} &= \sum_{k=1}^K\left( \frac{c_{kn_k}}{2\sigma^4} \cdot \frac{\sigma^2+(n_k-1)d}{\sigma^2+n_kd}- \frac{c_kn_k}{2\sigma^2} \cdot \frac{d}{(\sigma^2+n_kd)^2} - \frac{c_{kn_k} S_k}{\sigma^6} \right. \\
-& \left.- d c_kn_kT_k \frac{\sigma^2(\sigma^2+n_kd)-(2\sigma^2+n_kd)^2}{\sigma^6(\sigma^2+n_kd)^3}\right) \label{jhessian5}\\
-\frac{\partial^2\ell}{\partial d \partial \sigma^2} &= \sum_{i=1}^K\left( \frac{c_kn_k}{2(\sigma^2+n_kd)}- \frac{c_kn_k T_k}{\sigma^4} \cdot \frac{(\sigma^2+n_kd)^2 - n_k d (2\sigma^2+n_kd)}{(\sigma^2+n_kd)^3} \right)\label{jhessian6}
-\\
-\frac{\partial^2\ell}{\partial \mu \partial d} &=\sum_{k=1}^K \frac{-n_k}{(\sigma^2+n_kd)^2}\sum_{i=1}^{c_k} \sum_{j=1}^{n_k} Z_{ij}^{(k)} \label{jhessian7} \\
-\frac{\partial^2\ell}{\partial \sigma^2 \partial d} &= \sum_{k=1}^K\left( \frac{c_kn_k}{2(\sigma^2+n_kd)^2}-\frac{c_kn_kT_k}{(\sigma^2+n_kd)^3} \right) \label{jhessian8} \\
-\frac{\partial^2\ell}{\partial d^2} &= \sum_{k=1}^K \left(\frac{c_kn_k^2}{2(\sigma^2+n_kd)^2}-\frac{c_kn_k^2T_k}{(\sigma^2+n_kd)^3} \right) \label{jhessian9} .
-\end{aligned} 	
-$$
+
 
 
 Should we use conditional likelihood, then the log-likelihood's kernel equals:
-\begin{eqnarray}
-L & \propto& \prod^k_{i=1} \frac{1}{(2\pi)^{n_1/2}|\Sigma_{n_1}|^{1/2}} \exp \left\{ -\frac{1}{2}(\by_{i1}-\bmu_{n_1})'\Sigma_{n_1}^{-1} (\by_{i1}-\bmu_{n_1}) \right\}  \\
-&&\times \left[ \frac{\Phi (\alpha + \by'_{i1} \bfbeta)}{\Phi\left( \frac{\alpha + \bmu_{n_1}'\bfbeta}{\sqrt{1+\bfbeta'\Sigma_{n_1}\bfbeta/n_1}} \right)} \right] \\
- &&\times \prod^N_{i=k+1} \frac{1}{(2\pi)^{n_2/2}|\Sigma_{n_2}|^{1/2}}\exp \left\{ -\frac{1}{2}(\by_i-\bmu_{n_2})'\Sigma_{n_2}^{-1} (\by_i-\bmu_{n_2}) \right\} \\
-&&\qquad\times\left[ \frac{1-\Phi (\alpha + \by'_{i1} \bfbeta)}{1-\Phi\left( \frac{\alpha + \bmu_{n_1}'\bfbeta}{\sqrt{1+\bfbeta'\Sigma_{n_1}\bfbeta/n_1}} \right)} \right] \label{clik} \\
-\ell & \propto& - \frac{1}{2} \sum_{i=1}^k \left\{ \ln|\Sigma_{n_1}| + (\by_{i}-\bmu_{n_1})'\Sigma_{n_1}^{-1} (\by_{i1}-\bmu_{n_1}) \right\}  \\
-&& - k \ln \Phi(\tilde{\alpha} + \bmu_{n_1}'\tilde{\bfbeta})  \\
-&& -\frac{1}{2} \sum_{i=k+1}^N \left\{ \ln|\Sigma_{n_2}| + (\by_i-\bmu_{n_2})'\Sigma_{n_2}^{-1} (\by_i-\bmu_{n_2}) \right\}\\
-&& -(N-k) \ln \left\{1-\Phi(\tilde{\alpha} + \bmu_{n_1}' \tilde{\bfbeta})\right\},  \label{cloglik} ,
-\end{eqnarray}
+\begin{multline}
+L  \propto \prod^k_{i=1} \frac{1}{(2\pi)^{n_1/2}|\Sigma_{n_1}|^{1/2}} \exp \left\{ -\frac{1}{2}(\by_{i1}-\bmu_{n_1})'\Sigma_{n_1}^{-1} (\by_{i1}-\bmu_{n_1}) \right\}  \\
+\times \left[ \frac{\Phi (\alpha + \by'_{i1} \bfbeta)}{\Phi\left( \frac{\alpha + \bmu_{n_1}'\bfbeta}{\sqrt{1+\bfbeta'\Sigma_{n_1}\bfbeta/n_1}} \right)} \right] \\
+\times \prod^N_{i=k+1} \frac{1}{(2\pi)^{n_2/2}|\Sigma_{n_2}|^{1/2}}\exp \left\{ -\frac{1}{2}(\by_i-\bmu_{n_2})'\Sigma_{n_2}^{-1} (\by_i-\bmu_{n_2}) \right\} \\
+\qquad\times\left[ \frac{1-\Phi (\alpha + \by'_{i1} \bfbeta)}{1-\Phi\left( \frac{\alpha + \bmu_{n_1}'\bfbeta}{\sqrt{1+\bfbeta'\Sigma_{n_1}\bfbeta/n_1}} \right)} \right] \label{clik} 
+\end{multline}
+
+\begin{multline}
+\ell  \propto - \frac{1}{2} \sum_{i=1}^k \left\{ \ln|\Sigma_{n_1}| + (\by_{i}-\bmu_{n_1})'\Sigma_{n_1}^{-1} (\by_{i1}-\bmu_{n_1}) \right\}  \\
+ - k \ln \Phi(\tilde{\alpha} + \bmu_{n_1}'\tilde{\bfbeta})  \\
+ -\frac{1}{2} \sum_{i=k+1}^N \left\{ \ln|\Sigma_{n_2}| + (\by_i-\bmu_{n_2})'\Sigma_{n_2}^{-1} (\by_i-\bmu_{n_2}) \right\}\\
+ -(N-k) \ln \left\{1-\Phi(\tilde{\alpha} + \bmu_{n_1}' \tilde{\bfbeta})\right\},  \label{cloglik} 
+\end{multline}
 with $\tilde{\alpha}=\frac{\alpha}{\sqrt{1+\bfbeta'\Sigma_{n_1}\bfbeta/n_1}}$ and  $\tilde{\bfbeta}=\frac{\bfbeta}{\sqrt{1+\bfbeta'\Sigma_{n_1}\bfbeta/n_1}}$
 
 The corresponding score equations are:
-\begin{eqnarray}
+\begin{equation}
+\begin{aligned}
 \frac{\partial\ell}{\partial \mu} & =&\frac{1}{\sigma^2+n_1d} \left( \sum_{i=1}^k \sum_{j=1}^{n_1} \by_{ij}-k n_1 \mu\right)
  - k n_1 \mathbf{j_{n_1}'} \tilde{\bfbeta} \frac{\phi(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta})}{\Phi(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta})}  \\
 && + \frac{1}{\sigma^2+n_2d} \left( \sum_{i=k+1}^N \sum_{j=1}^{n_2} \by_{ij}-(N-k) n_2 \mu\right) \\
  &&- (N-k) n_2 \mathbf{j_{n_1}'} \tilde{\bfbeta} \frac{\phi(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta})}{\Phi(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta})} \label{cscore1} ,
-\end{eqnarray}
+\end{aligned}
+\end{equation}
 with $\frac{\partial\ell}{\partial \sigma^2}$ and $\frac{\partial\ell}{\partial d}$ identical to (\ref{jscore2}) and (\ref{jscore3}). The components of the Hessian are:
-\begin{eqnarray}
+
+
+\begin{equation}
+\begin{aligned}
 \frac{\partial^2\ell}{\partial \mu^2} & = &\frac{-kn_1}{\sigma^2+n_1d}-\frac{(N-k)n_2}{\sigma^2 +n_2d}  \\
 && - kn_1 \mathbf{j_{n_1}'}\tilde{\bfbeta}\left[ \frac{-\Phi(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta}) \cdot \phi(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta})\cdot(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta}) \cdot \mathbf{j_{n_1}'}\tilde{\bfbeta}}{\Phi^2(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta})} \right.  \\
 && \left. - \frac{\phi^2(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta}) \cdot \mathbf{j_{n_1}'}\tilde{\bfbeta}}{\Phi^2(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta})}\right]  \\
 && +(N-k)n_2 \mathbf{j_{n_1}'}\tilde{\bfbeta}\\
 &&\times \left[ \frac{-(1-\Phi(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta})) \cdot \phi(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta})\cdot(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta}) \cdot \mathbf{j_{n_1}'}\tilde{\bfbeta}}{(1-\Phi(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta}))^2} \right.  \\ 
-&& + \left. \frac{\phi^2(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta}) \cdot \mathbf{j_{n_1}'}\tilde{\bfbeta}}{(1-\Phi(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta}))^2}\right]\label{chessian1}\\
+&& + \left. \frac{\phi^2(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta}) \cdot \mathbf{j_{n_1}'}\tilde{\bfbeta}}{(1-\Phi(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta}))^2}\right]\label{chessian1}
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
 \frac{\partial^2\ell}{\partial \sigma^2 \partial \mu} & = &\frac{-1}{(\sigma^2+n_1d)^2} \left( \sum_{i=1}^k \sum_{j=1}^{n_1} \by_{ij}-k n_1 \mu\right) \\
-&& - \frac{1}{(\sigma^2+n_2d)^2} \left( \sum_{i=k+1}^N \sum_{j=1}^{n_2} \by_{ij}-(N-k) n_2 \mu\right) \label{chessian2} \\
+&& - \frac{1}{(\sigma^2+n_2d)^2} \left( \sum_{i=k+1}^N \sum_{j=1}^{n_2} \by_{ij}-(N-k) n_2 \mu\right) \label{chessian2} 
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
 \frac{\partial^2\ell}{\partial d \partial \mu} & =& \frac{-n_1}{(\sigma^2+n_1d)^2} \left( \sum_{i=1}^k \sum_{j=1}^{n_1} \by_{ij}-k n_1 \mu\right) \\
 & &- \frac{n_2}{(\sigma^2+n_2d)^2} \left( \sum_{i=k+1}^N \sum_{j=1}^{n_2} \by_{ij}-(N-k) n_2 \mu\right) \label{chessian3}
-\end{eqnarray}
+\end{aligned}
+\end{equation}
+
 with $\frac{\partial^2\ell}{\partial \mu \partial \sigma^2}$, $\frac{\partial^2\ell}{(\partial \sigma^2)^2}$, $\frac{\partial^2\ell}{\partial d \partial \sigma^2}$, $\frac{\partial^2\ell}{\partial \mu \partial d}$, $\frac{\partial^2\ell}{\partial \sigma^2 \partial d}$, and $\frac{\partial^2\ell}{\partial (d)^2}$ indentical to (\ref{jhessian4}),
 (\ref{jhessian5}), (\ref{jhessian6}), (\ref{jhessian7}), (\ref{jhessian8}), and (\ref{jhessian9}).
 
@@ -4764,20 +4801,19 @@ with $\frac{\partial^2\ell}{\partial \mu \partial \sigma^2}$, $\frac{\partial^2\
 \label{splitsample}
 
 \subsection{General Considerations}
-\vspace*{-3.5mm}
 Informally, a pseudo-likelihood function is one that replaces a computationally intractable or slow-to-maximize likelihood function, with another function that still produces a consistent and asymptotically normal estimator when maximised, i.e., by setting the first derivatives of the log pseudo-likelihood equal to zero and solving the resultant pseudo score equations. An early reference is \cite{arnold1991}, and details on various forms of pseudo-likelihood can be found in \cite[Ch.~9, 12, 21, 22, 24, and 25]{molenberghs2005}. In the current clustered setting, the likelihood contribution of a cluster is often replaced by a product of contributions for various sub-vectors. In some cases, such a sub-vector can be conditioned upon another sub-vector.
 
 \cite{Verbeke2006} and \cite{Fetal06} used pseudo-likelihood to fit mixed models to high-dimensional multivariate longitudinal data. They supplemented the standard method with an additional device. They first replaced a set of $M$ longitudinal sequences by the $M(M-1)/2$ longitudinal pairs. This in itself is a standard application of pseudo-likelihood. They then assumed that each pair has its own parameter vector.
 Symbolically, this can be written as:
 \begin{equation}
-p\ell({\mathbf{\theta}})  \equiv  p\ell(\mathbf{y}_{1i}, \mathbf{y}_{2i}, \ldots, \mathbf{y}_{Mi} |{\mathbf{\theta}})
- =  \sum_{r<s} \ell(\mathbf{y}_{ri}, \mathbf{y}_{si} | \mathbf{\theta}_{rs}), \label{mv23 eqn pseudo lik}
+p\ell({\bm{\theta}})  \equiv  p\ell(\mathbf{y}_{1i}, \mathbf{y}_{2i}, \ldots, \mathbf{y}_{Mi} |{\bm{\theta}})
+ =  \sum_{r<s} \ell(\mathbf{y}_{ri}, \mathbf{y}_{si} | \bm{\theta}_{rs}), \label{mv23 eqn pseudo lik}
 \end{equation}
-where $\BY_{ri}$ is the $r$th sequence for subject~$i$. In (\ref{mv23 eqn pseudo lik}), $\mathbf{\theta}$ results from stacking all $M(M-1)/2$ pair-specific parameter vectors $\mathbf{\theta}_{rs}$. The actual parameter vector of interest is  $\mathbf{\theta}^*$, the set of non-redundant parameters is $\mathbf{\theta}$.
+where $\BY_{ri}$ is the $r$th sequence for subject~$i$. In (\ref{mv23 eqn pseudo lik}), $\bm{\theta}$ results from stacking all $M(M-1)/2$ pair-specific parameter vectors $\bm{\theta}_{rs}$. The actual parameter vector of interest is  $\bm{\theta}^*$, the set of non-redundant parameters is $\bm{\theta}$.
 
-To obtain $\mathbf{\theta}^*$, \cite{Verbeke2006} take averages of all available estimates for that specific parameter, implying that $\mathbf{\widehat{\theta}^*} = A \mathbf{\widehat{\theta}}$ for an appropriate linear combination matrix $A$. Further, combining this step with general pseudo-likelihood inference, a sandwich estimator is used:
+To obtain $\bm{\theta}^*$, \cite{Verbeke2006} take averages of all available estimates for that specific parameter, implying that $\mathbf{\widehat{\theta}^*} = A \mathbf{\widehat{\theta}}$ for an appropriate linear combination matrix $A$. Further, combining this step with general pseudo-likelihood inference, a sandwich estimator is used:
 \begin{equation}
-\sqrt{N}(\mathbf{\widehat{\theta}^*}- \mathbf{\theta^*} )   =  \sqrt{N}(A\widehat{\mathbf{\theta}}- A \mathbf{\theta}) \stackrel{\mbox{\tiny approx.}}{\sim}  N(\mathbf{0}, A I_0^{-1}I_1 I_0^{-1} A'), \label{mv23 distr psister}
+\sqrt{N}(\mathbf{\widehat{\theta}^*}- \mathbf{\theta^*} )   =  \sqrt{N}(A\widehat{\bm{\theta}}- A \\bm{\theta}) \stackrel{\mbox{\tiny approx.}}{\sim}  N(\mathbf{0}, A I_0^{-1}I_1 I_0^{-1} A'), \label{mv23 distr psister}
 \end{equation}
 where
 \begin{equation}
@@ -4827,7 +4863,7 @@ a block-diagonal matrix with blocks of the form $I_0(\bftheta_k)$. We now turn t
 
 \subsection{Pseudo-likelihood for Split Sample }
 \label{appC}
-\vspace*{-3.5mm}
+
 
 {\cite{Iddi2011}  chose
 \begin{equation}
@@ -4933,7 +4969,7 @@ $$ g_k= \frac{\frac{c_kn_k}{\frac{\sigma^4}{n_k-1}+2d\sigma^2+n_kd^2}}{\sum_{m=1
 
 \subsection{Cluster-by-cluster Analysis}
 \label{cbcaapp}
-\vspace*{-3.5mm}
+
 We study the case of the most extreme partitioning, i.e., where each of the clusters is analyzed separately. 
 This can be relevant in cases with perhaps a limited number of very to extremely large clusters.  This 
 means that $c_k\equiv 1$ throughout. Clearly, the $n_k$ will 
@@ -4943,7 +4979,7 @@ and contrast a first weighted estimator with an
 
 
 \subsubsection{The Weighted Estimator for the Cluster-by-cluster Case}
-\vspace*{-3.5mm}
+
 The estimator follows from setting $c_k\equiv 1$ and hence $K\equiv N$ 
 throughout. For example, this special case can easily be considered 
 for all expressions in Sections~6.1.1-6.1.3.
@@ -4996,7 +5032,7 @@ This estimator coincides with the MLE, as is known from \cite{Iddi2011}.
 
 
 \subsubsection{A Two-stage Estimator for Compound Symmetry}
-\vspace*{-3.5mm}
+
 In linear mixed models, there is a method of estimation, sometimes called 
 the two-stage approach \citep{laird1982random,verbeke2009}, in which each cluster is 
 analyzed separately to begin with, using linear regression, after 
@@ -5053,7 +5089,7 @@ well as to make relative efficiency considerations. This will
 be done next.
 
 \subsubsection{Connections Between Estimators}
-\vspace*{-3.5mm}
+
 Comparing algebraic expressions (\ref{sigmaconstant})--(\ref{dconstant}) 
 with (\ref{twostages1})--(\ref{twostaget1}), leads to the linear 
 relationships:
@@ -5151,7 +5187,7 @@ The simulation study, summarized in Section~7,
 is described in detail here.
 
 \subsection{Simulation Method}
-\vspace*{-3.5mm}
+
 The design of the simulation study is as follows.
 \begin{itemize}
 \item Each generated set of data consists of $c_k$ clusters of size $n_k$, for $k=1,\dots,K$. We choose $K=4$ throughout.
@@ -5171,14 +5207,12 @@ These settings are applied to various combinations of the $n_k$ and $c_k$, now d
 
 
 \subsection[Setting 1]{Setting 1: Equal $c_k\cdot n_k$, Different $c_k$ and $n_k$.}
-\vspace*{-3.5mm}
+
 Consider  150 samples in each split, as follows: $(c_1,n_1)=(3,50)$, $(c_2,n_2)=(5,30)$, $(c_3,n_3)=(10,15)$, and $(c_4,n_4)=(15,10)$. The results are presented in Table~\ref{tab150}.  Graphical depictions can be found in Figures~\ref{CS150} and \ref{CS150COMB}. Figure~\ref{CS150} shows that there is a different amount of information in the various sub-samples. This is not a problem, rather a consequence of the way the splits are created and the different amounts of information carried in each. It reminds us that we need to be judicious how the information from the splits will be weighted. It is  not a surprise that equal weights are a poor choice. The other methods perform similarly, and all do very well. To varying degrees, the same will be seen in Settings~2 and~3.
 \begin{table}[h]
 \caption{\label{tab150}\label{tab150comb} \small \linespread{1.1} First simulation study. Setting 1. Average of split-specific and combined (weighted) parameters and their precision estimates.}
 
 \vspace*{2mm}
-\sffamily
-
 \centering
 \def\arraystretch{0.6}\begin{tabular}{rrrrrrr}
   \hline\hline
@@ -5213,7 +5247,7 @@ Equal & 0.01078 & 0.03769 & 0.85793 & 0.09988 & 1.98250 & 0.01406 \\
 
 
 \subsection[Setting 2]{Setting 2: Different $c_k\cdot n_k$, Equal $c_k$, Different $n_k$}
-\vspace*{-3.5mm}
+
 To see the effect of split size, the following choices are made:
 $(c_1,n_1)=(4,25)$,  $(c_2,n_2)=(4,50)$,  $(c_3,n_3)=(4,125)$, and $(c_4,n_4)=(4,250)$.
 As a consequence, the size of the splits will be $100$, $200$, $500$, and $1000$, respectively. Table~\ref{tab_diff1} summarized the results, with graphical displays presented in Figures~\ref{CS_diff1} and \ref{CS_diff_comb}.
@@ -5223,7 +5257,6 @@ As a consequence, the size of the splits will be $100$, $200$, $500$, and $1000$
 \label{tab_diff1}
 
 \vspace*{2mm}
-\sffamily
 
 \def\arraystretch{0.6} \begin{tabular}{rrrrrrr}
 \hline  \hline
@@ -5264,7 +5297,6 @@ $(c_4,n_4)=(100,20)$. Table~\ref{tab_diff2} summarizes the results. Graphs can b
 \label{tab_diff2}
 
 \vspace*{2mm}
-\sffamily
 
 \def\arraystretch{0.6} \begin{tabular}{rrrrrrr}
   \hline\hline
@@ -5298,7 +5330,7 @@ Equal & 0.01009 & 0.01139 & 0.95496 & 0.02694 & 2.00779 & 0.00486 \\
 
 
 \subsection{Optimal, Approximate Optimal, and Iterated Optimal Weights}
-\vspace*{-3.5mm}
+
 Optimal weights were discussed in Section~6.1.1.
 %\ref{owcs}. 
 When we plug the MLE's into the optimal weights, the result of using these weights is the MLE's itself. Of course, this is a circular reasoning, which is why one needs to resort to, for example, the approximate or iterated optimal weights derived in Section~6.1.2.
@@ -5336,14 +5368,14 @@ The aim of this study is to compare the proposed method to two alternatives:
 \end{enumerate}
 
 \subsection{Simulation Plan}
-\vspace*{-3.5mm}
+
 In order to study the effect of cluster sizes ($n_k$) and number of clusters of each size ($c_k$), 5 different configurations are considered:
 \begin{description}
-\item[\sffamily Config.~1.] $c_k=(15,25,30,20,10)$, $n_k=(8,5,3,9,15)$;
-\item[\sffamily Config.~2.] $c_k=(150,250,300,200,100)$, $n_k=(8,5,3,9,15)$;
-\item[\sffamily Config.~3.] $c_k=(1500,2500,3000,2000,1000)$, $n_k=(8,5,3,9,15)$;
-\item[\sffamily Config.~4.] $c_k=(15,25,30,20,10)$, $n_k=(80,50,30,90,150)$;
-\item[\sffamily Config.~5.] $c_k=(15,25,30,20,10)$, $n_k=(800,500,300,900,1500)$.
+\item[Config.~1.] $c_k=(15,25,30,20,10)$, $n_k=(8,5,3,9,15)$;
+\item[Config.~2.] $c_k=(150,250,300,200,100)$, $n_k=(8,5,3,9,15)$;
+\item[Config.~3.] $c_k=(1500,2500,3000,2000,1000)$, $n_k=(8,5,3,9,15)$;
+\item[Config.~4.] $c_k=(15,25,30,20,10)$, $n_k=(80,50,30,90,150)$;
+\item[Config.~5.] $c_k=(15,25,30,20,10)$, $n_k=(800,500,300,900,1500)$.
 \end{description}
  Each configuration is repeated $100$ times.
 
@@ -5370,7 +5402,7 @@ For the multiple imputation based approach, $M=20$ imputations are considered an
 For each configuration we report three results: the estimated parameters, their standard errors, and the mean square error (MSE). Furthermore, we report computation time. 
 
 \subsection{Simulation results}
-\vspace*{-3.5mm}
+
 \begin{table}[ht]
 \centering
 \caption{\small \linespread{1.1} Second simulation study. Mean, standard deviation (S.D.) and MSE for $\mu$ among 100 replications for each configuration using different combination weights comparing with full sample MLE.}
@@ -5696,7 +5728,7 @@ Comparing computation times, the closed-form approaches are the clear winners, f
 
 %% Ar1
 \section{The Balanced Conditionally Independent Model\label{bcim}}
-\vspace*{-3.5mm}
+
 In this case, one imposes the following structure on (\ref{lmmhier}):
 \begin{itemize}
 \item \Xik\ can be rewritten in terms of a first matrix that imposes structure between clusters (e.g., treatment effect), termed \Aik, and a second one that imposes structure within clusters (e.g., time evolution), $\Tik'=(\Zik',\Qik')'$.
@@ -5748,12 +5780,12 @@ Sufficient statistics (\ref{suffstat1})--(\ref{suffstat4}) lead to the maximum l
 Note that the estimators for the fixed effects do not involve the variance components.
 
 \section{Algebraic Derivations in the AR(1) Case\label{ar1appendix}}
-\vspace*{-3.5mm}
+
 Here, we present more detailed derivations of the key algebraic expressions presented in Sections~\ref{secmodel} and \ref{secestimators}.
 
 
 \subsection{Some Useful Expressions}\label{suppexp}
-\vspace*{-3.5mm}
+
 Consider,
 \begin{equation}
 \label{C}
@@ -5819,7 +5851,7 @@ Also, considering the fact $CC^{-1}=I$, one can derive:
 \end{equation}
 
 \subsection{The Likelihood Estimators in a Given Cluster}
-\vspace*{-3.5mm}
+
 The likelihood function for an $n_k$-dimensional multivariate normal sample of size $c_k$ has the following form:
 \begin{equation}
 \label{likelihood_general}
@@ -5936,7 +5968,8 @@ which gives:
 \end{equation}
 
 For $n_k=3$:
-\begin{eqnarray}
+\[
+\begin{aligned}
 g&=&\mathrm{tr}\left[ \begin{pmatrix}
 S_{11} & S_{12} & S_{13} \\
 S_{21} & S_{22} & S_{23}\\
@@ -5945,7 +5978,7 @@ S_{31} & S_{32} & S_{33}
 1 & -\rho & 0\\
 -\rho & 1+\rho^2 -\rho\\
 0 & -\rho & 1
-\end{pmatrix} \right ] =S_{11}+S_{22}+S_{33} -2\rho (S_{12} +S_{23})  + \rho^2 S_{22},\\
+\end{pmatrix} \right ] \\ &=&S_{11}+S_{22}+S_{33} -2\rho (S_{12} +S_{23})  + \rho^2 S_{22},\\
 h&=&\mathrm{tr}\left[ \begin{pmatrix}
 S_{11} & S_{12} & S_{13} \\
 S_{21} & S_{22} & S_{23}\\
@@ -5954,8 +5987,9 @@ S_{31} & S_{32} & S_{33}
 0 & -1 &0 \\
 -1 & 2\rho & -1\\
 0 & -1 & 0
-\end{pmatrix} \right ] = -2 (S_{12} +S_{23}) + 2 \rho S_{22}.
-\end{eqnarray}
+\end{pmatrix} \right ]\\ &=& -2 (S_{12} +S_{23}) + 2 \rho S_{22}.
+\end{aligned}
+\]
 Let,
 \begin{equation*}
 \begin{cases}
@@ -5992,7 +6026,7 @@ Then using (\ref{two_equations}):
 \end{equation}
 For $n_k>2$,  (\ref{nk_n_rho}) is a third-degree polynomial. One can show that  this equation has only one root in $[-1,1]$.
 
-\begin{proof}\sffamily
+\begin{proof}
 Consider:
 \begin{equation*}
 \begin{aligned}
@@ -6012,7 +6046,7 @@ This shows the unique $\widehat{\rho}$ can be easily estimated solving (\ref{nk_
 
 
 \subsection{Hessians, Covariance Matrices, and Optimal Weights}
-\vspace*{-3.5mm}
+
 Given the MLEs for the AR(1) covariance structure,  the Hessians and covariance matrices of the MLEs can be derived. Following the general results obtained about optimal weights, they can be used to compute the exact optimal weights in the case of the AR(1) structure. As mean and variance parameters are orthogonal in the normal case, we can consider the second derivative for fixed effects and variance components separately.
 
 \subsubsection{Second derivative with respect to fixed effects}
@@ -6135,7 +6169,7 @@ W_{opt.}=\frac{V^{-1}_k}{\sum_{i=1}^{K} V^{-1}_i}
 The variance of an estimator obtained using the optimal weights in (\ref{optimal_weights}) can be calculated as $\left(\sum_{i=1}^{K} V^{-1}_i\right)^{-1}$.
 
 \subsection{Proof of Proposition~\ref{prop1}\label{suppproof}}
-\vspace*{-3.5mm}
+
 \newcommand{\mua}{\widetilde{\mu}_\alpha}
 
 {\bfseries Proof.} Consider an estimator of the form:
@@ -6173,7 +6207,7 @@ $$
 establishing the MLE. This completes the proof.
 
 \subsection{Optimal weights in case of a general mean structure $X_i^{(k)}\bfbeta$}\label{suppgenmean}
-\vspace*{-3.5mm}
+
 Cluster size specific expressions are:
 \begin{equation}
 \widehat{\bfbeta_k}= \left( \sum_{i=1}^{c_k} X_{i}^{(k)'}\Sigma_k^{-1}X_{i}^{(k)}\right)^{-1} \left( \sum_{i=1}^{c_k} X_{i}^{(k)'}\Sigma_k^{-1}Y_{i}^{(k)}\right) \label{betagenmean}
@@ -6214,14 +6248,18 @@ $$
 $$
 
 (\ref{betaffft}) simplifies to $(1+\rho^2)X_{i}^{(k)'}X_{i}^{(k)}$, while (\ref{betaffst}) equals
+
 \begin{equation}
+\scalemath{0.8}{
 \rho^2 \begin{pmatrix}
 x_{ki11}^2+x_{kin_k1}^2 & x_{ki11}\cdot x_{ki22}+x_{kin_k1}\cdot x_{kin_k2} & \hdots & x_{ki11}\cdot x_{ki1p} + x_{kin_k1}\cdot x_{kin_kp} \\
  & x_{ki12}^2 + x_{kin_k2}^2 & & \\
  & & \ddots & \\
   & & & x_{ki1p}^2 + x_{kin_kp}^2.
 \end{pmatrix}.
+}
 \end{equation}
+
 Defining $\boldsymbol{X}_{i1}^{(k)}=(x_{ki11} \ \hdots \ x_{ki1p})^t$ and $\boldsymbol{X}_{in_k}^{(k)}=(x_{kin_k1} \ \hdots \ x_{kin_kp})^t$, (\ref{betaffst}) equals
 \begin{equation}
 \rho^2[\boldsymbol{X}_{i1}^{(k)} \ 0 \hdots 0 \ \boldsymbol{X}_{in_k}^{(k)}] X_i^{(k)}.
@@ -6240,17 +6278,19 @@ In summary:
 \end{aligned}
 \end{equation}
 The second factor in (\ref{betagenmean}), using the same notations for $Y_i^{(k)}$ as described above, can be rewritten as:
-\begin{eqnarray}
-(1-\rho^2) X_{i}^{(k)'}C_k^{-1}Y_{i}^{(k)} &=& (1+\rho^2)X_{i}^{(k)'}Y_{i}^{(k)} \\
-&&- \rho^2 \begin{pmatrix}
+\begin{equation}
+\begin{aligned}
+(1-\rho^2) X_{i}^{(k)'}C_k^{-1}Y_{i}^{(k)} =& (1+\rho^2)X_{i}^{(k)'}Y_{i}^{(k)} \\
+&- \rho^2 \begin{pmatrix}
 x_{ki11}\cdot y_{ki1} + x_{kin_k1}\cdot y_{kin_k}  \\
 x_{ki12}\cdot y_{ki1} + x_{kin_k2}\cdot y_{kin_k}  \\
 \vdots \\
 x_{ki1p}\cdot y_{ki1} + x_{kin_kp}\cdot y_{kin_k} \\
 \end{pmatrix}  \\
-&&-\rho [X_i^{(k)-'} \cdot Y_i^{(k)+}+X_i^{(k)+'} \cdot Y_i^{(k)-}]  \\
-&\overset{\text{not.}}=& F_{2k}.\label{betagenmeansf}
-\end{eqnarray}
+&-\rho [X_i^{(k)-'} \cdot Y_i^{(k)+}+X_i^{(k)+'} \cdot Y_i^{(k)-}]  
+&\overset{\text{not.}}= F_{2k}.\label{betagenmeansf}
+\end{aligned}
+\end{equation}
 Combining (\ref{betagenmeanff}) and (\ref{betagenmeansf}) the overall estimate equals:
 \begin{equation}
 \begin{aligned}
@@ -6259,7 +6299,7 @@ Combining (\ref{betagenmeanff}) and (\ref{betagenmeansf}) the overall estimate e
 \end{aligned}
 \end{equation}
 \subsection{Delta Method for the Mean Estimator}\label{suppdelta}
-\vspace*{-3.5mm}
+
 By plugging in $\rho_k$ and defining $a_k'=c_k[n_k-(n_k-2)\rho_k]$, equation~(\ref{meanweight}) simplifies to
 \begin{equation}
 \label{meanweight}
@@ -6287,14 +6327,16 @@ The first derivatives equal
 \end{aligned}
 \end{equation}
 and these can be combined using the delta method, resulting in (\ref{deltavareen}):
-\begin{eqnarray}
-\mbox{var}(\tilde{\mu})&=& \sum_{i=1}^K \frac{a_k^{'2}}{\left( \sum_{k=1}^K a_k' \right)^2} \cdot \frac{\sigma_k^2(1-\rho_k^2)}{a_k'}\\
-&& + \frac{\sum_{k=1}^K\left[ c_k(n_k-2)\sum_{m=1}^Ka_m'(\mu_k-\mu_m)\right]^2}{\left( \sum_{k=1}^K a_k' \right)^4}\cdot \frac{1-\rho_k^2}{c_k(n_k-1)}.
-\end{eqnarray}
+\[
+\begin{aligned}
+\mbox{var}(\tilde{\mu})=& \sum_{i=1}^K \frac{a_k^{'2}}{\left( \sum_{k=1}^K a_k' \right)^2} \cdot \frac{\sigma_k^2(1-\rho_k^2)}{a_k'}\\
+& + \frac{\sum_{k=1}^K\left[ c_k(n_k-2)\sum_{m=1}^Ka_m'(\mu_k-\mu_m)\right]^2}{\left( \sum_{k=1}^K a_k' \right)^4}\cdot \frac{1-\rho_k^2}{c_k(n_k-1)}.
+\end{aligned}
+\]
 
 
 \subsection{Calculating $\widehat{\rho}$ and $\widehat{\sigma}^2$ in R}
-\vspace*{-3.5mm}
+
 In this section, we consider the implementation of the calculations for the variance components via the R [ackahe {\tt{fastAR1}}. This can be done with a few simple lines of code. For fixed $C_k=C$ and $n_k=n$, and given the data $y$, the function {\tt{est.ar1}} estimates the variance components and provides a plot for the third-degree polynomial in (\ref{nk_n_rho}). This visually underscores that there is only one root in $[-1,1]$. Figure \ref{3rd_poly} shows (\ref{nk_n_rho}) for 10 simulated data sets;  clearly, there is a single root only in $[-1,1]$. For convenience, the R code is given in Supplementary Materials~\ref{rcode}. Other functions to find variances and iterated optimal weights are also available.
 \begin{figure}[t]
 \centering
@@ -6303,9 +6345,9 @@ In this section, we consider the implementation of the calculations for the vari
 \end{figure}
 
 \section{Details on Additional Simulations\label{suppsimul}}
-\vspace*{-3.5mm}
+
 \subsection{Simulations with Proportional and Size-proportional Weights}
-\vspace*{-3.5mm}
+
 Here we consider $C_1=500,  C_2=250 ,C_3=250, C_4= 500$, and $n_1=5,n_2= 10,n_3= 10,n_4=  5$. Parameters are set to $\mu=0$, $\sigma=2$ and $\rho=(0.1,0.5,0.8)$. The data are generated 100 times and the model is fitted using PROC MIXED in SAS (for a single overall intercept). For combining the results from different sub-samples we have used proportional weights and size-proportional weights:
 \begin{equation}
 \label{weights}
@@ -6319,7 +6361,8 @@ The results are compared with full likelihood (Table~\ref{table_comp1}). In cont
 \begin{table}[t]
 \centering
 \caption{Comparing proportional, size-proportional and iterated optimal weights with full likelihood for AR(1) covariance structure.}
-\label{table_comp1}\sffamily
+\label{table_comp1}
+ \resizebox{\textwidth}{!}{%
 \begin{tabular}{clcccccc}
   \hline\hline
  &&$\widehat{\mu}$ & Sd & $\widehat{\rho}$ & Sd & $\widehat{\sigma}^2$ & Sd \\
@@ -6339,7 +6382,7 @@ The results are compared with full likelihood (Table~\ref{table_comp1}). In cont
   &It.Opt.& 0.00213 &0.02855& 0.79915& 0.00486&1.99538& 0.04859\\
 &ML   & 0.00212 & 0.02855 & 0.79937 & 0.00527 & 1.99519 & 0.04861 \\
    \hline\hline
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \begin{figure}[ht!]
@@ -6361,7 +6404,7 @@ The results are compared with full likelihood (Table~\ref{table_comp1}). In cont
 \end{figure}
 
 \subsection{Simulations with Proportional and Size-proportional Weights: $\rho$ near 0/1}
-\vspace*{-3.5mm}
+
 We now present a comparison between proportional and size-proportional weights. We see that,  for $\rho$'s near $1$ (i.e., near CS), size-proportional weights are worse than proportional weights.
 
 We consider $c_1=500$,  $c_2=250$, $c_3=250$, $c_4= 500$, and $n_1=5$, $n_2= 10$, $n_3= 10$, $n_4=  5$. Parameters are set as $\mu=0$, $\sigma=2$ and $\rho\in\{0.01,0.2,0.5,0.8,0.9,0.95,0.99\}$. The data are generated 100 times and the model is fitted using PROC MIXED in SAS (for a single overall intercept). For combining results from different sub-samples we have used proportional weights and size-proportional weights as in (\ref{weights}). The results are compared with full likelihood results.
@@ -6373,18 +6416,18 @@ Figure~\ref{fig_rho2b} shows this phenomenon more clearly, as for some selected 
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.75,angle=270]{comp_rho.eps}
+\includegraphics[angle=270]{comp_rho.eps}
 \caption[Simulation study. Boxplots comparing proportional and size-proportional weights with full likelihood for $100$ replications with $\mu=0$, $\sigma^2=2$ and $\rho=0.99,0.95,0.9,0.8,0.5,0.2,0.01$]{Simulation study. Boxplots comparing proportional and size-proportional weights with full likelihood for $100$ replications with $\mu=0$, $\sigma^2=2$ and $\rho=0.99,0.95,0.9,0.8,0.5,0.2,0.01$. In every section of the boxplots (which are separated by dashed lines) the first out of three represents the proportional weights, the middle of is size-propotional weights and the one on the right shows the results for the full likelihood. The first row presents the estimates while the second row shows the standard deviations of these estimates.} \label{fig_rho1b}
 \end{figure}
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.8,angle=270]{comp_rho2.eps}
+\includegraphics[angle=270]{comp_rho2.eps}
 \caption[Simulation study. Comparing proportional, size-proportional and full likelihood results via their empirical density for the 100 replications]{Simulation study. Comparing proportional, size-proportional and full likelihood results via their empirical density for the 100 replications. In all of the figures $\mu=0$ and $\sigma^2=2$. The first row is for $\rho=0.01$, the middle one is for $\rho=0.5$ and last one corresponds to $\rho=0.99$. In each figure the ticker dotted line corresponds to full likelihood, the dashed line is for size-proportional weights and the solid line is for proportional weights.} \label{fig_rho2b}
 \end{figure}
 
 
 \subsection{Simulations With Optimal Weights}
-\vspace*{-3.5mm}
+
 Given the  covariance matrix of the parameter estimators, finding the optimal weights is straightforward, but in practice the unknown parameters therein need to be estimated.  Here we compare the iterative weights with size-proportional weights and ML. See Figures \ref{fig_rho1_opt}, \ref{fig_rho2_opt}, \ref{fig_rho3_opt}, and Table \ref{table_comp1}.
 As expected, the optimal weights lead to estimates very close to the MLE; the difference between them being numerical. 
 
@@ -6432,7 +6475,7 @@ To assess the effect of the overall size of the dataset, the model is fitted to 
 \caption[Simulation study. Estimating $\mu$ and its standard deviation]{Simulation study. Estimating $\mu$ and its standard deviation. The mean (standard deviation) of the $100$ replications are given together with mean squared errors for $\rho=0.01,0.2,0.5,0.8,0.9,0.99$ using proportional and size-proportional weights comparing with the full likelihood results.}
 \label{sim_mu}
 
-\sffamily\vspace*{2mm}
+\vspace*{2mm}
 
 \begin{tabular}{cllcccc}
 \hline\hline
@@ -6467,8 +6510,8 @@ $\rho_0$&method & mean($\widehat{\mu}$) (s.d.)  & mean(s.e.($\widehat{\mu}$)) (s
 \caption[Simulation study. Estimating $\rho$ and its standard deviation]{Simulation study. Estimating $\rho$ and its standard deviation. The mean (standard deviation) of the $100$ replications are given together with mean squared errors for $\rho=0.01,0.2,0.5,0.8,0.9,0.99$ using proportional and size-proportional weights comparing with the full likelihood results.}
 \label{sim_rho}
 
-\vspace*{2mm}\sffamily
-
+\vspace*{2mm}
+ \resizebox{\textwidth}{!}{%
 \begin{tabular}{lllcccc}
 \hline\hline
 $\rho_0$&method & mean($\widehat{\rho}$) (s.e.)  & mean(s.e.($\widehat{\rho}$)) (s.e.)  & MSE \\
@@ -6492,7 +6535,7 @@ $\rho_0$&method & mean($\widehat{\rho}$) (s.e.)  & mean(s.e.($\widehat{\rho}$)) 
 0.99  &Size Prop. & 0.98992 (0.00042) & 0.00041 (0.00002) & 1.77848e-07 \\
   &Full & 0.98997 (0.00037) & 0.00039 (0.00001) & 1.37289e-07  \\
    \hline\hline
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 
@@ -6501,8 +6544,8 @@ $\rho_0$&method & mean($\widehat{\rho}$) (s.e.)  & mean(s.e.($\widehat{\rho}$)) 
 \caption[Simulation study. Estimating $\sigma^2$ and its standard deviation]{Simulation study. Estimating $\sigma^2$ and its standard deviation. The mean (standard deviation) of the $100$ replications are given together with mean squared errors for $\rho=0.01,0.2,0.5,0.8,0.9,0.99$ using proportional and size-proportional weights comparing with the full likelihood results.}
 \label{sim_sigma2}
 
-\vspace*{2mm}\sffamily
-
+\vspace*{2mm}
+ \resizebox{\textwidth}{!}{%
 \begin{tabular}{lllcccc}
 \hline\hline
 $\rho_0$&method& mean($\widehat{\sigma}^2$) (s.e.)  & mean(s.e.($\widehat{\sigma}^2$)) (s.e.)  & MSE \\
@@ -6526,7 +6569,7 @@ $\rho_0$&method& mean($\widehat{\sigma}^2$) (s.e.)  & mean(s.e.($\widehat{\sigma
 0.99  &Size Prop. & 1.99527 (0.07598) & 0.07484 (0.00344) & 5.73813e-03 \\
   &Full & 1.99641 (0.06940) & 0.07093 (0.00253) & 4.78099e-03 \\
    \hline\hline
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 
@@ -6537,8 +6580,8 @@ $\rho_0$&method& mean($\widehat{\sigma}^2$) (s.e.)  & mean(s.e.($\widehat{\sigma
 \caption[Simulation study. The computation time]{Simulation study. The computation time for a sample with $n=10$ and $c=$1e+02, 1e+03, 1e+04, 5e+04, 1e+05, 3e+05, 5e+05, 7e+05, 9e+05, 1e+06. The closed form solution is obtained by implementing the results of this paper in R, and the numerical solution is obtained using PROC MIXED in SAS to estimate a repeated measurement model with AR(1) covariance structure.}
 \label{comp_time}
 
-\vspace*{2mm}\sffamily
-
+\vspace*{2mm}
+ \resizebox{\textwidth}{!}{%
 \begin{tabular}{lcccccccccc}
   \hline\hline
  time (s) & 1e+02 &1e+03&1e+04& 5e+04& 1e+05& 3e+05 &5e+05 &7e+05& 9e+05 &1e+06\\
@@ -6547,7 +6590,7 @@ $\rho_0$&method& mean($\widehat{\sigma}^2$) (s.e.)  & mean(s.e.($\widehat{\sigma
   Numerical & 0.08 & 0.13 & 1.04 & 10.45 & 34.74 & 268.96 & 770.74 & 1611.43 & 2724.31 & 3399.47 \\
    \hline
 \hline
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 
@@ -6570,8 +6613,8 @@ As one may see from Table~\ref{PANSSTab_freq}, by far the majority of the study 
 \begin{table}[ht!]
 \centering
 \caption{PANSS data. Number of clusters in each trial for each cluster pattern.}
-\label{PANSSTab_freq}\vspace*{2mm}\sffamily
-
+\label{PANSSTab_freq}\vspace*{2mm}
+ \resizebox{\textwidth}{!}{%
 \begin{tabular}{rcccccccccccccccc}
 \hline\hline
  & &&&&&&&&&&  \multicolumn{5}{c}{Trial} &  \\
@@ -6605,7 +6648,7 @@ $n$ & \multicolumn{10}{c}{Pattern}  & FIN-1 & FRA-3 & INT-2 & INT-3 & INT-7 &Tot
    & $\ast$& $\ast$& $\ast$& $\cdot$& $\ast$& $\cdot$& $\ast$& $\cdot$&  $\ast$&  $\cdot$ & 0 & 0 & 1 & 0 & 0 & 1 \\
   & $\ast$& $\ast$& $\ast$& $\cdot$& $\ast$& $\ast$& $\ast$& $\cdot$&  $\cdot$&  $\cdot$ & 0 & 0 & 2 & 0 & 0 & 2 \\
    \hline\hline
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \begin{figure}[ht]
@@ -6617,7 +6660,7 @@ $n$ & \multicolumn{10}{c}{Pattern}  & FIN-1 & FRA-3 & INT-2 & INT-3 & INT-7 &Tot
 To examine the choice of an AR(1) covariance structure, Table~\ref{fig_model_comp} shows three model selection criteria  to compare different error covariance structures. Changing from independence structure ($R=\sigma^2 I$) to compound-symmetry ($R=\sigma^2 I$) the criteria decrease with a large amount, and the same when changing to AR(1). The step to an unstructured covariance does not make a big difference (considering that the unstructured covariance would has $21$ parameters to estimate compared to $2$ parameters in the AR(1) model). Therefore, AR(1) seems to be a good choice.
 
 \begin{table}[t]
-\centering\sffamily
+\centering
 \caption[PANSS data. Comparing different error covariance structures using three model comparison criteria for without trial model]{PANSS data. Comparing different error covariance structures using three model comparison criteria for model (\ref{model_no_trial}) (residual log-likelihood value; AIC; BIC). Three $R$ structures: Ind. : independence structure ($R=\sigma^2 I$), CS: compound-symmetry structure ($R= \sigma^2 I +dJ $), AR(1): AR(1) structure ($R_{ij}=\sigma^2 \rho^{|i-j|}$), UN: unstructured ($R_{ij}=\sigma^2_{ij}$).} \label{fig_model_comp}
 
 \begin{tabular}{lccc}
