@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{pstricks}
 \usepackage{bm}
+\usepackage{tabu}
 \usepackage[authoryear]{natbib}
 \usepackage{multirow}
 \usepackage{tocbibind}
@@ -970,11 +971,12 @@ The detailed information on $\tilde{D}$ is given in Table \ref{D_matrix}. The es
 \end{figure} 
 
 
-
+{\scriptsize{
 %\begin{table}[ht]
 \begin{center}
-
-\begin{longtable}{lcccccc}
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\begin{longtable}{@{\extracolsep{\fill}}lcccccc@{}}
   \hline
 CovParm & Estimate & Std & $95\%$-Lower & $95\%$-Upper & Z-value & P-value \\ 
   \hline
@@ -1104,6 +1106,7 @@ CovParm & Estimate & Std & $95\%$-Lower & $95\%$-Upper & Z-value & P-value \\
 \end{longtable}
 
 \end{center}
+}}
 
 
 
@@ -1122,7 +1125,7 @@ Interesting observations can be made from the results in Table~\ref{d_est}. For 
 
 As it was discussed, while data splitting would help the computation time, and even solve a problem that could not be solved otherwise, this all will come at a price: efficiency loss. Usually, it is not possible to quantify and study this efficiency loss, as the conventional maximum likelihood is not feasible, but one can have an idea about it by using both methods on the same problem but in a smaller scale. In this section we study the estimates using sample splitting in some sub-problems where the likelihood is feasible to compute. This way the performance of sample splitting can be compared with the full sample likelihood. 
 
-The sub-models would still include all family roles, but the personality factors are considered separately. Therefore, each time we only have 3 outcomes of interest. The same model will be fitted using the same sample splitting in Section \ref{analysis_Sec}. Table \ref{full_split_comp} shows the results for $D$ matrix. As one may see the results of sample splitting and full sample are very similar. This would provide a greater degree of confidence in what we have obtained for all of the 15 responses using random horizontal splitting.
+The sub-models would still include all family roles, but the personality factors are considered separately. Therefore, each time we only have 3 outcomes of interest. Table \ref{full_split_comp} shows the results for $D$ matrix. As one may see the results of sample splitting and full sample are very similar. This would provide a greater degree of confidence in what we have obtained for all of the 15 responses using random horizontal splitting.
 
 
 \begin{table}[ht]
