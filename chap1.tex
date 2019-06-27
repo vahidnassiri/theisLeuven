@@ -3,6 +3,8 @@
 \usepackage[Glenn]{fncychap}
 \usepackage{bbm}
 \usepackage{amsmath, amsthm, amscd, amsfonts}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 \usepackage{graphicx}
 \usepackage{pstricks}
 \usepackage{bm}
@@ -354,17 +356,31 @@
 \chapter[Introduction]{Introduction and problem statement}
 \label{sec_intro1}
 
-Small sample sizes would make wrong or statistically inaccurate conclusions. Therefore, in designing any statistical study, an important step is to estimate the sample size that would enable the researcher to draw valid conclusions. While a small sample size prevents reliable or meaningful statistical conclusions, large sample sizes has rarely been an issue, in fact a large sample size was a desirable aspect of a study. However, in 21st century, having large sample sizes also, becomes a trouble-maker. By emerging technologies that make the task of data collection easy and fast, the size of samples in many studies becomes larger and larger, and this came to the point that, the power of a typical computer would fail to analyze such huge datasets. 
+Small sample sizes would lead to wrong or statistically inaccurate conclusions. Therefore, in designing any statistical study, an important step is to estimate the sample size that would enable the researcher to draw valid conclusions. While a small sample size prevents reliable or meaningful statistical conclusions, large sample sizes have rarely been an issue, in fact a large sample size used to be a desirable aspect of a study. However, in 21st century, having large sample sizes also, becomes a trouble-maker. By emerging technologies that make the task of data collection easy and fast, the size of samples in many studies becomes larger and larger, and this came to the point that, the power of a typical computer would fail to analyze such huge datasets. Figure \ref{fig_bigdata} shows a plot of number of results found using Google scholar when searching the exact phrase "big data" upto different years. We obviously can see the increasing interest in the topic in the recent years.
 
-There are several issues related to a large datasets, including: how to store them, how to load them, and how to analyze them. Our interest in this thesis is in the last one. Although the last issue, the same as the two others could be solved using ideas coming from computer science, or simply, increasing the computation power of the hardware we use could solve the issue, we believe statistical methods and ideas can provide solutions that are easy to understand, capable of being implemented in different situations, and also accurate. This becomes more important when we realize increasing the computation power and size of available datasets are highly and positively correlated. 
 
-In Table \ref{tab_comptime1} we compare the computation when the sample sizes $n=10, 10^2, 10^3, 10^4, 10^5, 10^6, 10^7$, for some simple computational tasks including:
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{bigdata.eps}
+\caption{Number of items found by Google scholar when searching the exact phrase \emph{big data} up to different years.} 
+\label{fig_bigdata}
+\end{figure} 
+
+
+
+There are several issues related to large datasets, including: how to store them, how to load them, and how to analyze them. Our interest in this thesis is in the last one. Although the last issue, the same as the two others could be solved to some extent by increasing the computation power of the hardware we use, we believe statistical methods and ideas can provide solutions that are easy to understand, capable of being implemented in different situations, accurate, and also mathematically sound. This becomes more important when we realize increasing the computation power and size of available datasets are highly and positively correlated. 
+
+
+
+In Table \ref{tab_comptime1} we compare the computation time when the sample sizes $n=10, 10^2, 10^3, 10^4, 10^5, 10^6, 10^7$, for some simple computational tasks including:
 
 \begin{itemize}
 \item Generating a random sample from standard normal of size $n$.
 \item Finding the mean of the generated sample.
 \item Finding the variance of the generated sample.
-\item Fitting a linear model to the generated sample as the predictor and $y = 1 + ex + \epsilon$, where $\epsilon\sim N(0, 0.01)$.
+\item Fitting a linear model to the generated sample as the predictor and $y = 1 + 3x + \epsilon$, where $\epsilon\sim N(0, 0.01)$.
 \item Fitting a MAD (mean absolute deviation) regression to the same data.
 \end{itemize}
 
@@ -393,24 +409,12 @@ Sample size & Generation & Mean & Variance & LS & MAD \\
 
 As we may see, for some analyses, the computation time increases linearly as the sample size increases, but for others, it would even speeds down with a sub-linear rate. Once the cause of expensive computation time is the sample size, an effective solution could be to split the very large sample into smaller sub-samples and then analyze them separately. As each sub-sample has a smaller size, and analyzing these different sub-samples are independent of each other (can be run in parallel), the overall computation time can be decreased. 
 
-Splitting a sample into smaller chunks, then analyzing each part separately, and finally combine the results of these analyses is a known methodology to deal with large samples. Some authors have called this \emph{Software Alchemy}, \cite{matloff2014}. This idea is also at the heart of MadReduce methodology \citep{dean2008}. The split-apply-combine strategy in the R packages {\tt{plyr}} and {\tt{dplyr}} also uses this idea \citep{wickham2011}. All these would show the importance of this approach. Furthermore, Figure \ref{fig_bigdata} shows a plot of number of results found using Google scholar when searching the exact phrase "big data" upto different years. We obviously can see the increasing interest in the topic in the recent years.
+Splitting a sample into smaller chunks, then analyzing each part separately, and finally combine the results of these analyses is a known methodology to deal with large samples. Some authors have called this \emph{Software Alchemy}, \cite{matloff2014}. This idea is also at the heart of MapReduce methodology \citep{dean2008}. The split-apply-combine strategy in the R packages {\tt{plyr}} and {\tt{dplyr}} also uses this idea \citep{wickham2011}. All these would show the importance and effectiveness of this approach. 
 
 
+However, most of these implementations would consider independent sub-samples, or non-clustered data. Our goal in this thesis is to extend the existing methodology to the cases where the subjects would form clusters of correlated data. This type of data is very common in medical studies in particular, but they also can be observed in any longitudinal or multilevel study. Some examples of such data are measurement on offsprings of the same animal, data collected from family members, data collected from different countries in a meta-analytic setting, measuring body temperature of the same person several times, ratings of the same book by different people, measuring hearing ability of elderly people for several frequencies, measuring primary vital signs (body temperature, heart rate, respiratory rate, and blood pressure) for each person, etc.
 
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{bigdata.eps}
-\caption{Number of items found by Google scholar when searching the exact phrase \emph{big data} up to different years.} 
-\label{fig_bigdata}
-\end{figure} 
-
-
-
-
-However, most of these implementations would consider independent sub-samples, or non-clustered data. Our goal in this thesis to extend the existing methodology to the cases where the subjects would form clusters of correlated data. This type of data is very common in medical studies in particular, but they also can be observed in any longitudinal or multilevel study. Some examples of such data are measurement on offsprings of the same animal. Data collected from family members. Data collected from different countries in a meta-analytic setting. Measuring body temperature of the same person several times, ratings of the same book by different people, measuring hearing ability of elderly people for several frequencies, measuring primary vital signs (body temperature, heart rate, respiratory rate, and blood pressure) for each person, etc.
-
-As we have seen in Table~\ref{tab_comptime1}, even for non-clustered data and simple models, increasing the sample size could cause very expensive computation times. The time needed to fit a MAD regression with one predictor to a sample of size 10 million is around 18 hours. Now, if we have clustered data that needs more complicated models, things would get even more difficult. In case of clustered data, the sample size can be seen from different angles. 
+As we have seen in Table~\ref{tab_comptime1}, even for non-clustered data and simple models, increasing the sample size could cause very expensive computation times. The time needed to fit a MAD regression with one predictor to a sample of size 10 million is around 18 hours. Now, if we have clustered data that demands more complicated models to account for correlations, things would get even more difficult. In case of clustered data, the sample size can be seen from different points of view. 
 
 
 
@@ -418,7 +422,7 @@ As we have seen in Table~\ref{tab_comptime1}, even for non-clustered data and si
 
 \section{Large clustered data}
 
-Consider a study which measures (at most) $m$ outcomes for $N$ clusters, each $n_i$ times. Let $y_{rij}$ be the $j$th measurement taken on the $i$th cluster for the $r$th outcome, $i=1,\ldots,N$, $r=1,\ldots,m$ and $j=1,\ldots,n_{ri}$. As a simple example, take $m=4$ responses as the vital signs: body temperature, heart rate, respiratory rate, and blood pressure, measured for $n_1 = n_2 = n_3 = n_4 = 100$ hospitalized patients. And assume these measurements are done every $4$ hours. So, $y_{111}$ is the body temperature of the first patient measured for the first time). 
+Consider a study which measures (at most) $m$ outcomes for $N$ clusters, each $n_i$ times. Let $y_{rij}$ be the $j$th measurement taken on the $i$th cluster for the $r$th outcome, $i=1,\ldots,N$, $r=1,\ldots,m$ and $j=1,\ldots,n_{ri}$. As a simple example, take $m=4$ responses as the vital signs: body temperature, heart rate, respiratory rate, and blood pressure, measured for $n_1 = n_2 = n_3 = n_4 = 100$ hospitalized patients. And assume these measurements are done every $4$ hours. For example, $y_{111}$ is the body temperature of the first patient measured for the first time. 
 
 A general scheme of such clustered data is presented in Figure~\ref{fig_scheme}. A suitable model for such data should appropriately respect the correlation structures imposed by the fact that several measurements are done on the same subject. While even for moderate sample sizes, fitting such models could already become challenging, we may face a greater challenge when the size of dataset makes it eligible for the title \emph{big data}. 
 
@@ -442,9 +446,9 @@ As it was mentioned, for non-clustered data big would mean a large number of sub
 
 Note that, \emph{big} would be different for $N$, $n_{ri}$, and $m$. For example, in case of a MAD regression, we have seen a dataset of size $N=100,000$ could be analyzed in $0.001$h, increasing the sample size to $N = 1000,000$ would increase the computation time to $0.2$h, which is not fast, but still feasible, but $N=10,000,000$ would take around $17$ hours which could be too much. Therefore, in the case of a simple MAD regression, we may consider $N>10,000,000$ as \emph{big}.
 
-When it comes to clustered data, however, there is a different story. Some 100's could already be big in case of cluster size, $n_{ri}$ (see Amazon book ratings data in Section~\ref{mot_amazon}), and even some 10's is \emph{big} when we consider the number of outcomes $m$ (see Hearing data in Section~\ref{mot_hearing}).
+When it comes to clustered data, however, a different story is going on. Some 100's could already be big in case of cluster size, $n_{ri}$ (see Amazon book ratings data in Section~\ref{mot_amazon}), and even some 10's is \emph{big} when we consider the number of outcomes $m$ (see Hearing data in Section~\ref{mot_hearing}).
 
-It goes without saying that, in reality, any combination of the above situations could happen. Our aim in this thesis to provide appropriate methodology to: 1- split the data into smaller chunks, 2- analyze each split, 3- combine these analyses in an efficient way. Our methodology should consider the nature of the data. While the mere task of splitting would already breaks down the difficult (sometimes infeasible) problem into smaller easier and feasible to analyze pieces, sometimes the structure of the data would allow for some \emph{smart} other than random splitting which would then provide more gain. Our aim in this thesis is to cover all of the situations which a dataset of clustered subjects could be called \emph{big}. We will go over our proposal for splitting/analyzing/combining steps for each of these cases. 
+It goes without saying that, in reality, any combination of the above situations could happen. Our aim in this thesis is to provide appropriate methodology to: 1- split the data into smaller chunks, 2- analyze each split, 3- combine these analyses in an efficient way. Our methodology should consider the nature of the data. While the mere task of splitting would already breaks down the difficult (sometimes infeasible) problem into smaller easier and feasible to analyze pieces, sometimes the structure of the data would allow for some \emph{smart} other than random splitting which would then provide more gain. Our aim in this thesis is to cover all of the situations which a dataset of clustered subjects could be called \emph{big}. 
 
 In developing these methodologies we will make sure to keep two promises:
 
@@ -457,33 +461,33 @@ In developing these methodologies we will make sure to keep two promises:
 
 \section{Data splitting: a unified approach}
 
-Data splitting is a general idea to deal with big, massive, and large data. Large here could be called to any of the cases we have mentioned above, or a combination of them. Our general approach to deal with this situation consists of three main steps which we would call them together Data splitting.
+Data splitting is a general idea to deal with big, massive, and large data. Large here could be any of the cases we have mentioned above, or a combination of them. Our general approach to deal with this situation consists of three main steps as follows. We call these three steps \textit{data splitting}.
 
-fieuws2007\begin{enumerate}
+\begin{enumerate}
 \item \textbf{Splitting}: in this step, the data should be splitted into smaller chunks in a way that analyzing each of them becomes more convenient that the dataset as a whole. This convenience would at least come from having sub-samples of smaller sizes, but it could be possible to perform the splitting in a way that some other nice features (balancedness, for example) that the original data does not own, can be created in all or some of these sub-samples.
 
-2- \textbf{Analyzing}: in this step, each split of data will be analyzed using the conventional methods. Therefore, using \emph{data splitting} approach, one can use its own favorite methodologies which are only suitable for small to moderate sample sizes. Typically, with \emph{data splitting} approach, the only information one needs to extract and keep from analyzing each split of data are: the estimated parameter vector, and their covariance matrix (if there is a need to provide standard errors of such estimates).
+\item \textbf{Analyzing}: in this step, each split of data will be analyzed using the conventional methods. Therefore, using \emph{data splitting} approach, one can use its own favorite methodologies which are only suitable for small to moderate sample sizes. Typically, with \emph{data splitting} approach, the only information one needs to extract and keep from analyzing each split of data are: the estimated parameter vector, and their covariance matrix (if there is a need to provide standard errors of such estimates).
 
-3- \textbf{Combining}: within this unified framework, each parameter in the model could be estimated several times. As our interest is to have one single set of parameter estimates, the last step in this paradigm is to combine all of analysis results from the second step into one single set. This should be done via appropriate combination rules. The combination rule is simply a weighted average of the results from different splits. Therefore, there is the need for proposing appropriate weights. Also, when it comes to combine covariance matrices, the fact that these results are coming from different (possible dependent) sub-samples should be well respected. 
+\item \textbf{Combining}: within this unified framework, each parameter in the model could be estimated several times. As our interest is to have one single set of parameter estimates, the last step in this paradigm is to combine all of analysis results from the second step into one single set. This should be done via appropriate combination rules. The combination rule is simply a weighted average of the results from different splits. Therefore, there is the need for proposing appropriate weights. Also, when it comes to combine covariance matrices, the fact that these results are coming from different (possibly dependent) sub-samples should be well respected. 
 
 \end{enumerate}
 
 
 
-In the following sections we will review different splitting approaches, also their appropriate combination rules. WE will also give examples of our motivating datasets where each of these approaches could be beneficial. 
+In the following sections we will review different splitting approaches, also their appropriate combination rules. We will also give examples of our motivating datasets where each of these approaches could be beneficial. 
 
 \section{Different types of splitting}
 
-We have already discussed the MapReduce, or split-apply-combine approaches. The main splitting technique that is implemented using such approaches is to split the data: 1- randomly, 2- at subject level. Throughout this these we would call the splitting at the subject level \emph{horizontal splitting}. The reason for that can be seen in the Figure~\ref{fig_scheme}. If we illustrate the splits by separating lines, such lines will be horizontal. On the other hand, if the splitting is done for the data within a subject, then the lines should be drawn vertically. This case is specific to the clustered data where we have more than one observation for each subject. 
+We have already discussed the MapReduce, or split-apply-combine approaches. The main splitting technique that is implemented using such approaches is to split the data: 1- randomly, 2- at subject level. Throughout this thesis we would call the splitting at the subject level \emph{horizontal splitting}. The reason for that can be seen in the Figure~\ref{fig_scheme}. If we illustrate the splits by separating lines, such lines will be horizontal. On the other hand, if the splitting is done for the data within a subject, then the lines should be drawn vertically. This case is specific to the clustered data where we have more than one observation for each subject. 
 
-While random splitting (assigning members of each split at random) is an effective way in many situations, there are cases where assigning members of each split based on a predefined structure has an added value. We call such splitting approach structural splitting as opposed to random splitting. In the following we will give an overview of the four types of splitting, and present examples where each of them could be useful. We will also briefly go over analyzing and combining steps also.
+While random splitting (assigning members of each split at random) is an effective way in many situations, there are cases where assigning members of each split based on a predefined structure has an added value. We call such splitting approach structural splitting as opposed to random splitting. In the following we will give an overview of the four types of splitting (combinations of random/structured and horizontal/vertical splitting), and present examples where each of them could be useful. We will also briefly go over analyzing and combining steps.
 
 \subsection{Random horizontal splitting}    
 
-Random horizontal splitting, as its name suggested tries to assign different subjects to different splits at random. There are several ways to do this task, the way we have used in our implementations is as follows, for a sample of size $N$,
+Random horizontal splitting, as its name suggests, tries to assign different subjects to different splits at random. There are several ways to do this task, the way we have used in our implementations is as follows. For a sample of size $N$,
 
 \begin{enumerate}
-\item To split the dataset into $M$ sub-samples, take $m = [{N/M}]$ as the size of each split to make sub-samples of roughly the same sizes.
+\item To split the dataset into $M$ sub-samples, take $m = \floor{N/M}$ as the size of each split to make sub-samples of roughly the same sizes.
 \item Generate a random sample of size $N$ from standard normal.
 \item Order the generated sample.
 \item Divide the ordered indexes into (M-1) parts of size $m$, and the $m$th chunk will include all the remaining indexes. These will be the index of subjects that should be assigned to each split.
@@ -495,23 +499,23 @@ Assume $\widehat{\theta}_1, \ldots, \widehat{\theta}_M$ are the estimated parame
 
 \begin{equation}
 \label{eq_estimate}
-\widetilde{\theta} = \sum_{m=1}^M \widehat{\theta_m},
+\widetilde{\theta} = \sum_{m=1}^M w_m\widehat{\theta_m},
 \end{equation}
-where $\sum_{m=1}^M w_m = 1$. An appropriate weights could be assigned proportional to the size of each split. We would call such weights proportional weights in this thesis:
+where $w_m$'s are the combination weights, and $\sum_{m=1}^M w_m = 1$. An appropriate set of weights could be assigned proportional to the size of each split, i.e., a larger split contributes more to the final estimate. We would call such weights proportional weights in this thesis:
 
 \begin{equation}
 \label{eq_prop_w} 
 w_{prop, i} = \frac{m_i}{N}.
 \end{equation}
 
-Of course, in case of random splitting, as the split sizes are roughly the same, one can simple assign equal weights to different sub-samples. Such weights are called equal weights in this thesis:
+Of course, in case of random splitting, as the split sizes are roughly the same, one can simply assign equal weights to different sub-samples. Such weights are called equal weights in this thesis:
 
 \begin{equation}
 \label{eq_equal_w}
 w_{equal,i} = \frac{1}{M}.
 \end{equation}
 
-The combination rule in case of horizontal splitting is simpler than vertical splitting. This comes from the fact that the sub-samples are independent in this case, therefore, one does not need to be concerned about the correlations between the estimates coming from different sub-samples. For a general weight $w_i$, consider $\mathrm{Var}(\widehat{\theta}_i) - \sigma^2_i$, then the variance of data splitting estimator can be computed as follows:
+The combination rule in case of horizontal splitting is simpler than vertical splitting. This comes from the fact that the sub-samples are independent in this case, therefore, one does not need to be concerned about the correlations between the estimates coming from different sub-samples. For a general weight $w_i$, consider $\mathrm{Var}(\widehat{\theta}_i) = \sigma^2_i$, then the variance of data splitting estimator can be computed as follows:
 
 \begin{equation}
 \label{eq_variance1}
@@ -532,7 +536,7 @@ where $\lambda$ is a Largange multiplier to make sure that the sum of estimated 
 w_{opt, i} = \frac{1/\sigma^2_i}{\sum_{m=1}^M 1/\sigma^2_m},
 \end{equation}
 
-As one may see, we may give more weights to a sub-sample with smaller variance.
+As one may see, a larger weight is given to a sub-sample with a smaller variance.
 
 
 In using optimal weights, one needs to be concerned about the fact that, optimal weights are including parameters from model, which then needs to be replaced by an estimate (we will discuss different ways of doing it in the coming chapters), and these estimates will come with their own variability. So, if the variability these estimates will bring together with them becomes larger than the variability that the optimal weights could decrease, then it is better to use the simpler parameter-free weights.
@@ -4564,7 +4568,18 @@ The R package {\tt{mifa}} provides function to:
 This covers our contributions in Section~\ref{secc_mifa}.
 
 \chapter{Conclusions}
-%repeat the IMO, also present the longer version of the paper on FIL, with all computations for CS, etc. Add some figures for that also.:: 
+
+begin with the two promises we made and expalin how they are kept. Given an example of a situation where every thing is there together, 
+
+\begin{itemize}
+\item very large sample size
+\item highly unbalanced
+\item many responses
+\item each of very large size
+\end{itemize}
+
+so we first split horizontally and structured to put all clusters of the same size together, but still from some sizes we might have too many, so we can split those horizontally by randomly. Then we split structured vertically to do the pairsie approach. but then for some pairs the cluster sizes could be too large which then we split randmly byt vertically. ccombination rules will be applied step by step. Find those steps and mention them. From inner splitting to outer. For example, if we 1- split structured horizontal, 2- random horizontal, we first combine the random horizontals, then the results are combined structred horizontal. 
+
 
 
 \chapter{Appendices}
