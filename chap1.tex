@@ -657,7 +657,7 @@ Because of the discussed similarity and for the vast use of multiple imputation 
 
 We have extended the idea of within cluster re-sampling and multiple outputation to make them suitable for our purpose: analyzing clustered data with big clusters. The so-called iterative multiple outputation (IMO) procedure is proposed to fulfil this role. IMO is proposed as follows,
 
-%% WE ARE HERE
+
 
 \begin{enumerate}
 \item \textbf{Start.} Select an initial number of sub-samples, $M_0$, and sub-sampling size $m$. Take $M_0$ sub-samples of size $m$, fit the model to each and obtain $\widehat{\theta}_i$ and its variance $\Sigma_{\widehat{\theta}_i}$ ($i=1,\ldots,M_0$). Then compute 
@@ -678,18 +678,18 @@ Where for $m=r$ we have,
 \widehat{W}_r= \frac{\sum_{i=1}^r \sigma_{\widehat{\theta}_i}}{r},\; \widehat{B}_r= \frac{\sum_{i=1}^r (\widehat{\theta}_i - \widetilde{\theta}_r)(\widehat{\theta}_i - \widetilde{\theta}_r)'}{r-1}.
 \end{equation}
 
-We may remark that, there are cases only $M=1$ sub-sample would be sufficient to obtain results almost as efficient as analyzing the full dataset. We have studies this matter in detail and called such estimators \textit{finite information limit estimators}. We have also proposed procedures to detect this property.
+We may remark, there are cases that only $M=1$ sub-sample would be sufficient to obtain results almost as efficient as analyzing the full dataset. We have studied this matter in detail and called such estimators \textit{finite information limit estimators} (see Section~\ref{chap_FIL}). We have also proposed procedures to detect this property.
 
 A very useful dataset to illustrate the usefulness of random vertical splitting is the Amazon's book ratings dataset. This set of data consists of ratings of several books (from 1 to 5) on Amazon website. Each book is rated by different number of people, which could be as small as 1 and as large as 20,000. So we will deal with clustered data of very variable and large sizes. 
 
 
 \subsection{Structured vertical splitting} 
 
-So far we have discussed random horizontal and random vertical splitting, as well as structured horizontal splitting. In case of the vertical splitting also, pre-defining some structures to take the sub-samples other thank taking them just at random could be beneficial. We have already seen one application of structured splitting in case of horizontal splitting, which enabled us to form balanced sub-samples. Defining an structure is not always for computation efficiency. Sometimes, without such structure, estimating the model parameters is not possible. 
+So far we have discussed random horizontal and random vertical splitting, as well as structured horizontal splitting. In case of the vertical splitting also, pre-defining some sub-sampling structures (other than random) could be beneficial. We have already seen one application of structured splitting in case of horizontal splitting, which enabled us to form balanced sub-samples. In this section we will discuss an application of structured splitting in case of vertical sample splitting.
 
-We have considered an important case of jointly modeling several outcomes via random effects as a useful example for structured vertical splitting. Such a problem can easily become infeasible when the number of outcomes becomes large (even tens of them). \cite{fieuws2006, fieuws2007} proposed to analyze all possible pairs of all outcomes instead of analyzing them simultaneously. Then use appropriate combination rules to find the parameters of the model of interest. To illustrate the problem, also to show how structural vertical splitting is similar to the approach of \cite{fieuws2006, fieuws2007}. Also, to see how it is different from random vertical splitting, we present a simple example. 
+We have considered an important case of jointly modeling several outcomes via random effects as a useful example for structured vertical splitting. Such a problem can easily become infeasible when the number of outcomes becomes large (even tens of them). \cite{fieuws2006} and \cite{fieuws2007} proposed to analyze all possible pairs of all outcomes instead of analyzing them simultaneously. Then use appropriate combination rules to find the parameters of the model of interest. To illustrate the problem, also to show how structural vertical splitting is similar to the approach of \cite{fieuws2006} and \cite{fieuws2007}, also, to see how it is different from random vertical splitting, we present a simple example. 
 
-Imagine we have 3 outcomes to be jointly modeled. A random effects approach would fit a separate model to each outcome, then let them to be correlated by defining a joint distribution for their random effects. This joint distribution is usually a normal distribution where its covariance matrix would capture the dependencies between different outcomes. Let us elaborate more here, if the three separate models (all linear) for the three outcomes are defined using the following general form:
+Imagine we have 3 outcomes to be jointly modeled. A random effects approach would fit a separate model to each outcome, then let them to be correlated by defining a joint distribution for their random effects. This joint distribution is usually a normal distribution where its covariance matrix would capture the dependencies between different outcomes. Let us elaborate more here. If the three separate models (all linear) for the three outcomes are defined using the following general form:
 
 \begin{equation}
 \label{eq_SV_models}
@@ -736,7 +736,7 @@ As we have $3$ outcomes, the number of pairs will be $M=3\times (3-1) /2 =3$. Ho
 ,D_{33_3},D_{23_3}),
 \end{cases}
 \end{equation}
-as one may see in (\ref{eq_SV_pairs}), each $\bftheta^{(s)}$ ($s=1,2,3)$ is a subset of $\bftheta$ in (\ref{eq_SV_theta}. Now, the stacked vector combining all parameters estimated in different sub-samples $\boldsymbol{\Theta}'=(\bftheta^{(1)},\bftheta^{(2)},\bftheta^{(3)})$ can be constructed as follows:
+as one may see in (\ref{eq_SV_pairs}), each $\bftheta^{(s)}$ ($s=1,2,3)$ is a subset of $\bftheta$ in (\ref{eq_SV_theta}). Now, the stacked vector combining all parameters estimated in different sub-samples $\boldsymbol{\Theta}'=(\bftheta^{(1)},\bftheta^{(2)},\bftheta^{(3)})$ can be constructed as follows:
 \begin{multline}
 \label{eq_SV_Theta}
 \boldsymbol{\Theta}'=(\beta_{1_1},\beta_{2_1},D_{11_1},
@@ -772,9 +772,9 @@ As one may see, the covariance parameters ($D_{12},D_{13}, D_{23}$) are only est
 
 
 \vspace*{2mm}
-\noindent Obviously, $\sum_i A_i$ (with $A_i$ the $i$th row of $A$) shows the number of times each parameter is estimated. Therefore, by defining $W$ with each of its rows computed as $A_i / \sum_i A_i$, and pre-multiplying it by $\widehat{\boldsymbol{\Theta}}$ would provide the appropriate averaging. The same goes for the variance combination rule. \cite{fieuws2006, fieuws2007} used a pseuo-likelihood approach to find the combined covariance matrix (the same as in \ref{eq_clt_pseudolikelihood}), we could show using \ref{eq_combination_variance} with appropriate weights works the same, but much faster.
+\noindent Obviously, $\sum_i A_i$ (with $A_i$ the $i$th row of $A$) shows the number of times each parameter is estimated. Therefore, defining $W$ with each of its rows computed as $A_i / \sum_i A_i$, and pre-multiplying it by $\widehat{\boldsymbol{\Theta}}$ would provide the appropriate averaging. The same goes for the variance combination rule. \cite{fieuws2006} and \cite{fieuws2007} used a pseuo-likelihood approach to find the combined covariance matrix (the same as in \ref{eq_clt_pseudolikelihood}), we could show using \ref{eq_combination_variance} with appropriate weights works the same, but much faster.
 
-As one may see, only the covariance matrix of the random effects have $6$ parameters to be estimated, if one decides to add random slopes also, then the number of parameters will increase to $(6\times7)/2 = 21$. Once the number of responses becomes slightly large, the number of parameters will dramatically increase. This would face all conventional methods with serious problems, and the problem can be unfeasible. Figure \ref{fig_strucVert} shows how the number of parameters only in the covariance matrix of random effects would increase when the number of responses increases. As we may see in this figure, even for less than 100 responses, the number of parameters becomes extremely large.
+As one may see, only the covariance matrix of the random effects have $6$ parameters to be estimated, if one decides to add random slopes also, then the number of parameters will increase to $(6\times7)/2 = 21$. Once the number of responses becomes slightly larger, the number of parameters will dramatically increase. This would face all conventional methods with serious problems, and the problem can be unfeasible. Figure \ref{fig_strucVert} shows how the number of parameters only in the covariance matrix of random effects would increase when the number of responses increases. As we may see in this figure, even for less than 100 responses, the number of parameters becomes extremely large.
 
 \begin{figure}
 \centering
@@ -783,10 +783,12 @@ As one may see, only the covariance matrix of the random effects have $6$ parame
 \label{fig_strucVert}
 \end{figure} 
 
-Therefore, there is a main difference between the applications we have proposed for random vertical splitting, and structured vertical splitting. While both of them are proposed to deal with large clusters, the issue with random vertical splitting is a large sample size, while structured vertical splitting deals with a high-dimensional parameter space. In other words, in case of structured random splitting we are dealing with the so-called curse of dimensionality \citep{donoho2000}. In fact, exactly for this \emph{big} parameter space, we had to impose a structure on it, so in every sub-sample a sub-set of this parameter vector could be estimated. The smart idea of modeling several outcomes by all their sub-sets of two would break down the parameter space by breaking down the sample itself. That is why, in case of random splitting, every sub-sample usually estimates all parameters, while this is not often the case for structured vertical splitting. 
+Therefore, there is a main difference between the applications we have proposed for random vertical splitting, and structured vertical splitting. While both of them are proposed to deal with large clusters, the issue with random vertical splitting is a large unbalanced sample size, while structured vertical splitting deals with a high-dimensional parameter space. In other words, in case of structured random splitting we are dealing with the so-called curse of dimensionality \citep{donoho2000}. In fact, particularly for this \emph{big} parameter space, we had to impose a structure on it, so in every sub-sample a sub-set of this parameter vector could be estimated. The smart idea of modeling several outcomes by all their sub-sets of two would break down the parameter space by breaking down the sample itself. That is why, in case of random splitting, every sub-sample usually estimates all parameters, while this is not often the case for structured vertical splitting. 
 
 We have two examples in our motivational datasets which are used to illustrate the applications of structured vertical splitting. We have used \emph{Leuven diabetes project} data as a basis to perform simulation studies to evaluate our proposed way of combining variances with what pseudo-likelihood theory would give. Furthermore, the \emph{Hearing data} is used as an example of high-dimensional parameter space where the conventional methods would fail. 
 
+
+%% WE ARE HERE
 
 \section{Supplementary topics}
 
@@ -3053,6 +3055,8 @@ We have implemented this procedure in R, but it can as well be implemented in an
 
 
 \section[Finite Information Limit Estimators]{Finite Information Limit Estimators: Is the Entire Dataset Needed for Analysis?}
+
+\label{chap_FIL}
 
 \subsection{Introduction}
 \label{sec_introduction}
