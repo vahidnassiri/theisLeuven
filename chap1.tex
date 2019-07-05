@@ -788,7 +788,7 @@ Therefore, there is a main difference between the applications we have proposed 
 We have two examples in our motivational datasets which are used to illustrate the applications of structured vertical splitting. We have used \emph{Leuven diabetes project} data as a basis to perform simulation studies to evaluate our proposed way of combining variances with what pseudo-likelihood theory would give. Furthermore, the \emph{Hearing data} is used as an example of high-dimensional parameter space where the conventional methods would fail. 
 
 
-%% WE ARE HERE
+
 
 \section{Supplementary topics}
 
@@ -880,14 +880,14 @@ We have published the work we have done during the PhD studies in form of scient
 \end{enumerate}
 
 
-%% WE ARE HERE
+
 
 \chapter{Motivating datasets}
 \label{sec_data_sets}
 
-There are two type of motivating datasets in this thesis: 1- the ones that using our proposed methodology is necessary to analyze them, 2- the ones that these methodologies are an option, and probably not the best one. The first type of motivating datasets are large data where analyzing them with conventional methods is not feasible, or would a very long time. As we also need to evaluate our proposed methodology not only via simulation studies, but in real practice also. In our second type of motivating datasets, we consider cases that are suitable but not large enough, so the conventional methods could also be applied on them. This way, we could compare the performance of our proposed alternative methodology with the well-known methods.
+A brief summary of the datasets motivating our research is presented in this Chapter. There are two types of motivating datasets in this thesis: 1- the ones that using our proposed methodology is necessary to analyze them, 2- the ones that these methodologies are an option, and probably not the best one. The first type of motivating datasets are large data that analyzing them with conventional methods is not feasible, or would take a very long time. As we also need to evaluate our proposed methodologies not only via simulation studies, but in real practice as well, in our second type of motivating datasets, we consider cases that are suitable but not large enough, so the conventional methods could also be applied on them. This way, we could compare the performance of our proposed alternative methodologies with the well-known and conventional methods.
 
-A brief summary of the datasets motivating our research is presented in this section.
+
 \section{A developmental toxicity study} 
 \label{motive_tox}
 This study investigates the dose-response
@@ -900,22 +900,25 @@ and 0.15\%, corresponding to a DEHP consumption of 0, 44, 91, 191, and 292 mg/kg
 The dams were sacrificed, slightly prior to normal delivery, and the status of uterine implantation sites recorded. A total of 1082 live fetuses were dissected from the uterus, anesthetized, and examined for external, visceral, and skeletal malformations, as well as for body
 weight. Our focus will be on the continuous weight outcome. Evidently, fetuses are clustered within mothers; hence the implied association needs to be accommodated in the analysis. 
 
-As each mother has a different number of fetuses, we have clusters of different sizes. This would provide a suitable scenario to evaluate structured horizontal splitting approach. Because, as the data is of a moderate size, the conventional methods can also be used to fit the models, so we have the chance of comparing the obtained results using such models with our proposed alternative models.
+As each mother has a different number of fetuses, we have clusters of different sizes. This would provide a suitable scenario to evaluate structured horizontal splitting approach. Since the data is of a moderate size, the conventional methods can also be used to fit the models, so we have the chance of comparing the obtained results using such models with our proposed alternative models.
 
-Other than di(2-ethylhexyl)phthalate (DEHP), two other responses are also studied in this thesis, ethylene glycol (EG), cite{price1987}, and diethylene glycol dimethyl ether (DYME), \cite{price1985}.
+Other than di(2-ethylhexyl)phthalate (DEHP), two other responses are also studied in this thesis, ethylene glycol (EG), \cite{price1987}, and diethylene glycol dimethyl ether (DYME), \cite{price1985}.
 
 \section{Divorce in Flanders} 
 
-Big Five Inventory (BFI) is questionnaire formed of 44 questions to measure personality based on five underlying factors: Neuroticism (N), Extraversion (E), Openness to Experience (O), Conscientiousness (C), and Agreeableness (A), see \cite{john1999}. A Dutch translation of this questionnaire have been developed and validated by \cite{denissen2008}. The same translated version have been used in Divorce of Flanders project to collect the data.  
+Big Five Inventory (BFI) is questionnaire formed of 44 questions to measure personality based on five underlying factors: Neuroticism (N), Extraversion (E), Openness to Experience (O), Conscientiousness (C), and Agreeableness (A), see \cite{john1999}. A Dutch translation of this questionnaire have been developed and validated by \cite{denissen2008}. The same translated version has been used in Divorce of Flanders project to collect the data.  
 
 The Divorce of Flanders dataset is collected at the Centre for Sociological Research, KU Leuven. The data concerned on studying and comparing the personality among
 three generations in about 4000 Flemish families \citep{mortelmans2011}. Each family would at most consist of mother, father, step-mother, step-father, one child, grand-mother, and grand-father.  The personality is measured using the so-called Big Five Inventory (BFI) score as it is described above. These scores are built upon 5 factors which in total are measured through 44 items. 
 
-Although, using factor analysis is required for such data in order to confirm the existence of the expected underlying factors, but it cannot answer all of our questions. For example, the researcher wants to see how the correlations between different personality aspects and family roles (child, mother, father, etc.) would look like. The usual factor analysis would lose most of the hierarchical information in the data. 
+Although, using factor analysis is required for such data in order to confirm the existence of the expected underlying factors, but it cannot answer all of our questions. For example, the researcher wants to see how large are the correlations between different personality aspects and family roles (child, mother, father, etc.). The usual factor analysis would lose most of the hierarchical information in the data. 
 
-The hierarchical information we have mentioned comes from the fact that, there are family members who answer 44 questions which themselves will form 5 factors. Therefore, We have five factors combined with family roles as our response variables. If we only consider 3 family roles (child, mother, and father), it will form 15 different responses (5 personality aspects and 3 family roles). In other words, in this example, each of our clusters consists of a family with its members (likely 3 or 5), combined with 5 factors, answering 44 questions. And we will have more than 4000 of such families. Conventional software like SAS would immediately fail to fit such models, but as we will see, splitting this large sample into 3 parts would help to obtain the required results. Therefore, this is an example of case studies where the conventional methods fail to work and our proposed alternative methods are necessary to fit the required models.
+The hierarchical information we have mentioned comes from the fact that, there are family members who answer 44 questions which themselves will form 5 factors. Therefore, We have five factors combined with family roles as our response variables. If we only consider 3 family roles (child, mother, and father), it will form 15 different responses (5 personality aspects and 3 family roles). In other words, in this example, each of our clusters consists of a family with its members (likely 3 or 5), combined with 5 factors obtained from 44 questions. And we have more than 4000 of such families, conventional software like SAS would immediately fail to fit such models. But as we will see, splitting this large sample into 3 parts would help to obtain the required results. Therefore, this is an example of case studies where the conventional methods fail to work and our proposed alternative methods are necessary to fit the required models.
 
-It worth to mention that we have well studied and validated these data and the Dutch translation of the questionnaire in case of a Flemish sample, see \cite{lovik2017a}, \cite{lovik2017b}. While validating the Dutch translation for the Flemish sample, in order to deal with the missing data problem, we also had to develop methodologies to combine multiple imputation \citep{rubin1987, carpenter2012}. Our contribution to this field had also applications in case of data splitting, this will be discussed in Chapter \textbf{the number of the chapter should be added}.
+It worth to mention that we have well studied and validated these data and the Dutch translation of the questionnaire in case of a Flemish sample, see \cite{lovik2017a}, \cite{lovik2017b}. While validating the Dutch translation for the Flemish sample, in order to deal with the missing data problem, we also had to develop methodologies to combine multiple imputation \citep{rubin1987, carpenter2012} and exploratory factor analysis. Our contribution to this field had also applications in case of data splitting, this will be discussed in Section~\ref{secc_IMI}. We have also studied this matter in \cite{lovik2017combining}.
+
+
+%% WE ARE HERE
 
 \section{Hearing data} 
 \label{mot_hearing}
