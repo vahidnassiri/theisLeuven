@@ -918,13 +918,12 @@ The hierarchical information we have mentioned comes from the fact that, there a
 It worth to mention that we have well studied and validated these data and the Dutch translation of the questionnaire in case of a Flemish sample, see \cite{lovik2017a}, \cite{lovik2017b}. While validating the Dutch translation for the Flemish sample, in order to deal with the missing data problem, we also had to develop methodologies to combine multiple imputation \citep{rubin1987, carpenter2012} and exploratory factor analysis. Our contribution to this field had also applications in case of data splitting, this will be discussed in Section~\ref{secc_IMI}. We have also studied this matter in \cite{lovik2017combining}.
 
 
-%% WE ARE HERE
 
 \section{Hearing data} 
 \label{mot_hearing}
 To evaluate the hearing performance of a subject, hearing threshold sound pressure levels (measured in dB) are considered. By definition, a hearing threshold is the lowest signal intensity possible to perceive by a subject at a specific frequency. In a study considered in \cite{verbeke2009} and \cite{Verbeke2006}, hearing thresholds measured in 11 different frequencies between 125 Hz and 8000 Hz for left and right ears obtained on 603 male participants from the Baltimore Longitudinal Study of Ageing, BLSA. The number of visits for each subject which varies between 1 to 15 are unequally spaced. 
 
-As one may already observed, not only we have 22 outcomes which should be simultaneously modeled, but the study is also longitudinal. Therefore, one may need both random intercepts and random slopes. That means estimating a $44 \times 44$ covariance matrix of random effects, as well as the fixed effects. Conventional software like {\tt{Proc MIXED}} in SAS would immediately fail to estimate such huge model. While our proposed structured vertical splitting can deal with the issue and provide necessary estimates and results.
+As one may already observed, not only we have 22 outcomes (11 frequencies for left and right ears) which should be simultaneously modeled, but the study is also longitudinal. Therefore, one may need both random intercepts and random slopes. That means estimating a $44 \times 44$ covariance matrix of random effects, as well as the fixed effects. Conventional software like {\tt{Proc MIXED}} in SAS would immediately fail to estimate such huge a model, while our proposed structured vertical splitting can deal with the issue and provide necessary estimates and results.
 
 \section{Leuven diabetes project} 
 
@@ -934,9 +933,9 @@ Note that, this data is analyzed in \cite{ivanova2017}, and here we only use it 
 
 \section{Amazon book ratings} 
 \label{mot_amazon}
-These data consist of the ratings of the books on the Amazon website which are recently made publicly available. The dataset contains $2,330,066$ books, which are rated at least $1$ and at most $21,398$ times. This is an example of clustered data with large highly unbalanced clusters and a large sample size. Therefore, it provides an ideal situation where the conventional methods would fail and we may need alternative methods to deal with the big data issue.
+These data consist of the ratings of the books on the Amazon website which are recently made publicly available \citep{amazon}. The dataset contains $2,330,066$ books, which are rated at least $1$ and at most $21,398$ times. This is an example of clustered data with large highly unbalanced clusters and a large sample size. Therefore, it provides an ideal situation where the conventional methods would fail and we may need alternative methods to deal with the big data issue.
 
-\section{Clinical Trials in Schizophrenia} 
+\section{Clinical trials in schizophrenia} 
 
 These data were collected from five double-blind randomized clinical trials to compare the effects of two treatments for chronic schizophrenia: risperidone and conventional antipsychotic agents. Subjects who received doses of risperidone (4–6 mg/day) or an active control (haloperidol, perphenazine, zuclopenthixol) have been included in the analysis. Patients were clustered within country, and longitudinal measurements were made on each subject over time. The number of patients ranges from 9 to 128 per country with a total of 2039. 
 
@@ -944,7 +943,7 @@ The positive and negative syndrome scale (PANSS) was used to asses the global co
 
 \section{Cholesterol data}
 
-The cholesterol dataset includes cholesterol levels for 28 patients treated at a Pennsylvania medical center. The cholesterol levels have been recorded on day 2, day 4 and day 14 after an attack for each patient. However, there are 9 missing values for day 14. This dataset was analyzed by \citet[Chapter 5]{schafer1997} and is publicly available in \textsc{R} package {\ttfamily{norm2}}. We will use this dataset to illustrate our proposed procedure iterative multiple imputation (IMI) in case of Student's $t$-test. 
+The cholesterol dataset includes cholesterol levels for 28 patients treated at a Pennsylvania medical center. The cholesterol levels have been recorded on day 2, day 4 and day 14 after an attack for each patient. However, there are 9 missing values for day 14. This dataset was analyzed by \citet[Chapter 5]{schafer1997} and is publicly available in the \textsc{R} package {\ttfamily{norm2}}. We will use this dataset to illustrate the use of iterative multiple imputation (IMI) in case of Student's $t$-test. 
 
 %\section{Age-related macular degeneration (ARMD)} 
 %
@@ -956,7 +955,9 @@ The cholesterol dataset includes cholesterol levels for 28 patients treated at a
 
 This is an extensive observational study of glaucoma performed at the ophthalmology department of KU Leuven. This study investigates glaucoma which is one of the leading diseases to cause irreversible vision loss. Early diagnosis of glaucoma could greatly help to delay the vision loss. Therefore, studying various diagnostic methods is of a great importance. 
 
-The dataset so far consists of 141 variables measured in 614 subjects. Various diagnostic tests and procedures are used on subsets of these patients. As measuring all of these variables and performing all diagnostic tests was not feasible for all of the subjects, this dataset exhibits considerable missingness. In fact, no single fully observed subject can be found in this dataset. Considering the size of dataset and amount of missing values, applying multiple imputations and determining the number of imputations is challenging in this case. 
+The dataset consists of 141 variables measured in 614 subjects. Various diagnostic tests and procedures are used on subsets of these patients. As measuring all of these variables and performing all diagnostic tests was not feasible for all of the subjects, this dataset exhibits considerable missingness. In fact, no single fully observed subject can be found in this dataset. Considering the size of dataset and amount of missing values, applying multiple imputation and determining the number of imputations is a great challenge in this case. This becomes more important when we want to have one set of imputed datasets to be used for different analysis. Therefore, iterative multiple imputation could greatly contribute to overcome this challenge.
+
+%% WE ARE HERE
 
 
 
