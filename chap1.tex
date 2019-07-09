@@ -478,6 +478,7 @@ Data splitting is a general idea to deal with big, massive, and large data. Larg
 In the following sections we will review different splitting approaches, also their appropriate combination rules. We will also give examples of our motivating datasets where each of these approaches could be beneficial. 
 
 \section{Different types of splitting}
+\label{sec_int_random_horizontal}
 
 We have already discussed the MapReduce, or split-apply-combine approaches. The main splitting technique that is implemented using such approaches is to split the data: 1- randomly, 2- at subject level. Throughout this thesis we would call the splitting at the subject level \emph{horizontal splitting}. The reason for that can be seen in the Figure~\ref{fig_scheme}. If we illustrate the splits by separating lines, such lines will be horizontal. On the other hand, if the splitting is done for the data within a subject, then the lines should be drawn vertically. This case is specific to the clustered data where we have more than one observation for each subject. 
 
@@ -964,16 +965,24 @@ The dataset consists of 141 variables measured in 614 subjects. Various diagnost
 
 \chapter{Random horizontal splitting}
 
-Random horizontal splitting is useful for the cases where the dataset becomes \emph{big} because of number of clusters in there. We have already discussed the splitting pattern as well as the combination rules in this case. In this chapter we will use random horizontal splitting to fit a model to a subset of Divorce in Flanders dataset that could not be fitted without splitting. First, we explain the research question and its statistical formulation, then we will see how conventional methods would fail in this case, and finally using random horizontal splitting we can fit the model that we could not fit otherwise.
+Random horizontal splitting is useful for the cases where the dataset becomes \emph{big} because of number of clusters in there. We have already discussed the splitting pattern as well as the combination rules for this case in Section~\ref{sec_int_random_horizontal}. In this chapter we will illustrate this technique to fit a model to a subset of Divorce in Flanders dataset that could not be fitted with conventional methods and software. First, we explain the research question and our statistical formulation of it. Then we will see how conventional methods would fail in this case, and finally using random horizontal splitting we can fit the model that we could not be fitted otherwise.
 
 \section{The research question}
 
-Divorce in Flanders dataset presented data from Big Five Inventory (BFI) answered by Flemish families. This BFI is a questionnaire of 44 items which should be answered with scores from 1 to 5. In this chapter. These 44 questions are measuring 5 aspects of personality: openness to the experience, conscientiousness, extraversion, agreeableness, and neuroticism.  Our interest is to study the correlation of each of these 5 aspects of personality between 3 main family roles: mother, father, and child. This would possibly reveal pattern is different characteristic qualities and how they are related between parents, and their child.
+Divorce in Flanders dataset presented data from Big Five Inventory (BFI) answered by Flemish families. This BFI is a questionnaire of 44 items which should be answered with scores from 1 to 5. These 44 questions are measuring 5 aspects of personality: openness to the experience, conscientiousness, extraversion, agreeableness, and neuroticism.  Our interest is to study the correlation of each of these 5 aspects of personality between 3 main family roles: mother, father, and child. This would possibly reveal useful patterns in different characteristic qualities and show how they are related between parents, and their child. So the main research question here is: how different aspects of personality are correlated between different family roles. The difficulty arises because the five aspects of personality are latent variable and cannot directly be measured.
 
 
-One may simply computes a correlation coefficient between these variables, but that would ignore the intraclass correlation coming from the fact that some of the sample members are coming from the same family. In other words, we have two sources of correlation here: one as a result of correlation between different personality aspects and family roles, and the other which reflects the fact that the subjects are coming from the same family. We are interested in the former. 
+A simple way to deal with problem is to summarize the 44 items into 5 variables using factor analysis via using dimension reduction techniques (such as principal component analysis). It should be done for each family role separately, forming 15 different variables. A correlation matrix of these 15 variables would provide what we need to some extent. The first issue with this approach is that it would ignore the intraclass correlation coming from the fact that some of the sample members are coming from the same family. In other words, we have two sources of correlation here: one as a result of correlation between different personality aspects and family roles, and yet another one that reflects the fact that the subjects are coming from the same family. We are interested in the former. Therefore, a proper method should distinguish between these two.
 
-To properly take this hierarchical structure into account, we proposed to define 15 responses formed by all combination of 5 personalty factors and 3 family roles. Therefore, are are interested between the associations between all these 15 factor-roles. A mixed model can be used to let all these responses of interest be correlated.
+To properly take this hierarchical structure into account, we proposed to define 15 responses formed by all combinations of 5 personalty factors and 3 family roles. A mixed model can be used to let all these responses of interest be correlated. The advantages of this approach over using exploratory factor analysis are:
+
+\begin{itemize}
+\item The pre-defined structure of the 5 personality factors can be imposed on the 44 items without making any summary (like a principal component). Therefore, this is more in line with confirmatory factor analysis than the exploratory factor analysis.
+
+\item A mixed model formulation would let to separate correlations coming from \emph{being in the same family} from the ones that we actually are interested in.
+\end{itemize}
+
+However, the dis-advantage of this approach is the difficulties of fitting a mixed model with 15 responses. In the next section we will provide more details.
 
 \section{A mixed model solution}
 
@@ -983,7 +992,7 @@ We proposed to use a linear mixed model to jointly model all 15 responses that a
 \label{main_model}
 y_{ikj}=\beta_i + b_{ij} + \epsilon_{ijk},\;b_{ij}\sim N(0,d_{ii}),\;\epsilon_{ijk}\sim N(0,\sigma_1^2)
 \end{equation}
-$b_{ij}$'s ($i=1,\ldots,15, j=1,\ldots,m_j$) are the random effects (latent variables), as we are interested in the association between all factor-roles, they all will be considered to be correlated (an unstructured covariance matrix) following a normal distribution with mean zero and covariance matrix $D$ presented in (\ref{D_matrix}). In there the first letter corresponds to the factors (\textbf{A} for agreeableness, \textbf{C} for conscientiousness, \textbf{E} for extraversion, \textbf{N} for neuroticism, and \textbf{O} for openness,) and the second letter corresponds to family roles (\textbf{c} for child, \textbf{m} for mother, and \textbf{f} for father).
+$b_{ij}$'s ($i=1,\ldots,15, j=1,\ldots,m_j$) are the random effects (latent variables) each representing one factor-role. As we are interested in the associations between all factor-roles, they all will be considered to be correlated following a normal distribution with mean zero and an unstructured covariance matrix $D$ presented in (\ref{D_matrix}). In there the first letter corresponds to the factors (\textbf{A} for agreeableness, \textbf{C} for conscientiousness, \textbf{E} for extraversion, \textbf{N} for neuroticism, and \textbf{O} for openness,) and the second letter corresponds to family roles (\textbf{c} for child, \textbf{m} for mother, and \textbf{f} for father).
 
 %{\afterpage{\clearpage % begin landscape tables
 %   \begin{landscape}
@@ -1021,7 +1030,7 @@ d_{Ef,Em} & d_{Ef,Nc}& d_{Ef,Nf}& d_{Ef,Nm} & d_{Ef,Oc}& d_{Ef,Of}& d_{Ef,Om}\\
 %\end{landscape}}}
 
 
-As one may see in \ref{D_matrix}, by estimating the $D$ matrix, all possible associations between personality factors and family roles can be derived. The advantages of using a mixed for this problem can be summarized as follows:
+As one may see in (\ref{D_matrix}), by estimating the matrix $D$, all possible associations between personality factors and family roles can be derived. As it is already briefly discussed, the advantages of using a mixed for this problem can be summarized as follows:
 \begin{itemize}
 \item Specifying the theory-based model in a straightforward fashion (the same as confirmatory factor analysis).
 \item Properly taking different sources of correlations into account.
@@ -1029,16 +1038,16 @@ As one may see in \ref{D_matrix}, by estimating the $D$ matrix, all possible ass
 \item All required associations can be derived and tested in a proper modeling framework.
 \end{itemize}
 
-While considering the above benefits using a mixed model approach is very appealing, the number of parameters in the final model becomes very large. As one may see, in (\ref{D_matrix}), in the $D$ matrix alone there are 120 parameters to be estimated. Trying to fit the model in (\ref{main_model}) in {\tt{PROC MIXED}} in SAS would lead to {\tt{ERROR: The SAS System stopped processing this step because of insufficient memory.\\}} 
+While considering the above benefits using a mixed model approach is very appealing, the number of parameters in the final model becomes very large. As one may see in (\ref{D_matrix}), in the $D$ matrix alone there are 120 parameters to be estimated. Trying to fit the model in (\ref{main_model}) in {\tt{PROC MIXED}} in SAS would lead to {\tt{ERROR: The SAS System stopped processing this step because of insufficient memory.\\}} 
 
 
 \section{A data-splitting based remedy}
 
-While the cluster sizes are not large here (at most 3), considering the size of the sample we have used in this example (4460 families) also the number of outcomes of interest (15 factor-roles), one may think of two possible data splitting based solutions: random horizontal splitting, and structured vertical splitting. We may first try the former, and if it does not work, we may try the latter, or a combination of both methods. 
+While the cluster sizes are not large here (at most 3), considering the size of the sample we have used in this example (4460 families), also the number of outcomes of interest (15 factor-roles), one may think of two possible data splitting based solutions: random horizontal splitting, and structured vertical splitting. We may first try the former, and if it does not work, we may try the latter. If none of them can solve the issue, a combination of both methods can be applied. 
 
 
 In order to apply random horizontal splitting, we split 4460 families into three roughly equal sized sub-samples with 
-the sizes $1480,1480,$ and $1500$. Therefore, the proportional weights to combine the results from the three sub-samples will be:
+the sizes $1480,1480,$ and $1500$. Therefore, the proportional weights (\ref{eq_prop_w}) to combine the results from the three sub-samples will be:
 \begin{equation}
 \label{prop_weights}
 W=(\frac{1480}{4460},\frac{1480}{4460},\frac{1500}{4460}).
@@ -1053,7 +1062,7 @@ The detailed information on $\tilde{D}$ is given in Table \ref{D_matrix}. The es
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{cor_separate.eps}
-\caption{Estimated correlation matrix for each aspect of personality.} \label{corr_sep}
+\caption{Estimated correlation matrix for each aspect of personality between different family roles.} \label{corr_sep}
 \end{figure} 
 
 
@@ -1204,14 +1213,14 @@ CovParm & Estimate & Std & $95\%$-Lower & $95\%$-Upper & Z-value & P-value \\
 \label{d_ci}
 \end{figure} 
 
-Interesting observations can be made from the results in Table~\ref{d_est}. For example, considering only the point estimates of correlations, we may see in case of Agreeableness, the correlation of mother and child is larger than the correlation of father and child. The same is true for Openness to experience. However, for Extraversion, this is larger for father than child. In case of Consciousness and Neuroticism, the correlations are more or less similar. Note that, the correlations are not that large but still comparisons would be beneficial.
+Interesting observations can be made from the results in Table~\ref{d_est}. For example, considering only the point estimates of correlations, we may see in case of Agreeableness, the correlation of mother and child is larger than the correlation of father and child. The same is true for Openness to experience. However, for Extraversion, this is larger for father and child. In case of Consciousness and Neuroticism, the correlations are more or less similar. Note that, the correlations are not that large but still comparisons would be beneficial.
 
 \section{How precise are we?}
 \label{how_good_sec}
 
-As it was discussed, while data splitting would help the computation time, and even solve a problem that could not be solved otherwise, this all will come at a price: efficiency loss. Usually, it is not possible to quantify and study this efficiency loss, as the conventional maximum likelihood is not feasible, but one can have an idea about it by using both methods on the same problem but in a smaller scale. In this section we study the estimates using sample splitting in some sub-problems where the likelihood is feasible to compute. This way the performance of sample splitting can be compared with the full sample likelihood. 
+As it was discussed, while data splitting would help to decrease the computation time or solve an unfeasible problem, this all will come at a price: efficiency loss. Usually, it is not possible to quantify and study this efficiency loss, as the conventional maximum likelihood is not feasible, but one can have an idea about it by using both methods on the same problem but in a smaller scale. In this section we study the estimates using sample splitting in some sub-problems where the likelihood is still feasible to compute. This way the performance of sample splitting can be compared with the full sample likelihood. 
 
-The sub-models would still include all family roles, but the personality factors are considered separately. Therefore, each time we only have 3 outcomes of interest. Table \ref{full_split_comp} shows the results for $D$ matrix. As one may see the results of sample splitting and full sample are very similar. This would provide a greater degree of confidence in what we have obtained for all of the 15 responses using random horizontal splitting.
+The sub-models would still include all family roles, but the personality factors are considered separately. Therefore, each time we only have 3 outcomes of interest. Table \ref{full_split_comp} shows the results for matrix $D$. As one may see the results of sample splitting and full sample are very similar. This would provide a greater degree of confidence in what we have obtained for all of the 15 responses using random horizontal splitting.
 
 
 \begin{table}[ht]
@@ -1264,6 +1273,11 @@ Factor&Parameter & Split & Full & Split & Full \\
 
 \end{table}
 %use the report in "D:\GOOD\BFI\personality_report": 
+
+\section{Conclusions}
+
+Horizontal random splitting is not specific to clustered data, so our main concern is this thesis is on the 3 other types of splitting, but as it is illustrated in this chapter, it could already solve a difficult problem without the need to get involved in more complicated splitting pattern like structured vertical splitting. Therefore, if applicable, we would always suggest to first try random horizontal splitting and if it cannot solve the issue move to more complicated splitting method. Also, in case of large sample sizes, it is a good practice to combine the more complicated methods to random horizontal splitting to achieve better computation times.
+
 
 
 \chapter{Structured horizontal splitting}
