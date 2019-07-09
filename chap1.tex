@@ -555,6 +555,7 @@ An alternative way of using optimal weights is the so-called \emph{iterated opti
 An example in our motivation datasets that random horizontal splitting can be beneficial is the Divorce in Flanders dataset, where clusters are formed by family members. While each family is at most of size 7, the number of total available families is large enough to make conventional software to fail. By splitting this large sample randomly and at the family level (horizontally), we could be able to fit the models and answer the research questions.
 
 \subsection{Structured horizontal splitting}
+\label{sec_intro_structured_horizontal}
 
 As we have discussed, random horizontal splitting has been used by many researchers in different contexts to deal with big data issue. However, a randomly horizontal split would only decrease the sample size. So all we gain is due to having smaller sample sizes. We have observed that there are cases where splitting using a pre-defined structure would provide some added benefits on top of just having smaller sub-samples.
 
@@ -1282,6 +1283,10 @@ Horizontal random splitting is not specific to clustered data, so our main conce
 
 \chapter{Structured horizontal splitting}
 \label{chap_struc_horiz}
+
+We have briefly explained the idea behind structured horizontal splitting in Section~\ref{sec_intro_structured_horizontal}. In this chapter two applications of this method will be introduced, expanded, and discussed. In both cases we consider clustered data, in Section~\ref{sec_cs} these clustered data have a covariance matrix with a compound-symmetry structure and in Section~\ref{sec_ar1} their covariance matrix will have an autoregressive of first order (AR1) structure.
+
+
 \section[Compound-symmetry structure]{Clusters with unequal size: Maximum likelihood versus weighted estimation in large samples}
 \label{sec_cs}
 \subsection{Introduction}
@@ -2058,7 +2063,7 @@ A second simulation study compares the proposed methods to two alternatives: ful
 The most striking conclusion is that closed-form solutions are  much faster than their alternatives while, at the same time, yielding most precise results.
 The time gain of our fastest method relative to standard maximum likelihood using PROC MIXED ranges from 5 times to 30,000 times faster.
 
-{0} %-1
+
 \subsection{Analysis of Case Study}
 \label{dataanal}
 
@@ -2089,7 +2094,8 @@ when compared to the MLEs.
 
 
 \vspace*{2mm}
-\def\arraystretch{0.6}\small\tabcolsep=2truept \begin{tabular}{ccccccccc}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ccccccccc}
 \hline\hline
      &   &     &      &             &         &      & \multicolumn{2}{c}{Optimal}\\
 \cline{8-9}
@@ -2133,7 +2139,7 @@ $\mbox{s.e.}(\widehat{\sigma^2})$  & 0.00084 & 0.00084 & 0.00128 & 0.00199 & 0.0
   $\mbox{s.e.}(\widehat{d})$ & 0.00196 & 0.00199 & 0.00291 & 0.00447 & 0.00291 & 0.00101 & 0.00102 & 0.00634 \\
 
 \hline\hline
-\end{tabular}
+\end{tabular}}
 \end{center}
 \end{table}
 
@@ -2150,7 +2156,8 @@ $\mbox{s.e.}(\widehat{\sigma^2})$  & 0.00084 & 0.00084 & 0.00128 & 0.00199 & 0.0
 
 \vspace*{2mm}
 
-\def\arraystretch{0.6}\small\tabcolsep=2truept \begin{tabular}{ccccccccc}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ccccccccc}
 \hline\hline
      &   &     &      &             &         &      & \multicolumn{2}{c}{Optimal}\\
 \cline{8-9}
@@ -2196,7 +2203,7 @@ $\mbox{s.e.}(\widehat{\sigma^2})$ & 0.00041 & 0.00041 & 0.00046 & 0.00051 & 0.00
 
 
 \hline\hline
-\end{tabular}
+\end{tabular}}
 \end{center}
 \end{table}
 
@@ -2213,7 +2220,8 @@ $\mbox{s.e.}(\widehat{\sigma^2})$ & 0.00041 & 0.00041 & 0.00046 & 0.00051 & 0.00
 
 \vspace*{2mm}
 
-\def\arraystretch{0.6}\small\tabcolsep=2truept \begin{tabular}{ccccccccc}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ccccccccc}
 \hline\hline
      &   &     &      &             &         &      & \multicolumn{2}{c}{Optimal}\\
 \cline{8-9}
@@ -2257,7 +2265,7 @@ $\mbox{s.e.}(\widehat{\sigma^2})$ & 0.00044 & 0.00044 & 0.00052 & 0.00079 & 0.00
   $\mbox{s.e.}(\widehat{d})$ & 0.00529 & 0.00537 & 0.00718 & 0.01542 & 0.00718 & 0.00205 & 0.00205 & 0.00382 \\
 
 \hline\hline
-\end{tabular}
+\end{tabular}}
 \end{center}
 \end{table}
 
@@ -2327,7 +2335,8 @@ the simulations results, and the analysis in Section~8.1.
 
 
 \vspace*{2mm}
-\def\arraystretch{0.55}\small\tabcolsep=3truept \begin{tabular}{lrrrrr}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrr}
 \hline\hline
  Par.& \multicolumn{1}{c}{ML}& \multicolumn{1}{c}{REML}& \multicolumn{1}{c}{Prop.}& \multicolumn{1}{c}{Equal}       & \multicolumn{1}{c}{Approx.~sc.}\\
 \hline
@@ -2368,7 +2377,7 @@ s.e.($\widehat{\beta_1}$) & 0.00006 & 0.00006 & 0.00006 & 0.00007 & 0.00006 \\
 s.e.($\widehat{\sigma^2}$) & 0.00044 & 0.00044 & 0.00052 & 0.00079 & 0.00047 \\
  s.e.($\widehat{d}$) & 0.00126 & 0.00130 & 0.00110 & 0.00205 & 0.00110 \\
 \hline\hline
-\end{tabular}
+\end{tabular}}
 \end{center}
 \end{table}
 
