@@ -595,7 +595,7 @@ Note that, the structured horizontal splitting idea is very general and all the 
 
 
 \subsection{Random vertical splitting}
-
+\label{sec_intro_random_vertical}
 The horizontal splitting techniques that we have introduced and discussed so far would be beneficial when the number of clusters ($N$) is large, but the cluster size is still small or moderate, so by breaking down the large $N$ into $M$ smaller sub-samples we can manage to solve our problem. But there are examples where the size of some or all of the clusters is also very large. And as we have mentioned, large for a cluster size has a much smaller magnitude compared with large for the number of clusters. In such cases, horizontal splitting would not help much, because each cluster in our sub-samples is still large, so by horizontal splitting we just breakdown one problem into $M$ problems. 
 
 As an example, take the Amazon book ratings. There, we have the ratings for many books given by different buyers. Therefore, each book could possibly be rated by thousands of people. This will create very large clusters for which even the simple models would fail to converge. In such a case, horizontal splitting cannot solve our problem. To solve the issue here, we have to perform the splitting within the subject. For example, if there are 5000 people rating a book, in order to make smaller clusters in our sub-samples, we have to split these 5000 people into, e.g., 100 sub-samples, each of size 50. 
@@ -959,7 +959,6 @@ This is an extensive observational study of glaucoma performed at the ophthalmol
 
 The dataset consists of 141 variables measured in 614 subjects. Various diagnostic tests and procedures are used on subsets of these patients. As measuring all of these variables and performing all diagnostic tests was not feasible for all of the subjects, this dataset exhibits considerable missingness. In fact, no single fully observed subject can be found in this dataset. Considering the size of dataset and amount of missing values, applying multiple imputation and determining the number of imputations is a great challenge in this case. This becomes more important when we want to have one set of imputed datasets to be used for different analysis. Therefore, iterative multiple imputation could greatly contribute to overcome this challenge.
 
-%% WE ARE HERE
 
 
 
@@ -3039,12 +3038,12 @@ For non-normal data, no corresponding closed-form formulations are possible. Whi
 
 \chapter{Random vertical splitting}
 \label{chap_random_vertical}
-One of the situations that could make clustered big data is where the cluster sizes are becoming large. For such cases, data splitting at cluster level would not be able to solve the issue. Therefore, one may need to perform the splitting for the observations within each subject. There are several ways to perform this splitting. \cite{Iddi2011} considered non-overlapping vertical clusters. Here we proposed the \emph{iterative multiple oututation} (IMO) as general framework to perform random vertical splitting which can be applied to a wide range of applications. In this chapter, first we introduce the IMO procedure, followed by a multiple-imputation based discussion on determining the number of required sub-samples. Then a special case of it will be studied in detail where only a few sub-samples (sometimes even one) would be sufficient. We call such estimators the final information limit estimators.
+One of the situations that could create clustered big data is where the cluster sizes are becoming large. For such cases, data splitting at cluster level would not be able to solve the issue. Therefore, one may need to perform the splitting for the observations within each subject. There are several ways to perform this splitting. \cite{Iddi2011} considered non-overlapping vertical clusters. Here we proposed the \emph{iterative multiple oututation} (IMO) as general framework to perform random vertical splitting which can be applied to a wide range of problems. In the rest of this chapter, first we introduce the IMO procedure, followed by a multiple-imputation based discussion on determining the number of required sub-samples (for more details on this topic see Section~\ref{secc_IMI}). Then an important special case of random vertical splitting will be studied in detail where only a few sub-samples (sometimes even one) would be sufficient to obtain correct estimates. We call such estimators the finite information limit estimators.
 
 
 \section{Iterative multiple outputation}
 
-Iterative multiple outputation (IMO) procedure is introduced as follows,
+As we have already discussed in Section~\ref{sec_intro_random_vertical}, iterative multiple outputation (IMO) procedure is introduced as follows,
 
 \begin{enumerate}
 \item \textbf{Start.} Select an initial number of sub-samples, $M_0$, and sub-sampling size $m$. Take $M_0$ sub-samples of size $m$, fit the model to each and obtain $\widehat{\theta}_i$ and its variance $\Sigma_{\widehat{\theta}_i}$ ($i=1,\ldots,M_0$). Then compute 
@@ -3067,42 +3066,59 @@ Where for $m=r$ we have,
 
 One important step in this procedure is the Stopping rule step where we need to decide when to stop sub-sampling. It is important because early termination of the procedure would lead to imprecise results, and continuing too long would be against the initial motivation behind using such a procedure which was saving time. 
 
-As it was discussed, instead of studying the number of sub-samples in an IMO procedure, we have introduced the iterative multiple imputation (IMI) procedure and studied the stopping rule for the number of imputed datasets. The same conclusions as there can be made for the case of IMO. More details on this topic can be found in Section \ref{secc_IMI}. In brief, we proposed to use Mahalanobis distance \citep{mahalanobis1936} between estimated parameters and their covariance matrices between two successive steps. 
+The stopping rule in IMO is inspired by our work on iterative multiple imputation (Section~\ref{secc_IMI}). An important step in this procedure is to find an appropriate distance in step 3. The distance selected in this step will basically determine how many sub-samples are sufficient to obtain valid results. More details on different possible candidate distances and their pros and cons are discussed in Section~\ref{secc_IMI}. In brief, we proposed to use Mahalanobis distance \citep{mahalanobis1936} between estimated parameters and their covariance matrices between two successive steps. 
+
+
 
 \begin{equation}
 \label{mal_dis0}
 d_{m+1}^{\mathrm{Mah}} = \sqrt{\left(\widetilde{\bftheta}_{m+1}- \widetilde{\bftheta}_{m}\right)^T S^{-1} \left(\widetilde{\bftheta}_{m+1}- \widetilde{\bftheta}_{m}\right)},
 \end{equation}
 
-For $S$ in (\ref{main_model} we proposed to use the combined covariance matrix at step $m+1$. The combination rule is the same as in (\ref{eq_combination_variance}). More details on the reasons behin this choice can be found in Section \ref{secc_IMI}.
+For $S$ in (\ref{mal_dis0}) we proposed to use the combined covariance matrix at step $m+1$. More details on the reasons behind this choice can be found in Section \ref{secc_IMI}.
 
-Furthermore, as one may see the procedure will terminate if the stopping rule stays valid for $k_0$ successive steps. That is to prevent an early termination, because the convergence here is not monotone. In an extensive simulation study we have observed $k_0=3$ is a reasonable choice (see Section \ref{IMI}).
+Furthermore, as one may see, the procedure will terminate if the stopping rule stays valid for $k_0$ successive steps. That is to prevent an early termination, because the convergence here is not monotone. In an extensive simulation study we have observed $k_0=3$ is a reasonable choice (see Section \ref{secc_IMI}).
 
-While the sub-sampling would create smaller datasets each time to help the computation time, the task of sub-sampling itself could become cumbersome for very large number of clusters. For such situations we proposed to use the idea of structured horizontal data splitting to take the sub-samples. We have discussed in Chapter~\ref{chap_struc_horiz} and it is proposed in \cite{Lisa2016_2,Lisa2016_3} to split the clustered data based on the cluster sizes such that every split contains clusters of equal sizes. These authors have discussed how this can enhance computations. Here, we have observed that the same idea can be applied to accelerate the sub-sampling step. If the sub-sampling takes place cluster by cluster, it could become very expensive when the number of clusters becomes large. In such case, even using parallel computations would not help much, unless an enormous amount of computation power is at hand. 
 
-When all clusters are of equal size, the sub-set selection can be done for all of them at once. Therefore, a practical solution is first to split the data based on the cluster sizes, then to take the sub-samples from each of these sub-sets. Considering the fact that the unique cluster sizes are not usually too  variable, this task can easily be distributed among different machines. To implement this idea, we proposed the following steps,
 
-\begin{enumerate}
-	\item [Step1. ] Construct a frequency table of the cluster ID's. For example:
+\subsection{Efficient sub-sampling}
+
+While the sub-sampling would create smaller datasets which needs less time to be analyzed, the task of sub-sampling itself could become cumbersome for very large number of clusters. For such situations we proposed to use the idea of structured horizontal data splitting to take the sub-samples. 
+
+We have discussed in Chapter~\ref{chap_struc_horiz} and it is proposed in \cite{Lisa2016_2,Lisa2016_3} to split the clustered data based on the cluster sizes such that every split contains clusters of equal sizes. We have discussed how this can enhance computations. Here, we have observed that the same idea can be applied to accelerate the sub-sampling step. If the sub-sampling takes place cluster by cluster, it could become very expensive when the number of clusters becomes large. In such a case, even using parallel computations would not help much, unless an enormous amount of computation power is at hand. 
+
+When all clusters are of equal size, the sub-set selection can be done at once for all of them. Therefore, a practical solution is first to split the data based on their cluster sizes, then take the sub-samples from each of these sub-sets. Considering the fact that the unique cluster sizes are not usually too variable, this task can easily be distributed among different machines. 
+
+To illustration, consider a sample with the following frequency table of its clusters:
 	\begin{center}
 		\begin{tabular}{ c c c c c c c c}
 			ID1 & ID2 & ID3 & ID4 & ID5& ID6 & ID7 \\ \hline
 			5 & 7 & 3  & 3 & 5 &7 &5 
 		\end{tabular}
 	\end{center}
-	\item [Step2. ] Form a vector consists of repeating each cluster size. For example:
-	\[	
-	\begin{aligned}
-	(5,5,5,5,5,7,7,7,7,7,7,7,3,3,3,3,3,3,5,5,5,5,5,7,7,7,7,7,7,7,\\ 5,5,5,5,5)
-	\end{aligned}
-	\]
-	\item [Step3. ] Define the unique cluster sizes. For example,
-	$$(5,7,3)$$
-	\item [Step4. ] Take all clusters which their size is smaller than or equal to $m$ (the predefined sub-sampling size). Exclude such cluster sizes from unique cluster sizes. For example, if $m=4$ then all cluster of size $4$ will always be fully present in all of the sub-samples. The remaining of unique cluster sizes will be $5$ and $7$.
-	\item [Step5. ] For each of the remaining unique cluster sizes (where $n_k > m$), repeat the following steps:
+To implement this idea, we proposed the following steps,
+
+\begin{enumerate}
+%	\item [Step1. ] Construct a frequency table of the cluster ID's. For example:
+%	\begin{center}
+%		\begin{tabular}{ c c c c c c c c}
+%			ID1 & ID2 & ID3 & ID4 & ID5& ID6 & ID7 \\ \hline
+%			5 & 7 & 3  & 3 & 5 &7 &5 
+%		\end{tabular}
+%	\end{center}
+%	\item [Step2. ] Form a vector consists of repeating each cluster size. For example:
+%	\[	
+%	\begin{aligned}
+%	(5,5,5,5,5,7,7,7,7,7,7,7,3,3,3,3,3,3,5,5,5,5,5,7,7,7,7,7,7,7,\\ 5,5,5,5,5)
+%	\end{aligned}
+%	\]
+%	\item [Step3. ] Define the unique cluster sizes. For example,
+%	$$(5,7,3)$$
+	\item [Step1. ] Take all clusters which their size is smaller than or equal to $m$ (the predefined sub-sampling size). For example, if $m=4$ then all clusters of size $\leq 4$ will always be fully present in all of the sub-samples. The remaining unique cluster sizes will be $5$ and $7$.
+	\item [Step2. ] For each of the remaining unique cluster sizes (where $n_k > m$), repeat the following steps:
 	\begin{enumerate}
-		\item Select all clusters with unique size $n_k$, call $c_k$ the number of such clusters. For example, $n_k=5$, so $ID1$, $ID5$ and $ID7$ will be selected.
-		\item Generate $n_k\times c_k$ random numbers (e.g., from normal distribution) and put them in a matrix of size $n_k \times c_k$. For example, for $n_k=5$ with $c_k=3$ one should generate $15$ random numbers formed as a $4\times 3$ matrix:
+		\item Select all clusters with unique size $n_k$, call $c_k$ the number of such clusters. For example, for $n_k=5$, $c_k$ will be $3$, as we have 3 clusters $ID1$, $ID5$ and $ID7$ with size $5$. 
+		\item Generate $n_k\times c_k$ random numbers (e.g., from a standard normal distribution) and put them in a matrix of size $n_k \times c_k$. For example, for $n_k=5$ with $c_k=3$ one should generate $15$ random numbers formed as a $5\times 3$ matrix:
 	\begin{center}
 		\begin{tabular}{ccc}
 			 0.955 & 0.434 & -0.196 \\ 
@@ -3122,7 +3138,7 @@ When all clusters are of equal size, the sub-set selection can be done for all o
 	   3 &   2 &   3 
 		\end{tabular}
 	\end{center}	
-	\item 	Select the first $m$ observations in the clusters of size $n_k$. For example, for $m=4$:
+	\item 	The first $m$ rows of this matrix are the indexes of the observations we should select from each cluster of size $n_k$. For example, for $m=4$, and $n_k = 5$, we will have:
 		\begin{center}
 		\begin{tabular}{ccc}
 			2 &   4 &   5 \\ 
@@ -3131,11 +3147,16 @@ When all clusters are of equal size, the sub-set selection can be done for all o
 			5 &   1 &   1 
 		\end{tabular}
 	\end{center}	
+	so, from the first cluster (ID1) we will select the second, the fourth, first, and the fifth observations in our sub-sample. 
 	\end{enumerate}
 \end{enumerate}
 
-We have implemented this procedure in R, but it can as well be implemented in any other programming language.
+We have implemented this procedure in R (see R package {\tt{miscVSS}}, also Section~\ref{sec_miscVSS}), but it can as well be implemented in any other programming language.
 
+MAYBE ADD A TABLE WITH SIMULATION RESULTS ON HOW THIS COULD ENHANCE COMPOUTATION TIME, IF WE HAVE.
+
+
+% WE ARE HERE.
 
 \section[Finite Information Limit Estimators]{Finite Information Limit Estimators: Is the Entire Dataset Needed for Analysis?}
 
@@ -4627,7 +4648,7 @@ The R package {\tt{fastAR1}} provides function to:
 \end{itemize}
 
 \section{R package {\tt{miscVSS}}}
-
+\label{sec_miscVSS}
 The R package {\tt{miscVSS}} provides function to:
 
 \begin{itemize}
