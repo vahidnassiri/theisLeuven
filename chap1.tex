@@ -3155,8 +3155,6 @@ To implement this idea, we proposed the following steps,
 
 We have implemented this procedure in R (see R package {\tt{miscVSS}}, also Section~\ref{sec_miscVSS}), but it can as well be implemented in any other programming language.
 
-MAYBE ADD A TABLE WITH SIMULATION RESULTS ON HOW THIS COULD ENHANCE COMPOUTATION TIME, IF WE HAVE.
-
 
 % WE ARE HERE.
 
@@ -4599,15 +4597,15 @@ We have implemented our proposed methods in 5 different R packages as follows:
 
 \item {\tt{fastAR1}}: implements various methods proposed for estimating clustered data with a covariance matrix with AR(1) structure.
 
-\item {\tt{miscVSS}}: implements various methods to perform vertical sample splitting. That includes both random and structured version of this approach.
+\item {\tt{miscVSS}}: implements various methods to perform vertical sample splitting. That includes both random and structured variations of this approach.
 
 \item {\tt{imi}}: implements the iterative multiple imputation technique.
 
-\item {\tt{mifa}}: implements our proposal for explanatory factor analysis for incomplete data using multiple imputations.
+\item {\tt{mifa}}: implements our proposal for explanatory factor analysis for incomplete data using multiple imputation.
 
 \end{itemize}
 
-The source codes for all of these R packages are publicly and freely available via author's github page (\url{https://github.com/vahidnassiri}), and can easily be installed from there using the command {\t{install\_git}} which is available via R package {\tt{devtools}}. Therefore, one needs to first install this R package using the following command:
+The source codes for all of these R packages are publicly and freely available via author's github page (\url{https://github.com/vahidnassiri}), and can easily be installed from there using the command {\tt{install\_github}} which is available via R package {\tt{devtools}}. Therefore, one needs to first install this R package using the following command:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4615,9 +4613,13 @@ The source codes for all of these R packages are publicly and freely available v
 \end{Highlighting}
 \end{Shaded}
 
-Once {\tt{devtools}} is installed, one can use the following command to install any of these packages directly from R environment. Some of the packages are dependent on other R packages. Such dependencies can also be installed automatically in case they user does not already have them installed. 
+Once {\tt{devtools}} is installed, one can use the following command to install any of these packages directly from R environment. Some of the packages are dependent on other R packages. Such dependencies can also be installed automatically in case they user does not already have them installed. For example, to install {\tt{fastCS}} one can use the following command:
 
-
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{devtools::install_github}\NormalTok{(}\StringTok{"vahidnassiri/fastCS"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 
 \section{R package {\tt{fastCS}}}
@@ -4629,33 +4631,36 @@ The R package {\tt{fastCS}} provides functions to:
 \item Combine estimated and their variance from different splits using:
 \vspace{-\topsep}
 \begin{itemize}
-\item parameter-free weights
-\item scalar weights
-\item optimal weights
+\item parameter-free weights,
+\item scalar weights,
+\item optimal weights.
 \end{itemize}
 \vspace{-\topsep}
-\item Perform cluster by cluster analysis
+\item Perform cluster by cluster analysis.
 \end{itemize}
 
 This covers our contributions in Section~\ref{sec_cs}.
 
 \section{R package {\tt{fastAR1}}}
 
-The R package {\tt{fastAR1}} provides function to:
+The R package {\tt{fastAR1}} provides functions to:
 
 \begin{itemize}
-\item Estimate parameters of balanced clustered data with AR1 covariance matrix
-\item Estimate variance of the estimates above
+\item Estimate parameters of balanced clustered data with AR1 covariance matrix.
+\item Estimate variance of the estimates above.
 \item Combine estimated parameters and their variances from different splits.
 \end{itemize}
 
+This covers our contributions in Section~\ref{sec_ar1}.
+
+
 \section{R package {\tt{miscVSS}}}
 \label{sec_miscVSS}
-The R package {\tt{miscVSS}} provides function to:
+The R package {\tt{miscVSS}} provides functions to:
 
 \begin{itemize}
-\item Perform random vertical splitting using iterative multiple outputation with acceleration
-\item Prepare data for structured vertical splitting
+\item Efficient sub-sampling for random vertical splitting.
+\item Prepare data for structured vertical splitting.
 \item Combine the estimated parameters and variances from vertical splitting using appropriate combination rules.
 \end{itemize}
 
@@ -4663,7 +4668,7 @@ This covers our contributions in Chapters~\ref{chap_random_vertical}, and \ref{c
 
 
 \section{R package {\tt{imi}}}
-The R package {\tt{imi}} provides function to:
+The R package {\tt{imi}} provides functions to:
 
 \begin{itemize}
 \item Impute incomplete data and determine the number of sufficient imputed datasets using iterative multiple imputation idea for:
@@ -4674,8 +4679,8 @@ The R package {\tt{imi}} provides function to:
 \item Student's $t$-test
 \end{itemize}
 \vspace{-\topsep}
-\item Study the convergence of the procedure for a given number of imputed datasets
-\item Visualize the convergence procedure and obtained results
+\item Study the convergence of the procedure for a given number of imputed datasets.
+\item Visualize the convergence procedure and obtained results.
 \item Combine estimates and covariance matrices from multiple imputation using appropriate rules.
 \end{itemize}
 
@@ -4686,7 +4691,7 @@ This covers our contributions in Section~\ref{secc_IMI}.
 \section{R package {\tt{mifa}}}
 
 
-The R package {\tt{mifa}} provides function to:
+The R package {\tt{mifa}} provides functions to:
 
 \begin{itemize}
 \item Impute the incomplete data, determine the number of sufficient imputed datasets, and perform exploratory factor analysis on them.
@@ -4710,7 +4715,7 @@ begin with the two promises we made and expalin how they are kept. Given an exam
 
 so we first split horizontally and structured to put all clusters of the same size together, but still from some sizes we might have too many, so we can split those horizontally by randomly. Then we split structured vertically to do the pairsie approach. but then for some pairs the cluster sizes could be too large which then we split randmly byt vertically. ccombination rules will be applied step by step. Find those steps and mention them. From inner splitting to outer. For example, if we 1- split structured horizontal, 2- random horizontal, we first combine the random horizontals, then the results are combined structred horizontal. 
 
-
+FOR FUTURE WORK: talk a bit about small datasets
 
 \chapter{Appendices}
 
