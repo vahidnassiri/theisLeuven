@@ -462,6 +462,70 @@ In developing these methodologies we will make sure to keep two promises:
  
 \end{itemize}
 
+\section{The evolution of statistical models or what are mixed models?}
+
+Before proceeding to the main topic of this thesis which is \emph{data splitting}, we may say a few words about \emph{mixed models}. These models are a main tool to analyze clustered data, and will be visited several times throughout this thesis, so give a brief introduction t them in a plain English might be useful. More technical details about mixed models can be found in \cite{Molenberghs2000} and \cite{molenberghs2005}, in this section we try to explain how they extend the usual linear model and how they are useful to model clustered data. 
+
+In the expression \emph{mixed model}, the model part is clear, so let us begin with the meaning of \emph{mixed}. Mixed here refers to including both random and structured components in our model. And, indeed, considering this, every statistical model is a mixed model. As we have a structured part, and randomness of the error at the individual level. So while it is true that every statistical model is mixed in this way, when we talk about a mixed model, in particular, we mean other than the individual randomness (error of the model, the famous $\epsilon$), we have some other random components in the model as well. Let us consider a usual linear model. 
+
+$$y_i = \mathbf{x}_i\beta + \epsilon_i,$$
+
+where $\mathrm{E}(y_i) = \mu_i = \mathbf{x}_i \beta$, and $\mathrm{Var}(\epsilon_i) = \sigma^2$. This is a linear model with independent observations and homogeneous variance (i.e., the variance of $\epsilon_i$ is constant). One can extend this model to a model with heterogeneous variance by assuming $\mathrm{Var}(\epsilon_i) = \sigma^2_i$. This means the $\epsilon_i$'s have non-equal variances, but still they are uncorrelated. A step further would let them to be correlated: $\mathrm{Var}(\mathbf{\epsilon}_i) = R_i$, where $R$ is a matrix with non-zero off-diagonal elements. In (\ref{cov_evolution}) one can see the evolution of the covariance matrix of the error from a model with independent observations and homogeneous variance to a model with heterogeneous variance and correlated errors.
+
+\begin{equation}
+\label{cov_evolution}
+\left(
+\begin{array}{cccc}
+\sigma^2 & 0 & \ldots & 0 \\
+0 & \sigma^2 & \ldots & 0  \\
+\vdots & \vdots & \ddots & 0 \\
+0 & 0 & \ldots & \sigma^2 \\
+\end{array} \right)\rightarrow \left(
+\begin{array}{cccc}
+\sigma_1^2 & 0 & \ldots & 0 \\
+0 & \sigma_2^2 & \ldots & 0  \\
+\vdots & \vdots & \ddots & 0 \\
+0 & 0 & \ldots & \sigma_p^2 \\
+\end{array} \right)\rightarrow \left(
+\begin{array}{cccc}
+\sigma_1^2 & \sigma_{12} & \ldots & \sigma_{1p} \\
+\sigma_{21} & \sigma_2^2 & \ldots & \sigma{2p}  \\
+\vdots & \vdots & \ddots & 0 \\
+\sigma_{p1}& \sigma_{p2} & \ldots & \sigma_p^2 \\
+\end{array} \right)
+\end{equation}
+
+The covariance matrix on the right side of (\ref{cov_evolution}) is called unstructured. But depending in the problem, one can impose structures on this covariance matrix. The two famous structures that are used in different applications are compound-symmetry, and first order autoregressive (AR1) structures. A compound-symmetry structure is defined as follows:
+
+\begin{equation}
+\label{cov_cs}
+\left(
+\begin{array}{cccc}
+\sigma^2 + d & d & \ldots & d \\
+d & \sigma^2 + d & \ldots & d  \\
+\vdots & \vdots & \ddots & d \\
+d & d & \ldots & \sigma^2 + d \\
+\end{array} \right)
+\end{equation}
+
+As one may see in (\ref{cov_cs}), a compound-symmetry structure considers a constant variance equal to $\sigma^2 + d$ as well as a constant covariance equal to $d$. An AR1 structure would consider a constant variance equal to $\sigma^2$, but the correlations (off-diagonal elements) would depend on the distance between two terms:
+
+
+\begin{equation}
+\label{cov_ar1}
+\left(
+\begin{array}{cccc}
+\sigma^2  & \sigma^2\rho & \ldots & \sigma^2\rho^{p-1} \\
+\sigma^2\rho & \sigma^2  & \ldots & \sigma^2\rho^{p-1}  \\
+\vdots & \vdots & \ddots & \sigma^2\rho^{p-1} \\
+\sigma^2\rho & \sigma^2\rho^2 & \ldots & \sigma^2  \\
+\end{array} \right)
+\end{equation}
+
+In other words, CS covariance structure considers constant variance and covariance among different components, while the covariance in AR1 case decays as the distance between two component becomes larger. 
+
+We already have a complicated model that allows modeling clustered data. However, the only source of randomness in this model is still the error (randomness due to variability at the individual level). In some situations, there could be other sources of variability as well. In order to treat data from each cluster 
+
 \section{Data splitting: a unified approach}
 
 Data splitting is a general idea to deal with big, massive, and large data. Large here could be any of the cases we have mentioned above, or a combination of them. Our general approach to deal with this situation consists of three main steps as follows. We call these three steps \textit{data splitting}.
@@ -691,7 +755,7 @@ A very useful dataset to illustrate the usefulness of random vertical splitting 
 
 So far we have discussed random horizontal and random vertical splitting, as well as structured horizontal splitting. In case of the vertical splitting also, pre-defining some sub-sampling structures (other than random) could be beneficial. We have already seen one application of structured splitting in case of horizontal splitting, which enabled us to form balanced sub-samples. In this section we will discuss an application of structured splitting in case of vertical sample splitting.
 
-We have considered an important case of jointly modeling several outcomes via random effects as a useful example for structured vertical splitting. Such a problem can easily become infeasible when the number of outcomes becomes large (even tens of them). \cite{fieuws2006} and \cite{fieuws2007} proposed to analyze all possible pairs of all outcomes instead of analyzing them simultaneously. Then use appropriate combination rules to find the parameters of the model of interest. To illustrate the problem, also to show how structural vertical splitting is similar to the approach of \cite{fieuws2006} and \cite{fieuws2007}, also, to see how it is different from random vertical splitting, we present a simple example. 
+We have considered an important case of jointly modeling several outcomes via random effects as a useful example for structured vertical splitting. Such a problem can easily become infeasible when the number of outcomes becomes large (even tens of them). \cite{fieuws2006} and \cite{fieuws2007} proposed to analyze all possible pairs of all outcomes instead of analyzing them simultaneously. Then use appropriate combination rules to find the parameters of the model of interest. To illustrate the problem, also to show how structural vertical splitting is similar to the approach of \cite{fieuws2006} and \cite{fieuws2007}, and, to see how it is different from random vertical splitting, we present a simple example. 
 
 Imagine we have 3 outcomes to be jointly modeled. A random effects approach would fit a separate model to each outcome, then let them to be correlated by defining a joint distribution for their random effects. This joint distribution is usually a normal distribution where its covariance matrix would capture the dependencies between different outcomes. Let us elaborate more here. If the three separate models (all linear) for the three outcomes are defined using the following general form:
 
