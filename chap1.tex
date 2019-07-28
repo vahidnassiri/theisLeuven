@@ -22,7 +22,7 @@
 \newtheorem{property}{Property}[chapter]
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{remark}{Remark}[chapter]
-
+\usepackage{numprint}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \usepackage[
   paperwidth=17cm,
@@ -1024,9 +1024,9 @@ The positive and negative syndrome scale (PANSS) was used to asses the global co
 
 The cholesterol dataset includes cholesterol levels for 28 patients treated at a Pennsylvania medical center. The cholesterol levels have been recorded on day 2, day 4 and day 14 after an attack for each patient. However, there are 9 missing values for day 14. This dataset was analyzed by \citet[Chapter 5]{schafer1997} and is publicly available in the \textsc{R} package {\ttfamily{norm2}}. We will use this dataset to illustrate the use of iterative multiple imputation (IMI) in case of Student's $t$-test. 
 
-%\section{Age-related macular degeneration (ARMD)} 
-%
-%The data come from a clinical trial in age-related macular degeneration (ARMD), which is a disease of the retina that causes severe central vision loss. The data consist of a multi-center study (17 centers) to evaluate the effect of an experimental treatment based on interferon-$\alpha$ in a group of patients who were randomly allocated to either placebo or interferon-$\alpha$. The outcome of interest was the change in visual acuity over time. Using standard vision charts, the visual acuity was measured by the number of letters that were correctly read by the patient. The data is used in the context of surrogate endpoint evaluation. The goal of this analyses is to examine if  visual acuity at week 24 could be an appropriate surrogate for the one at week 52, the so-called true endpoint. To this end, the surrogate and the true endpoint have to be modelled jointly. Because of the bivariate nature of the model, coupled with the multi-centre nature of the study, a mixed model is used, by which surrogate evaluation measures are estimated. The data however is highly unbalanced and only has 17 clusters. This makes the iterative algorithms to face with difficulty in convergence. 
+\section{Age-related macular degeneration (ARMD)} 
+\label{sec_armd}
+The data come from a clinical trial in age-related macular degeneration (ARMD), which is a disease of the retina that causes severe central vision loss. The data consist of a multi-center study (17 centers) to evaluate the effect of an experimental treatment based on interferon-$\alpha$ in a group of patients who were randomly allocated to either placebo or interferon-$\alpha$. The outcome of interest was the change in visual acuity over time. Using standard vision charts, the visual acuity was measured by the number of letters that were correctly read by the patient. The data is used in the context of surrogate endpoint evaluation. The goal of this analyses is to examine if  visual acuity at week 24 could be an appropriate surrogate for the one at week 52, the so-called true endpoint. To this end, the surrogate and the true endpoint have to be modelled jointly. Because of the bivariate nature of the model, coupled with the multi-centre nature of the study, a mixed model is used, by which surrogate evaluation measures are estimated. The data however is highly unbalanced and only has 17 clusters. This makes the iterative algorithms to face with difficulty in convergence. The data can be obtained from the \emph{Surrogate package} in \textsf{R} \citep{surrogate2016}.
 %
 %\cite{van2016} proposed to use multiple imputation to create several balanced datasets. This idea greatly helps the convergence, but also bring up an important qeustion: how many imputed datasets could be enough to find correct conclusions? Therefore, it is a suitable situation to apply our ideas on determining the number of imputed datasets (translated to number of sub-samples in data splitting language).
 
@@ -4777,20 +4777,173 @@ The R package {\tt{mifa}} provides functions to:
 
 This covers our contributions in Section~\ref{secc_mifa}.
 
-\chapter{Conclusions}
+\chapter{Conclusions and Future Plan}
+\label{chap_conclusions}
 
-begin with the two promises we made and expalin how they are kept. Given an example of a situation where every thing is there together, 
+In this chapter we will summarize our work and describe how we could achieve the goals we have set for this PhD thesis. We will also draw some future research lines based on the results we have obtained and the methodologies we have developed.
+
+\section{Conclusions}
+\label{sec_conc}
+Data Splitting has been considered, investigated, and developed in order to deal with analysis of large clustered data. Clustered data are were considered to be large if
 
 \begin{itemize}
-\item very large sample size
-\item highly unbalanced
-\item many responses
-\item each of very large size
+\item The number of clusters becomes large
+\item The size of some clusters becomes large
+\item A combination of both.
+\end{itemize}
+We have considered four different splitting approaches: random and structured horizontal splitting that were useful when the number of clusters becomes large, also random and structured vertical splitting when the size of some clusters becomes large. For each case efficient splitting strategies (sub-sampling) and combination rules have been developed. Two promises have been made to be kept for all the methodologies we have developed:
+
+
+\begin{itemize}
+\item While each methodology can deal with one situation, it should be easily possible to combine methodologies to deal with a combined situation.
+
+\item The splitting and combining steps of our methodology should be as independent as possible from the analyses step, so one can easily (or with a minor modification) use it for its desired analysis.
+ 
 \end{itemize}
 
-so we first split horizontally and structured to put all clusters of the same size together, but still from some sizes we might have too many, so we can split those horizontally by randomly. Then we split structured vertically to do the pairsie approach. but then for some pairs the cluster sizes could be too large which then we split randmly byt vertically. ccombination rules will be applied step by step. Find those steps and mention them. From inner splitting to outer. For example, if we 1- split structured horizontal, 2- random horizontal, we first combine the random horizontals, then the results are combined structred horizontal. 
+Using an artificial example we will illustrate how all different developed methodologies in this thesis can be combined to analyze large clustered data both at splitting and combining steps. First let us to describe our example.
 
-FOR FUTURE WORK: talk a bit about small datasets
+Liver is responsible for concentrating and metabolizing a majority of medications, so it is a prime target for medication-induced damage. Drug-induced liver injury (DILI) is also one of the main reasons for drug withdrawal from the market. Therefore, detecting DILI as early as possible during drug development process is crucial. As using a low dose would create to effect, while a high dose would lead to injuries to body organs. High content screening (HCS) is a modern technique to detect toxic compound in an early stage (before the drug is on the market and its toxicity is realized because of injuries it cause to the organs of patient who take it). 
+
+HCS is an in vitro study that cells are incubated with various doses of different chemical compounds and then several outcomes of interest will be measured for these cells (or genes). In case of DILI, such outcomes are interest are parameters such as nuclei counts, nuclear area, plasma membrane integrity, lysosomal activity, mitochondrial membrane potential (MMP), and mitochondrial area. Now imagine we have 10,000 different chemical compounds, and for each of them at most 50 different doses are considered, and for each dose these 6 different outcomes o interest are measured. Therefore, the final dataset will have the form displayed in Table~\ref{tab_dili}. This is a typical scheme for the data coming out of HCS studies, see e.g., \cite{kaliyaperumal2018pharmacogenomics}.
+
+
+\begin{table}[h]
+\centering
+\caption{Data structure of high content screening study of DILI responses.}
+\label{tab_dili}
+ \resizebox{\textwidth}{!}{ 
+ \begin{tabular}{l|c|ccc}
+   \hline\hline
+Response of interest& Dose& Compound 1 & $\ldots$ & Compound 10,000\\
+\hline
+\multirow{3}{*}{nuclei counts} & Dose1 & .& .& .\\ 
+ & $\vdots$ &. & .& .\\ 
+  & Dose20 &- & .& .\\ 
+   & Dose21 &- & .& .\\ 
+    & $\vdots$ &. & .& .\\ 
+ & Dose50 &. & .& .\\ 
+ \hline
+ \multirow{3}{*}{nuclear area} & Dose1 &. & .& . \\ 
+ & $\vdots$ &. & .& .\\ 
+  & Dose20 &- & .& .\\ 
+   & Dose21 &- & .& .\\ 
+    & $\vdots$ &. & .& .\\ 
+ & Dose50 &. & .& .\\ 
+ \hline
+  \multirow{3}{*}{plasma membrane integrity} & Dose1 &. & .& .\ \\ 
+ & $\vdots$ &. & .& .\\ 
+  & Dose20 &- & .& .\\ 
+   & Dose21 &- & .& .\\ 
+    & $\vdots$ &. & .& .\\ 
+ & Dose50 &. & .& .\\ 
+ \hline
+   \multirow{3}{*}{plasma membrane integrity} & Dose1 &. & .& . \\ 
+ & $\vdots$ &. & .& .\\ 
+  & Dose20 &- & .& .\\ 
+   & Dose21 &- & .& .\\ 
+    & $\vdots$ &. & .& .\\ 
+ & Dose50 &. & .& .\\ 
+ \hline
+    \multirow{3}{*}{lysosomal activity} & Dose1 &. & .& . \\ 
+ & $\vdots$ &. & .& .\\ 
+  & Dose20 &- & .& .\\ 
+   & Dose21 &- & .& .\\ 
+    & $\vdots$ &. & .& .\\ 
+ & Dose50 &. & .& .\\ 
+ \hline
+     \multirow{3}{*}{mitochondrial membrane potential} & Dose1 &. & .& .\\ 
+ & $\vdots$ &. & .& .\\ 
+  & Dose20 &- & .& .\\ 
+   & Dose21 &- & .& .\\ 
+    & $\vdots$ &. & .& .\\ 
+ & Dose50 &. & .& .\\ 
+ \hline
+      \multirow{3}{*}{mitochondrial area} & Dose1 &. & .& . \\ 
+ & $\vdots$ &. & .& .\\ 
+  & Dose20 &- & .& .\\ 
+   & Dose21 &- & .& .\\ 
+    & $\vdots$ &. & .& .\\ 
+ & Dose50 &. & .& .\\ 
+   \hline\hline
+\end{tabular}}
+\end{table}
+
+
+As one may see in Table~\ref{tab_dili}, each chemical compound is a cluster for which 6 responses of interest are measured each for at most 50 doses. Therefore, we have 10,000 unbalanced clusters of size at most 300. Note that, being unbalanced is a common situation in practice, as different chemical compounds exhibit different safety windows, hence, considering different doses per compound is not out of ordinary. 
+
+Three immediate data splitting approaches that can be applied on this dataset are
+\begin{itemize}
+\item structured horizontal splitting to put all compounds with the same number of doses in one split,
+\item random horizontal splitting to split all the compounds of equal number of doses into smaller chunks,
+\item and, structured vertical splitting to model pairs of six outcomes instead of modeling them simultaneously.
+\end{itemize}
+Of course, if it is meaningful, one can even split the data at the dose level (random vertical splitting). But as one main parameter of interest in such dose-response data if the median effective dose (ED50), such a splitting would not be appropriate in this situation. 
+
+As one may see, combining these three (or four) methodologies is an straightforward exercise at the splitting stage: each unit consists of a measurements for a pair of responses, measured for a randomly selected subset of all compounds with the same number of doses. After fitting the models and estimating the parameters of interest (ED50's here), combining the combination step is also straightforward: for a randomly selected horizontal split within all compounds of the same size, all the estimates from different pairs should be combined using multiple outputation combination rules, then these combined estimates will be combined using proportional weights. The outcome of this combination step will give us the estimated parameters for all the compounds of the same size. The final step will be combining them using e.g., size proportional weights to obtain the final set of parameter estimates.
+
+As we have seen in this example, the splitting schemes and combination rules can be combined in a rather straightforward procedure and valid estimates could be obtained in a reasonably faster time. As each split in this procedure is completely independent of one another, the computation task as so-called embarrassingly parallel. That would make the job of distributing these task among different machines straightforward. Available facilities in R and other computational languages for parallel computation can easily be used to run these tasks in parallel loops. As it was discussed, this gain of computation time comes at the cost of losing a bit of efficiency. But in most of the situation this is negligible, given the fact data splitting is usually necessary when the sample size is large, there each split is still large enough to provide valid results.  
+
+
+
+
+
+\section{Future research plan}
+\label{sec_future}
+
+As it was remarked in Section~\ref{sec_conc}, data splitting is usually used when the sample size is large, however, this is not always the case. In fact, large and small datasets are suffering from the same issues but for different reasons. For example, a complicated model is difficult to get converged for both large and small datasets. For a large dataset, too many measurement makes achieving convergence difficult, while for small datasets lack of information gievn the complexity of the model is the cause. This said, we believe using data splitting one can even achieve better convergence in case of small clustered data.
+
+\cite{wim2015} have shown that unbalancedness is a source of difficulty of convergence in case of linear mixed models. In fact, a smaller but balanced set of data would have a greater chance of convergence compared with a larger but highly unbalanced one. We believe, a technique like random vertical splitting can be used to created many balanced sub-samples of an unbalanced dataset. In other words, instead of analyzing small number of clusters that are highly unbalanced hence not converging, one may analyze many sub-sets of this dataset (taken with random vertical splitting technique) each consist of the same number of cluster but of smaller equal sizes. Just to illustrate our idea for the immediate future research, we have analyzed the ARMD dataset (see Section~\ref{sec_armd}) using random vertical splitting. The results are promising.
+
+As it was described in Section~\ref{sec_armd}, the data come from a clinical trial in age-related macular degeneration (ARMD), which is a disease of the retina that causes severe central vision loss. \cite{pharmacological1997} conducted a multi-center study (17 centers) to evaluate the effect of an experimental treatment based on interferon-$\alpha$ in a group of patients who were randomly allocated to either placebo or interferon-$\alpha$. The outcome of interest was the change in visual acuity over time. Using standard vision charts, the visual acuity was measured by the number of letters that were correctly read by the patient. Table~\ref{tab_freq} shows a frequency table of different cluster sizes in the ARMD dataset. 
+
+\begin{table}[t]
+\centering
+\caption{Frequency of centres based on the number of patients.}
+\label{tab_freq}
+
+\vspace*{2mm}
+
+\begin{tabular}{lcccccc}
+  \hline\hline
+Number of patients & 5 & 6 & 7 & 8 & 9 & 18 \\ 
+Number of centres &   7 &   2 &   4 &   1 &   2 &   1 \\ 
+   \hline\hline
+\end{tabular}
+\end{table}
+
+\cite{burzykowski2006} and \cite{alonso2015} analyzed this dataset in the context of surrogate endpoint evaluation. The goal of their analyses was to examine if  visual acuity at week 24 could be an appropriate surrogate for the one at week 52, the so-called true endpoint. To this end, the surrogate and the true endpoint have to be modelled jointly.
+Because of the bivariate nature of the endpoint, coupled with the multi-centre nature of the study, a mixed model is used, by which surrogate evaluation measures are estimated; see also \cite{buyse2000}. 
+
+As is clear from Table~\ref{tab_freq}, the data are highly unbalanced, presenting the observed-likelihood model fitting procedure with serious convergence issues. \cite{wim2015} proposed to treat these unbalanced data as an incomplete set, where the data in each centre are considered relative to the maximally observed centre size. MI can then be used to balance the data, i.e., to make all centres of size 18 in this case. 
+
+Here we propose to use random vertical splitting to create several (almost-) balanced datasets smaller sizes. The surrogate model used here is the same as the one described in Section~\ref{sec_surrogate_model}. COnsidering unstructured covariance matrices, the model cannot be converged using full maximum likelihood, in order to evaluate random vertical splitting, we would consider a model with uncorrelated random effects where a full likelihood can also be fitted.
+
+
+\begin{table}[ht]
+\centering
+\caption{Mean (standard deviation) of the estimated for the variance components, fixed effects, and also the number of iterations (Iter) in the converged cases using multiple discarding (with cluster size equal to 5 and 8) and multiple imputation comparing with full data for VC covarianc structure for both random and repeated statements.}
+\label{summary_armd_vc}
+\npdecimalsign{.}
+\nprounddigits{3}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ccccc}
+  \hline\hline
+ & $M=5$ & $M=8$ & Full \\ 
+  \hline
+$d_1$ & 9.537 (8.740) & 11.147 (3.519) &8.943 \\ 
+  $d_2$ & 3.031 (5.284) & 1.692 (3.113) 7.751 \\ 
+  $R_1$ & 186.401 (16.202) & 189.351 (7.0512) 	&188.508 \\ 
+  $-1$ & -7.592 (0.656) & -7.502 (0.320) 	&-7.536 \\ 
+  $1$ & -14.169 (0.751) & -13.943 (0.348)  	&-14.121 \\ 
+  $Z* -1$ & -1.513 (0.697) & -1.458 (0.312) 	&-1.091 \\ 
+  $Z* 1$ & -1.820 (0.739) & -1.687 (0.332)	 &-1.234 \\ 
+   \hline\hline
+\end{tabular}}
+\end{table}
+
+OTHER: implement a unified R package for all types of splitting and combination rules together with parallel computing possibilities to be distributed on several machines.
+
 
 \chapter{Appendices}
 
@@ -7060,6 +7213,7 @@ The Kruskal-Wallis test statistic asymptotically follows a $\chi^2$ distribution
 \end{itemize}
 
 \section{The surrogate model}
+\label{sec_surrogate_model}
 The model takes the form:
 \begin{equation}
 \label{surrogatemodel}
