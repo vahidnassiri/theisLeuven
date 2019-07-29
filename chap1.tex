@@ -4917,32 +4917,31 @@ Because of the bivariate nature of the endpoint, coupled with the multi-centre n
 
 As is clear from Table~\ref{tab_freq}, the data are highly unbalanced, presenting the observed-likelihood model fitting procedure with serious convergence issues. \cite{wim2015} proposed to treat these unbalanced data as an incomplete set, where the data in each centre are considered relative to the maximally observed centre size. MI can then be used to balance the data, i.e., to make all centres of size 18 in this case. 
 
-Here we propose to use random vertical splitting to create several (almost-) balanced datasets smaller sizes. The surrogate model used here is the same as the one described in Section~\ref{sec_surrogate_model}. COnsidering unstructured covariance matrices, the model cannot be converged using full maximum likelihood, in order to evaluate random vertical splitting, we would consider a model with uncorrelated random effects where a full likelihood can also be fitted.
+Here we propose to use random vertical splitting to create several (almost-) balanced datasets smaller sizes. The surrogate model used here is the same as the one described in Section~\ref{sec_surrogate_model}. When fitting the model with an unstructured covariance matrix for the random effects, as the sub-sampling size increases, the rate of convergence decreases. With a sub-sampling size $5$ in about $70\%$ of the times (out of 1000 sub-samples) the model could converge, while if we increase the sub-sampling size to $8$ the rate drops to $20\%$. Considering unstructured covariance matrices, the model cannot be converged using full maximum likelihood, in order to evaluate random vertical splitting, we would consider a model with uncorrelated random effects where a full likelihood can also be fitted.
 
 
-\begin{table}[ht]
+\begin{table}[h]
 \centering
-\caption{Mean (standard deviation) of the estimated for the variance components, fixed effects, and also the number of iterations (Iter) in the converged cases using multiple discarding (with cluster size equal to 5 and 8) and multiple imputation comparing with full data for VC covarianc structure for both random and repeated statements.}
+\caption[Analyzing ARMD data with random vertical splitting]{Mean (standard deviation) of the estimates for the variance components and fixed effects in the converged cases random vertical splitting (with sub-sampling size $M=5$ and $M=8$), and full data maximum likelihood with independent random effects and constant variance for the error. $d_1$ and $d_2$ are the diagonal elements of the random effects covariance matrix, $\sigma^2$ is the error variance. $1$ and $-1$ are the fixed effects corresponds to true and surrogate endpoints, respectively. Also, $Z*1$ and $Z*-1$ are the effect of treatment on true and surrogate endpoints, respectively.}
 \label{summary_armd_vc}
-\npdecimalsign{.}
-\nprounddigits{3}
-\resizebox{\textwidth}{!}{%
 \begin{tabular}{ccccc}
   \hline\hline
- & $M=5$ & $M=8$ & Full \\ 
+ & $M=5$ & $M=8$ & Full likelihood \\ 
   \hline
 $d_1$ & 9.537 (8.740) & 11.147 (3.519) &8.943 \\ 
-  $d_2$ & 3.031 (5.284) & 1.692 (3.113) 7.751 \\ 
-  $R_1$ & 186.401 (16.202) & 189.351 (7.0512) 	&188.508 \\ 
+  $d_2$ & 3.031 (5.284) & 1.692 (3.113) & 7.751 \\ 
+  $\sigma^2$ & 186.401 (16.202) & 189.351 (7.0512) 	&188.508 \\ 
   $-1$ & -7.592 (0.656) & -7.502 (0.320) 	&-7.536 \\ 
   $1$ & -14.169 (0.751) & -13.943 (0.348)  	&-14.121 \\ 
   $Z* -1$ & -1.513 (0.697) & -1.458 (0.312) 	&-1.091 \\ 
   $Z* 1$ & -1.820 (0.739) & -1.687 (0.332)	 &-1.234 \\ 
    \hline\hline
-\end{tabular}}
+\end{tabular}
 \end{table}
 
-OTHER: implement a unified R package for all types of splitting and combination rules together with parallel computing possibilities to be distributed on several machines.
+As we may see in Table~\ref{summary_armd_vc}, except for $d_2$,for  other parameters we get an estimate close to the one obtained using full maximum likelihood. Of course, this is a first experiment with this idea. More theoretical work as well as simulation studies are needed to establish a solid framework for this case.
+
+Other than extending data slitting to be used to deal with small-sample issues, our other immediate plan to extend this work is to implement a unified R package for all types of splitting and combination rules together with parallel computing possibilities to be distributed on several machines. This sound like to be the next natural step to take. As they are all implemented separately, also given the embarrassingly parallel nature of our proposed methodology, implementing parallel computing is rather straightforward.
 
 
 \chapter{Appendices}
