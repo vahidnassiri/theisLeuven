@@ -466,7 +466,7 @@ In developing these methodologies we will make sure to keep two promises:
 
 Before proceeding to the main topic of this thesis which is \emph{data splitting}, we may say a few words about \emph{mixed models}. These models are a main tool to analyze clustered data, and will be visited several times throughout this thesis. More technical details about mixed models can be found in \cite{Molenberghs2000} and \cite{molenberghs2005}, in this section we try to explain how they extend the usual linear models to be useful for analyzing clustered data. 
 
-In the expression \emph{mixed model}, the model part is clear, so let us begin with the meaning of \emph{mixed}. Mixed here refers to including both random and structured components in our model. Considering this, indeed, every statistical model is a mixed model. As we have a structured part, and randomness of the error at the individual level. So while it is true that every statistical model is a mix of structure and randomness, when we talk about a mixed model in particular, we mean other than the individual randomness (error of the model), we have some other random components in the model as well. Let us consider a usual linear model: 
+In the expression \emph{mixed model}, the model part is clear, so let us begin with the meaning of \emph{mixed}. Mixed here refers to including both random and structured components in our model. Considering this, indeed, every statistical model is a mixed model. As we have a structured part, and randomness of the error at the individual level. So while it is true that every statistical model is a mixture of structure and randomness, when we talk about a mixed model in particular, we mean other than the individual randomness (error of the model), we have some other random components in the model as well. Let us consider a usual linear model: 
 
 \begin{equation}
 \label{lin_model}
@@ -497,7 +497,7 @@ where $\mathrm{E}(y_i) = \mu_i = \mathbf{x}_i \beta$, and $\mathrm{Var}(\epsilon
 \end{array} \right)
 \end{equation}
 
-The covariance matrix on the right side of (\ref{cov_evolution}) is called unstructured. But depending on the problem, one can impose structures on this covariance matrix. The two famous structures that are used in different applications are compound-symmetry, and first order autoregressive (AR1) structures. A compound-symmetry structure is defined as follows:
+The covariance matrix on the right side of (\ref{cov_evolution}) is called unstructured. But depending on the problem, one can impose appropriate structures on this covariance matrix. The two famous structures that are used in different applications are compound-symmetry, and first order autoregressive (AR1) structures. A compound-symmetry structure is defined as follows:
 
 \begin{equation}
 \label{cov_cs}
@@ -507,7 +507,7 @@ The covariance matrix on the right side of (\ref{cov_evolution}) is called unstr
 d & \sigma^2 + d & \ldots & d  \\
 \vdots & \vdots & \ddots & \vdots \\
 d & d & \ldots & \sigma^2 + d \\
-\end{array} \right)
+\end{array} \right).
 \end{equation}
 
 As one may see in (\ref{cov_cs}), a compound-symmetry structure (CS) considers a constant variance equal to $\sigma^2 + d$ as well as a constant covariance equal to $d$. An AR1 structure would consider a constant variance equal to $\sigma^2$, but the correlations (off-diagonal elements) would depend on the distance between two components:
@@ -531,11 +531,11 @@ We already have a complicated model that allows modeling clustered data. However
 Take probably the most famous example in this setting: classes in the schools, and students in the classes. Of course, a source of variability here is coming from the students themselves. But schools are playing a role also. In other words, part of the variability in the students could come from the fact that they are all in the same school. In order to include this randomness in the model, the random-effects are introduced. Roughly speaking, random effects are cluster-specific parameters. A model that includes such parameters together with fixed effects (the overall effects) is called a mixed effect model. Such a model will extend the model in (\ref{lin_model}) as follows:
 
 \begin{equation}
-\label{mixed_model}
+\label{mixed_model_intro}
 y_i = \mathbf{x}_i \beta + \mathbf{z}_i \mathbf{b}_i + \epsilon_i,
 \end{equation}
 
-comparing (\ref{lin_model}) and (\ref{mixed_model}), we may see the difference is $\mathbf{z}_i \mathbf{b}_i$. The $\mathbf{b}_i$'s are indeed the cluster-specific parameters or random effects. They are (usually) considered to follow a multivariate normal distribution with mean $\mathbf{0}$ and covariance matrix $D$. We may still assumer $\epsilon_i \sim N(\mathbf{0}, R_i)$. 
+comparing (\ref{lin_model}) and (\ref{mixed_model_intro}), we may see the difference is $\mathbf{z}_i \mathbf{b}_i$. The $\mathbf{b}_i$'s are indeed the cluster-specific parameters or random effects. They are (usually) considered to follow a multivariate normal distribution with mean $\mathbf{0}$ and covariance matrix $D$. We may still assume $\epsilon_i \sim N(\mathbf{0}, R_i)$. 
 
 \section{Data splitting: a unified approach}
 
@@ -1042,24 +1042,26 @@ The dataset consists of 141 variables measured in 614 subjects. Various diagnost
 
 \chapter{Random horizontal splitting}
 
-Random horizontal splitting is useful for the cases where the dataset becomes \emph{big} because of number of clusters in there. We have already discussed the splitting pattern as well as the combination rules for this case in Section~\ref{sec_int_random_horizontal}. In this chapter we will illustrate this technique to fit a model to a subset of Divorce in Flanders dataset that could not be fitted with conventional methods and software. First, we explain the research question and our statistical formulation of it. Then we will see how conventional methods would fail in this case, and finally using random horizontal splitting we can fit the model that we could not be fitted otherwise.
+Random horizontal splitting is useful for the cases where the dataset becomes \emph{big} because of number of clusters in there. We have already discussed the splitting pattern as well as the combination rules for this case in Section~\ref{sec_int_random_horizontal}. In this chapter we will illustrate this technique to fit a model to a subset of Divorce in Flanders dataset that could not be fitted with conventional methods and software. First, we explain the research question and our statistical formulation of it. Then we will see how conventional methods would fail in this case, and finally using random horizontal splitting we will fit the model that we could not be fitted otherwise.
 
 \section{The research question}
 
-Divorce in Flanders dataset presented data from Big Five Inventory (BFI) answered by Flemish families. This BFI is a questionnaire of 44 items which should be answered with scores from 1 to 5. These 44 questions are measuring 5 aspects of personality: openness to the experience, conscientiousness, extraversion, agreeableness, and neuroticism.  Our interest is to study the correlation of each of these 5 aspects of personality between 3 main family roles: mother, father, and child. This would possibly reveal useful patterns in different characteristic qualities and show how they are related between parents, and their child. So the main research question here is: how different aspects of personality are correlated between different family roles. The difficulty arises because the five aspects of personality are latent variable and cannot directly be measured.
+Divorce in Flanders dataset presented data from Big Five Inventory (BFI) questionnaire answered by Flemish families. This BFI is a questionnaire of 44 items which should be answered with scores from 1 to 5. These 44 questions are measuring 5 aspects of personality: openness to the experience, conscientiousness, extraversion, agreeableness, and neuroticism.  Our interest is to study the correlation of each of these 5 aspects of personality between 3 main family roles: mother, father, and child. This would possibly reveal useful patterns in different characteristic qualities and show how they are related between parents, and their child. So the main research question here is: how different aspects of personality are correlated between different family roles. The difficulty arises because the five aspects of personality are latent variable and cannot directly be measured.
 
 
-A simple way to deal with problem is to summarize the 44 items into 5 variables using factor analysis via using dimension reduction techniques (such as principal component analysis). It should be done for each family role separately, forming 15 different variables. A correlation matrix of these 15 variables would provide what we need to some extent. The first issue with this approach is that it would ignore the intraclass correlation coming from the fact that some of the sample members are coming from the same family. In other words, we have two sources of correlation here: one as a result of correlation between different personality aspects and family roles, and yet another one that reflects the fact that the subjects are coming from the same family. We are interested in the former. Therefore, a proper method should distinguish between these two.
+A simple way to deal with problem is to summarize the 44 items into 5 variables using dimension reduction techniques (such as factor analysis via principal component analysis). It should be done for each family role separately, forming 15 different variables. A correlation matrix of these 15 variables would to some extent provide what we need. The first issue with this approach is that it would ignore the intraclass correlation coming from the fact that some of the sample members are coming from the same family. 
 
-To properly take this hierarchical structure into account, we proposed to define 15 responses formed by all combinations of 5 personalty factors and 3 family roles. A mixed model can be used to let all these responses of interest be correlated. The advantages of this approach over using exploratory factor analysis are:
+In other words, we have two sources of correlation here: one as a result of correlation between different personality aspects and family roles, and yet another one that reflects the fact that the subjects are coming from the same family. We are interested in the former. Therefore, a proper method should distinguish between these two.
+
+To properly take this hierarchical structure into account, we propose to define 15 responses formed by all combinations of 5 personalty factors and 3 family roles. A mixed model can be used to let all these responses of interest to be correlated. The advantages of this approach over using exploratory factor analysis are:
 
 \begin{itemize}
 \item The pre-defined structure of the 5 personality factors can be imposed on the 44 items without making any summary (like a principal component). Therefore, this is more in line with confirmatory factor analysis than the exploratory factor analysis.
 
-\item A mixed model formulation would let to separate correlations coming from \emph{being in the same family} from the ones that we actually are interested in.
+\item A mixed model formulation would let us to separate correlations coming from \emph{being in the same family} from the ones that we actually are interested in.
 \end{itemize}
 
-However, the dis-advantage of this approach is the difficulties of fitting a mixed model with 15 responses. In the next section we will provide more details.
+However, the dis-advantage of this approach is the difficulties of fitting a mixed model with 15 responses to a sample of more than 4000 clusters. In the next section we will provide more details.
 
 \section{A mixed model solution}
 
@@ -1067,9 +1069,9 @@ We proposed to use a linear mixed model to jointly model all 15 responses that a
 
 \begin{equation}
 \label{main_model}
-y_{ikj}=\beta_i + b_{ij} + \epsilon_{ijk},\;b_{ij}\sim N(0,d_{ii}),\;\epsilon_{ijk}\sim N(0,\sigma_1^2)
+y_{ijk}=\beta_i + b_{ij} + \epsilon_{ijk},
 \end{equation}
-$b_{ij}$'s ($i=1,\ldots,15, j=1,\ldots,m_j$) are the random effects (latent variables) each representing one factor-role. As we are interested in the associations between all factor-roles, they all will be considered to be correlated following a normal distribution with mean zero and an unstructured covariance matrix $D$ presented in (\ref{D_matrix}). In there the first letter corresponds to the factors (\textbf{A} for agreeableness, \textbf{C} for conscientiousness, \textbf{E} for extraversion, \textbf{N} for neuroticism, and \textbf{O} for openness,) and the second letter corresponds to family roles (\textbf{c} for child, \textbf{m} for mother, and \textbf{f} for father).
+$b_{ij}$'s ($i=1,\ldots,15, j=1,\ldots,m_j$) are the random effects (latent variables) each representing one factor-role. As we are interested in the associations between all factor-roles, they all will be considered to be correlated following a normal distribution with mean zero and an unstructured covariance matrix $D$ presented in (\ref{D_matrix}). In there, the first letter corresponds to the factors (\textbf{A} for agreeableness, \textbf{C} for conscientiousness, \textbf{E} for extraversion, \textbf{N} for neuroticism, and \textbf{O} for openness,) and the second letter corresponds to the family roles (\textbf{c} for child, \textbf{m} for mother, and \textbf{f} for father). The error terms will also be considered to be correlated with an unstructured covariance matrix $R$. 
 
 %{\afterpage{\clearpage % begin landscape tables
 %   \begin{landscape}
@@ -1107,11 +1109,11 @@ d_{Ef,Em} & d_{Ef,Nc}& d_{Ef,Nf}& d_{Ef,Nm} & d_{Ef,Oc}& d_{Ef,Of}& d_{Ef,Om}\\
 %\end{landscape}}}
 
 
-As one may see in (\ref{D_matrix}), by estimating the matrix $D$, all possible associations between personality factors and family roles can be derived. As it is already briefly discussed, the advantages of using a mixed for this problem can be summarized as follows:
+As one may see in (\ref{D_matrix}), by estimating the matrix $D$, all possible associations between personality factors and family roles can be derived. As it is already briefly discussed, the advantages of using a mixed model for this problem can be summarized as follows:
 \begin{itemize}
 \item Specifying the theory-based model in a straightforward fashion (the same as confirmatory factor analysis).
 \item Properly taking different sources of correlations into account.
-\item If needed later on, including extra covariates in the model (such as education) is easily possible in an standard way.
+\item If required later on, including extra covariates in the model (such as education) is easily possible in an standard way.
 \item All required associations can be derived and tested in a proper modeling framework.
 \end{itemize}
 
@@ -1120,11 +1122,11 @@ While considering the above benefits using a mixed model approach is very appeal
 
 \section{A data-splitting based remedy}
 
-While the cluster sizes are not large here (at most 3), considering the size of the sample we have used in this example (4460 families), also the number of outcomes of interest (15 factor-roles), one may think of two possible data splitting based solutions: random horizontal splitting, and structured vertical splitting. We may first try the former, and if it does not work, we may try the latter. If none of them can solve the issue, a combination of both methods can be applied. 
+While the cluster sizes are not large here (at most 3), considering the size of the sample we have used in this example (4460 families), also the number of outcomes of interest (15 factor-roles), one may think of two possible data splitting based solutions: random horizontal splitting, and structured vertical splitting. We may first try the former, and if it does not work, we may try the latter. If none of them can solve the issue, a combination of both methods can be applied (see Section~\ref{sec_conc}). 
 
 
 In order to apply random horizontal splitting, we split 4460 families into three roughly equal sized sub-samples with 
-the sizes $1480,1480,$ and $1500$. Therefore, the proportional weights (\ref{eq_prop_w}) to combine the results from the three sub-samples will be:
+the sizes $1480,1480,$ and $1500$. Therefore, the proportional weights in (\ref{eq_prop_w}) to combine the results from the three sub-samples can be computed as follows:
 \begin{equation}
 \label{prop_weights}
 W=(\frac{1480}{4460},\frac{1480}{4460},\frac{1500}{4460}).
@@ -1132,7 +1134,7 @@ W=(\frac{1480}{4460},\frac{1480}{4460},\frac{1500}{4460}).
 
 Now that the sub-samples are assigned and the proper weights are determined, we may fit the not feasible mixed model in (\ref{main_model}) to each of these sub-samples, obtain the parameters, and use combination rules with weights in (\ref{prop_weights}) to find the final estimates and their standard errors.
 
-The detailed information on $\tilde{D}$ is given in Table \ref{D_matrix}. The estimate for each of the 120 parameters together with standard deviation, $95\%$ confidence interval, $z$-value and $p$-value are given in this table. Figure \ref{d_ci} shows the 120 parameter estimates in $\tilde{D}$ with their corresponding $95\%$ confidence interval. Just to make drawing conclusions easier, Figure \ref{corr_sep} shows parts of the correlation matrix corresponds to each personality factor separately.
+A detailed summary on $\tilde{D}$ (data-splitting based estimate of $D$) is given in Table \ref{D_matrix}. The estimate for each of the 120 parameters together with standard deviation, $95\%$ confidence interval, $z$-value and $p$-value are given in this table. Figure \ref{d_ci} shows the 120 parameter estimates in $\tilde{D}$ with their corresponding $95\%$ confidence interval. Just to make drawing conclusions easier, Figure \ref{corr_sep} shows parts of the correlation matrix corresponds to each personality factor separately.
 
 
 
@@ -1149,9 +1151,14 @@ The detailed information on $\tilde{D}$ is given in Table \ref{D_matrix}. The es
 \setlength\LTleft{0pt}
 \setlength\LTright{0pt}
 \begin{longtable}{@{\extracolsep{\fill}}lcccccc@{}}
-  \hline
+\caption{$D$-matrix parameter estimation summary (120 component $\tilde{D}$)}
+\label{d_est}
+\endfirsthead
+\endhead
+  \hline \hline
 CovParm & Estimate & Std & $95\%$-Lower & $95\%$-Upper & Z-value & P-value \\ 
   \hline
+
  A.child  & 0.183 & 0.013 & 0.158 & 0.208 & 14.421 & 0.000 \\ 
    (A.father,A.child)  & 0.028 & 0.010 & 0.008 & 0.048 & 2.784 & 0.005 \\ 
    A.father  & 0.172 & 0.008 & 0.156 & 0.187 & 21.630 & 0.000 \\ 
@@ -1272,9 +1279,8 @@ CovParm & Estimate & Std & $95\%$-Lower & $95\%$-Upper & Z-value & P-value \\
    (O.mother,O.child)  & 0.117 & 0.012 & 0.093 & 0.141 & 9.487 & 0.000 \\ 
    (O.mother,O.father)  & 0.072 & 0.010 & 0.053 & 0.091 & 7.400 & 0.000 \\ 
    O.mother  & 0.314 & 0.011 & 0.292 & 0.335 & 28.862 & 0.000 \\ 
-   \hline
-   \caption{$D$-matrix parameter estimation (120 component $\tilde{D}$)}
-\label{d_est}
+   \hline\hline
+  
 \end{longtable}
 
 \end{center}
@@ -1297,19 +1303,20 @@ Interesting observations can be made from the results in Table~\ref{d_est}. For 
 
 As it was discussed, while data splitting would help to decrease the computation time or solve an unfeasible problem, this all will come at a price: efficiency loss. Usually, it is not possible to quantify and study this efficiency loss, as the conventional maximum likelihood is not feasible, but one can have an idea about it by using both methods on the same problem but in a smaller scale. In this section we study the estimates using sample splitting in some sub-problems where the likelihood is still feasible to compute. This way the performance of sample splitting can be compared with the full sample likelihood. 
 
-The sub-models would still include all family roles, but the personality factors are considered separately. Therefore, each time we only have 3 outcomes of interest. Table \ref{full_split_comp} shows the results for matrix $D$. As one may see the results of sample splitting and full sample are very similar. This would provide a greater degree of confidence in what we have obtained for all of the 15 responses using random horizontal splitting.
+The sub-models would still include all family roles, but the personality factors are considered separately. Therefore, each time we only have 3 outcomes of interest. Table \ref{full_split_comp} shows the results for matrix $D$. As one may see, the results of sample splitting and full sample are very similar. This would provide a greater degree of confidence in what we have obtained for all of the 15 responses using random horizontal splitting.
 
 
 \begin{table}[ht]
-\caption{Comparing full sample and sample splitting results for each factor separately}
+\caption{Comparing full sample and sample splitting results for each factor separately.}
 \label{full_split_comp}
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{cccccc}
+\hline\hline
 & &Estimate & & Std & \\
   \hline
 Factor&Parameter & Split & Full & Split & Full \\ 
-  \hline
+  
   \hline
   &  child  & 0.176 & 0.186 & 0.013 & 0.013 \\ 
     &  (father,child)  & 0.027 & 0.027 & 0.010 & 0.010 \\ 
@@ -1345,7 +1352,7 @@ Factor&Parameter & Split & Full & Split & Full \\
       &  (mother,child)  & 0.095 & 0.119 & 0.012 & 0.012 \\ 
       &  (mother,father)  & 0.063 & 0.071 & 0.009 & 0.010 \\ 
       &  mother  & 0.269 & 0.311 & 0.010 & 0.011 \\ 
-   \hline
+   \hline\hline
 \end{tabular}}
 
 \end{table}
@@ -1353,7 +1360,7 @@ Factor&Parameter & Split & Full & Split & Full \\
 
 \section{Conclusions}
 
-Horizontal random splitting is not specific to clustered data, so our main concern is this thesis is on the 3 other types of splitting, but as it is illustrated in this chapter, it could already solve a difficult problem without the need to get involved in more complicated splitting pattern like structured vertical splitting. Therefore, if applicable, we would always suggest to first try random horizontal splitting and if it cannot solve the issue move to more complicated splitting method. Also, in case of large sample sizes, it is a good practice to combine the more complicated methods to random horizontal splitting to achieve better computation times.
+Horizontal random splitting is not specific to clustered data, so our main concern is this thesis is on the 3 other types of splitting, but as it is illustrated in this chapter, it could already solve a difficult problem without the need to get involved in more complicated splitting patterns such as structured vertical splitting. Therefore, if applicable, we would always suggest to first try random horizontal splitting and if it cannot solve the issue move to more complicated splitting methods. Also, in case of large sample sizes, it is a good practice to combine the more complicated methods with random horizontal splitting to achieve better computation times.
 
 
 
@@ -4784,14 +4791,14 @@ In this chapter we will summarize our work and describe how we could achieve the
 
 \section{Conclusions}
 \label{sec_conc}
-Data Splitting has been considered, investigated, and developed in order to deal with analysis of large clustered data. Clustered data are were considered to be large if
+Data Splitting has been considered, investigated, and developed in order to deal with analysis of large clustered data. Clustered data were considered to be large if
 
 \begin{itemize}
-\item The number of clusters becomes large
-\item The size of some clusters becomes large
-\item A combination of both.
+\item the number of clusters becomes large,
+\item the size of some clusters becomes large,
+\item or, a combination of both.
 \end{itemize}
-We have considered four different splitting approaches: random and structured horizontal splitting that were useful when the number of clusters becomes large, also random and structured vertical splitting when the size of some clusters becomes large. For each case efficient splitting strategies (sub-sampling) and combination rules have been developed. Two promises have been made to be kept for all the methodologies we have developed:
+We have considered four different splitting approaches: random and structured horizontal splitting that were useful when the number of clusters becomes large, also random and structured vertical splitting when the size of some clusters becomes large. For each case, efficient splitting strategies (sub-sampling) and combination rules have been developed. Two promises have been made to be kept for all the methodologies we have developed:
 
 
 \begin{itemize}
@@ -4801,11 +4808,11 @@ We have considered four different splitting approaches: random and structured ho
  
 \end{itemize}
 
-Using an artificial example we will illustrate how all different developed methodologies in this thesis can be combined to analyze large clustered data both at splitting and combining steps. First let us to describe our example.
+Using an example, we will illustrate how all different developed methodologies in this thesis can be combined to analyze large clustered data both at splitting and combining steps. First, let us to describe our example.
 
-Liver is responsible for concentrating and metabolizing a majority of medications, so it is a prime target for medication-induced damage. Drug-induced liver injury (DILI) is also one of the main reasons for drug withdrawal from the market. Therefore, detecting DILI as early as possible during drug development process is crucial. As using a low dose would create to effect, while a high dose would lead to injuries to body organs. High content screening (HCS) is a modern technique to detect toxic compound in an early stage (before the drug is on the market and its toxicity is realized because of injuries it cause to the organs of patient who take it). 
+Liver is responsible for concentrating and metabolizing a majority of medications, so it is a prime target for medication-induced damage. Drug-induced liver injury (DILI) is also one of the main reasons for drug withdrawal from the market. Therefore, detecting DILI as early as possible during drug development process is crucial. High content screening (HCS) is a modern technique to detect toxic compounds in an early stage (before the drug is on the market and its toxicity is realized because of injuries it causes to the organs of patients who take it). 
 
-HCS is an in vitro study that cells are incubated with various doses of different chemical compounds and then several outcomes of interest will be measured for these cells (or genes). In case of DILI, such outcomes are interest are parameters such as nuclei counts, nuclear area, plasma membrane integrity, lysosomal activity, mitochondrial membrane potential (MMP), and mitochondrial area. Now imagine we have 10,000 different chemical compounds, and for each of them at most 50 different doses are considered, and for each dose these 6 different outcomes o interest are measured. Therefore, the final dataset will have the form displayed in Table~\ref{tab_dili}. This is a typical scheme for the data coming out of HCS studies, see e.g., \cite{kaliyaperumal2018pharmacogenomics}.
+HCS is an in vitro study that cells are incubated with various doses of different chemical compounds and then several outcomes of interest will be measured for these cells (or genes). In case of DILI, such outcomes of interest are parameters such as nuclei counts, nuclear area, plasma membrane integrity, lysosomal activity, mitochondrial membrane potential (MMP), and mitochondrial area. Now imagine we have 10,000 different chemical compounds, and for each of them at most 50 different doses are considered, and for each dose these 6 different outcomes of interest are measured. Therefore, the final dataset will have the form displayed in Table~\ref{tab_dili}. This is a typical scheme for the data coming out of HCS studies, see e.g., \cite{kaliyaperumal2018pharmacogenomics}.
 
 
 \begin{table}[h]
@@ -4817,49 +4824,49 @@ HCS is an in vitro study that cells are incubated with various doses of differen
    \hline\hline
 Response of interest& Dose& Compound 1 & $\ldots$ & Compound 10,000\\
 \hline
-\multirow{3}{*}{nuclei counts} & Dose1 & .& .& .\\ 
+\multirow{3}[15]{*}{nuclei counts} & Dose1 & .& .& .\\ 
  & $\vdots$ &. & .& .\\ 
   & Dose20 &- & .& .\\ 
    & Dose21 &- & .& .\\ 
     & $\vdots$ &. & .& .\\ 
  & Dose50 &. & .& .\\ 
  \hline
- \multirow{3}{*}{nuclear area} & Dose1 &. & .& . \\ 
+ \multirow{3}[15]{*}{nuclear area} & Dose1 &. & .& . \\ 
  & $\vdots$ &. & .& .\\ 
   & Dose20 &- & .& .\\ 
    & Dose21 &- & .& .\\ 
     & $\vdots$ &. & .& .\\ 
  & Dose50 &. & .& .\\ 
  \hline
-  \multirow{3}{*}{plasma membrane integrity} & Dose1 &. & .& .\ \\ 
+  \multirow{3}[15]{*}{plasma membrane integrity} & Dose1 &. & .& .\ \\ 
  & $\vdots$ &. & .& .\\ 
   & Dose20 &- & .& .\\ 
    & Dose21 &- & .& .\\ 
     & $\vdots$ &. & .& .\\ 
  & Dose50 &. & .& .\\ 
  \hline
-   \multirow{3}{*}{plasma membrane integrity} & Dose1 &. & .& . \\ 
+   \multirow{3}[15]{*}{plasma membrane integrity} & Dose1 &. & .& . \\ 
  & $\vdots$ &. & .& .\\ 
   & Dose20 &- & .& .\\ 
    & Dose21 &- & .& .\\ 
     & $\vdots$ &. & .& .\\ 
  & Dose50 &. & .& .\\ 
  \hline
-    \multirow{3}{*}{lysosomal activity} & Dose1 &. & .& . \\ 
+    \multirow{3}[15]{*}{lysosomal activity} & Dose1 &. & .& . \\ 
  & $\vdots$ &. & .& .\\ 
   & Dose20 &- & .& .\\ 
    & Dose21 &- & .& .\\ 
     & $\vdots$ &. & .& .\\ 
  & Dose50 &. & .& .\\ 
  \hline
-     \multirow{3}{*}{mitochondrial membrane potential} & Dose1 &. & .& .\\ 
+     \multirow{3}[15]{*}{mitochondrial membrane potential} & Dose1 &. & .& .\\ 
  & $\vdots$ &. & .& .\\ 
   & Dose20 &- & .& .\\ 
    & Dose21 &- & .& .\\ 
     & $\vdots$ &. & .& .\\ 
  & Dose50 &. & .& .\\ 
  \hline
-      \multirow{3}{*}{mitochondrial area} & Dose1 &. & .& . \\ 
+      \multirow{3}[15]{*}{mitochondrial area} & Dose1 &. & .& . \\ 
  & $\vdots$ &. & .& .\\ 
   & Dose20 &- & .& .\\ 
    & Dose21 &- & .& .\\ 
@@ -4878,11 +4885,15 @@ Three immediate data splitting approaches that can be applied on this dataset ar
 \item random horizontal splitting to split all the compounds of equal number of doses into smaller chunks,
 \item and, structured vertical splitting to model pairs of six outcomes instead of modeling them simultaneously.
 \end{itemize}
-Of course, if it is meaningful, one can even split the data at the dose level (random vertical splitting). But as one main parameter of interest in such dose-response data if the median effective dose (ED50), such a splitting would not be appropriate in this situation. 
+Of course, if it is meaningful, one can even split the data at the dose level (random vertical splitting). But as one main parameter of interest in such dose-response data is the median effective dose (ED50), such a splitting would not be recommended in this situation. This is an important aspect of using data splitting in practice. One needs to consider splitting approaches that are in line with the structure of the data and the goal of the analysis.
 
-As one may see, combining these three (or four) methodologies is an straightforward exercise at the splitting stage: each unit consists of a measurements for a pair of responses, measured for a randomly selected subset of all compounds with the same number of doses. After fitting the models and estimating the parameters of interest (ED50's here), combining the combination step is also straightforward: for a randomly selected horizontal split within all compounds of the same size, all the estimates from different pairs should be combined using multiple outputation combination rules, then these combined estimates will be combined using proportional weights. The outcome of this combination step will give us the estimated parameters for all the compounds of the same size. The final step will be combining them using e.g., size proportional weights to obtain the final set of parameter estimates.
+As one may see, combining these three (or four) methodologies is an straightforward exercise at the splitting stage: each unit consists of measurements for a pair of responses, measured for a randomly selected subset of all compounds with the same number of doses. After fitting the models and estimating the parameters of interest (ED50's here), combining the combination steps is also straightforward. The only thing one needs to consider carefully is to begin the combination step from the most inner level of splitting. 
 
-As we have seen in this example, the splitting schemes and combination rules can be combined in a rather straightforward procedure and valid estimates could be obtained in a reasonably faster time. As each split in this procedure is completely independent of one another, the computation task as so-called embarrassingly parallel. That would make the job of distributing these task among different machines straightforward. Available facilities in R and other computational languages for parallel computation can easily be used to run these tasks in parallel loops. As it was discussed, this gain of computation time comes at the cost of losing a bit of efficiency. But in most of the situation this is negligible, given the fact data splitting is usually necessary when the sample size is large, there each split is still large enough to provide valid results.  
+The smallest sub-sample here consists of a random sample of all compounds with the same number of doses, measured for two responses of interest. Therefore, the estimates can be combined using e.g., equal or proportional weights (to account for horizontal random splitting). Having all these estimates combined, we will obtain estimates from compounds with the same number of doses and each for a pair of responses of interest. For each pair, the estimates should be combined using e.g., size proportional weights (to account for structured horizontal splitting). At this stage, we have estimates corresponds to all possible pairs of responses. Now, we may apply multiple outputation combination rules (to account for structured vertical splitting).
+
+As we have seen in this example, the splitting schemes and combination rules can be combined in a rather straightforward procedure and valid estimates could be obtained in a reasonable time. As each split in this procedure is completely independent of one another, the computation task is a so-called embarrassingly parallel task. That would make the job of distributing these tasks among different machines straightforward. Available facilities in R and other computational languages for parallel computation can easily be used to run these tasks in parallel loops. As it was discussed, this gain of computation time comes at the cost of losing a bit of efficiency. But in most of situations this is negligible, given the fact that data splitting is usually necessary when the sample size is large, hence each split is still large enough to provide valid results. 
+
+We also have considered special cases where the introduced combination rules would fail. Alternative solutions are proposed, and illustrated in terms of simulation studies and analyzing different datasets. Different aspects of data splitting, such as determining number of sub-samples are also considered, discussed, and implemented. 
 
 
 
@@ -4891,9 +4902,9 @@ As we have seen in this example, the splitting schemes and combination rules can
 \section{Future research plan}
 \label{sec_future}
 
-As it was remarked in Section~\ref{sec_conc}, data splitting is usually used when the sample size is large, however, this is not always the case. In fact, large and small datasets are suffering from the same issues but for different reasons. For example, a complicated model is difficult to get converged for both large and small datasets. For a large dataset, too many measurement makes achieving convergence difficult, while for small datasets lack of information gievn the complexity of the model is the cause. This said, we believe using data splitting one can even achieve better convergence in case of small clustered data.
+As it was remarked in Section~\ref{sec_conc}, data splitting is usually used when the sample size is large, however, this is not always the case. In fact, large and small datasets are suffering from the same issues but for different reasons. For example, a complicated model is difficult to get converged for both large and small datasets. For a large dataset, too many measurement makes achieving convergence difficult, while for small datasets lack of information gievn the complexity of the model is the cause. This said, we believe using data splitting one also can deal with issues of small clustered data.
 
-\cite{wim2015} have shown that unbalancedness is a source of difficulty of convergence in case of linear mixed models. In fact, a smaller but balanced set of data would have a greater chance of convergence compared with a larger but highly unbalanced one. We believe, a technique like random vertical splitting can be used to created many balanced sub-samples of an unbalanced dataset. In other words, instead of analyzing small number of clusters that are highly unbalanced hence not converging, one may analyze many sub-sets of this dataset (taken with random vertical splitting technique) each consist of the same number of cluster but of smaller equal sizes. Just to illustrate our idea for the immediate future research, we have analyzed the ARMD dataset (see Section~\ref{sec_armd}) using random vertical splitting. The results are promising.
+\cite{wim2015} have shown that unbalancedness is a source of difficulty of convergence in case of linear mixed models. In fact, a smaller but balanced set of data would have a greater chance of convergence compared with a larger but highly unbalanced one. We believe, a technique like random vertical splitting can be used to created many balanced sub-samples of an unbalanced dataset. In other words, instead of analyzing small number of clusters that are highly unbalanced hence not converging, one may analyze many sub-sets of this dataset (taken with random vertical splitting technique) each consists of the same number of clusters but of smaller equal sizes. Just to illustrate our idea for this immediate future research, we have analyzed the ARMD dataset (see Section~\ref{sec_armd}) using random vertical splitting. The results are promising.
 
 As it was described in Section~\ref{sec_armd}, the data come from a clinical trial in age-related macular degeneration (ARMD), which is a disease of the retina that causes severe central vision loss. \cite{pharmacological1997} conducted a multi-center study (17 centers) to evaluate the effect of an experimental treatment based on interferon-$\alpha$ in a group of patients who were randomly allocated to either placebo or interferon-$\alpha$. The outcome of interest was the change in visual acuity over time. Using standard vision charts, the visual acuity was measured by the number of letters that were correctly read by the patient. Table~\ref{tab_freq} shows a frequency table of different cluster sizes in the ARMD dataset. 
 
@@ -4912,17 +4923,17 @@ Number of centres &   7 &   2 &   4 &   1 &   2 &   1 \\
 \end{tabular}
 \end{table}
 
-\cite{burzykowski2006} and \cite{alonso2015} analyzed this dataset in the context of surrogate endpoint evaluation. The goal of their analyses was to examine if  visual acuity at week 24 could be an appropriate surrogate for the one at week 52, the so-called true endpoint. To this end, the surrogate and the true endpoint have to be modelled jointly.
+\cite{burzykowski2006} and \cite{alonso2015} analyzed this dataset in the context of surrogate endpoint evaluation. The goal of their analyses was to examine if visual acuity at week 24 (the so-called surrogate endpoint) could be an appropriate surrogate for the one at week 52, the so-called true endpoint. To this end, the surrogate and the true endpoints have to be modelled jointly.
 Because of the bivariate nature of the endpoint, coupled with the multi-centre nature of the study, a mixed model is used, by which surrogate evaluation measures are estimated; see also \cite{buyse2000}. 
 
-As is clear from Table~\ref{tab_freq}, the data are highly unbalanced, presenting the observed-likelihood model fitting procedure with serious convergence issues. \cite{wim2015} proposed to treat these unbalanced data as an incomplete set, where the data in each centre are considered relative to the maximally observed centre size. MI can then be used to balance the data, i.e., to make all centres of size 18 in this case. 
+As it is clear from Table~\ref{tab_freq}, the data are highly unbalanced, presenting the observed-likelihood model fitting procedure with serious convergence issues. \cite{wim2015} proposed to treat these unbalanced data as an incomplete set, where the data in each centre are considered relative to the maximally observed centre size. MI can then be used to balance the data, i.e., to make all centres of size 18 in this case. 
 
-Here we propose to use random vertical splitting to create several (almost-) balanced datasets smaller sizes. The surrogate model used here is the same as the one described in Section~\ref{sec_surrogate_model}. When fitting the model with an unstructured covariance matrix for the random effects, as the sub-sampling size increases, the rate of convergence decreases. With a sub-sampling size $5$ in about $70\%$ of the times (out of 1000 sub-samples) the model could converge, while if we increase the sub-sampling size to $8$ the rate drops to $20\%$. Considering unstructured covariance matrices, the model cannot be converged using full maximum likelihood, in order to evaluate random vertical splitting, we would consider a model with uncorrelated random effects where a full likelihood can also be fitted.
+Here we propose to use random vertical splitting to create several almost- balanced datasets of smaller sizes (e.g., $5$ or $8$). The surrogate model used here is the same as the one described in Section~\ref{sec_surrogate_model}. When fitting the model with an unstructured covariance matrix for the random effects, as the sub-sampling size increases, the rate of convergence decreases. With a sub-sampling size $5$ in about $70\%$ of the times (out of 1000 sub-samples) the model could converge, while if we increase the sub-sampling size to $8$ the convergence rate drops to $20\%$. Considering unstructured covariance matrices, the model cannot be converged using full maximum likelihood, in order to evaluate random vertical splitting, we would consider a model with uncorrelated random effects where a full likelihood can also be fitted.
 
 
 \begin{table}[h]
 \centering
-\caption[Analyzing ARMD data with random vertical splitting]{Mean (standard deviation) of the estimates for the variance components and fixed effects in the converged cases random vertical splitting (with sub-sampling size $M=5$ and $M=8$), and full data maximum likelihood with independent random effects and constant variance for the error. $d_1$ and $d_2$ are the diagonal elements of the random effects covariance matrix, $\sigma^2$ is the error variance. $1$ and $-1$ are the fixed effects corresponds to true and surrogate endpoints, respectively. Also, $Z*1$ and $Z*-1$ are the effect of treatment on true and surrogate endpoints, respectively.}
+\caption[Analyzing ARMD data with random vertical splitting]{Mean (standard deviation) of the estimates for the variance components and fixed effects in the converged sub-samples of random vertical splitting (with sub-sampling size $5$ and $8$), and full data maximum likelihood with independent random effects and constant variance for the error. $d_1$ and $d_2$ are the diagonal elements of the random effects covariance matrix, $\sigma^2$ is the error variance. $1$ and $-1$ are the fixed effects corresponding to true and surrogate endpoints, respectively. Also, $Z*1$ and $Z*-1$ are the effect of treatment on true and surrogate endpoints, respectively.}
 \label{summary_armd_vc}
 \begin{tabular}{ccccc}
   \hline\hline
@@ -4939,9 +4950,9 @@ $d_1$ & 9.537 (8.740) & 11.147 (3.519) &8.943 \\
 \end{tabular}
 \end{table}
 
-As we may see in Table~\ref{summary_armd_vc}, except for $d_2$,for  other parameters we get an estimate close to the one obtained using full maximum likelihood. Of course, this is a first experiment with this idea. More theoretical work as well as simulation studies are needed to establish a solid framework for this case.
+As we may see in Table~\ref{summary_armd_vc}, except for $d_2$, for other parameters we get an estimate close to the one obtained using full maximum likelihood. Of course, this is a first experiment with this idea. More theoretical work as well as simulation studies are required to establish a solid framework for this case.
 
-Other than extending data slitting to be used to deal with small-sample issues, our other immediate plan to extend this work is to implement a unified R package for all types of splitting and combination rules together with parallel computing possibilities to be distributed on several machines. This sound like to be the next natural step to take. As they are all implemented separately, also given the embarrassingly parallel nature of our proposed methodology, implementing parallel computing is rather straightforward.
+Other than extending data slitting to be used to deal with small-sample issues, our other immediate plan to extend this work is to implement a unified R package for all types of splitting and combination rules together with parallel computing possibilities to be distributed on several machines. This sounds like to be the next natural step to take. As they are all implemented separately, also given the embarrassingly parallel nature of our proposed methodology, implementing parallel computing is rather straightforward.
 
 
 \chapter{Appendices}
