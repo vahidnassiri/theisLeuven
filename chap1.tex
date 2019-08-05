@@ -638,19 +638,18 @@ As we have discussed, random horizontal splitting has been used by many research
 
 It is a well-known fact that a balanced study deign works better than an unbalanced one. By balanced we mean, the number of available data points for all clusters are the same. In fact, most of the studies are planned to be balanced, but in practice they would rarely end up like that. One can see several reasons for that, for example, the required materials are not enough, some patients die, some animals fail to follow the instructions, etc. Therefore, while having a balanced set of data is desired and even planned, we will usually have an unbalanced data to analyze. 
 
-Although most of the data in practice are unbalanced, one can usually find balanced sub-sets of such data. Take our example on a developmental toxicity study (Section~\ref{motive_tox}). There, the clusters are made of fetuses within litters. Obviously, different mothers would have different number of babies: an inevitably happened unbalanced data. However, it is not like that the number of fetuses within litter from every single mother is different from the others. Table \ref{tab_litter_size} shows unique number of fetuses in different litters with their frequencies. As one may see, we have a limited number of cluster sizes. Therefore, although the complete data is unbalanced, it is formed by balanced sub-sets. An structured horizontal splitting would assign all clusters of the same size to one sub-sample. 
+Although most of the data in practice are unbalanced, one can usually find balanced sub-sets of such data. Take our example on a developmental toxicity study (Section~\ref{motive_tox}). There, the clusters are made of fetuses within litters. Obviously, different mothers would have different number of babies: an inevitably happened unbalanced data. However, it is not like that the number of fetuses within litter from every single mother is different from the others. Table \ref{tab_litter_size_intro} shows unique number of fetuses in different litters with their frequencies. As one may see, we have a limited number of cluster sizes. Therefore, although the complete data is unbalanced, it is formed by balanced sub-sets. An structured horizontal splitting would assign all clusters of the same size to one sub-sample. 
 
 
 \begin{table}[ht]
-\centering
-\label{tab_litter_size}
 \caption{Unique cluster sizes and their frequency in a developmental toxicity case study for the response DEHP.}
+\label{tab_litter_size_intro}
+\centering
 \begin{tabular}{lcccccccccccc}
-
-  \hline
+  \hline\hline
 Cluster size & 9 & 10 & 15 & 8 & 12 & 13 & 14 & 6 & 7 & 3 & 11 & 16 \\ 
   Frequency & 10 & 9 & 3 & 12 & 20 & 18 & 6 & 4 & 5 & 4 & 9 & 4 \\ 
-   \hline
+   \hline\hline
 \end{tabular}
 \end{table}
 
@@ -981,7 +980,7 @@ weight. Our focus will be on the continuous weight outcome. Evidently, fetuses a
 
 As each mother has a different number of fetuses, we have clusters of different sizes. This would provide a suitable scenario to evaluate structured horizontal splitting approach. Since the data is of a moderate size, the conventional methods can also be used to fit the models, so we have the chance of comparing the obtained results using such models with our proposed alternative models.
 
-Other than di(2-ethylhexyl)phthalate (DEHP), two other responses are also studied in this thesis, ethylene glycol (EG), \cite{price1987}, and diethylene glycol dimethyl ether (DYME), \cite{price1985}.
+Other than di(2-ethylhexyl)phthalate (DEHP), two other responses are also studied in this thesis, ethylene glycol (EG), \cite{price1987developmental}, and diethylene glycol dimethyl ether (DYME), \cite{price1985}.
 
 \section{Divorce in Flanders} 
 
@@ -1407,7 +1406,7 @@ In Section~3
 %\ref{incompleteness} 
 essential background material on incomplete sufficient statistics is presented. The compound-symmetry model is introduced in Section~4,
 %\ref{model}
-and a review is provided of the relevant incompleteness results from \cite{Lisa2015_2}, together with implications for likelihood-based estimation. Background from the pseudo-likelihood-based split-sample method is given in Supplementary Material Section~S.4.
+and a review is provided of the relevant incompleteness results from \cite{Lisa2015_2}, together with implications for likelihood-based estimation. Background from the pseudo-likelihood-based split-sample method is given in Supplementary Material Section~\ref{appC}.
 %\ref{splitsample}
 A general split-sample approach to the CS model is provided in Section~5,
 %\ref{CSsplitsample}
@@ -1507,7 +1506,7 @@ The data-dependent terms in the log-likelihood can  be written as:
 \end{equation}
 The three terms in (\ref{driestats}) are qualitatively different. Indeed, the middle one corresponds to a single sufficient statistic, the sum of all squares across clusters, while the first and last split into as many sufficient statistics as there are unique cluster sizes.
 
-\cite{Lisa2015_2} proved a characterization of incompleteness, essentially stating that when the dimension of the sufficient statistic is larger than the dimension of the parameter vector, the sufficient statistic is no longer complete. More details can be found in Supplementary Materials Section~S1.
+\cite{Lisa2015_2} proved a characterization of incompleteness, essentially stating that when the dimension of the sufficient statistic is larger than the dimension of the parameter vector, the sufficient statistic is no longer complete. More details can be found in Supplementary Materials Section~\ref{appA}.
 %\ref{appA}. 
 This sharp division also occurs when studying certain properties of the maximum likelihood estimator.
 
@@ -1544,9 +1543,9 @@ $\ell_k(\mu_k,\sigma^2_k,d_k)$, we can consider the kernel of the log-likelihood
 &+& \left. \left(\by_{i}^{(k)}-\bmu_{n_k}\right)'\Sigma_{n_k}^{-1} \left(\by_{i}^{(k)}-\bmu_{n_k}\right) \right\},
 \end{aligned}
 \end{equation}
-where $\bmu_k=\mu_k\mathbf{1}_{n_k}$  $\Sigma_{n_k}=\sigma_k^2 I_{n_k}+ d_k J_{n_k}$. The score functions are presented in Supplementary Materials Section~S.2.
+where $\bmu_k=\mu_k\mathbf{1}_{n_k}$  $\Sigma_{n_k}=\sigma_k^2 I_{n_k}+ d_k J_{n_k}$. The score functions are presented in Supplementary Materials Section~\ref{likelihoodapp}.
 %\ref{likelihoodapp}.
-Solving these score functions (S2.1)-(S2.3)
+Solving these score functions (\ref{jscore1})-(\ref{jscore1})
 %(\ref{jscore1})--(\ref{jscore3}) 
 leads to:
 \begin{eqnarray}
@@ -1583,10 +1582,10 @@ The mean parameter is independent of the variance components.
 
 These results can be used when a separate parameter vector is estimated for each of the cluster sizes and, as a special case,  when there is only one cluster size. Four features of use in what follows are: (a) there are closed forms; (b) the sufficient statistic is complete; (c) the estimator is unique minimum variance unbiased; (d) the mean parameter estimator and the variance parameter estimator are independent.
 
-These results are lost when $K\ge 2$. We briefly sketch the lack of closed-form solutions in this case in Supplementary Materials Section~S2.2.
+These results are lost when $K\ge 2$. We briefly sketch the lack of closed-form solutions in this case in Supplementary Materials Section~\ref{twodifferent}.
 %\ref{twodifferent}.
 
-The lack of a closed form is well known, but we highlight a few relevant features here. More detail is given in Supplementary Materials Section~S3,
+The lack of a closed form is well known, but we highlight a few relevant features here. More detail is given in Supplementary Materials Section~\ref{appB},
 %\ref{appB}, 
 where we show
 \begin{equation}
@@ -1613,7 +1612,7 @@ This idea is  similar to that in \cite{Iddi2011}, who split a sample in sub-samp
 \subsection{Split-sample Methods for Clusters of Variable Size}
 \label{CSsplitsample}
 
-The derivations are based on general pseudo-likelihood principles, reviewed in Supplementary Materials Section~S4.
+The derivations are based on general pseudo-likelihood principles, reviewed in Supplementary Materials Section~\ref{splitsample}.
 %\ref{splitsample}. 
 We first make generic the setting at the beginning of Section~\ref{model}. 
 Let there be a sample of $N$ independent clusters. Partition the 
@@ -1634,7 +1633,7 @@ studies. This limiting situation can also be considered with CS data,
 because all clusters (except those of size 1) contribute to all three 
 parameters.
 
-Consider pseudo-likelihood  in this general case (see also Eq.~(S4.4)).
+Consider pseudo-likelihood  in this general case (see also Eq.~(ourgenpl)).
 %(\ref{ourgenpl})]. 
 Assume that $\bftheta^\ast$ is a vector of length $p$, and that 
 each $\bftheta_k$ is a separate copy of $\bftheta^\ast$. Then 
@@ -1657,7 +1656,7 @@ Not every choice of the $A_k$ leads to an unbiased estimator. To enforce
 unbiasedness, consider the requirement
 $$\bftheta=E\left(\widehat{\bftheta}^*\right)=\sum_{k=1}^KA_kE\left(\widehat{\bftheta}_k\right)=
 \left(\sum_{k=1}^KA_k\right)\bftheta,$$
-whence $I_p=\sum_{k=1}^KA_k$. This requirement is satisfied for (S4.5).
+whence $I_p=\sum_{k=1}^KA_k$. This requirement is satisfied for (\ref{amtrix}).
 %(\ref{amtrix}).
 This suggests two obvious choices:
 \begin{description}
@@ -2116,7 +2115,7 @@ The expressions presented earlier in this section, using optimal weights
 and variations on this theme, can be applied when the partitioning is 
 as extreme as possible: a single cluster per stratum. This sets $c_k\equiv 1$. Evidently, the $n_k$ will 
 then no longer be unique, but that is immaterial; while we make use of the fact that the cluster size is  constant within a stratum, it does not need to be different 
-between  strata. We examine this case in more detail in Supplementary Materials Section~S5.1.
+between  strata. We examine this case in more detail in Supplementary Materials Section~\ref{cbcaapp}.
 %\ref{cbcaapp}. 
 In particular, we derive under what asymptotics such an estimator is consistent. 
 
@@ -2126,7 +2125,7 @@ In particular, we derive under what asymptotics such an estimator is consistent.
 \label{simulation}
 
 A first, limited, simulation study was carried out to examine the behavior of the 
-partitioning method. Details are given in Supplementary Materials Section~S6.
+partitioning method. Details are given in Supplementary Materials Section~\ref{simapp}.
 %\ref{simapp}. 
 Three settings were considered: (1) $c_k\cdot n_k$ is kept constant with the factors taking different values; (2) $c_k$ is kept constant; (3) $n_k$ is kept constant. For all of these, $k$ goes from 1 to 4, so that there are four sub-samples. Apart from full likelihood, a series of weights was considered: equal, proportional  to $c_k$, size proportional to $c_k\cdot n_k$, approximate optimal, and iterated optimal.
 
@@ -2141,7 +2140,7 @@ obtained from maximum likelihood.
 As a consequence, we have a simple, non-iterative set of weights at our 
 disposal, free of unknown parameters, with excellent performance.
 
-A second simulation study compares the proposed methods to two alternatives: full maximum likelihood and multiple imputation. Details are reported in Supplementary Materials Section~S7.
+A second simulation study compares the proposed methods to two alternatives: full maximum likelihood and multiple imputation. Details are reported in Supplementary Materials Section~\ref{simapptwee}.
 %\ref{simapptwee}. 
 The most striking conclusion is that closed-form solutions are  much faster than their alternatives while, at the same time, yielding most precise results.
 The time gain of our fastest method relative to standard maximum likelihood using PROC MIXED ranges from 5 times to 30,000 times faster.
@@ -2186,7 +2185,7 @@ when compared to the MLEs.
 \hline
 \hline
 %\multicolumn{9}{c}{{Weighted [(\ref{muconstant})(\ref{sigmaconstant})(\ref{dconstant})]}}\\
-\multicolumn{9}{c}{{Weighted [(S5.2)(S5.3)(S5.4)]}}\\
+\multicolumn{9}{c}{{Weighted [(\ref{muconstant})(\ref{sigmaconstant})(\ref{dconstant})]}}\\
 \hline
 $\mu$ & 0.90718 & 0.90716 & 0.90602 & 0.89558 & 0.90602 & 0.92080 & \multicolumn{2}{c}{0.92080}   \\
 $\sigma^2$ & 0.01877 & 0.01877 & 0.02122 & 0.02244 & 0.01895 & 0.01871 & \multicolumn{2}{c}{0.01246}  \\
@@ -2197,7 +2196,7 @@ $\mbox{s.e.}(\widehat{\sigma^2})$ & 0.00084 & 0.00084 & 0.00128 & 0.00199 & 0.00
   $\mbox{s.e.}(\widehat{d})$ & 0.00196 & 0.00199 & 0.00210 & 0.00293 & 0.00210 & 0.00048 & 0.00045 & 0.00340 \\
 \hline\hline
 %\multicolumn{9}{c}{{Two-stage [(\ref{muconstant})(\ref{twostages1})(\ref{twostaget1})]}}\\
-\multicolumn{9}{c}{{Two-stage [(S5.2)(S5.7)(S5.8)]}}\\
+\multicolumn{9}{c}{{Two-stage [(\ref{muconstant})(\ref{twostages1})(\ref{twostaget1})]}}\\
 \hline
 $\mu$ & 0.90718 & 0.90716 & 0.90602 & 0.89558 & 0.90602 & 0.92119 & \multicolumn{2}{c}{0.92119}  \\
 $\sigma^2$ & 0.01877 & 0.01877 & 0.01868 & 0.01931 & 0.01696 & 0.01679 & \multicolumn{2}{c}{0.01155}  \\
@@ -2210,7 +2209,7 @@ $\mbox{s.e.}(\widehat{\sigma^2})$ & 0.00084 & 0.00084 & 0.00092 & 0.00127 & 0.00
 
 \hline\hline
 %\multicolumn{9}{c}{{Unbiased two-stage [(\ref{muconstant})(\ref{twostages2})(\ref{twostaget2})]}}\\
-\multicolumn{9}{c}{{Unbiased two-stage [(S5.2)(S5.11)(S5.12)]}}\\
+\multicolumn{9}{c}{{Unbiased two-stage [(\ref{muconstant})(\ref{twostages2})(\ref{twostaget2})]}}\\
 \hline
 $\mu$ & 0.90718 & 0.90716 & 0.90602 & 0.89558 & 0.90602 & 0.92195 & \multicolumn{2}{c}{0.92195}  \\
 $\sigma^2$ & 0.01877 & 0.01877 & 0.02122 & 0.02244 & 0.01895 & 0.01871 & \multicolumn{2}{c}{0.01244}  \\
@@ -2248,7 +2247,7 @@ $\mbox{s.e.}(\widehat{\sigma^2})$  & 0.00084 & 0.00084 & 0.00128 & 0.00199 & 0.0
 \hline
 \hline
 %\multicolumn{9}{c}{{Weighted [(\ref{muconstant})(\ref{sigmaconstant})(\ref{dconstant})]}}\\
-\multicolumn{9}{c}{{Weighted [(S5.2)(S5.3)(S5.4)]}}\\
+\multicolumn{9}{c}{{Weighted [(\ref{muconstant})(\ref{sigmaconstant})(\ref{dconstant})]}}\\
 \hline
 $\mu$ & 0.82952 & 0.82952 & 0.83342 & 0.84653 & 0.83342 & 0.84133 & \multicolumn{2}{c}{0.84133}  \\
 $\sigma^2$ & 0.00886 & 0.00886 & 0.00885 & 0.00899 & 0.00879 & 0.00878 & \multicolumn{2}{c}{0.00608}  \\
@@ -2259,7 +2258,7 @@ $\mbox{s.e.}(\widehat{\sigma^2})$ & 0.00041 & 0.00041 & 0.00046 & 0.00051 & 0.00
   $\mbox{s.e.}(\widehat{d})$& 0.00265 & 0.00269 & 0.00264 & 0.00272 & 0.00264 & 0.00230 & 0.00230 & 0.00476 \\
 \hline\hline
 %\multicolumn{9}{c}{{Two-stage [(\ref{muconstant})(\ref{twostages1})(\ref{twostaget1})]}}\\
-\multicolumn{9}{c}{{Two-stage [(S5.2)(S5.7)(S5.8)]}}\\
+\multicolumn{9}{c}{{Two-stage [(\ref{muconstant})(\ref{twostages1})(\ref{twostaget1})]}}\\
 \hline
 $\mu$ & 0.82952 & 0.82952 & 0.83342 & 0.84653 & 0.83342 & 0.84100 & \multicolumn{2}{c}{0.84100}   \\
 $\sigma^2$ & 0.00886 & 0.00886 & 0.00803 & 0.00814 & 0.00802 & 0.00802 & \multicolumn{2}{c}{0.00559}  \\
@@ -2273,7 +2272,7 @@ $\mbox{s.e.}(\widehat{\sigma^2})$ & 0.00041 & 0.00041 & 0.00037 & 0.00041 & 0.00
 
 \hline\hline
 %\multicolumn{9}{c}{{Unbiased two-stage [(\ref{muconstant})(\ref{twostages2})(\ref{twostaget2})]}}\\
-\multicolumn{9}{c}{{Unbiased two-stage [(S5.2)(S5.11)(S5.12)]}}\\
+\multicolumn{9}{c}{{Unbiased two-stage [(\ref{muconstant})(\ref{twostages2})(\ref{twostaget2})]}}\\
 \hline
 $\mu$  & 0.82952 & 0.82952 & 0.83342 & 0.84653 & 0.83342 & 0.83911 & \multicolumn{2}{c}{0.83911}  \\
 $\sigma^2$ & 0.00886 & 0.00886 & 0.00885 & 0.00899 & 0.00879 & 0.00878 & \multicolumn{2}{c}{0.00608}  \\
@@ -2312,7 +2311,7 @@ $\mbox{s.e.}(\widehat{\sigma^2})$ & 0.00041 & 0.00041 & 0.00046 & 0.00051 & 0.00
 \hline
 \hline
 %\multicolumn{9}{c}{{Weighted [(\ref{muconstant})(\ref{sigmaconstant})(\ref{dconstant})]}}\\
-\multicolumn{9}{c}{{Weighted [(S5.2)(S5.3)(S5.4)]}}\\
+\multicolumn{9}{c}{{Weighted [(\ref{muconstant})(\ref{sigmaconstant})(\ref{dconstant})]}}\\
 \hline
 $\mu$ & 0.84142 & 0.84141 & 0.84108 & 0.84861 & 0.84108 & 0.90166 & \multicolumn{2}{c}{0.90166}  \\
 $\sigma^2$ & 0.01031 & 0.01031 & 0.01072 & 0.01071 & 0.01034 & 0.01031 & \multicolumn{2}{c}{0.00700}  \\
@@ -2324,7 +2323,7 @@ $\mbox{s.e.}(\widehat{\sigma^2})$ & 0.00044 & 0.00044 & 0.00052 & 0.00079 & 0.00
 \hline
 \hline
 %\multicolumn{9}{c}{{Two-stage [(\ref{muconstant})(\ref{twostages1})(\ref{twostaget1})]}}\\
-\multicolumn{9}{c}{{Two-stage [(S5.2)(S5.7)(S5.8)]}}\\
+\multicolumn{9}{c}{{Two-stage [(\ref{muconstant})(\ref{twostages1})(\ref{twostaget1})]}}\\
 \hline
 $\mu$ & 0.84142 & 0.84141 & 0.84108 & 0.84861 & 0.84108 & 0.90009 & \multicolumn{2}{c}{0.90009}  \\
   $\sigma^2$ & 0.01031 & 0.01031 & 0.00975 & 0.00964 & 0.00945 & 0.00942 & \multicolumn{2}{c}{0.00650}  \\
@@ -2336,7 +2335,7 @@ $\mbox{s.e.}(\widehat{\sigma^2})$ & 0.00044 & 0.00044 & 0.00042 & 0.00059 & 0.00
   $\mbox{s.e.}(\widehat{d})$ & 0.00529 & 0.00537 & 0.03433 & 0.03113 & 0.03433 & 0.02215 & 0.00173 & 0.04036 \\
 \hline\hline
 %\multicolumn{9}{c}{{Unbiased two-stage [(\ref{muconstant})(\ref{twostages2})(\ref{twostaget2})]}}\\
-\multicolumn{9}{c}{{Unbiased two-stage [(S5.2)(S5.11)(S5.12)]}}\\
+\multicolumn{9}{c}{{Unbiased two-stage [(\ref{muconstant})(\ref{twostages2})(\ref{twostaget2})]}}\\
 \hline
 $\mu$ & 0.84142 & 0.84141 & 0.84108 & 0.84861 & 0.84108 & 0.89672 & \multicolumn{2}{c}{0.89672}  \\
   $\sigma^2$ & 0.01031 & 0.01031 & 0.01072 & 0.01071 & 0.01034 & 0.01031 & \multicolumn{2}{c}{0.00700}  \\
@@ -2472,10 +2471,10 @@ presented in Tables~\ref{ntpestimatestable4}--\ref{ntpestimatestable6},
 for DEHP, EG, and DYME, respectively. For brevity, attention here is 
 confined to the case of no dose effect.
 
-We consider three alternatives. In all three, (S5.2)
+We consider three alternatives. In all three, (\ref{muconstant})
 %(\ref{muconstant}) 
 is used for the mean. For the variance components, 
-the pairs (S5.3)-(S5.4), (S5.7)-(S5.8), and (S5.11)-(S5.12)
+the pairs (\ref{sigmaconstant})-(\ref{dconstant}), (\ref{twostages1})-(\ref{twostaget1}), and (\ref{twostages2})-(\ref{twostaget2})
 %(\ref{sigmaconstant})--(\ref{dconstant}),
 %(\ref{twostages1})--(\ref{twostaget1}), and 
 %(\ref{twostages2})--(\ref{twostaget2}) 
@@ -3433,7 +3432,7 @@ Using the same data setting as before, the following algorithm can be executed:
 \item[Step 3.] If there exists an $\ell$ such that $\frac{\mathrm{Var}(\widetilde{\mu_{n_{f_{\ell}}}})}{\mathrm{Var}(\widetilde{\mu_{n_{f_L}}})} < 1+\varepsilon$, for a pre-specified $\varepsilon$, then the estimator under investigation can be taken to have the FIL property.
 \item[Step 4.] In case FIL is concluded in Step 3, the final estimate can be computed using $\overline{\mu}=\sum_{\ell=1}^L w_\ell \widetilde{\mu_\ell}$ and $\mathrm{Var}(\overline{\mu}) = \sum_{\ell=1}^L w_\ell \mathrm{Var}(\widetilde{\mu_\ell})$, where $w_\ell = \frac{n_{f_\ell}}{\sum_{\ell=1}^L n_{f_\ell}}$.
 \end{enumerate}
-Several remarks are worth making. First, $L=2$ might be enough, but depending on the size of the dataset and the computational power available, one can use more than two $n_f$ to reach better estimators. While usually a very small $L$ is sufficient, this parameter can also be gauged empirically, through similar studies. In other words, this implies that experience will grow through sequences of similar data analyses. Second, the sub-sampling can be done only once for each $n_{f_\ell}$, i.e., $M=1$, whence no combination rules are needed. Third, generating and analyzing the samples for each $(\ell,m)$ pair is an array of independent tasks; doing them in parallel is straightforward. Fourth, the sub-sampling can be done more efficiently by splitting the data based on the cluster sizes; this approach is explained in the Appendix~\ref{app3} and an \textsf{R} implementation of it is presented. Fifth, note that not being FIL does not merely follow from not being able to find an $\ell$ that satisfies the condition in Step 3.
+Several remarks are worth making. First, $L=2$ might be enough, but depending on the size of the dataset and the computational power available, one can use more than two $n_f$ to reach better estimators. While usually a very small $L$ is sufficient, this parameter can also be gauged empirically, through similar studies. In other words, this implies that experience will grow through sequences of similar data analyses. Second, the sub-sampling can be done only once for each $n_{f_\ell}$, i.e., $M=1$, whence no combination rules are needed. Third, generating and analyzing the samples for each $(\ell,m)$ pair is an array of independent tasks; doing them in parallel is straightforward. Fourth, the sub-sampling can be done more efficiently by splitting the data based on the cluster sizes. Fifth, note that not being FIL does not merely follow from not being able to find an $\ell$ that satisfies the condition in Step 3.
 
 The combination rules in Step 2 are based on the so-called multiple outputation idea \cite{hoffman2001,follmann2003}. Let us briefly sketch the method. Consider $M$ sub-samples of size $n_s$, sampled with replacement. Suppose $\widehat{\bftheta}_m$ as the estimated parameter in the $m$-th sub-sample with $\widehat{\Sigma}_m$ as its covariance. The combined estimate $\widetilde{\bftheta}$ and its variance can be computed using the following combination rule:
 \begin{equation}
@@ -3564,7 +3563,7 @@ It is worth noting that, as in any model, some assumptions are made here. The tw
 \subsection{Conclusion}
 \label{cssec_conclusions}
 Inspired by compound-symmetry models for clustered data, the finite information limit (FIL) property for estimators based on hierarchical data  is proposed and investigated both theoretically and via simulations. Loosely speaking, FIL means that for increasing cluster sizes, the amount of information is bounded from above. This implies that, after some point, adding new measurements would not substantially add to the information provided by the data, hence the efficiency would not importantly increase further. A consequence of this property is that analyzing a small, or sometimes even tiny, fraction of a dataset with FIL property (e.g., 1\%--2\%) would produce results  almost as efficient as using the entire dataset, see Figures \ref{fig_m1}--\ref{fig_comb}. This property is investigated from a theoretical point of view and a simple procedure is proposed to detect the property in a dataset. This is not needed if simple models known to have the FIL property, such as CS, are used. However, with complex variance-covariance structures, such an empirical check can be handy. 
-The proposed procedure together with the FIL itself were investigated in simulation studies. Furthermore, an efficient sub-sampling procedure is implemented in \textsf{R} and available in the Appendix.
+The proposed procedure together with the FIL itself were investigated in simulation studies. Furthermore, an efficient sub-sampling procedure is implemented in \textsf{R} and available in the R package {\tt{miscVSS}}, see Section~\ref{sec_miscVSS}.
 
 Investigating the FIL property on the Amazon.com book ratings enabled us to fit a model which was not feasible for the full data. Based on the obtained results, the efficiency loss was not substantial neither. Such examples would show the importance of properties like FIL to deal with large clustered data, specially when an analysis is needed on a daily basis.
 
@@ -4705,7 +4704,7 @@ Once {\tt{devtools}} is installed, one can use the following command to install 
 
 
 \section{R package {\tt{fastCS}}}
-
+\label{fascs}
 The R package {\tt{fastCS}} provides functions to:
 
 \begin{itemize}
@@ -4724,7 +4723,7 @@ The R package {\tt{fastCS}} provides functions to:
 This covers our contributions in Section~\ref{sec_cs}.
 
 \section{R package {\tt{fastAR1}}}
-
+\label{fastar1}
 The R package {\tt{fastAR1}} provides functions to:
 
 \begin{itemize}
@@ -4961,7 +4960,7 @@ Other than extending data slitting to be used to deal with small-sample issues, 
 
 \appendix
 \setcounter{equation}{0}
-\renewcommand{\theequation}{A.\arabic{equation}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
 \renewcommand{\thesection}{A.\arabic{section}}
 
 %% CS paper
@@ -5013,7 +5012,7 @@ Thus, every solution $\bflambda \perp \bn$, where $\bn=(n_1,\dots,n_K)'$, provid
 
 Such a vector $\bflambda$ exists if and only if $K\ge 2$, for which it is assumed that at least two $c_k>0$ (i.e., at least two different cluster sizes occur).
 
-
+\setcounter{equation}{0}
 \section{Likelihood-based Estimation of the CS Model}
 \label{likelihoodapp}
 
@@ -5084,7 +5083,7 @@ where $\widehat{\mu_k}$ as in (4.5).
 %(\ref{muk}).
 For the variance components, only implicit identities follow; they are functions of (\ref{skfunc})--(\ref{tkfunc}). These take the form of high-degree polynomials, for which no general explicit solution exists.  While (\ref{mulikapp}) is explicit, it is a weighted average of the cluster-size specific averages $\overline{Y}^{(k)}$, with weights depending on the variance components.  This, combined with the result for the variance components, implies that there is no explicit solution, unless the variance components are known or the cluster size is constant.
 
-
+\setcounter{equation}{0}
 \section{Full Likelihood}
  \label{appB}
 
@@ -5188,6 +5187,7 @@ with $\frac{\partial\ell}{\partial \sigma^2}$ and $\frac{\partial\ell}{\partial 
 with $\frac{\partial^2\ell}{\partial \mu \partial \sigma^2}$, $\frac{\partial^2\ell}{(\partial \sigma^2)^2}$, $\frac{\partial^2\ell}{\partial d \partial \sigma^2}$, $\frac{\partial^2\ell}{\partial \mu \partial d}$, $\frac{\partial^2\ell}{\partial \sigma^2 \partial d}$, and $\frac{\partial^2\ell}{\partial (d)^2}$ indentical to (\ref{jhessian4}),
 (\ref{jhessian5}), (\ref{jhessian6}), (\ref{jhessian7}), (\ref{jhessian8}), and (\ref{jhessian9}).
 
+\setcounter{equation}{0}
 \section{Pseudo-likelihood for Split Samples}
 \label{splitsample}
 
@@ -5301,6 +5301,7 @@ for example,
 the CS case with a different number of measurements 
 per cluster.}
 
+\setcounter{equation}{0}
 \section[Optimal Scalar Weights for CS]{Derivation of Optimal Scalar Weights for Compound-symmetry Case}
 
 To find the optimal scalar weight with minimum variance for $\mu$ we use the method of Lagrange with the constraint that the weights $a_k$ need to sum to 1:
@@ -5569,7 +5570,7 @@ and $\widehat{d}$, presented in
 
 
 
-
+\setcounter{equation}{0}
 \section{Details About the First Simulation Study}
 \label{simapp}
 
@@ -5747,7 +5748,7 @@ It is noteworthy that the behavior of the iterated optimal weights depends on $c
 
 Taken together, it follows that both approximately optimal and iterated optimal weights provide excellent results. The specific attraction of the approximate optimal weights is that they obviate the need for iteration, which is a factor of stability and speed.
 
-
+\setcounter{equation}{0}
 \section{Details About the Second Simulation Study}
 \label{simapptwee}
 
@@ -6118,6 +6119,7 @@ Comparing computation times, the closed-form approaches are the clear winners, f
 
 
 %% Ar1
+\setcounter{equation}{0}
 \section{The Balanced Conditionally Independent Model\label{bcim}}
 
 In this case, one imposes the following structure on (\ref{lmmhier}):
@@ -6170,6 +6172,7 @@ Sufficient statistics (\ref{suffstat1})--(\ref{suffstat4}) lead to the maximum l
 \end{eqnarray}
 Note that the estimators for the fixed effects do not involve the variance components.
 
+\setcounter{equation}{0}
 \section{Algebraic Derivations in the AR(1) Case\label{ar1appendix}}
 
 Here, we present more detailed derivations of the key algebraic expressions presented in Sections~\ref{secmodel} and \ref{secestimators}.
@@ -6728,13 +6731,14 @@ and these can be combined using the delta method, resulting in (\ref{deltavareen
 
 \subsection{Calculating $\widehat{\rho}$ and $\widehat{\sigma}^2$ in R}
 
-In this section, we consider the implementation of the calculations for the variance components via the R [ackahe {\tt{fastAR1}}. This can be done with a few simple lines of code. For fixed $C_k=C$ and $n_k=n$, and given the data $y$, the function {\tt{est.ar1}} estimates the variance components and provides a plot for the third-degree polynomial in (\ref{nk_n_rho}). This visually underscores that there is only one root in $[-1,1]$. Figure \ref{3rd_poly} shows (\ref{nk_n_rho}) for 10 simulated data sets;  clearly, there is a single root only in $[-1,1]$. For convenience, the R code is given in Supplementary Materials~\ref{rcode}. Other functions to find variances and iterated optimal weights are also available.
+In this section, we consider the implementation of the calculations for the variance components via the R [ackahe {\tt{fastAR1}}. This can be done with a few simple lines of code. For fixed $C_k=C$ and $n_k=n$, and given the data $y$, the function {\tt{est.ar1}} estimates the variance components and provides a plot for the third-degree polynomial in (\ref{nk_n_rho}). This visually underscores that there is only one root in $[-1,1]$. Figure \ref{3rd_poly} shows (\ref{nk_n_rho}) for 10 simulated data sets;  clearly, there is a single root only in $[-1,1]$. For convenience, the R code can be obtained via R package {\tt{fastAR1}}, see Section~\ref{fastar1}. Other functions to find variances and iterated optimal weights are also available.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{3rd_poly.eps}
 \caption{The third degree polynomial in (\ref{nk_n_rho}) for $10$ different generated data. The red veertical line shows $\widehat{\rho}$.} \label{3rd_poly}
 \end{figure}
 
+\setcounter{equation}{0}
 \section{Details on Additional Simulations\label{suppsimul}}
 
 \subsection{Simulations with Proportional and Size-proportional Weights}
@@ -6994,6 +6998,7 @@ $\rho_0$&method& mean($\widehat{\sigma}^2$) (s.e.)  & mean(s.e.($\widehat{\sigma
 \caption[Simulation study. Comparing computation time using closed form and numerical solutions]{Simulation study. Comparing computation time using closed form (left) and numerical (right) solutions. The horizontal axis shows number of clusters ($c$) and the vertical axis shows the computation time in seconds.} \label{fig_comp_time}
 \end{figure}
 
+\setcounter{equation}{0}
 \section{Details on PANSS Data Analysis}\label{suppdata}
 \vspace{-3.5mm}
 As one may see from Table~\ref{PANSSTab_freq}, by far the majority of the study subjects have complete data and hence belong to the first pattern.
@@ -7099,7 +7104,7 @@ The $95\%$ confidence intervals, accompanying (\ref{model_trial}), are presented
 
 
 
-
+\setcounter{equation}{0}
 \section{Fieller's method and Delta method}
 \label{app1}
 
@@ -7144,6 +7149,7 @@ One may take $n_f=\max\{L,U\}$. Of course, in case were $z_{\alpha/2}^2 C_2^2 <1
 \mathrm{Var}(\frac{\widehat{\sigma^2}}{\varepsilon \widehat{\tau}}) \approx \frac{1}{\varepsilon^2 \widehat{\tau}^2} \left( s_{11} - 2 \frac{\sigma^2}{\tau} s_{12} + \frac{\sigma^4}{\tau^2} s_{22} \right).
 \end{equation}
 
+\setcounter{equation}{0}
 \section[Random vertical data splitting for CS]{Random vertical data splitting for compound-symmetry structure}
 \label{app2}
 Assume a single cluster of size $N$ with multivariate normal distribution and compound-symmetry structure for its covariance matrix, see Section~\ref{sec_CS_effect}. Suppose we take $M_0$ sub-samples of size $n_0$ from this cluster. Following \cite{hoffman2001}, the parameter $\mu$ should be estimated within each sub-sample, $\widehat{\mu}^{(m)}$ ($m=1,\ldots,M_0$) and then the overall estimate can be obtained by averaging these estimates. Furthermore, one needs the within and between sub-samples variabilities to compute the overall variability, see (\ref{mo_cov}).
@@ -7209,7 +7215,7 @@ The same calculation is possible for $M_0=2$,
 By considering the desired ARE as $1+\epsilon$, one may find $n_0$.
 
 
-
+\setcounter{equation}{0}
 \section{Combination rule for $p$-values in LES dataset analysis (IMI)}
 
 
@@ -7222,6 +7228,7 @@ The Kruskal-Wallis test statistic asymptotically follows a $\chi^2$ distribution
 	\item \textbf{Computing $p$-value.} $p$-value$=P(F_{\kappa,\nu} > D)$, where $F$ is the $F$-distribution and $\nu=\kappa^{-3/M} (M-1) \left(1+\frac{1}{r}\right)^2$
 \end{itemize}
 
+\setcounter{equation}{0}
 \section{The surrogate model}
 \label{sec_surrogate_model}
 The model takes the form:
