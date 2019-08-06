@@ -14,6 +14,7 @@
 \usepackage{multirow}
 \usepackage{tocbibind}
 \usepackage{cleveref}
+
 \usepackage{textcomp}
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{lemma}{Lemma}[chapter]
@@ -76,11 +77,11 @@
 \usepackage{fancyhdr}
 
 \fancyfoot{}
-\fancyhead[RO,LE]{\thepage}
+\fancyhead[LE, RO]{\thepage}
 \fancyhead[LO]{\leftmark}
 \fancyhead[RE]{\rightmark}
 %\usepackage{fancyhdr}
-%\pagestyle{fancy}
+\pagestyle{fancy}
 %\fancyhf{}
 %\renewcommand{\headrulewidth}{0pt}
 %\fancyhead[R]{\thepage}
@@ -337,14 +338,19 @@
 %\rfoot{Page \thepage}
 
 \renewcommand{\headrulewidth}{1pt}
+\makeatletter
+     \renewcommand*\l@figure{\@dottedtocline{1}{1em}{3.5em}}
+          \renewcommand*\l@table{\@dottedtocline{1}{1em}{3.5em}}
 
+\makeatother
  
 \begin{document}
-\pagestyle{fancy}
+%\pagestyle{fancy}
 
 %\maketitle
  \frontmatter
  \input{titleLeuven.tex}
+ \input{titlePage.tex}
  \thispagestyle{empty}
 \tableofcontents
 \listoffigures
@@ -1400,26 +1406,26 @@ Assume that there are $c_k$ clusters of size $n_k$, $k=1,\dots,K$. For ease of d
 Evidently, for medium to large sample sizes, full maximum likelihood or Bayesian inferences are statistically optimal and computationally feasible; hence, the work done here might be less relevant. However, with really big data, where the number of independent clusters runs in the millions or beyond, and/or in settings where the number of measurements per cluster becomes very large (e.g., in meta-analysis), maximum likelihood eventually becomes prohibitive in terms of computation time. At the other end of the spectrum, in very small samples (e.g., in small-area epidemiology applications, or when studies are conducted in so-called orphan diseases), maximum likelihood estimates may become unstable, to the point where it is difficult to obtain convergence.  This may be due, for example, to relatively flat likelihood functions. The non-iterative nature of our proposal removes such issues. Small samples refers here to a small number of clusters; the clusters themselves may consist of smaller or larger numbers of within-cluster replication. 
 We are not the first to consider these issues. \cite{wim2015} considered multiple imputation to bring clusters to the same size before applying maximum likelihood. If done with care, convergence problems are drastically reduced. \cite{williamson2003marginal} and \cite{follmann2003} proposed so-called multiple outputation, to repeatedly create independent samples by randomly selecting one member per cluster.  To ensure that correlation is taken into account, combination rules reminiscent of multiple imputation are then applied to combine inferences from the samples drawn. These methods are based on repeated sampling and  come at computational cost for high-dimensional data (\cite{sikorska2013_2}). Therefore, in this paper, the focus is on entirely non-iterative methods, bringing together the advantages of balanced data and simple averaging methodology. A consequence of our approach is the need for applying weights when combining results from the $K$ strata.  We establish how results on incomplete sufficient statistics in the context of weighted averages \citep{molenberghs2014random, Lisa2015_2} imply that there may be no optimal set of weights. Given this, we propose pragmatically attractive weights, in terms of efficiency, bias, and computational ease.
 
-The remainder of the paper is organized as follows. Two motivating datasets are described in Section~2.
+The remainder of the paper is organized as follows. Two motivating datasets are described in Section~\ref{ntpintro}.
 %\ref{dataintro}.
-In Section~3
+In Section~\ref{incompleteness}
 %\ref{incompleteness} 
-essential background material on incomplete sufficient statistics is presented. The compound-symmetry model is introduced in Section~4,
+essential background material on incomplete sufficient statistics is presented. The compound-symmetry model is introduced in Section~\ref{model},
 %\ref{model}
 and a review is provided of the relevant incompleteness results from \cite{Lisa2015_2}, together with implications for likelihood-based estimation. Background from the pseudo-likelihood-based split-sample method is given in Supplementary Material Section~\ref{appC}.
 %\ref{splitsample}
-A general split-sample approach to the CS model is provided in Section~5,
+A general split-sample approach to the CS model is provided in Section~\ref{CSsplitsample},
 %\ref{CSsplitsample}
 and a number of specific but practically relevant cases are considered.
-Details about the specifics for the CS case are presented in Section~6.
+Details about the specifics for the CS case are presented in Section~\ref{psa7}.
 %\ref{psa7}.
-Section~7
+Section~\ref{simulation}
 %\ref{simulation}
- is dedicated to a simulation study, examining situations for which there are no closed forms on the one hand, and studying numerical performance (speed and convergence) on the other. The data, described in Section~2,
+ is dedicated to a simulation study, examining situations for which there are no closed forms on the one hand, and studying numerical performance (speed and convergence) on the other. The data, described in Section~\ref{ntpintro},
 %\ref{dataintro}
-are analyzed in Section~8.
+are analyzed in Section~\ref{dataanal}.
 %\ref{dataanal}
-Ramifications and recommendations for practice are offered in Section~9.
+Ramifications and recommendations for practice are offered in Section~\ref{ramifications}.
 %\ref{ramifications}.
 
 %\setcounter{section}{2} %***
@@ -1468,7 +1474,7 @@ It is clear from the table that average litter size is depleted with increasing 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\lhead[\footnotesize\thepage\fancyplain{}\leftmark]{}\rhead[]{\fancyplain{}\rightmark\footnotesize\thepage}%Put this line in Page 2
+%\lhead[\footnotesize\thepage\fancyplain{}\leftmark]{}\rhead[]{\fancyplain{}\rightmark\footnotesize\thepage}%Put this line in Page %2
 
 
 
@@ -1799,14 +1805,13 @@ components, but not for the mean. They split the sequences of repeated
 measures in portions of equal size. Unequally sized splits 
 could also be considered, although the rationale for this may not be 
 compelling. They did not consider splits in independent sub-samples. 
-We do so here, in Section~6.2,
+We do so here, in Section~\ref{horizontal},
 %\ref{horizontal}, 
 both for sub-samples 
 of equal as well as for unequal size.
 
 With variable cluster size, we know from 
-Section~4.2
-%\ref{likelihood} 
+Section~\ref{likelihood} 
 that full maximum likelihood does not 
 lead to a closed-form solution. We will study in more detail 
 the natural splitting into sub-samples of constant cluster size.
@@ -1814,8 +1819,7 @@ the natural splitting into sub-samples of constant cluster size.
 A special case, for both the i.i.d.\  and 
 unequal cluster-size settings, is the cluster-by-cluster 
 analysis. We will apply our methodology, outlined in 
-Section~5,
-%\ref{CSsplitsample} 
+Section~\ref{CSsplitsample} 
 to this case, and contrast it with 
 an {\em ad hoc\/} moment-based set of estimators.
 
@@ -1823,8 +1827,7 @@ an {\em ad hoc\/} moment-based set of estimators.
 
 \paragraph{Optimal Weights}\label{owcs}
 
-As we see in Section~6.1.3,
-%\ref{scalarcs}, 
+As we see in Section~\ref{scalarcs}, 
 scalar and optimal (hence, vectorized) weights do not make a difference for the mean parameter, 
 because of the independence between the mean and the covariance parameters.
 
@@ -2005,8 +2008,8 @@ g_k&=&\frac
 {
 \sum_{m=1}^K
 \frac{c_mn_m}{\frac{\sigma^4}{n_m-1}+2\sigma^2d+n_md^2}
-}
-=
+}\\[2mm]
+&=&
 \frac
 {
 \frac{c_kn_k(n_k-1)}{(1-\rho)^2+[2\rho(1-\rho)+n_k\rho^2](n_k-1)}
@@ -2091,7 +2094,7 @@ considerably. The values for $a_k$ and $g_k$ are almost identical to
 the proportional weights. While a small discrepancy for $b_k$ is 
 noticeable, and understandable in view of (\ref{bkapprox}), the 
 proportional weights seem to offer a sensible choice. This issue 
-will be examined further in the data-analytic Section~8.
+will be examined further in the data-analytic Section~\ref{dataanal}.
 %\ref{dataanal}.
 
 \subsubsection{The Special Case of Common Cluster Size, Splits of (Un)equal Size}
@@ -2104,8 +2107,7 @@ a_k=b_k=g_k={c_k}/{N},
 \end{equation}
 Hence, while $a_k=b_k$ reduce to proportional weights,  for $g_k$ there is an impact of the partitioning structure. 
 When, further, $c_k$ is constant, we obtain $a_k=b_k=g_k=c/N=1/K$,
-and equal weights follow. The similarities and the subtle differences with the results from Section~6.1.4
-%\ref{aow} 
+and equal weights follow. The similarities and the subtle differences with the results from Section~\ref{aow} 
 are worth pointing out. Expressions (\ref{aoweq}) 
 and (\ref{akbkgk}) are identical except for the parameter $\sigma^2$.
 
@@ -2149,17 +2151,12 @@ The time gain of our fastest method relative to standard maximum likelihood usin
 \subsection{Analysis of Case Study}
 \label{dataanal}
 
-The data, introduced in Section~2,
-%\ref{ntpintro}, 
+The data, introduced in Section~\ref{ntpintro}, 
 were analyzed in three ways. 
-In Section~8.1
-%\ref{basic} 
-maximum likelihood estimators are presented, with split sampling, where splitting is by cluster size and using various weighting schemes. In Section~8.2,
-%\ref{withdose}, 
-a dose effect is added to these. Finally, the cluster-by-cluster methodology of Section~6.3
-%\ref{cbca} 
-is illustrated in Section~8.3.
-%\ref{cbc}.
+In Section~\ref{basic} 
+maximum likelihood estimators are presented, with split sampling, where splitting is by cluster size and using various weighting schemes. In Section~\ref{withdose}, 
+a dose effect is added to these. Finally, the cluster-by-cluster methodology of Section~\ref{cbca} 
+is illustrated in Section~\ref{cbc}.
 
 \subsubsection{Splitting by Cluster Size, No Dose Effect}
 \label{basic}
@@ -2394,8 +2391,7 @@ rather than the true ones.
 \subsubsection{Splitting by Cluster Size, With Dose Effect}
 \label{withdose}
 
-While these results illustrate the explicit derivations  with a constant mean, the data analysis in Section~8.1
-%\ref{basic} 
+While these results illustrate the explicit derivations  with a constant mean, the data analysis in Section~\ref{basic} 
 does not do full justice to the actual design of the experiment, because the question of  scientific interest is the 
 dose-response relationship. Let $x_i$ be the dose administered to 
 cluster $i$, taking one out of 4 to 5 values. The dose 
@@ -2409,8 +2405,7 @@ under ML (and REML) on the one hand, and using split-sample methodology
 (with proportional, equal, and approximate scalar weights) on the other, 
 are presented in Table~\ref{ntpestimatestable3}. The results are  
 comforting, showing that proportional and approximate scalar weights are a sensible choice. This is consistent with theoretical considerations, 
-the simulations results, and the analysis in Section~8.1.
-%\ref{basic}.
+the simulations results, and the analysis in Section~\ref{basic}.
 \begin{table}[!t]
 \begin{center}
 \caption[NTP Data (with dose effect)]{\linespread{1} \small NTP Data (with dose effect). Splitting by cluster size.  Maximum likelihood and weighted split-sample estimates (standard errors): (a) ML: maximum likelihood; (b) REML: restricted maximum likelihood; (c) Prop.: proportional weights; (d) Equal: equal weights; (e) Approx.~sc.: like proportional weights, except that for $b_k$ (\ref{bkapprox}) is used.\label{ntpestimatestable3}}
@@ -4960,8 +4955,10 @@ Other than extending data slitting to be used to deal with small-sample issues, 
 
 \appendix
 \setcounter{equation}{0}
-\renewcommand{\theequation}{\thesection.\arabic{equation}}
 \renewcommand{\thesection}{A.\arabic{section}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\renewcommand\thefigure{\thesection.\arabic{figure}}    
+\renewcommand\thetable{\thesection.\arabic{table}}    
 
 %% CS paper
 
@@ -4969,7 +4966,7 @@ Other than extending data slitting to be used to deal with small-sample issues, 
 \section{Incompleteness in the Compound-symmetry Model} \label{appA}
 
 
-{Based on (4.1)
+{Based on (\ref{driestats})
 %(\ref{driestats}) 
 and the multiplicity of the cluster sizes, the sufficient statistics are:
 \begin{eqnarray}
