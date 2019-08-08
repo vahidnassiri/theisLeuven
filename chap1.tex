@@ -362,7 +362,7 @@
 
 \clearemptydoublepage
 
-\chapter[Introduction]{Introduction and problem statement}
+\chapter[Overview]{Overview}
 \label{sec_intro1}
 
 Small sample sizes would lead to wrong or statistically inaccurate conclusions. Therefore, in designing any statistical study, an important step is to estimate the sample size that would enable the researcher to draw valid conclusions. While a small sample size prevents reliable or meaningful statistical conclusions, large sample sizes have rarely been an issue, in fact a large sample size could be a desirable aspect of a study. However, in 21st century, having large sample sizes also, becomes a trouble-maker. By emerging technologies that make the task of data collection easy and fast, the size of samples in many studies becomes larger and larger, and this came to the point that, the power of a typical computer would fail to analyze such huge datasets. Figure \ref{fig_bigdata} shows a plot of number of results found using Google Scholar for searching the exact phrase "big data" upto different years. We obviously can see the increasing interest in this topic in the recent years.
@@ -383,7 +383,7 @@ There are several issues related to large datasets, including: how to store them
 
 
 
-In Table \ref{tab_comptime1} we compare the computation time when the sample sizes $n=10, 10^2, 10^3, 10^4, 10^5, 10^6, 10^7$, for some simple computational tasks including:
+In Table \ref{tab_comptime1} we compare the computation time for the sample sizes $n=10, 10^2, 10^3, 10^4, 10^5, 10^6, 10^7$, for some simple computational tasks including:
 
 \begin{itemize}
 \item Generating a random sample from standard normal of size $n$.
@@ -398,7 +398,7 @@ In Table \ref{tab_comptime1} we compare the computation time when the sample siz
 \begin{table}[ht]
 \centering
 \begin{tabular}{lccccc}
-  \hline
+  \hline \hline
 Sample size & Generation & Mean & Variance & LS & MAD \\ 
   \hline
  $10$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\ 
@@ -408,7 +408,7 @@ Sample size & Generation & Mean & Variance & LS & MAD \\
  $10^5$ & 0.00 & 0.00 & 0.00 & 0.01 & 3.75 \\ 
  $10^6$ & 0.08 & 0.01 & 0.00 & 0.32 & 764.37 \\ 
  $10^7$ & 1.05 & 0.01 & 0.06 & 3.46 & 60558.83 \\ 
-   \hline
+   \hline \hline
 \end{tabular}
 \caption{Computation time (in seconds) of different methods for different sample sizes.} 
 \label{tab_comptime1}
@@ -421,7 +421,7 @@ As we may see, for some analyses, the computation time increases linearly as the
 Splitting a sample into smaller chunks, then analyzing each part separately, and finally combining the results of these analyses is a known methodology to deal with large samples. Some authors have called this \emph{Software Alchemy}, \cite{matloff2014}. This idea is also at the heart of MapReduce methodology \citep{dean2008}. The split-apply-combine strategy in the R packages {\tt{plyr}} and {\tt{dplyr}} also uses this idea \citep{wickham2011}. All these would show the importance and effectiveness of this approach in practice. 
 
 
-However, most of these implementations would consider independent sub-samples, or non-clustered data. Our goal in this thesis is to extend the existing methodology to the cases where the subjects would form clusters of correlated data. This type of data is very common in medical studies in particular, but they also can be observed in any longitudinal or multilevel studies. Some examples of such data are measurements on offsprings of the same animal, data collected from family members, data collected from different countries in a meta-analytic setting, measuring body temperature of the same person several times, ratings of the same book by different people, measuring hearing ability of elderly people for several frequencies, measuring primary vital signs (body temperature, heart rate, respiratory rate, and blood pressure) for each person, etc.
+However, most of these implementations would consider independent observations, or non-clustered data. Our goal in this thesis is to extend the existing methodology to the cases where the subjects would form clusters of correlated data. This type of data is very common in medical studies in particular, but they also can be observed in any longitudinal or multilevel studies. Some examples of such data are measurements on offsprings of the same animal, data collected from family members, data collected from different countries in a meta-analytic setting, measuring body temperature of the same person several times, ratings of the same book by different people, measuring hearing ability of elderly people for several frequencies, measuring primary vital signs (body temperature, heart rate, respiratory rate, and blood pressure) for each person, etc.
 
 As we have seen in Table~\ref{tab_comptime1}, even for non-clustered data and simple models, increasing the sample size could cause very expensive computation times. The time needed to fit a MAD regression with one predictor to a sample of size 10 million is around 18 hours. Now, if we have clustered data that demands more complicated models to account for correlations, things would get even more difficult. In case of clustered data, the sample size can be seen from different points of view. 
 
@@ -431,7 +431,7 @@ As we have seen in Table~\ref{tab_comptime1}, even for non-clustered data and si
 
 \section{Large clustered data}
 
-Consider a study which measures $m$ outcomes for $N$ clusters, each $n_i$ times. Let $y_{rij}$ be the $j$th measurement taken on the $i$th cluster for the $r$th outcome, $i=1,\ldots,N$, $r=1,\ldots,m$ and $j=1,\ldots,n_{ri}$. As a simple example, take $m=4$ responses as the vital signs: body temperature, heart rate, respiratory rate, and blood pressure, measured for $n_1 = n_2 = n_3 = n_4 = 100$ hospitalized patients. And assume these measurements are done every $4$ hours. For example, $y_{111}$ is the body temperature of the first patient measured for the first time. 
+Consider a study which measures $m$ outcomes for $N$ clusters, each $n_i$ times. Let $y_{rij}$ be the $j$th measurement taken on the $i$th cluster for the $r$th outcome, $i=1,\ldots,N$, $r=1,\ldots,m$ and $j=1,\ldots,n_{ri}$. As a simple example, take $m=4$ responses as the vital signs: body temperature, heart rate, respiratory rate, and blood pressure, measured for $n_1 = n_2 = n_3 = n_4 = 100$ hospitalized patients. And, assume these outcomes are measured every $4$ hours. For example, $y_{111}$ is the body temperature of the first patient measured for the first time. 
 
 A general scheme of such clustered data is presented in Figure~\ref{fig_scheme}. A suitable model for such data should appropriately respect the correlation structures imposed by the fact that several measurements are done on the same subject. While even for moderate sample sizes, fitting such models could already become challenging, we may face a greater challenge when the size of dataset makes it eligible for the title \emph{big data}. 
 
@@ -457,12 +457,12 @@ Note that, \emph{big} would be different for $N$, $n_{ri}$, and $m$. For example
 
 When it comes to clustered data, however, a different story is going on. Some 100's could already be big in case of cluster size, $n_{ri}$ (see Amazon book ratings data in Section~\ref{mot_amazon}), and even some 10's is \emph{big} when we consider the number of outcomes $m$ (see Hearing data in Section~\ref{mot_hearing}).
 
-It goes without saying that, in reality, any combination of the above situations could happen. Our aim in this thesis is to provide appropriate methodologies to: 1- split the data into smaller chunks, 2- analyze each split, 3- combine these analyses in an efficient way. Our methodology should consider the nature of the data. While the mere task of splitting would already breaks down the difficult (sometimes infeasible) problem into smaller easier and feasible to analyze pieces, sometimes the structure of the data would allow for some \emph{smart} non-random splitting which would then provide more gain. Our aim in this thesis is to cover all of the situations which a dataset of clustered subjects could be called \emph{big}. 
+It goes without saying that, in reality, any combination of the above situations could happen. Our aim in this thesis is to provide appropriate methodologies to: 1- split the data into smaller chunks, 2- analyze each split, 3- combine these analyses in an efficient way. Our methodology should respect the nature of the data. While the mere task of splitting at random would already breaks down the difficult (sometimes infeasible) problems into smaller easier and feasible to analyze pieces, sometimes the structure of the data would allow for some \emph{smart} non-random splitting which would then provide more gain. Our aim in this thesis is to cover all of the situations which a dataset of clustered subjects could be called \emph{big}. 
 
 In developing these methodologies we will make sure to keep two promises:
 
 \begin{itemize}
-\item While each methodology can deal with one situation, it should be easily possible to combine methodologies to deal with a combined situation.
+\item While each methodology can deal with one situation, it should be possible to combine methodologies to deal with a combined situation.
 
 \item The splitting and combining steps of our methodology should be as independent as possible from the analyses step, so one can easily (or with a minor modification) use it for its desired analysis.
  
@@ -470,7 +470,7 @@ In developing these methodologies we will make sure to keep two promises:
 
 \section{Evolution of a statistical model}
 
-Before proceeding to the main topic of this thesis which is \emph{data splitting}, we may say a few words about \emph{mixed models}. These models are a main tool to analyze clustered data, and will be visited several times throughout this thesis. More technical details about mixed models can be found in \cite{Molenberghs2000} and \cite{molenberghs2005}, in this section we try to explain how they extend the usual linear models to be useful for analyzing clustered data. 
+Before proceeding to the main topic of this thesis which is \emph{data splitting}, we may say a few words about \emph{mixed models}. These models are a main tool to analyze clustered data, and will be visited several times throughout this thesis. More technical details about mixed models can be found in \cite{Molenberghs2000} and \cite{molenberghs2005}, in this section we try to explain how mixed models extend the usual linear models to be useful for analyzing clustered data. 
 
 In the expression \emph{mixed model}, the model part is clear, so let us begin with the meaning of \emph{mixed}. Mixed here refers to including both random and structured components in our model. Considering this, indeed, every statistical model is a mixed model. As we have a structured part, and randomness of the error at the individual level. So while it is true that every statistical model is a mixture of structure and randomness, when we talk about a mixed model in particular, we mean other than the individual randomness (error of the model), we have some other random components in the model as well. Let us consider a usual linear model: 
 
@@ -548,7 +548,7 @@ comparing (\ref{lin_model}) and (\ref{mixed_model_intro}), we may see the differ
 Data splitting is a general idea to deal with big, massive, and large data. Large here could be any of the cases we have mentioned above, or a combination of them. Our general approach to deal with this situation consists of three main steps as follows. We call these three steps \textit{data splitting}.
 
 \begin{enumerate}
-\item \textbf{Splitting}: in this step, the data should be splitted into smaller chunks in a way that analyzing each of them becomes more convenient that the dataset as a whole. This convenience would at least come from having sub-samples of smaller sizes, but it could be possible to perform the splitting in a way that some other nice features (balancedness, for example) that the original data does not own, can be created in all or some of these sub-samples.
+\item \textbf{Splitting}: in this step, the data should be splitted into smaller chunks in a way that analyzing each of them becomes more convenient than the dataset as a whole. This convenience would at least come from having sub-samples of smaller sizes, but it could be possible to perform the splitting in a way that some other nice features (balancedness, for example) that the original data does not own, could be created in all or some of these sub-samples.
 
 \item \textbf{Analyzing}: in this step, each split of data will be analyzed using the conventional methods. Therefore, using \emph{data splitting} approach, one can use its own favorite methodologies which are only suitable for small to moderate sample sizes. Typically, with \emph{data splitting} approach that we propose here, the only information one needs to extract and keep from analyzing each split of data are: the estimated parameter vector, and their covariance matrix (if there is a need to provide standard errors of such estimates).
 
@@ -4949,13 +4949,13 @@ $d_1$ & 9.537 (8.740) & 11.147 (3.519) &8.943 \\
 As we may see in Table~\ref{summary_armd_vc}, except for $d_2$, for other parameters we get an estimate close to the one obtained using full maximum likelihood. Of course, this is a first experiment with this idea. More theoretical work as well as simulation studies are required to establish a solid framework for this case.
 
 Other than extending data slitting to be used to deal with small-sample issues, our other immediate plan to extend this work is to implement a unified R package for all types of splitting and combination rules together with parallel computing possibilities to be distributed on several machines. This sounds like to be the next natural step to take. As they are all implemented separately, also given the embarrassingly parallel nature of our proposed methodology, implementing parallel computing is rather straightforward.
-
-
-\chapter{Appendices}
-
 \backmatter
 
 \appendix
+
+\chapter{Appendices}
+
+
 \setcounter{equation}{0}
 \renewcommand{\thesection}{A.\arabic{section}}
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
@@ -4963,9 +4963,9 @@ Other than extending data slitting to be used to deal with small-sample issues, 
 \renewcommand\thetable{\thesection.\arabic{table}}    
 
 %% CS paper
+In this chapter supplementary materials from different chapters are presented. Sections~\ref{appA}--\ref{bcim} will provide materials related to Section~\ref{sec_cs} (structured horizontal splitting for CS). The materials related to Section~\ref{sec_ar1} (structured horizontal splitting for AR1) will be given in Section~\ref{ar1appendix}--\ref{suppdata}. The Fieller's method and delta method are explained in Section~\ref{app1}. The combination rules for random vertical splitting for a CS case will be derived in Section~\ref{app2}. In Section~\ref{app_mi}, combination rules of multiple imputation for $p$-values are given. And finally, the surrogate model we have used in thesis is presented in Section~\ref{sec_surrogate_model}.
 
-
-\section{Incompleteness in the Compound-symmetry Model} \label{appA}
+\section[Incompleteness in the CS Model]{Incompleteness in the Compound-symmetry Model} \label{appA}
 
 
 {Based on (\ref{driestats})
@@ -7215,8 +7215,8 @@ By considering the desired ARE as $1+\epsilon$, one may find $n_0$.
 
 
 \setcounter{equation}{0}
-\section{Combination rule for $p$-values in LES dataset analysis (IMI)}
-
+\section{Combination rule for $p$-values for MI}
+\label{app_mi}
 
 The Kruskal-Wallis test statistic asymptotically follows a $\chi^2$ distribution. Therefore, in order to find the combined $p$-value, we may follow the procedure proposed by \cite{li1991}. More details can be found in \cite{rubin2004} and \cite{enders2010}. The combination is done using {\tt{micombine.chisquare}} in package {\tt{miceadds}} in \textsf{R}, \cite{miceadds}.
 
