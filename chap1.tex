@@ -772,9 +772,9 @@ A very useful dataset to illustrate the usefulness of random vertical splitting 
 
 So far we have discussed random horizontal and random vertical splitting, as well as structured horizontal splitting. In case of the vertical splitting also, pre-defining some sub-sampling structures (other than random) could be beneficial. We have already seen one application of structured splitting in case of horizontal splitting, which enabled us to form balanced sub-samples. In this section we will discuss an application of structured splitting in case of vertical sample splitting.
 
-We have considered an important case of jointly modeling several outcomes via random effects as a useful example for structured vertical splitting. Such a problem can easily become infeasible when the number of outcomes becomes large (even tens of them). \cite{Verbeke2006} and \cite{Verbeke2007} proposed to analyze all possible pairs of all outcomes instead of analyzing them simultaneously. Then use appropriate combination rules to find the parameters of the model of interest. To illustrate the problem, also to show how structural vertical splitting is similar to the approach of \cite{Verbeke2006} and \cite{Verbeke2007}, and, to see how it is different from random vertical splitting, we present a simple example. 
+Jointly modeling several outcomes via random effects is a useful example for structured vertical splitting. Such a problem can easily become infeasible when the number of outcomes becomes large (even tens of them). \cite{Verbeke2006} and \cite{Verbeke2007} proposed to analyze all possible pairs of all outcomes instead of analyzing them simultaneously. Then use appropriate combination rules to find the parameters of the model of interest. To illustrate the problem, also to show similarities and differences of structured vertical splitting and the approach of \cite{Verbeke2006} and \cite{Verbeke2007}, we present a simple example. 
 
-Imagine we have 3 outcomes to be jointly modeled. A random effects approach would fit a separate model to each outcome, then let them to be correlated by defining a joint distribution for their random effects. This joint distribution is usually a normal distribution where its covariance matrix would capture the dependencies between different outcomes. Let us elaborate more here. If the three separate models (all linear) for the three outcomes are defined using the following general form:
+Imagine we have 3 outcomes to be jointly modeled. A random effects approach would fit a separate mixed model to each outcome, then let them to be correlated by defining a joint distribution for their random effects. This joint distribution is usually normal where its covariance matrix would capture the dependencies between different outcomes. Let us elaborate more here. If the three separate models (all linear) for the three outcomes are defined using the following general form:
 
 \begin{equation}
 \label{eq_SV_models}
@@ -804,12 +804,12 @@ D_{11} & D_{12} & D_{13}\\
 \end{bmatrix}
 \right).
 \end{equation}
-Therefore, the parameter of interest, $\bftheta$, is as follows:
+Therefore, the parameter of interest, $\bftheta$, is:
 \begin{equation}
 \label{eq_SV_theta}
 \bftheta= (\beta_1,\beta_2,\beta_3, D_{11},D_{22},D_{33},D_{12}, D_{13}, D_{23}).
 \end{equation}
-As we have $3$ outcomes, the number of pairs will be $M=3\times (3-1) /2 =3$. However, unlike random vertical splitting where usually all parameters of interest are estimated in each sub-sample, here, because of the special structure we have imposed on the sub-samples, each of them would estimate part of parameter vector. The parameters estimated in each pair ($\bftheta^{(s)}$) are as follows:
+As we have $3$ outcomes, the number of pairs will be $M=3\times (3-1) /2 =3$. However, unlike random vertical splitting where usually all parameters of interest are estimated in each sub-sample, here, because of the special structure we have imposed on the sub-samples, each of them would estimate part of the parameter vector. The parameters estimated in each pair ($\bftheta^{(s)}$) are as follows:
 \begin{equation}
 \label{eq_SV_pairs}
 \begin{cases}
@@ -857,9 +857,9 @@ As one may see, the covariance parameters ($D_{12},D_{13}, D_{23}$) are only est
 
 
 \vspace*{2mm}
-\noindent Obviously, $\sum_i A_i$ (with $A_i$ the $i$th row of $A$) shows the number of times each parameter is estimated. Therefore, defining $W$ with each of its rows computed as $A_i / \sum_i A_i$, and pre-multiplying it by $\widehat{\boldsymbol{\Theta}}$ would provide the appropriate averaging. The same goes for the variance combination rule. \cite{Verbeke2006} and \cite{Verbeke2007} used a pseuo-likelihood approach to find the combined covariance matrix (the same as in \ref{eq_clt_pseudolikelihood}), we could show using \ref{eq_combination_variance} with appropriate weights works the same, but much faster.
+\noindent Obviously, $\sum_i A_i$ (with $A_i$ the $i$th row of $A$) shows the number of times each parameter is estimated. Therefore, defining $W$ with each of its rows computed as $A_i / \sum_i A_i$, and pre-multiplying it by $\widehat{\boldsymbol{\Theta}}$ would provide the appropriate averaging. The same goes for the variance combination rule. \cite{Verbeke2006} and \cite{Verbeke2007} used a pseuo-likelihood approach to find the combined covariance matrix (the same as in \ref{eq_clt_pseudolikelihood}), we could show using (\ref{eq_combination_variance}) with appropriate weights works the same, but much faster.
 
-As one may see, only the covariance matrix of the random effects have $6$ parameters to be estimated, if one decides to add random slopes also, then the number of parameters will increase to $(6\times7)/2 = 21$. Once the number of responses becomes slightly larger, the number of parameters will dramatically increase. This would face all conventional methods with serious problems, and the problem can be unfeasible. Figure \ref{fig_strucVert} shows how the number of parameters only in the covariance matrix of random effects would increase when the number of responses increases. As we may see in this figure, even for less than 100 responses, the number of parameters becomes extremely large.
+As one may see, only the covariance matrix of the random effects have $6$ parameters to be estimated, if one decides to add random slopes also, then the number of parameters will increase to $(6\times7)/2 = 21$. Once the number of responses becomes slightly larger, the number of parameters will dramatically increase. This would face all conventional methods with serious problems. Figure \ref{fig_strucVert} shows how the number of parameters in the covariance matrix of random effects alone would increase when the number of responses increases. As we may see in this figure, even for less than 100 responses, the number of parameters becomes extremely large.
 
 \begin{figure}
 \centering
@@ -868,16 +868,16 @@ As one may see, only the covariance matrix of the random effects have $6$ parame
 \label{fig_strucVert}
 \end{figure} 
 
-Therefore, there is a main difference between the applications we have proposed for random vertical splitting, and structured vertical splitting. While both of them are proposed to deal with large clusters, the issue with random vertical splitting is a large unbalanced sample size, while structured vertical splitting deals with a high-dimensional parameter space. In other words, in case of structured random splitting we are dealing with the so-called curse of dimensionality \citep{donoho2000}. In fact, particularly for this \emph{big} parameter space, we had to impose a structure on it, so in every sub-sample a sub-set of this parameter vector could be estimated. The smart idea of modeling several outcomes by all their sub-sets of two would break down the parameter space by breaking down the sample itself. That is why, in case of random splitting, every sub-sample usually estimates all parameters, while this is not often the case for structured vertical splitting. 
+Therefore, there is a main difference between the applications we have proposed for random vertical splitting, and structured vertical splitting. While both of them are proposed to deal with large clusters, the issue random horizontal splitting deals with is a large unbalanced sample size, while structured vertical splitting deals with a high-dimensional parameter space. In other words, in case of structured vertical splitting we are dealing with the so-called curse of dimensionality \citep{donoho2000}. In fact, particularly for this \emph{big} parameter space, we have to impose a structure on it, so in every sub-sample a sub-set of this parameter vector could be estimated. The smart idea of modeling several outcomes by all their sub-sets of two would break down the parameter space by breaking down the sample itself. That is why, in case of random splitting, every sub-sample usually estimates all parameters, while this is not often the case for structured vertical splitting. 
 
-We have two examples in our motivational datasets which are used to illustrate the applications of structured vertical splitting. We have used \emph{Leuven diabetes project} data as a basis to perform simulation studies to evaluate our proposed way of combining variances with what pseudo-likelihood theory would give. Furthermore, the \emph{Hearing data} is used as an example of high-dimensional parameter space where the conventional methods would fail. 
+We have two examples in our motivational datasets which are used to illustrate the applications of structured vertical splitting. We have used \emph{Leuven diabetes project} data as a basis to perform simulation studies to evaluate our proposed way of combining variances. Furthermore, the \emph{Hearing data} is used as an example of high-dimensional parameter space where the conventional methods would fail. 
 
 
 
 
 \section{Supplementary topics}
 
-As it was mentioned, due to several technical similarities between random vertical data splitting (iterative multiple outputation) and multiple imputation, and due to wide acceptance of MI in different research fields, we have developed part of our required methodology in MI language rather than the language of IMO. However, the conclusions are valid in both cases. In this section we briefly go over these contributions which will be presented in Chapter~\ref{chap_supp}.
+As it was mentioned, due to several technical similarities between vertical data splitting (iterative multiple outputation) and multiple imputation, and due to wide acceptance of MI in different research fields, we have developed part of our required methodology in MI language rather than the language of IMO. However, the conclusions are valid in both cases. In this section we briefly go over these contributions which will be presented in Chapter~\ref{chap_supp}.
 
 \subsection{How many sub-samples?}
 
@@ -885,19 +885,19 @@ The iterative multiple outputation (IMO) procedure that we have proposed for ran
 
 As we have seen in (\ref{eq_estimate}), the combination rule of data splitting for parameter estimate is averaging. From laws of large numbers we know that under general regularity conditions, as the sample size increases, the average converges to a finite quantity. We have seen that also via central limit theorem in (\ref{eq_clt_pseudolikelihood}). As we average over sub-samples, sample size here means the number of sub-samples. Therefore, we would expect, after some point, increasing the number of sub-samples would not impressively change the final results (convergence is achieved). But it is important to come up with appropriate criteria and stopping rules to stop the sub-sampling at the right moment. It is important for two main reasons: 1- if we stop early, we would fail to provide precise and correct estimates, 2- if we stop too late, our initial intention for saving computation time could be compromised.
 
-We have already explained the connection of multiple imputation and IMO, also how they would suffer from the same issues. In multiple imputation also, a main issue is to determine the number of imputed datasets. Therefore, we have studied this question for MI in detail via simulation studies and theoretical discussion. Various distance functions (Mahalanobis, Euclidean, etc.) were examined for different situations and as a result we proposed the iterative multiple imputation procedure. The obtained results are all valid in case of IMO, therefore, we have used the same stopping rule in IMO and in IMI.
+We have already explained the connection of multiple imputation and IMO, also how they would suffer from the same issues. In multiple imputation also, a main issue is to determine the number of imputed datasets. Therefore, we have studied this question for MI in detail via simulation studies and theoretical discussion. Various distance functions (Mahalanobis, Euclidean, etc.) were examined for different situations and as a result we proposed the iterative multiple imputation procedure. The obtained results are all valid in case of IMO, therefore, we have used the same stopping rule in IMO.
 
-In order to illustrate IMI, we have used two datasets, the \emph{Leuven Eye Study} (LES) and the \emph{Cholesterol data}. LES is collected via one of the largest observational studies for glaucoma. However, the dataset includes a lot of missing data. Practically, no fully observed line exists in this dataset, so without MI the analysis was not possible. The second dataset is a famous dataset used many times to illustrate different aspects of multiple imputation.
+In order to illustrate iterative multiple imputation, we have used two datasets, the \emph{Leuven Eye Study} (LES) and the \emph{Cholesterol data}. LES is collected via one of the largest observational studies for glaucoma. However, the dataset includes a lot of missing data. Practically, no fully observed line exists in this dataset, so without MI the analysis was not possible. The second dataset is a famous dataset used many times to illustrate different aspects of multiple imputation.
 
 
 
 \subsection{Special case: where combination rule fails}
 
-A fundamental rule which should be followed when using the combination rule in (\ref{eq_estimate}) is to average parameters which are counterparts of the same parameter in the model for the full sample. In some applications, finding such counter parts is not a straightforward task. An example of such situations is principal component analysis (PCA). Methods like PCA work based on eigenvalue decomposition of the covariance (or correlation) matrix. Eigenvalues of a matrix $\Sigma$ can be obtained by solving the following equation,
+A fundamental rule which should be followed when using the combination rule in (\ref{eq_estimate}) is to average parameters which are counterparts of the same parameter in the model for the full sample. In some applications, finding such counterparts is not a straightforward task. An example of such situations is principal component analysis (PCA). Methods like PCA work based on eigenvalue decomposition of the covariance (or correlation) matrix. Eigenvalues of a matrix $\Sigma$ can be obtained by solving the following equation,
 
 $$|\Sigma-\lambda I|,$$ 
 
-where $|.|$ for a matrix denotes the determinant of it and $I$ is the identity matrix of the same order as $\Sigma$. The roots of this equation are the eigenvalues. Obviously, there is no natural ordering among roots of a polynomial, but in case of PCA one can show that \citep{mardiamultivariate} these eigenvalues are actually variances of their corresponding principal components, therefore, a principal component (PC) with a larger eigenvalue explains a larger proportion of the total variance. 
+where $|.|$ for a matrix denotes the determinant of it and $I$ is the identity matrix of the same order as $\Sigma$. The roots of this equation are the eigenvalues. Obviously, there is no natural ordering among roots of a polynomial. But in case of PCA one can show that \citep{mardiamultivariate} these eigenvalues are actually variances of their corresponding principal components, therefore, a principal component (PC) with a larger eigenvalue explains a larger proportion of the total variance. 
 
 The issue arises when we use data splitting or multiple imputation where the eigenvalue decomposition should be done for several sub-samples or several imputed datasets. There is no guarantee that the largest eigenvalue from first dataset corresponds to the largest eigenvalue from the second dataset. The problem of combining results of PCA or exploratory factor analysis at the factor (or principal components) level has been studies in \cite{lovik2017combining}. 
 
@@ -916,16 +916,16 @@ The source codes for all of these R packages are publicly and freely available o
 
 \section{Publications}
 
-We have published the work we have done during the PhD studies in form of scientific scientific papers in peer reviewed journal and proceedings. Part of these publications are covered in this thesis, and part of them are not covered. A list of these publications is provided in this section.
+We have published the work we have done during this PhD in form of scientific papers in peer reviewed journal and proceedings. Part of these publications are covered in this thesis, and part of them are not covered. A list of these publications is provided in this section.
 
 \subsection{Publications covered in this thesis}
 
 \begin{enumerate}
 
 
-	\item \textcolor[HTML]{222222}{Hermans, Lisa, \textbf{Vahid Nassiri}, Geert Molenberghs, Michael G. Kenward, Wim Van der Elst, Marc Aerts, and Geert Verbeke. "} \textcolor[HTML]{222222}{Clusters With Unequal Size: Maximum Likelihood Versus Weighted Estimation in Large Samples." \textit{Statistica Sinica 28(3)}, pp. 1107--1132} (Section~\ref{sec_cs})
+	\item \textcolor[HTML]{222222}{Hermans, Lisa, \textbf{Vahid Nassiri}, Geert Molenberghs, Michael G. Kenward, Wim Van der Elst, Marc Aerts, and Geert Verbeke. "} \textcolor[HTML]{222222}{Clusters With Unequal Size: Maximum Likelihood Versus Weighted Estimation in Large Samples." \textit{Statistica Sinica 28(3)}, pp. 1107--1132} (Section~\ref{sec_cs})\footnote{This publication is also presented in PhD thesis of Lisa Hermans \citep{thesisLisa}. The author's role in this publication was implementing the methods in R, performing the simulations, and analyzing the case studies.}
 
-	\item \textcolor[HTML]{222222}{Hermans, Lisa, \textbf{Vahid Nassiri}, Geert Molenberghs, Michael G. Kenward, Wim Van der Elst, Marc Aerts, and Geert Verbeke. "Fast, closed-form, and efficient estimators for hierarchical models with AR (1) covariance and unequal cluster sizes." \textit{Communications in Statistics-Simulation and Computation} 47, no. 5 (2018): 1492--1505.} (Section~\ref{sec_ar1})
+	\item \textcolor[HTML]{222222}{Hermans, Lisa, \textbf{Vahid Nassiri}, Geert Molenberghs, Michael G. Kenward, Wim Van der Elst, Marc Aerts, and Geert Verbeke. "Fast, closed-form, and efficient estimators for hierarchical models with AR (1) covariance and unequal cluster sizes." \textit{Communications in Statistics-Simulation and Computation} 47, no. 5 (2018): 1492--1505.} (Section~\ref{sec_ar1})\footnote{See Footnote 2}
 	
 	\item \textbf{\textcolor[HTML]{222222}{Nassiri, Vahid}}\textcolor[HTML]{222222}{, Geert Molenberghs, and Geert Verbeke. "Finite information limit variance-covariance structures: Is the entire dataset needed for analysis?." In \textit{High Performance Computing $\&$  Simulation (HPCS), 2016 International Conference on}, pp. 736--742. IEEE, 2016.} (Section~\ref{chap_FIL})
 
@@ -1000,7 +1000,7 @@ three generations in about 4000 Flemish families \citep{mortelmans2011}. Each fa
 
 Although, using factor analysis is required for such data in order to confirm the existence of the expected underlying factors, but it cannot answer all of our questions. For example, the researcher wants to see how large are the correlations between different personality aspects and family roles (child, mother, father, etc.). The usual factor analysis would lose most of the hierarchical information in the data. 
 
-The hierarchical information we have mentioned comes from the fact that, there are family members who answer 44 questions which themselves will form 5 factors. Therefore, We have five factors combined with family roles as our response variables. If we only consider 3 family roles (child, mother, and father), it will form 15 different responses (5 personality aspects and 3 family roles). In other words, in this example, each of our clusters consists of a family with its members (likely 3 or 5), combined with 5 factors obtained from 44 questions. And we have more than 4000 of such families, conventional software like SAS would immediately fail to fit such models. But as we will see, splitting this large sample into 3 parts would help to obtain the required results. Therefore, this is an example of case studies where the conventional methods fail to work and our proposed alternative methods are necessary to fit the required models.
+The hierarchical information we have mentioned comes from the fact that, there are family members who answer 44 questions which themselves will form 5 factors. Therefore, we have five factors combined with family roles as our response variables. If we only consider 3 family roles (child, mother, and father), it will form 15 different responses (5 personality aspects and 3 family roles). In other words, in this example, each of our clusters consists of a family with its members (likely 3 or 5), combined with 5 factors obtained from 44 questions. And we have more than 4000 of such families. Conventional software like SAS would immediately fail to fit such models. But as we will see, splitting this large sample into 3 parts would help to obtain the required results. Therefore, this is an example of case studies where the conventional methods fail to work and our proposed alternative methods are necessary to fit the required models.
 
 It worth to mention that we have well studied and validated these data and the Dutch translation of the questionnaire in case of a Flemish sample, see \cite{lovik2017a}, \cite{lovik2017b}. While validating the Dutch translation for the Flemish sample, in order to deal with the missing data problem, we also had to develop methodologies to combine multiple imputation \citep{rubin1987, carpenter2012} and exploratory factor analysis. Our contribution to this field had also applications in case of data splitting, this will be discussed in Section~\ref{secc_IMI}. We have also studied this matter in \cite{lovik2017combining}.
 
@@ -1010,7 +1010,7 @@ It worth to mention that we have well studied and validated these data and the D
 \label{mot_hearing}
 To evaluate the hearing performance of a subject, hearing threshold sound pressure levels (measured in dB) are considered. By definition, a hearing threshold is the lowest signal intensity possible to perceive by a subject at a specific frequency. In a study considered in \cite{Molenberghs2000} and \cite{Verbeke2006}, hearing thresholds measured in 11 different frequencies between 125 Hz and 8000 Hz for left and right ears obtained on 603 male participants from the Baltimore Longitudinal Study of Ageing, BLSA. The number of visits for each subject which varies between 1 to 15 are unequally spaced. 
 
-As one may already observed, not only we have 22 outcomes (11 frequencies for left and right ears) which should be simultaneously modeled, but the study is also longitudinal. Therefore, one may need both random intercepts and random slopes. That means estimating a $44 \times 44$ covariance matrix of random effects, as well as the fixed effects. Conventional software like {\tt{Proc MIXED}} in SAS would immediately fail to estimate such huge a model, while our proposed structured vertical splitting can deal with the issue and provide necessary estimates and results.
+As one may have already observed, not only we have 22 outcomes (11 frequencies for left and right ears) which should be simultaneously modeled, but the study is longitudinal. Therefore, one may need both random intercepts and random slopes. That means estimating a $44 \times 44$ covariance matrix of random effects, as well as the fixed effects. Conventional software like {\tt{Proc MIXED}} in SAS would immediately fail to estimate such huge a model, while our proposed structured vertical splitting can deal with the issue and provide necessary estimates and results.
 
 \section{Leuven diabetes project} 
 
@@ -1038,7 +1038,7 @@ The data come from a clinical trial in age-related macular degeneration (ARMD), 
 %
 %\cite{van2016} proposed to use multiple imputation to create several balanced datasets. This idea greatly helps the convergence, but also bring up an important qeustion: how many imputed datasets could be enough to find correct conclusions? Therefore, it is a suitable situation to apply our ideas on determining the number of imputed datasets (translated to number of sub-samples in data splitting language).
 
-\section{Leuven eyes study} 
+\section{Leuven eye study} 
 
 This is an extensive observational study of glaucoma performed at the ophthalmology department of KU Leuven. This study investigates glaucoma which is one of the leading diseases to cause irreversible vision loss. Early diagnosis of glaucoma could greatly help to delay the vision loss. Therefore, studying various diagnostic methods is of a great importance. 
 
@@ -1050,14 +1050,14 @@ The dataset consists of 141 variables measured in 614 subjects. Various diagnost
 
 \chapter{Random horizontal splitting}
 
-Random horizontal splitting is useful for the cases where the dataset becomes \emph{big} because of number of clusters in there. We have already discussed the splitting pattern as well as the combination rules for this case in Section~\ref{sec_int_random_horizontal}. In this chapter we will illustrate this technique to fit a model to a subset of Divorce in Flanders dataset that could not be fitted with conventional methods and software. First, we explain the research question and our statistical formulation of it. Then we will see how conventional methods would fail in this case, and finally using random horizontal splitting we will fit the model that we could not be fitted otherwise.
+Random horizontal splitting is useful for the cases where the dataset becomes \emph{big} because of number of clusters in there. We have already discussed the splitting pattern as well as the combination rules for this case in Section~\ref{sec_int_random_horizontal}. In this chapter we will illustrate this technique to fit a model to a subset of Divorce in Flanders dataset that could not be fitted with conventional methods and software. First, we explain the research question and our statistical formulation of it. Then we will see how conventional methods would fail in this case, and finally using random horizontal splitting we will fit the model that could not be fitted otherwise.
 
 \section{The research question}
 
-Divorce in Flanders dataset presented data from Big Five Inventory (BFI) questionnaire answered by Flemish families. This BFI is a questionnaire of 44 items which should be answered with scores from 1 to 5. These 44 questions are measuring 5 aspects of personality: openness to the experience, conscientiousness, extraversion, agreeableness, and neuroticism.  Our interest is to study the correlation of each of these 5 aspects of personality between 3 main family roles: mother, father, and child. This would possibly reveal useful patterns in different characteristic qualities and show how they are related between parents, and their child. So the main research question here is: how different aspects of personality are correlated between different family roles. The difficulty arises because the five aspects of personality are latent variable and cannot directly be measured.
+Divorce in Flanders dataset presents data from Big Five Inventory (BFI) questionnaire answered by Flemish families. BFI is a questionnaire of 44 items which should be answered with scores from 1 to 5. These 44 questions are measuring 5 aspects of personality: openness to the experience, conscientiousness, extraversion, agreeableness, and neuroticism.  Our interest is to study the correlation of each of these 5 aspects of personality between 3 main family roles: mother, father, and child. This would possibly reveal useful patterns in different characteristic qualities and show how they are related between parents, and their child. So the main research question here is: how different aspects of personality are correlated between different family roles. The difficulty arises because the five aspects of personality are latent variable and cannot directly be measured.
 
 
-A simple way to deal with problem is to summarize the 44 items into 5 variables using dimension reduction techniques (such as factor analysis via principal component analysis). It should be done for each family role separately, forming 15 different variables. A correlation matrix of these 15 variables would to some extent provide what we need. The first issue with this approach is that it would ignore the intraclass correlation coming from the fact that some of the sample members are coming from the same family. 
+A simple way to deal with this problem is to summarize the 44 items into 5 variables using dimension reduction techniques (such as factor analysis via principal component analysis). It should be done for each family role separately, forming 15 different variables. A correlation matrix of these 15 variables would to some extent provide what we need. The first issue with this approach is that it would ignore the intraclass correlation coming from the fact that some of the sample members are coming from the same family. 
 
 In other words, we have two sources of correlation here: one as a result of correlation between different personality aspects and family roles, and yet another one that reflects the fact that the subjects are coming from the same family. We are interested in the former. Therefore, a proper method should distinguish between these two.
 
@@ -1130,7 +1130,7 @@ While considering the above benefits using a mixed model approach is very appeal
 
 \section{A data-splitting based remedy}
 
-While the cluster sizes are not large here (at most 3), considering the size of the sample we have used in this example (4460 families), also the number of outcomes of interest (15 factor-roles), one may think of two possible data splitting based solutions: random horizontal splitting, and structured vertical splitting. We may first try the former, and if it does not work, we may try the latter. If none of them can solve the issue, a combination of both methods can be applied (see Section~\ref{sec_conc}). 
+While the cluster sizes are not large here (at most 3), considering the size of the sample (4460 families), also the number of outcomes of interest (15 factor-roles), one may think of two possible data splitting based solutions: random horizontal splitting, and structured vertical splitting. We may first try the former, and if it does not work, we may try the latter. If none of them can solve the issue, a combination of both methods can be applied (see Section~\ref{sec_conc}). 
 
 
 In order to apply random horizontal splitting, we split 4460 families into three roughly equal sized sub-samples with 
@@ -1140,9 +1140,9 @@ the sizes $1480,1480,$ and $1500$. Therefore, the proportional weights in (\ref{
 W=(\frac{1480}{4460},\frac{1480}{4460},\frac{1500}{4460}).
 \end{equation}
 
-Now that the sub-samples are assigned and the proper weights are determined, we may fit the not feasible mixed model in (\ref{main_model}) to each of these sub-samples, obtain the parameters, and use combination rules with weights in (\ref{prop_weights}) to find the final estimates and their standard errors.
+Now that the sub-samples are assigned and the proper weights are determined, we may fit the mixed model in (\ref{main_model}) to each of these sub-samples, obtain the parameters, and use combination rules with weights in (\ref{prop_weights}) to find the final estimates and their standard errors.
 
-A detailed summary on $\tilde{D}$ (data-splitting based estimate of $D$) is given in Table \ref{D_matrix}. The estimate for each of the 120 parameters together with standard deviation, $95\%$ confidence interval, $z$-value and $p$-value are given in this table. Figure \ref{d_ci} shows the 120 parameter estimates in $\tilde{D}$ with their corresponding $95\%$ confidence interval. Just to make drawing conclusions easier, Figure \ref{corr_sep} shows parts of the correlation matrix corresponds to each personality factor separately.
+A detailed summary on $\tilde{D}$ (data-splitting based estimate of $D$) is given in Table \ref{d_est}. The estimate for each of the 120 parameters together with standard deviation, $95\%$ confidence interval, $z$-value and $p$-value are given in this table. Figure \ref{d_ci} shows the 120 parameter estimates in $\tilde{D}$ with their corresponding $95\%$ confidence interval. Just to make drawing conclusions easier, Figure \ref{corr_sep} shows parts of the correlation matrix corresponds to each personality factor separately.
 
 
 
@@ -1309,13 +1309,13 @@ Interesting observations can be made from the results in Table~\ref{d_est}. For 
 \section{How precise are we?}
 \label{how_good_sec}
 
-As it was discussed, while data splitting would help to decrease the computation time or solve an unfeasible problem, this all will come at a price: efficiency loss. Usually, it is not possible to quantify and study this efficiency loss, as the conventional maximum likelihood is not feasible, but one can have an idea about it by using both methods on the same problem but in a smaller scale. In this section we study the estimates using sample splitting in some sub-problems where the likelihood is still feasible to compute. This way the performance of sample splitting can be compared with the full sample likelihood. 
+As it was discussed, while data splitting would help to decrease the computation time or solve an infeasible problem, this all will come at a price: efficiency loss. Usually, it is not possible to quantify and study this efficiency loss, as the conventional maximum likelihood is not feasible, but one can have an idea about it by using both methods on the same problem but in a smaller scale. In this section we study the estimates using sample splitting in some sub-problems where the likelihood is still feasible to compute. This way the performance of sample splitting can be compared with the full sample likelihood. 
 
 The sub-models would still include all family roles, but the personality factors are considered separately. Therefore, each time we only have 3 outcomes of interest. Table \ref{full_split_comp} shows the results for matrix $D$. As one may see, the results of sample splitting and full sample are very similar. This would provide a greater degree of confidence in what we have obtained for all of the 15 responses using random horizontal splitting.
 
 
 \begin{table}[ht]
-\caption{Comparing full sample and sample splitting results for each factor separately.}
+\caption{Comparing full sample and sample random horizontal splitting results for each factor separately.}
 \label{full_split_comp}
 \centering
 \resizebox{\textwidth}{!}{%
@@ -1368,7 +1368,7 @@ Factor&Parameter & Split & Full & Split & Full \\
 
 \section{Conclusions}
 
-Horizontal random splitting is not specific to clustered data, so our main concern is this thesis is on the 3 other types of splitting, but as it is illustrated in this chapter, it could already solve a difficult problem without the need to get involved in more complicated splitting patterns such as structured vertical splitting. Therefore, if applicable, we would always suggest to first try random horizontal splitting and if it cannot solve the issue move to more complicated splitting methods. Also, in case of large sample sizes, it is a good practice to combine the more complicated methods with random horizontal splitting to achieve better computation times.
+Random horizontal splitting is not specific to clustered data, so our main concern is this thesis is on the 3 other types of splitting, but as it is illustrated in this chapter, it could already solve a difficult problem without the need to get involved in more complicated splitting patterns such as structured vertical splitting. Therefore, if applicable, we would always suggest to first try random horizontal splitting and if it cannot solve the issue move to more complicated splitting methods. Also, in case of large sample sizes, it is a good practice to combine the more complicated methods with random horizontal splitting to achieve better computation times.
 
 
 
