@@ -3119,7 +3119,7 @@ For non-normal data, no corresponding closed-form formulations are possible. Whi
 
 \chapter{Random vertical splitting}
 \label{chap_random_vertical}
-One of the situations that could create clustered big data is where the cluster sizes are becoming large. For such cases, data splitting at cluster level would not be able to solve the issue. Therefore, one may need to perform the splitting for the observations within each subject. There are several ways to perform this splitting. \cite{Iddi2011} considered non-overlapping vertical clusters. Here we proposed the \emph{iterative multiple oututation} (IMO) as general framework to perform random vertical splitting which can be applied to a wide range of problems. In the rest of this chapter, first we introduce the IMO procedure, followed by a multiple-imputation based discussion on determining the number of required sub-samples (for more details on this topic see Section~\ref{secc_IMI}). Then an important special case of random vertical splitting will be studied in detail where only a few sub-samples (sometimes even one) would be sufficient to obtain correct estimates. We call such estimators the finite information limit estimators.
+One of the situations that could create big clustered data is where the cluster sizes are becoming large. For such cases, data splitting at cluster level would not be able to solve the issue. Therefore, one may need to perform the splitting for the observations within each subject. There are several ways to perform this splitting. \cite{Iddi2011} considered non-overlapping vertical clusters. Here we propose the \emph{iterative multiple oututation} (IMO) as a general framework to perform random vertical splitting which can be applied to a wide range of problems. In the rest of this chapter, first we introduce the IMO procedure, followed by a discussion on determining the number of required sub-samples (for more details on this topic see Section~\ref{secc_IMI}). Then an important special case of random vertical splitting will be studied in detail where only a few sub-samples (sometimes even one) would be sufficient to obtain correct estimates. We call such estimators the finite information limit estimators.
 
 
 \section{Iterative multiple outputation}
@@ -3145,9 +3145,9 @@ Where for $m=r$ we have,
 \widehat{W}_r= \frac{\sum_{i=1}^r \sigma_{\widehat{\theta}_i}}{r},\; \widehat{B}_r= \frac{\sum_{i=1}^r (\widehat{\theta}_i - \widetilde{\theta}_r)(\widehat{\theta}_i - \widetilde{\theta}_r)'}{r-1}.
 \end{equation}
 
-One important step in this procedure is the Stopping rule step where we need to decide when to stop sub-sampling. It is important because early termination of the procedure would lead to imprecise results, and continuing too long would be against the initial motivation behind using such a procedure which was saving time. 
+One important step in this procedure is the Stopping rule where we need to decide when to stop sub-sampling. It is important because early termination of the procedure would lead to imprecise results, and continuing too long would be against the initial motivation behind using such a procedure which was saving time. 
 
-The stopping rule in IMO is inspired by our work on iterative multiple imputation (Section~\ref{secc_IMI}). An important step in this procedure is to find an appropriate distance in step 3. The distance selected in this step will basically determine how many sub-samples are sufficient to obtain valid results. More details on different possible candidate distances and their pros and cons are discussed in Section~\ref{secc_IMI}. In brief, we proposed to use Mahalanobis distance \citep{mahalanobis1936} between estimated parameters and their covariance matrices between two successive steps. 
+The stopping rule in IMO is inspired by our work on iterative multiple imputation (Section~\ref{secc_IMI}). An important aspect of this procedure is to find an appropriate distance in step 3. The distance selected in this step will basically determine how many sub-samples are sufficient to obtain valid results. More details on different possible candidate distances and their pros and cons are discussed in Section~\ref{secc_IMI}. In brief, we propose to use Mahalanobis distance \citep{mahalanobis1936} between estimated parameters and their covariance matrices between two successive steps. 
 
 
 
@@ -3164,13 +3164,13 @@ Furthermore, as one may see, the procedure will terminate if the stopping rule s
 
 \subsection{Efficient sub-sampling}
 
-While the sub-sampling would create smaller datasets which needs less time to be analyzed, the task of sub-sampling itself could become cumbersome for very large number of clusters. For such situations we proposed to use the idea of structured horizontal data splitting to take the sub-samples. 
+While the sub-sampling would create smaller datasets that need less time to be analyzed, the task of sub-sampling itself could become cumbersome for very large number of clusters. For such situations we propose to use the idea of structured horizontal data splitting to take the sub-samples. 
 
-We have discussed in Chapter~\ref{chap_struc_horiz} and it is proposed in \cite{hermans2017_cs,hermans2017_ar1} to split the clustered data based on the cluster sizes such that every split contains clusters of equal sizes. We have discussed how this can enhance computations. Here, we have observed that the same idea can be applied to accelerate the sub-sampling step. If the sub-sampling takes place cluster by cluster, it could become very expensive when the number of clusters becomes large. In such a case, even using parallel computations would not help much, unless an enormous amount of computation power is at hand. 
+We have proposed in Chapter~\ref{chap_struc_horiz} to split the clustered data based on the cluster sizes such that every split contains clusters of equal sizes. We have discussed how this can enhance computations. Here, we have observed that the same idea can be applied to accelerate the sub-sampling step. If the sub-sampling takes place cluster by cluster, it could become very expensive when the number of clusters becomes large. In such a case, even using parallel computations would not help much, unless an enormous amount of computation power is at hand. 
 
 When all clusters are of equal size, the sub-set selection can be done at once for all of them. Therefore, a practical solution is first to split the data based on their cluster sizes, then take the sub-samples from each of these sub-sets. Considering the fact that the unique cluster sizes are not usually too variable, this task can easily be distributed among different machines. 
 
-To illustration, consider a sample with the following frequency table of its clusters:
+To illustration, consider a sample with the following cluster sizes:
 	\begin{center}
 		\begin{tabular}{ c c c c c c c c}
 			ID1 & ID2 & ID3 & ID4 & ID5& ID6 & ID7 \\ \hline
@@ -3195,7 +3195,7 @@ To implement this idea, we proposed the following steps,
 %	\]
 %	\item [Step3. ] Define the unique cluster sizes. For example,
 %	$$(5,7,3)$$
-	\item [Step1. ] Take all clusters which their size is smaller than or equal to $m$ (the predefined sub-sampling size). For example, if $m=4$ then all clusters of size $\leq 4$ will always be fully present in all of the sub-samples. The remaining unique cluster sizes will be $5$ and $7$.
+	\item [Step1. ] Take all clusters which their size is smaller than or equal to $m$ (the predefined sub-sampling size). For example, if $m=4$ then all clusters of size $\leq 4$ will always be fully presented in all of the sub-samples. The remaining unique cluster sizes will be $5$ and $7$.
 	\item [Step2. ] For each of the remaining unique cluster sizes (where $n_k > m$), repeat the following steps:
 	\begin{enumerate}
 		\item Select all clusters with unique size $n_k$, call $c_k$ the number of such clusters. For example, for $n_k=5$, $c_k$ will be $3$, as we have 3 clusters $ID1$, $ID5$ and $ID7$ with size $5$. 
@@ -3232,7 +3232,7 @@ To implement this idea, we proposed the following steps,
 	\end{enumerate}
 \end{enumerate}
 
-We have implemented this procedure in R (see R package {\tt{miscVSS}}, also Section~\ref{sec_miscVSS}), but it can as well be implemented in any other programming language.
+We have implemented this procedure in R (see R package {\tt{miscVSS}} introduced in Section~\ref{sec_miscVSS}), but it can as well be implemented in any other programming language.
 
 
 % WE ARE HERE.
@@ -3889,7 +3889,7 @@ Considering the above advantages of MO correction over sandwich correction, it c
 
 \chapter{Supplementary topics}
 \label{chap_supp}
-We have discussed the several similarities of multiple imputation \citep{rubin1987, carpenter2012} and multiple outputation \citep{hoffman2001, follmann2003}. In this chapter we present two of our contributions that consider determining number of imputed datasets (equivalently number of outputed datasets), and performing multiple imputation (equivalently multiple outputation) in a case where the combination rule for estimates cannot be used in a direct way.
+We have discussed the several similarities of multiple imputation \citep{rubin1987, carpenter2012} and multiple outputation \citep{hoffman2001, follmann2003}. In this chapter, we present two of our contributions that consider determining number of imputed datasets (equivalently number of sub-samples), and performing multiple imputation (equivalently multiple outputation) in a case where the combination rule for estimates cannot be used in a direct way.
 
 \section[Iterative Multiple Imputation]{Iterative Multiple Imputation: A Framework to Determine the Number of Imputed Datasets}
 \label{secc_IMI}
@@ -4726,7 +4726,7 @@ The R package {\tt{fastAR1}} provides functions to:
 
 \begin{itemize}
 \item Estimate parameters of balanced clustered data with AR1 covariance matrix.
-\item Estimate variance of the estimates above.
+\item Compute variance of the estimates above.
 \item Combine estimated parameters and their variances from different splits.
 \end{itemize}
 
@@ -4743,7 +4743,7 @@ The R package {\tt{miscVSS}} provides functions to:
 \item Combine the estimated parameters and variances from vertical splitting using appropriate combination rules.
 \end{itemize}
 
-This covers our contributions in Chapters~\ref{chap_random_vertical}, and \ref{chap_structured_vertical}.
+This covers part of our contributions in Chapters~\ref{chap_random_vertical}, and \ref{chap_structured_vertical}.
 
 
 \section{R package {\tt{imi}}}
@@ -4795,7 +4795,7 @@ Data Splitting has been considered, investigated, and developed in order to deal
 \item the size of some clusters becomes large,
 \item or, a combination of both.
 \end{itemize}
-We have considered four different splitting approaches: random and structured horizontal splitting that were useful when the number of clusters becomes large, also random and structured vertical splitting when the size of some clusters becomes large. For each case, efficient splitting strategies (sub-sampling) and combination rules have been developed. Two promises have been made to be kept for all the methodologies we have developed:
+We have considered four different splitting approaches: random and structured horizontal splitting that were useful when the number of clusters becomes large, also random and structured vertical splitting when the size of some clusters becomes large. For each case, efficient splitting strategies (sub-sampling) and combination rules have been derived. Two promises have been made to be kept for all the methodologies we have developed:
 
 
 \begin{itemize}
@@ -4805,11 +4805,11 @@ We have considered four different splitting approaches: random and structured ho
  
 \end{itemize}
 
-Using an example, we will illustrate how all different developed methodologies in this thesis can be combined to analyze large clustered data both at splitting and combining steps. First, let us to describe our example.
+Using an example, we will illustrate how all different developed methodologies in this thesis can be combined to analyze large clustered data both at splitting and combining steps. First, let us describe our example.
 
 Liver is responsible for concentrating and metabolizing a majority of medications, so it is a prime target for medication-induced damage. Drug-induced liver injury (DILI) is also one of the main reasons for drug withdrawal from the market. Therefore, detecting DILI as early as possible during drug development process is crucial. High content screening (HCS) is a modern technique to detect toxic compounds in an early stage (before the drug is on the market and its toxicity is realized because of injuries it causes to the organs of patients who take it). 
 
-HCS is an in vitro study that cells are incubated with various doses of different chemical compounds and then several outcomes of interest will be measured for these cells (or genes). In case of DILI, such outcomes of interest are parameters such as nuclei counts, nuclear area, plasma membrane integrity, lysosomal activity, mitochondrial membrane potential (MMP), and mitochondrial area. Now imagine we have 10,000 different chemical compounds, and for each of them at most 50 different doses are considered, and for each dose these 6 different outcomes of interest are measured. Therefore, the final dataset will have the form displayed in Table~\ref{tab_dili}. This is a typical scheme for the data coming out of HCS studies, see e.g., \cite{kaliyaperumal2018pharmacogenomics}.
+HCS is an in vitro study that cells are incubated with various doses of different chemical compounds and then several outcomes of interest will be measured for these cells. In case of DILI, such outcomes of interest are parameters such as nuclei counts, nuclear area, plasma membrane integrity, lysosomal activity, mitochondrial membrane potential (MMP), and mitochondrial area. Now imagine we have 10,000 different chemical compounds, and for each of them at most 50 different doses are considered, and for each dose these 6 different outcomes of interest are measured. Therefore, the final dataset will have the form displayed in Table~\ref{tab_dili}. This is a typical scheme for the data coming out of HCS studies, see e.g., \cite{kaliyaperumal2018pharmacogenomics}.
 
 
 \begin{table}[h]
@@ -4899,15 +4899,15 @@ We also have considered special cases where the introduced combination rules wou
 \section{Future research plan}
 \label{sec_future}
 
-As it was remarked in Section~\ref{sec_conc}, data splitting is usually used when the sample size is large, however, this is not always the case. In fact, large and small datasets are suffering from the same issues but for different reasons. For example, a complicated model is difficult to get converged for both large and small datasets. For a large dataset, too many measurement makes achieving convergence difficult, while for small datasets lack of information gievn the complexity of the model is the cause. This said, we believe using data splitting one also can deal with issues of small clustered data.
+As it was remarked in Section~\ref{sec_conc}, data splitting is usually used when the sample size is large, however, this is not always the case. In fact, large and small datasets are suffering from the same issues but for different reasons. For example, a complicated model is difficult to get converged for both large and small datasets. For a large dataset, too many measurement makes achieving convergence difficult, while for small datasets lack of information given the complexity of the model is the cause. This said, we believe using data splitting one also can deal with issues of small clustered data.
 
-\cite{wim2015} have shown that unbalancedness is a source of difficulty of convergence in case of linear mixed models. In fact, a smaller but balanced set of data would have a greater chance of convergence compared with a larger but highly unbalanced one. We believe, a technique like random vertical splitting can be used to created many balanced sub-samples of an unbalanced dataset. In other words, instead of analyzing small number of clusters that are highly unbalanced hence not converging, one may analyze many sub-sets of this dataset (taken with random vertical splitting technique) each consists of the same number of clusters but of smaller equal sizes. Just to illustrate our idea for this immediate future research, we have analyzed the ARMD dataset (see Section~\ref{sec_armd}) using random vertical splitting. The results are promising.
+\cite{wim2015} have shown that unbalancedness is a source of difficulty of convergence in case of linear mixed models. In fact, a smaller but balanced set of data would have a greater chance of convergence compared with a larger but highly unbalanced one. We believe, a technique like random vertical splitting can be used to created many balanced sub-samples of an unbalanced dataset. In other words, instead of analyzing small number of clusters that are highly unbalanced hence not converging, one may analyze many sub-sets of this dataset (taken with random vertical splitting technique) each consists of the same number of clusters but of smaller equal sizes. 
 
-As it was described in Section~\ref{sec_armd}, the data come from a clinical trial in age-related macular degeneration (ARMD), which is a disease of the retina that causes severe central vision loss. \cite{pharmacological1997} conducted a multi-center study (17 centers) to evaluate the effect of an experimental treatment based on interferon-$\alpha$ in a group of patients who were randomly allocated to either placebo or interferon-$\alpha$. The outcome of interest was the change in visual acuity over time. Using standard vision charts, the visual acuity was measured by the number of letters that were correctly read by the patient. Table~\ref{tab_freq} shows a frequency table of different cluster sizes in the ARMD dataset. 
+Just to illustrate our idea for this immediate future research, we have analyzed the ARMD dataset (see Section~\ref{sec_armd}) using random vertical splitting. The results are promising. As it was described in Section~\ref{sec_armd}, this data come from a clinical trial in age-related macular degeneration (ARMD), which is a disease of the retina that causes severe central vision loss. \cite{pharmacological1997} conducted a multi-center study (17 centers) to evaluate the effect of an experimental treatment based on interferon-$\alpha$ in a group of patients who were randomly allocated to either placebo or interferon-$\alpha$. The outcome of interest was the change in visual acuity over time. Using standard vision charts, the visual acuity was measured by the number of letters that were correctly read by the patient. Table~\ref{tab_freq} shows a frequency table of different cluster sizes in the ARMD dataset. 
 
 \begin{table}[t]
 \centering
-\caption{Frequency of centres based on the number of patients.}
+\caption{ARMD data. Frequency of centres based on the number of patients.}
 \label{tab_freq}
 
 \vspace*{2mm}
@@ -4925,7 +4925,7 @@ Because of the bivariate nature of the endpoint, coupled with the multi-centre n
 
 As it is clear from Table~\ref{tab_freq}, the data are highly unbalanced, presenting the observed-likelihood model fitting procedure with serious convergence issues. \cite{wim2015} proposed to treat these unbalanced data as an incomplete set, where the data in each centre are considered relative to the maximally observed centre size. MI can then be used to balance the data, i.e., to make all centres of size 18 in this case. 
 
-Here we propose to use random vertical splitting to create several almost- balanced datasets of smaller sizes (e.g., $5$ or $8$). The surrogate model used here is the same as the one described in Section~\ref{sec_surrogate_model}. When fitting the model with an unstructured covariance matrix for the random effects, as the sub-sampling size increases, the rate of convergence decreases. With a sub-sampling size $5$ in about $70\%$ of the times (out of 1000 sub-samples) the model could converge, while if we increase the sub-sampling size to $8$ the convergence rate drops to $20\%$. Considering unstructured covariance matrices, the model cannot be converged using full maximum likelihood, in order to evaluate random vertical splitting, we would consider a model with uncorrelated random effects where a full likelihood can also be fitted.
+Here we propose to use random vertical splitting to create several almost- balanced datasets of smaller sizes (e.g., $5$ or $8$). The surrogate model used here is the same as the one described in Section~\ref{sec_surrogate_model}. When fitting the model with an unstructured covariance matrix for the random effects, as the sub-sampling size increases, the rate of convergence decreases. With a sub-sampling size $5$ in about $70\%$ of the times (out of 1000 sub-samples) the model could converge, while if we increase the sub-sampling size to $8$ the convergence rate drops to $20\%$. Considering unstructured covariance matrices, the model cannot be converged using full maximum likelihood. In order to evaluate random vertical splitting, we would consider a model with uncorrelated random effects where a full likelihood can also be fitted.
 
 
 \begin{table}[h]
@@ -4947,9 +4947,9 @@ $d_1$ & 9.537 (8.740) & 11.147 (3.519) &8.943 \\
 \end{tabular}
 \end{table}
 
-As we may see in Table~\ref{summary_armd_vc}, except for $d_2$, for other parameters we get an estimate close to the one obtained using full maximum likelihood. Of course, this is a first experiment with this idea. More theoretical work as well as simulation studies are required to establish a solid framework for this case.
+As we may see in Table~\ref{summary_armd_vc}, except for $d_2$, for other parameters we get an estimate close to the ones obtained using full maximum likelihood. Of course, this is a first experiment with this idea. More theoretical work as well as simulation studies are required to establish a solid framework for this case.
 
-Other than extending data slitting to be used to deal with small-sample issues, our other immediate plan to extend this work is to implement a unified R package for all types of splitting and combination rules together with parallel computing possibilities to be distributed on several machines. This sounds like to be the next natural step to take. As they are all implemented separately, also given the embarrassingly parallel nature of our proposed methodology, implementing parallel computing is rather straightforward.
+Other than extending data splitting to be used to deal with small-sample issues, our other immediate plan to extend this work is to implement a unified R package for all types of splitting and combination rules together with parallel computing possibilities to be distributed on several machines. This sounds like to be the next natural step to take. As they are all implemented separately. Also, given the embarrassingly parallel nature of our proposed methodology, implementing parallel computing is rather straightforward.
 \backmatter
 
 \appendix
@@ -4964,7 +4964,7 @@ Other than extending data slitting to be used to deal with small-sample issues, 
 \renewcommand\thetable{\thesection.\arabic{table}}    
 
 %% CS paper
-In this chapter supplementary materials from different chapters are presented. Sections~\ref{appA}--\ref{bcim} will provide materials related to Section~\ref{sec_cs} (structured horizontal splitting for CS). The materials related to Section~\ref{sec_ar1} (structured horizontal splitting for AR1) will be given in Section~\ref{ar1appendix}--\ref{suppdata}. The Fieller's method and delta method are explained in Section~\ref{app1}. The combination rules for random vertical splitting for a CS case will be derived in Section~\ref{app2}. In Section~\ref{app_mi}, combination rules of multiple imputation for $p$-values are given. And finally, the surrogate model we have used in thesis is presented in Section~\ref{sec_surrogate_model}.
+In this chapter supplementary materials from different chapters are presented. Sections~\ref{appA}--\ref{bcim} will provide materials related to Section~\ref{sec_cs} (structured horizontal splitting for CS). The materials related to Section~\ref{sec_ar1} (structured horizontal splitting for AR1) will be given in Sections~\ref{ar1appendix}--\ref{suppdata}. The Fieller's method and delta method are explained in Section~\ref{app1}. The combination rules for random vertical splitting for a CS case will be derived in Section~\ref{app2}. In Section~\ref{app_mi}, combination rules of multiple imputation for $p$-values are given. And finally, the surrogate model we have used in thesis is presented in Section~\ref{sec_surrogate_model}.
 
 \section[Incompleteness in the CS Model]{Incompleteness in the Compound-symmetry Model} \label{appA}
 
