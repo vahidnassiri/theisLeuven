@@ -14,7 +14,7 @@
 \usepackage{multirow}
 \usepackage{tocbibind}
 \usepackage{cleveref}
-
+\usepackage{resizegather}
 \usepackage{textcomp}
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{lemma}{Lemma}[chapter]
@@ -346,12 +346,24 @@
  
 \begin{document}
 %\pagestyle{fancy}
-
+\raggedbottom
 %\maketitle
  \frontmatter
  \input{titleLeuven.tex}
  \input{titlePage.tex}
  \thispagestyle{empty}
+ \chapter*{Preface}
+%\addcontentsline{toc}{chapter}{Preface}  
+\begin{quotation}
+First, Xerxes’s agents collected ten thousands men in a single place and, having packed them together as close as possible, marked a circle around them. Next, they removed the men, had a dry-wall constructed on this circle, and proceeded to measure the remaining multitudes by herding them successively into this standard ten-thousand troop pen \citep{hamel2012reading}. 
+\end{quotation}
+
+King Xerxes could ask his agents to count the soldiers one by one. But as Herodotus \citep{flower2002herodotus}  mentioned, there were 1,700,000 men in his army, so it could take a long time to count them one by one. Instead, he counted them in groups of 10,000. That means counting 170 subjects instead of 1,700,000, hence, the counting task could be done a lot faster. Of course, when counting groups of 10,000 in the way described above, some errors could happen. There is no guarantee that every group of soldiers consists of exactly 10,000 men. However, the approximate estimate is accurate enough considering the time gain.
+
+Our aim in this thesis to explore this ancient idea: splitting a dataset into smaller chunks, analyzing them separately, and then combine to obtain the final results of interest. Considering the topic of my previous thesis \citep{nassiri2013robust} that was about dealing with high-dimensional data using sparse estimation, the current thesis is also in the same line. While in the previous thesis we were more concerned on the size of the parameter space, in the current work our interest is in the size of the sample itself.
+
+What we will present in this manuscript is the result of collaborating with many great people I had the chance to know and work with during my four years in I-BioStat in Leuven. Above all, 
+
 \tableofcontents
 \listoffigures
 \listoftables
@@ -362,7 +374,8 @@
 
 \clearemptydoublepage
 
-\chapter{Introduction and General Overview}
+
+\chapter{Introduction and general overview}
 \label{sec_intro1}
 
 Small sample sizes would lead to wrong or statistically inaccurate conclusions. Therefore, in designing any statistical study, an important step is to estimate the sample size that would enable the researcher to draw valid conclusions. While a small sample size prevents reliable or meaningful statistical conclusions, large sample sizes have rarely been an issue, in fact a large sample size could be a desirable aspect of a study. However, in 21st century, having large sample sizes also, becomes a trouble-maker. By emerging technologies that make the task of data collection easy and fast, the size of samples in many studies becomes larger and larger, and this came to the point that, the power of a typical computer would fail to analyze such huge datasets. Figure \ref{fig_bigdata} shows a plot of number of results found using Google Scholar for searching the exact phrase "big data" upto different years. We obviously can see the increasing interest in this topic in the recent years.
@@ -480,7 +493,7 @@ y_i = \mathbf{x}_i\beta + \epsilon_i,
 \end{equation}
 where $\mathrm{E}(y_i) = \mu_i = \mathbf{x}_i \beta$, and $\mathrm{Var}(\epsilon_i) = \sigma^2$. This is a linear model with independent observations and homogeneous variance (i.e., the variance of $\epsilon_i$ is constant). One can extend this model to a model with heterogeneous variance by assuming $\mathrm{Var}(\epsilon_i) = \sigma^2_i$. This means the $\epsilon_i$'s have non-equal variances, but still they are uncorrelated. A step further would let them to be correlated: $\mathrm{Var}(\mathbf{\epsilon}_i) = R_i$, where $R$ is a matrix with non-zero off-diagonal elements. In (\ref{cov_evolution}) one can see the evolution of the covariance matrix of the error from a model with independent observations and homogeneous variance to a model with heterogeneous variance and correlated errors.
 
-\begin{equation}
+\begin{multline}
 \label{cov_evolution}
 \left(
 \begin{array}{cccc}
@@ -494,14 +507,14 @@ where $\mathrm{E}(y_i) = \mu_i = \mathbf{x}_i \beta$, and $\mathrm{Var}(\epsilon
 0 & \sigma_2^2 & \ldots & 0  \\
 \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & \ldots & \sigma_p^2 \\
-\end{array} \right)\rightarrow \left(
+\end{array} \right) \\ \rightarrow \left(
 \begin{array}{cccc}
 \sigma_1^2 & \sigma_{12} & \ldots & \sigma_{1p} \\
 \sigma_{21} & \sigma_2^2 & \ldots & \sigma{2p}  \\
 \vdots & \vdots & \ddots & \vdots \\
 \sigma_{p1}& \sigma_{p2} & \ldots & \sigma_p^2 \\
 \end{array} \right)
-\end{equation}
+\end{multline}
 
 The covariance matrix on the right side of (\ref{cov_evolution}) is called unstructured. But depending on the problem, one can impose appropriate structures on this covariance matrix. The two famous structures that are used in different applications are compound-symmetry, and first order autoregressive (AR1) structures. A compound-symmetry structure is defined as follows:
 
@@ -923,20 +936,20 @@ We have published the work we have done during this PhD in form of scientific pa
 \begin{enumerate}
 
 
-	\item \textcolor[HTML]{222222}{Hermans, Lisa, \textbf{Vahid Nassiri}, Geert Molenberghs, Michael G. Kenward, Wim Van der Elst, Marc Aerts, and Geert Verbeke. "} \textcolor[HTML]{222222}{Clusters With Unequal Size: Maximum Likelihood Versus Weighted Estimation in Large Samples." \textit{Statistica Sinica 28(3)}, pp. 1107--1132} (Section~\ref{sec_cs})\footnote{This publication is also presented in PhD thesis of Lisa Hermans \citep{thesisLisa}. The author's role in this publication was implementing the methods in R, performing the simulations, and analyzing the case studies.}
+	\item \textcolor[HTML]{222222}{Lisa Hermans, \textbf{Vahid Nassiri}, Geert Molenberghs, Michael G. Kenward, Wim Van der Elst, Marc Aerts, and Geert Verbeke. "} \textcolor[HTML]{222222}{Clusters With Unequal Size: Maximum Likelihood Versus Weighted Estimation in Large Samples." \textit{Statistica Sinica 28(3)}, pp. 1107--1132} (Section~\ref{sec_cs})\footnote{This publication is also presented in PhD thesis of Lisa Hermans \citep{thesisLisa}. The author's role in this publication was implementing the methods in R, performing the simulations, and analyzing the case studies.}
 
-	\item \textcolor[HTML]{222222}{Hermans, Lisa, \textbf{Vahid Nassiri}, Geert Molenberghs, Michael G. Kenward, Wim Van der Elst, Marc Aerts, and Geert Verbeke. "Fast, closed-form, and efficient estimators for hierarchical models with AR (1) covariance and unequal cluster sizes." \textit{Communications in Statistics-Simulation and Computation} 47, no. 5 (2018): 1492--1505.} (Section~\ref{sec_ar1})\footnote{See Footnote 2}
+	\item \textcolor[HTML]{222222}{Lisa Hermans, \textbf{Vahid Nassiri}, Geert Molenberghs, Michael G. Kenward, Wim Van der Elst, Marc Aerts, and Geert Verbeke. "Fast, closed-form, and efficient estimators for hierarchical models with AR (1) covariance and unequal cluster sizes." \textit{Communications in Statistics-Simulation and Computation} 47, no. 5 (2018): 1492--1505.} (Section~\ref{sec_ar1})\footnote{See Footnote 2}
 	
-	\item \textbf{\textcolor[HTML]{222222}{Nassiri, Vahid}}\textcolor[HTML]{222222}{, Geert Molenberghs, and Geert Verbeke. "Finite information limit variance-covariance structures: Is the entire dataset needed for analysis?." In \textit{High Performance Computing $\&$  Simulation (HPCS), 2016 International Conference on}, pp. 736--742. IEEE, 2016.} (Section~\ref{chap_FIL})
+	\item \textbf{\textcolor[HTML]{222222}{Vahid Nassiri}}\textcolor[HTML]{222222}{, Geert Molenberghs, and Geert Verbeke. "Finite information limit variance-covariance structures: Is the entire dataset needed for analysis?." In \textit{High Performance Computing $\&$  Simulation (HPCS), 2016 International Conference on}, pp. 736--742. IEEE, 2016.} (Section~\ref{chap_FIL})
 
 
 	
-	\item \textbf{\textcolor[HTML]{222222}{Nassiri, Vahid}}\textcolor[HTML]{222222}{, Anna Ivanova, Geert Molenberghs, and Geert Verbeke. "Fast precision estimation in high‐dimensional multivariate joint models." \textit{Biometrical Journal} 59, no. 6 (2017): 1221--1231.} (Chapter~\ref{chap_structured_vertical})
+	\item \textbf{\textcolor[HTML]{222222}{Vahid Nassiri}}\textcolor[HTML]{222222}{, Anna Ivanova, Geert Molenberghs, and Geert Verbeke. "Fast precision estimation in high‐dimensional multivariate joint models." \textit{Biometrical Journal} 59, no. 6 (2017): 1221--1231.} (Chapter~\ref{chap_structured_vertical})
 	
 		
 	\item \textbf{\textcolor[HTML]{222222}{Vahid Nassiri}}\textcolor[HTML]{222222}{, Geert Molenberghs, Geert Verbek, João Barbosa Breda, $``$Iterative multiple imputation: a framework to determine the number of imputed datasets$"$ , \textit{The American Statistician} (2019): 1--17.} (Section~\ref{secc_IMI})
 	
-	\item \textbf{\textcolor[HTML]{222222}{Nassiri, Vahid}}\textcolor[HTML]{222222}{, Anikó Lovik, Geert Molenberghs, and Geert Verbeke. "On using multiple imputation for exploratory factor analysis of incomplete data." \textit{Behavior research methods} 50, no. 2 (2018): 501--517.} (Section~\ref{secc_mifa})
+	\item \textbf{\textcolor[HTML]{222222}{Vahid Nassiri}}\textcolor[HTML]{222222}{, Anikó Lovik, Geert Molenberghs, and Geert Verbeke. "On using multiple imputation for exploratory factor analysis of incomplete data." \textit{Behavior research methods} 50, no. 2 (2018): 501--517.} (Section~\ref{secc_mifa})
 
 	
 
@@ -947,22 +960,22 @@ We have published the work we have done during this PhD in form of scientific pa
 
 \begin{enumerate}
 
-	\item {Van der Elst, Wim, Lisa Hermans, Geert Verbeke, Michael G. Kenward, \textbf{Vahid Nassiri}, and Geert Molenberghs. "Unbalanced cluster sizes and rates of convergence in mixed-effects models for clustered data." \textit{Journal of statistical computation and simulation} 86, no. 11 (2016): 2123-2139.}
+	\item {Wim Van der Elst, Lisa Hermans, Geert Verbeke, Michael G. Kenward, \textbf{Vahid Nassiri}, and Geert Molenberghs. "Unbalanced cluster sizes and rates of convergence in mixed-effects models for clustered data." \textit{Journal of statistical computation and simulation} 86, no. 11 (2016): 2123-2139.}
 	
-	\item \textcolor[HTML]{222222}{Lovik, Anikó, \textbf{Vahid Nassiri}, Geert Verbeke, Geert Molenberghs, and An Katrien Sodermans. "Psychometric properties and comparison of different techniques for factor analysis on the Big Five Inventory from a Flemish sample." \textit{Personality and Individual Differences} 117 (2017): 122-129.}
+	\item \textcolor[HTML]{222222}{Anikó Lovik, \textbf{Vahid Nassiri}, Geert Verbeke, Geert Molenberghs, and An Katrien Sodermans. "Psychometric properties and comparison of different techniques for factor analysis on the Big Five Inventory from a Flemish sample." \textit{Personality and Individual Differences} 117 (2017): 122-129.}
 
-	\item \textcolor[HTML]{222222}{Lovik, Anikó, \textbf{Vahid Nassiri}, Geert Verbeke, and Geert Molenberghs. "Combining Factors from Different Factor Analyses Based on Factor Congruence." In \textit{The Annual Meeting of the Psychometric Society}, pp. 211-219. Springer, Cham, 2017.}
+	\item \textcolor[HTML]{222222}{Anikó Lovik, \textbf{Vahid Nassiri}, Geert Verbeke, and Geert Molenberghs. "Combining Factors from Different Factor Analyses Based on Factor Congruence." In \textit{The Annual Meeting of the Psychometric Society}, pp. 211-219. Springer, Cham, 2017.}
 
 	
 \item Karel Van Keer, Jan Van Keer, João Barbosa Breda, \textbf{Vahid Nassiri}, Johan Van Cleemput, Luìs Abegão Pinto, Ingeborg Stalmans, Evelien Vandewalle, $``$Retinal oxygen saturation as a non‐invasive estimate for mixed venous oxygen saturation and cardiac output$"$ , \textit{Acta Ophthalmologica},  (2019) 97 (\textbf{2}).
 
-	\item {Barbosa‐Breda, João, Karel Van Keer, Luis Abegão‐Pinto, \textbf{Vahid Nassiri}, Geert Molenberghs, Koen Willekens, Evelien Vandewalle, Amândio Rocha‐Sousa, and Ingeborg Stalmans. "Improved discrimination between normal‐tension and primary open‐angle glaucoma with advanced vascular examinations–the Leuven Eye Study." \textit{Acta ophthalmologica}, (2019) 97 (\textbf{1}).
+	\item {João Barbosa‐Breda, Karel Van Keer, Luis Abegão‐Pinto, \textbf{Vahid Nassiri}, Geert Molenberghs, Koen Willekens, Evelien Vandewalle, Amândio Rocha‐Sousa, and Ingeborg Stalmans. "Improved discrimination between normal‐tension and primary open‐angle glaucoma with advanced vascular examinations–the Leuven Eye Study." \textit{Acta ophthalmologica}, (2019) 97 (\textbf{1}).}
 
-	\item {Breda, João, Danilo Andrade De Jesus, Karel Van Keer, \textbf{Vahid Nassiri}, Geert Molenberghs, Luís Abegão Pinto, Amandio Rocha-Sousa, Evelien Vandewalle, and Ingeborg Stalmans. "AngioOCT peripapillary microvascular density outperforms standard OCT parameters as a discriminant between different glaucoma severity levels–The Leuven Eye Study\textit{." Investigative Ophthalmology $\&$  Visual Science, }59 (9), 4478-4478. 2018.}
+	\item {João Barbosa‐Breda, Danilo Andrade De Jesus, Karel Van Keer, \textbf{Vahid Nassiri}, Geert Molenberghs, Luís Abegão Pinto, Amandio Rocha-Sousa, Evelien Vandewalle, and Ingeborg Stalmans. "AngioOCT peripapillary microvascular density outperforms standard OCT parameters as a discriminant between different glaucoma severity levels–The Leuven Eye Study\textit{." Investigative Ophthalmology $\&$  Visual Science, }59 (9), 4478-4478. 2018.}
 
-	\item \{Van Keer, Karel, Jan Van Keer, Joao Barbosa Breda, \textbf{Vahid Nassiri}, Cathy De Deyne, Cornelia Genbrugge, Luis Abegao Pinto, Ingeborg Stalmans, and Evelien Vandewalle. "Non-invasive assessment of cerebral oxygenation: A comparison of retinal and transcranial oximetry." \textit{PloS one} 13, no. 1 (2018): e0190612.}
+	\item {Karel Van Keer, Jan Van Keer, João Barbosa Breda, \textbf{Vahid Nassiri}, Cathy De Deyne, Cornelia Genbrugge, Luis Abegao Pinto, Ingeborg Stalmans, and Evelien Vandewalle. "Non-invasive assessment of cerebral oxygenation: A comparison of retinal and transcranial oximetry." \textit{PloS one} 13, no. 1 (2018): e0190612.}
 
-	\item {Barbosa Breda, J., K. Van Keer, L. Abegão Pinto, \textbf{Vahid Nassiri}, K. Willekens, E. Vandewalle, A. Rocha Sousa, and I. Stalmans. "Advanced vascular exams improve the accuracy of conventional parameters in distinguishing normal tension from primary open angle glaucoma." \textit{Acta Ophthalmologica} 95 (2017).}
+	\item {João Barbosa Breda, K. Van Keer, L. Abegão Pinto, \textbf{Vahid Nassiri}, K. Willekens, E. Vandewalle, A. Rocha Sousa, and I. Stalmans. "Advanced vascular exams improve the accuracy of conventional parameters in distinguishing normal tension from primary open angle glaucoma." \textit{Acta Ophthalmologica} 95 (2017).}
 
 \end{enumerate}
 
@@ -1378,7 +1391,7 @@ Random horizontal splitting is not specific to clustered data, so our main conce
 We have briefly explained the idea behind structured horizontal splitting in Section~\ref{sec_intro_structured_horizontal}. In this chapter two applications of this method will be introduced, expanded, and discussed. In both cases we consider clustered data, in Section~\ref{sec_cs} these clustered data have a covariance matrix with a compound-symmetry structure and in Section~\ref{sec_ar1} their covariance matrix will have an autoregressive of first order (AR1) structure.
 
 
-\section[Compound-symmetry structure]{Clusters with unequal size: Maximum likelihood versus weighted estimation in large samples}
+\section[Compound-symmetry structure]{Clusters with unequal size: maximum likelihood versus weighted estimation in large samples}
 \label{sec_cs}
 \subsection{Introduction}
 \label{secintrocs}
@@ -1433,7 +1446,7 @@ Ramifications and recommendations for practice are offered in Section~\ref{ramif
 
 %\setcounter{section}{2} %***
 %\setcounter{equation}{0} %-1
-\subsection{Developmental Toxicity Study Sets}
+\subsection{Developmental toxicity study sets}
 %\label{dataintro}
 \label{ntpintro}
 
@@ -1448,7 +1461,7 @@ It is clear from the table that average litter size is depleted with increasing 
 \begin{center}
 \caption{\small \linespread{1.1}  Developmental Toxicity Study (DEHP). Summary data by dose group.}
 \label{tabclus}
-\centerline{\def\arraystretch{0.6}\tabcolsep=3truept\begin{tabular}{rccccc}
+\centerline{\def\arraystretch{1}\tabcolsep=3truept\begin{tabular}{rccccc}
 \hline
 \hline
 \multicolumn{1}{c}{}&
@@ -1481,14 +1494,14 @@ It is clear from the table that average litter size is depleted with increasing 
 
 
 
-\subsection{Incomplete Sufficient Statistics}\label{incompleteness}
+\subsection{Incomplete sufficient statistics}\label{incompleteness}
 
 A statistic $k(Y)$ of a random variable $Y$, with $Y$ belonging to a family $P_\theta$, is complete if, for every measurable function $g(\cdot)$, independent of $\theta$, $E[g\{k(Y)\}]=0$ for all $\theta$, implies that  $P_\theta[g\{k(Y)\}=0]=1$  for all $\theta$  \citep{casella2002statistical}. The Lehman-Scheff\'e\ theorem \citep{casella2002statistical} states that, if a statistic is unbiased, complete, and sufficient for a parameter $\theta$, then it leads to the best mean-unbiased estimator for $\theta$, while Basu's theorem  \citep{basu1955statistics} has it that statistic that is both boundedly complete and sufficient is independent of any ancillary statistic.  As has been shown in the sequential trial context, a lack of completeness does not preclude the existence of estimators with very good properties  \citep{molenberghs2014random}.
 
 \cite{liu1999unbiased} established the incompleteness of the sufficient statistic for a clinical trial with a stopping rule, for the case of normally distributed endpoints. \citet{liu1999unbiased} generalized this result to the entire exponential family. \citet{molenberghs2014random} and \citet{milanzi2016properties} broadened it further to a stochastic rather than a deterministic stopping rule, hence encompassing the case of a completely random sample size. Indeed, it would seem at first sight that this latter case is standard, because the sample size is unrelated to the data, whether observed or not. Yet, even in this case, completeness no longer holds. What is more, incompleteness holds when the cluster size is non-constant for whatever reason.
 
 
-\subsection{The Compound-symmetry Model}
+\subsection{The compound-symmetry model}
 \label{model}
 
 Let $\BY$ be a vector of length $n$, with $\BY\sim N(\mu\mathbf{1}_n,\sigma^2 I_{n}+d J_{n})$. In general, both $\BY$ and $n$ are random variables.
@@ -1618,7 +1631,7 @@ Examining (\ref{mulik}) suggests weighted averages:
 \end{equation}
 This idea is  similar to that in \cite{Iddi2011}, who split a sample in sub-samples, analyzed each  separately, and then combined the result in an overall estimator. They considered splits in both dependent and independent sub-samples. Dependent samples occur when very long sequences of repeated measures are collected, which are then sub-divided for convenience. This approach is not of use here. Independent samples arise when there are many independent replicates, i.e., a large number of clusters. They studied the CS case, but only for a single cluster size. The total number of clusters was then split into $M$ parts comprising an equal number of clusters. We modify these ideas to the case of unequal cluster sizes, with a variable number of clusters per split.
 
-\subsection{Split-sample Methods for Clusters of Variable Size}
+\subsection{Split-sample methods for clusters of variable size}
 \label{CSsplitsample}
 
 The derivations are based on general pseudo-likelihood principles, reviewed in Supplementary Materials Section~\ref{splitsample}.
@@ -1792,7 +1805,7 @@ and $\otimes$ signifying Kronecker product.
 
 
 
-\subsection{Partitioned-sample Analysis for the Compound-symmetry Model}
+\subsection{Partitioned-sample analysis for the compound-symmetry model}
 \label{psa7}
 
 For the normal compound-symmetry model,
@@ -2126,7 +2139,7 @@ In particular, we derive under what asymptotics such an estimator is consistent.
 
 
 
-\subsection{Simulation Study}
+\subsection{Simulation study}
 \label{simulation}
 
 A first, limited, simulation study was carried out to examine the behavior of the 
@@ -2151,7 +2164,7 @@ The most striking conclusion is that closed-form solutions are  much faster than
 The time gain of our fastest method relative to standard maximum likelihood using PROC MIXED ranges from 5 times to 30,000 times faster.
 
 
-\subsection{Analysis of Case Study}
+\subsection{Analysis of case study}
 \label{dataanal}
 
 The data, introduced in Section~\ref{ntpintro}, 
@@ -2496,7 +2509,7 @@ for additional parallel processing, with all clusters analyzed in parallel
 and the results then combined.
 
 
-\subsection{Ramifications and Concluding Remarks}
+\subsection{Ramifications and concluding remarks}
 \label{ramifications}
 
 We considered the simple but insightful case of clustered data 
@@ -2589,7 +2602,7 @@ This dataset was also analyzed from a surrogate markers point perspective in \ci
 
 The rest of paper is organised as follows. In Section~\ref{secmodel} the model formulation is given. In Section~\ref{secestimators} the estimators for a single constant cluster size are presented. The (in)completeness property is outlined in Section~\ref{secincomplete}, and in Section~\ref{secvariable} various weighting schemes for clusters of unequal size are explored. In Section~\ref{seccompu}, a simulation study is described for the investigation of the performance of the suggested weights and the data are analysed in Section~\ref{secapp}. The closing discussion is presented in Section~\ref{secconcl}. Some additional background material is available in a separate, web-based appendix\footnote{Available at https://ibiostat.be/online-resources.}.
 
-\subsection{Model Formulation}
+\subsection{Model formulation}
 \label{secmodel}
 
 Suppose that there is a sample of $N$ independent clusters, among which $K$ different cluster sizes $n_{k}$ ($k=1,\dots,K$) can be distinguished. Let the multiplicity of cluster size $n_k$ be $c_k$. The total number of clusters is then $N=\sum_{k=1}^Kc_k$. Denote the outcome vector for the $i$th  ($i=1,\dots,c_k$) replicate among the clusters of size $n_k$ by $\BY_i^{(k)}$.
@@ -2746,7 +2759,7 @@ yielding a very simple inverse:
 \end{equation}
 
 
-\subsection{Complete and Incomplete Sufficient Statistics}
+\subsection{Complete and incomplete sufficient statistics}
 \label{secincomplete}
 
 The property of central interest in this section is that of  {\em completeness\/} \citep[pp.~285--286]{casella2002statistical}. It means that any measurable function of a sufficient statistic, that has the zero expectation for every value of the parameter indexing the parametric model class, is the zero function almost everywhere.  As has been shown in the sequential trial context, a lack of completeness does not preclude the existence of estimators with desirable properties  \citep{molenberghs2014random}.
@@ -2761,7 +2774,7 @@ In what follows, we will establish completeness for the balanced conditional ind
 
 
 
-\subsubsection{Balanced Conditionally Independent Model}
+\subsubsection{Balanced conditionally independent model}
 
 This model of which the estimators are spelt out in Section~\ref{setting1est}, obviously admits a complete minimal sufficient statistic because the numbers of sufficient statistics (\ref{suffstat1})--(\ref{suffstat4}) and estimators match (\ref{est1})--(\ref{est4}).
 
@@ -2771,8 +2784,10 @@ This model of which the estimators are spelt out in Section~\ref{setting1est}, o
 
 The mean estimator (\ref{ar1mlemean}) consists of two sufficient statistics:
 \begin{equation}
-K_1=\sum_{i=1}^c\sum_{j=1}^nY_{ij},\qquad
+\begin{gathered}
+K_1=\sum_{i=1}^c\sum_{j=1}^nY_{ij},\\
 K_2=\sum_{i=1}^c\sum_{j=2}^{n-1}Y_{ij},
+\end{gathered}
 \end{equation}
 with the sufficient statistics for $\sigma^2$ and $\rho$ spelt out in (\ref{suffstatsigmarho}). In other words, the three-component vector $\bftheta=(\mu,\sigma^2,\rho)'$ has a minimal sufficient statistic $(K_1,K_2,S_1,S_2,R)$ of dimension~5, establishing incompleteness.
 
@@ -2793,7 +2808,7 @@ Note that this is not the ordinary uniform optimality. In case we demand an esti
 The result of Proposition~\ref{prop1} easily generalizes to a mean of the form $\mathbf{\mu}=X\bfbeta$, when the design is constant among clusters.\end{proposition}
 
 
-\subsection{Clusters Of Variable Size}
+\subsection{Clusters of variable size}
 \label{secvariable}
 
 \cite{hermans2017_cs} studied various weighting schemes for clusters of unequal size in the compound-symmetry case. Their work was rooted in the pseudo-likelihood and split-sample methods of \cite{Verbeke2006} and \cite{Iddi2011}. We will not reproduce their entire argument here, it suffices to focus on the following two-stage procedure:
@@ -2928,7 +2943,7 @@ Given that the MLE for unequal cluster sizes does not exist in closed form and h
 Algebraic details on formulas can be found in separate Appendix~\ref{suppgenmean} and~\ref{suppdelta}.
 
 
-\subsection{Computational Considerations and Simulation Study}
+\subsection{Computational considerations and simulation study}
 \label{seccompu}
 
 In the compound-symmetry covariance structure case it has been seen that the proportional weights perform very well. Due to a constant correlation $d$, additional observations within a cluster contribute increasingly less  information relative to that already observed. By contrast, with an AR(1) covariance structure, 
@@ -2952,7 +2967,7 @@ It is observed that, for $\widehat{\mu}$ and $\widehat{\sigma}^2$, using $\tilde
 A second simulation study was conducted to compare computation time for closed form solutions to numerical solutions. Using closed form solutions reduces computation time significantly. 
 Details can be found in the separate Appendix~\ref{suppsimul}.
 
-\subsection{Application: Clinical Trials in Schizophrenia}\label{secapp}
+\subsection{Application: clinical trials in schizophrenia}\label{secapp}
 
 The data, introduced in Section~\ref{secmotex}, are analysed here. The active treatments are: risperidone, haloperidol, perphenazine, and zuclopernthixol. We included for analysis patients with at least one follow-up measurement. Table~\ref{Tab_freq} shows the number of patients participating in each trial for all different time patterns in receiving the treatments. As one may see, there are 26 different time patterns, therefore, the final dataset is unbalanced. This makes it suitable for examining the performance of sample splitting according to the cluster size.
 
@@ -3100,7 +3115,7 @@ time$\times$zuclopenthixol   &$(\alpha\beta)_4$& 5.218 (5.746) & 2.041 (4.188) &
 \end{tabular}}
 \end{table}
 
-\subsection{Concluding Remarks}
+\subsection{Concluding remarks}
 \label{secconcl}
 
 As an extension to the normal-compound symmetry model, discussed in \cite{hermans2017_cs}, the normal AR(1) model was studied in the light of computationally effective estimation for clustered data with unequal cluster sizes.
@@ -3237,7 +3252,7 @@ We have implemented this procedure in R (see R package {\tt{miscVSS}} introduced
 
 % WE ARE HERE.
 
-\section[Finite Information Limit Estimators]{Finite Information Limit Estimators: Is the Entire Dataset Needed for Analysis?}
+\section[Finite information limit estimators]{Finite information limit estimators: is the entire dataset needed for analysis?}
 
 \label{chap_FIL}
 In this section a special case of random vertical splitting is considered that only a few or even one sub-sample would be sufficient to derive valid results.
@@ -3326,7 +3341,7 @@ Considering (\ref{var_mu_cs}), with a cluster of infinite size, the variance is:
 
 In other words, with the given number of clusters, the minimum variance we can reach is (\ref{var_min_cs}). That is to say, in such a situation, for a given number of clusters, increasing the cluster sizes cannot make the variance smaller than a specific value. Obtaining a smaller variance is still possible by adding new clusters (increasing $N$). Such considerations can be found in the literature on determining sample and cluster sizes for cluster randomized trials. For example, \cite{teerenstra2008} have considered a 3-level model, with CS structure for variance at both levels (each with its own correlation); \cite{teerenstra2010} extended these calculations to generalized linear models. The information limit property of CS-based estimators is considered from a different point of view in \cite{feng2001}, \cite{guittet2005}, and \cite{hemming2011}.
 
-\subsection{Finite Information Limit (FIL) Estimators}
+\subsection{Finite information limit (FIL) estimators}
 \label{sec_FIL}
 It is useful to generally define FIL. We also examine some other examples, and provide an important counterexample. 
 
@@ -3382,7 +3397,7 @@ Although FIL cannot be used to deal with high-dimensional AR(1) data, there are 
 A first simulation study is conducted to illustrate the FIL property for CS data. To this end, CS clusters are generated.  Consider $c_k$ clusters of unique sizes $n_k$ for $k=1,\ldots,6$. The simulation settings are:
 \begin{itemize}
 \item $\mu=0$, $\tau=5$ and $\sigma^2\in\{20,5,1.25\}$ to produce $\rho\in\{0.2,0.5,0.8\}$
-\item $n_k\in\{500,600,700,800,900,1000\}$, and $c_k\in\{100,100,100,100,100\}$.
+\item $n_k\in\{500,600,700,800,900,1000\}$, and $c_k\in\{100,100,100,100,\allowbreak 100\}$.
 \item $n_f=\{5,10,50\}$. 
 \end{itemize}
 A set of data is generated 50 times for each setting. Parameters are estimated for the full data using the MIXED procedure in SAS 9.4 for Windows. A sub-sample of size $n_f\in\{5,10,50\}$ is taken and the parameter $\mu$ and its variance  estimated using  balanced-data closed forms \cite{Iddi2011}. The ARE's are computed by comparing the variance using a sub-sample of size $n_f$ with the entire dataset. 
@@ -3509,14 +3524,14 @@ Finally, as the FIL is detected using $\rho=0.2,05,0.8$, following Step 4 in the
 \end{figure}  
 
 
-\subsection{Case study: Amazon.com book ratings}
+\subsection{Case study: amazon.com book ratings}
 \label{sec_case_study}
 The effectiveness of detecting FIL is examined via simulations in Sections~\ref{sub_sec_sim1} and \ref{sub_sec_sim2}. In this section, we consider the ratings of the books on the Amazon website. The data are obtained from \cite{amazon}. The dataset contains $2,330,066$ books, which are rated at least $1$ and at most $21,398$ times. Obviously, this is an example of clustered data, as the same book is rated many times. Figure \ref{fig_hist} shows the histogram of the number of all and unique cluster sizes.
 
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=\textwidth,trim=0 85 0 0]{fig_hist_full_clust_size.eps}
+\includegraphics[trim=0 85 0 0, clip,width=\textwidth]{fig_hist_full_clust_size.eps}
 \caption[Histogram of number of all and unique cluster sizes in Amazon books ratings data.]{Histogram of number of all (left) and unique (right) cluster sizes in Amazon books ratings data.} 
 \label{fig_hist}
 \end{figure}  
@@ -3568,7 +3583,7 @@ Investigating the FIL property on the Amazon.com book ratings enabled us to fit 
 The computation time gain can be enormous, see Table \ref{tab_comp_time}. To add to the computational  efficiency, unlike in many raw dataset, the sub-sample may be chosen balanced,  which adds to the computational efficiency \cite{Lisa2015_2}). As proposed in Section~\ref{sec_detect}, the sub-sampling can be repeated several times to increase efficiency. In addition to the  advantages mentioned, the proposed procedure based on the sub-sampling of various sizes several times consists of so-called ``embarrassingly parallel steps." Therefore, it can be implemented as fast as the computational resources allow. Even on a single core laptop scale, the computation gain could become 1500 times faster than using the full data. One may note that fitting the model to the full (unbalanced) data is usually and out of necessity done using iterative algorithms, which are very complex to make parallel.
 
 
-\chapter{Structured Vertical Splitting}
+\chapter{Structured vertical splitting}
 \label{chap_structured_vertical}
 In this chapter we review the structured vertical splitting with its application in pairwise modeling of several responses simultaneously. 
 
@@ -3867,6 +3882,7 @@ We may note that the implementation in \cite{pair_lin} is not fully efficient. A
 \label{sec_conclusions}
 
 In this short note the idea of multiple ouputation was extended to provide a fast precision estimation in high-dimensional multivariate joint models. Such precision estimation can be used in the pairwise approach of \cite{Verbeke2006, Verbeke2007} to replace the timely expensive and complicate to compute and implement sandwich estimator. While both MO and sandwich corrections give asymptotically the same preicisons, the main advantages of our MO-based proposal compared with sandwich correction are as follows:
+
 \begin{enumerate}
 \item MO correction is considerably faster, even on a laptop scale using a single core. In our simulations (Section~\ref{sec_sim}) the time gain was more than 2500 times and in real data analysis (Section~\ref{sec_application}) it was about 350 times. As our simulations and real data analysis results show, MO correction can possibly be computed even faster than the full likelihood (when feasible).
 \item The Mo correction can be computed using the usual outcomes of any standard software. i.e., estimates and their precision. Unlike the sandwich correction which needs the first and second order derivatives. Therefore, MO correction is straightforward to implement with no need of complicated computations in any one of the usual software packages. This property is true for fixed effects, variance components, or other types of parameters of interest. Computing the derivatives of log-(pseudo-)likelihood function can possibly more difficult e.g. for variance components comparing with the fixed effects.
@@ -3891,7 +3907,7 @@ Considering the above advantages of MO correction over sandwich correction, it c
 \label{chap_supp}
 We have discussed the several similarities of multiple imputation \citep{rubin1987, carpenter2012} and multiple outputation \citep{hoffman2001, follmann2003}. In this chapter, we present two of our contributions that consider determining number of imputed datasets (equivalently number of sub-samples), and performing multiple imputation (equivalently multiple outputation) in a case where the combination rule for estimates cannot be used in a direct way.
 
-\section[Iterative Multiple Imputation]{Iterative Multiple Imputation: A Framework to Determine the Number of Imputed Datasets}
+\section[Iterative multiple imputation]{Iterative multiple imputation: a framework to determine the number of imputed datasets}
 \label{secc_IMI}
 
 
@@ -3910,7 +3926,7 @@ Section~\ref{sec_proposal}. Section~\ref{sec_simulations} reports some simulatio
 
 
 
-\subsection{Number of imputed datasets: A review}
+\subsection{Number of imputed datasets: a review}
 \label{imisec_review}
 Upon producing multiply imputed datasets, a standard analysis is routinely applied to each of the completed datasets. Let $\bftheta$ be the parameter vector of interest and  $\widehat{\bftheta}_m$  its estimate from the $m$th imputed dataset. If $M$ is the number of {\color{black}{imputed datasets}}, then $\tilde{\bftheta}$, the multiple imputation estimator is defined as:
 \begin{equation}
@@ -4336,7 +4352,7 @@ Again, we ask for two initial imputations and then 3 successive validation steps
 }}
 
 
-\subsection{Discussion and Concluding Remarks}
+\subsection{Discussion and concluding remarks}
 \label{imisec_conclusions}
 %Multiple imputation is an appealing and extensively used method to analyze incomplete data, or, even more broadly, data that can be cast in a missing-data framework \citep{wim2015}. There is widely held and largely justified wisdom that a small number of imputation suffices for many practical purposes, even though \cite{schafer1997} states that the number depends on the amount of missing information, the data type under study, and the inferential purpose. We have presented a very simple {\color{black}{procedure}}, that is based on conventional large-sample convergence results, by merely using the fact that multiple imputation is in itself a sampling mechanism. It is based on comparing the estimates under $M$ and $M+1$ imputations, but obvious extensions towards using three or more subsequent estimates can be used as well. This would prevent early stopping when two consecutive quantities of interest are unusually close. Thus, when convergence is suggested, to play safe, one could still go on for a while, and wait until convergence has been confirmed. Stopping too early would lead to less precise estimates, or unwanted decision making, while the main problem with too high an $M$ is the computational cost.
 
@@ -4781,7 +4797,7 @@ The R package {\tt{mifa}} provides functions to:
 
 This covers our contributions in Section~\ref{secc_mifa}.
 
-\chapter{Conclusions and Future Plan}
+\chapter{Conclusions and future plan}
 \label{chap_conclusions}
 
 In this chapter we will summarize our work and describe how we could achieve the goals we have set for this PhD thesis. We will also draw some future research lines based on the results we have obtained and the methodologies we have developed.
@@ -4966,7 +4982,7 @@ Other than extending data splitting to be used to deal with small-sample issues,
 %% CS paper
 In this chapter supplementary materials from different chapters are presented. Sections~\ref{appA}--\ref{bcim} will provide materials related to Section~\ref{sec_cs} (structured horizontal splitting for CS). The materials related to Section~\ref{sec_ar1} (structured horizontal splitting for AR1) will be given in Sections~\ref{ar1appendix}--\ref{suppdata}. The Fieller's method and delta method are explained in Section~\ref{app1}. The combination rules for random vertical splitting for a CS case will be derived in Section~\ref{app2}. In Section~\ref{app_mi}, combination rules of multiple imputation for $p$-values are given. And finally, the surrogate model we have used in thesis is presented in Section~\ref{sec_surrogate_model}.
 
-\section[Incompleteness in the CS Model]{Incompleteness in the Compound-symmetry Model} \label{appA}
+\section[Incompleteness in the CS model]{Incompleteness in the compound-symmetry model} \label{appA}
 
 
 {Based on (\ref{driestats})
@@ -5013,10 +5029,10 @@ Thus, every solution $\bflambda \perp \bn$, where $\bn=(n_1,\dots,n_K)'$, provid
 Such a vector $\bflambda$ exists if and only if $K\ge 2$, for which it is assumed that at least two $c_k>0$ (i.e., at least two different cluster sizes occur).
 
 \setcounter{equation}{0}
-\section{Likelihood-based Estimation of the CS Model}
+\section{Likelihood-based estimation of the CS model}
 \label{likelihoodapp}
 
-\subsection{Score Functions}
+\subsection{Score functions}
 
 The score function has components:
 \begin{eqnarray}
@@ -5041,7 +5057,7 @@ T_k & =&\frac{1}{c_{kn_k}}R_k= \frac{1}{c_{kn_k}}\sum_{i=1}^{c_k} \BZ_i^{(k)'}\m
 
 
 
-\subsection{Lack of Closed-form Solution when $K\ge 2$}
+\subsection{Lack of closed-form solution when $K\ge 2$}
 \label{twodifferent}
 
 The lack of a closed form when $K\ge 2$ is well known, but we highlight a few relevant features here. More detail is given in Supplementary Materials~\ref{appB}.
@@ -5084,7 +5100,7 @@ where $\widehat{\mu_k}$ as in (4.5).
 For the variance components, only implicit identities follow; they are functions of (\ref{skfunc})--(\ref{tkfunc}). These take the form of high-degree polynomials, for which no general explicit solution exists.  While (\ref{mulikapp}) is explicit, it is a weighted average of the cluster-size specific averages $\overline{Y}^{(k)}$, with weights depending on the variance components.  This, combined with the result for the variance components, implies that there is no explicit solution, unless the variance components are known or the cluster size is constant.
 
 \setcounter{equation}{0}
-\section{Full Likelihood}
+\section{Full likelihood}
  \label{appB}
 
 Referring to the conventional situations, i.e. $\ell(\mu,\sigma^2,d)$ in (4.2)
@@ -5188,10 +5204,10 @@ with $\frac{\partial^2\ell}{\partial \mu \partial \sigma^2}$, $\frac{\partial^2\
 (\ref{jhessian5}), (\ref{jhessian6}), (\ref{jhessian7}), (\ref{jhessian8}), and (\ref{jhessian9}).
 
 \setcounter{equation}{0}
-\section{Pseudo-likelihood for Split Samples}
+\section{Pseudo-likelihood for split samples}
 \label{splitsample}
 
-\subsection{General Considerations}
+\subsection{General considerations}
 Informally, a pseudo-likelihood function is one that replaces a computationally intractable or slow-to-maximize likelihood function, with another function that still produces a consistent and asymptotically normal estimator when maximised, i.e., by setting the first derivatives of the log pseudo-likelihood equal to zero and solving the resultant pseudo score equations. An early reference is \cite{arnold1991}, and details on various forms of pseudo-likelihood can be found in \cite[Ch.~9, 12, 21, 22, 24, and 25]{molenberghs2005}. In the current clustered setting, the likelihood contribution of a cluster is often replaced by a product of contributions for various sub-vectors. In some cases, such a sub-vector can be conditioned upon another sub-vector.
 
 \cite{Verbeke2006} and \cite{Fetal06} used pseudo-likelihood to fit mixed models to high-dimensional multivariate longitudinal data. They supplemented the standard method with an additional device. They first replaced a set of $M$ longitudinal sequences by the $M(M-1)/2$ longitudinal pairs. This in itself is a standard application of pseudo-likelihood. They then assumed that each pair has its own parameter vector.
@@ -5252,7 +5268,7 @@ a block-diagonal matrix with blocks of the form $I_0(\bftheta_k)$. We now turn t
 
 
 
-\subsection{Pseudo-likelihood for Split Sample }
+\subsection{Pseudo-likelihood for split sample }
 \label{appC}
 
 
@@ -5302,7 +5318,7 @@ the CS case with a different number of measurements
 per cluster.}
 
 \setcounter{equation}{0}
-\section[Optimal Scalar Weights for CS]{Derivation of Optimal Scalar Weights for Compound-symmetry Case}
+\section[Optimal scalar weights for CS]{Derivation of optimal scalar weights for compound-symmetry case}
 
 To find the optimal scalar weight with minimum variance for $\mu$ we use the method of Lagrange with the constraint that the weights $a_k$ need to sum to 1:
 \begin{equation}
@@ -5359,7 +5375,7 @@ g_k&=&\lambda \frac{1}{2 v_k},\\
 giving the solution:
 $$ g_k= \frac{\frac{c_kn_k}{\frac{\sigma^4}{n_k-1}+2d\sigma^2+n_kd^2}}{\sum_{m=1}^K\frac{c_m n_k}{n_m-1}+2d\sigma^2+n_md^2}.$$
 
-\subsection{Cluster-by-cluster Analysis}
+\subsection{Cluster-by-cluster analysis}
 \label{cbcaapp}
 
 We study the case of the most extreme partitioning, i.e., where each of the clusters is analyzed separately. 
@@ -5407,11 +5423,13 @@ with obvious notation for $Q$ and $R$, inspired by
 elements, similar in spirit to (4.8)-(4.9),
 %(\ref{varexprmuk})--(\ref{varexprsigmakdk}), 
 are:
-\begin{eqnarray}
+\begin{equation}
 \label{varexprmucbyc}
-\mbox{var}(\widehat{\mu})&=&\frac{\sigma^2+nd}{Nn},\\
+\mbox{var}(\widehat{\mu})=\frac{\sigma^2+nd}{Nn},
+\end{equation}
+\begin{multline}
 \label{varexprsigmadcbyc}
-\mbox{var}\left(\begin{array}{c}\widehat{\sigma^2}\\ \widehat{d}\end{array}\right)&=&
+\mbox{var}\left(\begin{array}{c}\widehat{\sigma^2}\\ \widehat{d}\end{array}\right)=
 \left(
 \begin{array}{cc}
 \frac{2\sigma^4}{N(n-1)}&-\frac{2\sigma^4}{Nn(n-1)}\\
@@ -5419,7 +5437,7 @@ are:
 \frac{2}{Nn}\left[\frac{\sigma^4}{n-1}+2\sigma^2d+nd^2\right]
 \end{array}
 \right).
-\end{eqnarray}
+\end{multline}
 This estimator coincides with the MLE, as is known from \cite{Iddi2011}.
 
 
@@ -5571,14 +5589,14 @@ and $\widehat{d}$, presented in
 
 
 \setcounter{equation}{0}
-\section{Details About the First Simulation Study}
+\section{Details about the first simulation study}
 \label{simapp}
 
 The simulation study, summarized in Section~7,
 %\ref{simulation}, 
 is described in detail here.
 
-\subsection{Simulation Method}
+\subsection{Simulation method}
 
 The design of the simulation study is as follows.
 \begin{itemize}
@@ -5598,7 +5616,7 @@ These settings are applied to various combinations of the $n_k$ and $c_k$, now d
 
 
 
-\subsection[Setting 1]{Setting 1: Equal $c_k\cdot n_k$, Different $c_k$ and $n_k$.}
+\subsection[Setting 1]{Setting 1: equal $c_k\cdot n_k$, different $c_k$ and $n_k$.}
 
 Consider  150 samples in each split, as follows: $(c_1,n_1)=(3,50)$, $(c_2,n_2)=(5,30)$, $(c_3,n_3)=(10,15)$, and $(c_4,n_4)=(15,10)$. The results are presented in Table~\ref{tab150}.  Graphical depictions can be found in Figures~\ref{CS150} and \ref{CS150COMB}. Figure~\ref{CS150} shows that there is a different amount of information in the various sub-samples. This is not a problem, rather a consequence of the way the splits are created and the different amounts of information carried in each. It reminds us that we need to be judicious how the information from the splits will be weighted. It is  not a surprise that equal weights are a poor choice. The other methods perform similarly, and all do very well. To varying degrees, the same will be seen in Settings~2 and~3.
 \begin{table}[h]
@@ -5606,7 +5624,7 @@ Consider  150 samples in each split, as follows: $(c_1,n_1)=(3,50)$, $(c_2,n_2)=
 
 \vspace*{2mm}
 \centering
-\def\arraystretch{0.6}\begin{tabular}{rrrrrrr}
+\def\arraystretch{1}\begin{tabular}{rrrrrrr}
   \hline\hline
  & \multicolumn{1}{c}{$\mu$} & \multicolumn{1}{c}{\mbox{var}($\mu$)} & \multicolumn{1}{c}{$d$} & \multicolumn{1}{c}{\mbox{var}($d$)} & \multicolumn{1}{c}{$\sigma^2$} & \multicolumn{1}{c}{\mbox{var}($\sigma^2$)} \\
   \hline
@@ -5638,7 +5656,7 @@ Equal & 0.01078 & 0.03769 & 0.85793 & 0.09988 & 1.98250 & 0.01406 \\
 
 
 
-\subsection[Setting 2]{Setting 2: Different $c_k\cdot n_k$, Equal $c_k$, Different $n_k$}
+\subsection[Setting 2]{Setting 2: different $c_k\cdot n_k$, equal $c_k$, different $n_k$}
 
 To see the effect of split size, the following choices are made:
 $(c_1,n_1)=(4,25)$,  $(c_2,n_2)=(4,50)$,  $(c_3,n_3)=(4,125)$, and $(c_4,n_4)=(4,250)$.
@@ -5650,7 +5668,7 @@ As a consequence, the size of the splits will be $100$, $200$, $500$, and $1000$
 
 \vspace*{2mm}
 
-\def\arraystretch{0.6} \begin{tabular}{rrrrrrr}
+\def\arraystretch{1} \begin{tabular}{rrrrrrr}
 \hline  \hline
   & \multicolumn{1}{c}{$\mu$} & \multicolumn{1}{c}{\mbox{var}($\mu$)} & \multicolumn{1}{c}{$d$} & \multicolumn{1}{c}{\mbox{var}($d$)} & \multicolumn{1}{c}{$\sigma^2$} & \multicolumn{1}{c}{\mbox{var}($\sigma^2$)} \\
 \hline
@@ -5680,7 +5698,7 @@ split1 & -0.02515 & 0.05227 & 0.83440 & 0.52423 & 2.00347 & 0.00730 \\
 \end{figure}
 
 
-\subsection[Setting 3]{Setting 3: Different $c_k\cdot n_k$, Different $c_k$, Equal $n_k$}
+\subsection[Setting 3]{Setting 3: different $c_k\cdot n_k$, different $c_k$, equal $n_k$}
 We now choose: $(c_1,n_1)=(10,20)$,  $(c_2,n_2)=(20,20)$, $(c_3,n_3)=(50,20)$, and
 $(c_4,n_4)=(100,20)$. Table~\ref{tab_diff2} summarizes the results. Graphs can be found in Figures~\ref{CS_diff2} and \ref{CS_diff_comb2}.
 \begin{table}[h]
@@ -5690,7 +5708,7 @@ $(c_4,n_4)=(100,20)$. Table~\ref{tab_diff2} summarizes the results. Graphs can b
 
 \vspace*{2mm}
 
-\def\arraystretch{0.6} \begin{tabular}{rrrrrrr}
+\def\arraystretch{1} \begin{tabular}{rrrrrrr}
   \hline\hline
   & \multicolumn{1}{c}{$\mu$} & \multicolumn{1}{c}{\mbox{var}($\mu$)} & \multicolumn{1}{c}{$d$} & \multicolumn{1}{c}{\mbox{var}($d$)} & \multicolumn{1}{c}{$\sigma^2$} & \multicolumn{1}{c}{\mbox{var}($\sigma^2$)} \\
   \hline
@@ -5721,7 +5739,7 @@ Equal & 0.01009 & 0.01139 & 0.95496 & 0.02694 & 2.00779 & 0.00486 \\
 \end{figure}
 
 
-\subsection{Optimal, Approximate Optimal, and Iterated Optimal Weights}
+\subsection{Optimal, approximate optimal, and iterated optimal weights}
 
 Optimal weights were discussed in Section~6.1.1.
 %\ref{owcs}. 
@@ -5749,7 +5767,7 @@ It is noteworthy that the behavior of the iterated optimal weights depends on $c
 Taken together, it follows that both approximately optimal and iterated optimal weights provide excellent results. The specific attraction of the approximate optimal weights is that they obviate the need for iteration, which is a factor of stability and speed.
 
 \setcounter{equation}{0}
-\section{Details About the Second Simulation Study}
+\section{Details about the second simulation study}
 \label{simapptwee}
 
 The aim of this study is to compare the proposed method to two alternatives: 
@@ -5759,7 +5777,7 @@ The aim of this study is to compare the proposed method to two alternatives:
 \item using multiple imputation (MI) first, to render the clusters of equal sizes, and then apply closed-form solutions to the augmented balanced data, together with the combination rules.
 \end{enumerate}
 
-\subsection{Simulation Plan}
+\subsection{Simulation plan}
 
 In order to study the effect of cluster sizes ($n_k$) and number of clusters of each size ($c_k$), 5 different configurations are considered:
 \begin{description}
@@ -5804,7 +5822,7 @@ For each configuration we report three results: the estimated parameters, their 
 
 
 \resizebox{\textwidth}{!}{%
-\def\arraystretch{0.6} \begin{tabular}{cccccccc}
+\def\arraystretch{1} \begin{tabular}{cccccccc}
   \hline\hline
 Config.& & Equal & Prop & Approx.~sc. & Scalar & Approx.~opt. & ML \\ 
   \hline
@@ -5837,7 +5855,7 @@ Config.& & Equal & Prop & Approx.~sc. & Scalar & Approx.~opt. & ML \\
 \vspace*{2mm}
 
 \resizebox{\textwidth}{!}{%
-\def\arraystretch{0.6} \begin{tabular}{ccccccccc}
+\def\arraystretch{1} \begin{tabular}{ccccccccc}
   \hline\hline
 Config.& & Equal & Prop & Approx.~sc. & Scalar & Simple opt. & Proper opt. & ML \\ 
   \hline
@@ -5876,8 +5894,6 @@ Config.& & Equal & Prop & Approx.~sc. & Scalar & Simple opt. & Proper opt. & ML 
 
 \begin{figure}
 \centering
-
-
 \includegraphics[width=\textwidth]{fig_mu.eps}
 \caption{\small \linespread{1.1}  Second simulation study. Estimates for $\mu$ (first row) and its standard error (second row).} \label{fig_mu}
 \end{figure}
@@ -5893,7 +5909,7 @@ Config.& & Equal & Prop & Approx.~sc. & Scalar & Simple opt. & Proper opt. & ML 
 \vspace*{2mm}
 
 \resizebox{\textwidth}{!}{%
-\def\arraystretch{0.6} \begin{tabular}{cccccccc}
+\def\arraystretch{1} \begin{tabular}{cccccccc}
   \hline\hline
 Config.& & Equal & Prop & Approx.~sc. & Scalar & Approx.~opt & ML \\ 
   \hline
@@ -5927,7 +5943,7 @@ Config.& & Equal & Prop & Approx.~sc. & Scalar & Approx.~opt & ML \\
 \vspace*{2mm}
 
 \resizebox{\textwidth}{!}{%
-\def\arraystretch{0.6} \begin{tabular}{ccccccccc}
+\def\arraystretch{1} \begin{tabular}{ccccccccc}
   \hline\hline
 Config.& & Equal & Prop. & Approx.~sc. & Scalar & Simple opt. & Proper opt. & ML \\ 
   \hline
@@ -5965,7 +5981,7 @@ Config.& & Equal & Prop. & Approx.~sc. & Scalar & Simple opt. & Proper opt. & ML
 \vspace*{2mm}
 
 \resizebox{\textwidth}{!}{%
-\def\arraystretch{0.6} \begin{tabular}{cccccccc}
+\def\arraystretch{1} \begin{tabular}{cccccccc}
   \hline\hline
 Config.& & Equal & Prop. & Approx.~sc. & Scalar & Approx.~opt. & ML \\ 
   \hline
@@ -5999,7 +6015,7 @@ Config.& & Equal & Prop. & Approx.~sc. & Scalar & Approx.~opt. & ML \\
 \vspace*{2mm}
 
 \resizebox{\textwidth}{!}{%
-\def\arraystretch{0.6} \begin{tabular}{ccccccccc}
+\def\arraystretch{1} \begin{tabular}{ccccccccc}
   \hline\hline
 Config.& & Equal & Prop. & Approx.~sc. & Scalar & Simple opt. & Proper opt. & ML \\ 
   \hline
@@ -6030,8 +6046,9 @@ Config.& & Equal & Prop. & Approx.~sc. & Scalar & Simple opt. & Proper opt. & ML
 \caption{\small \linespread{1.1} Second simulation study. Computation time (in seconds) using closed-form solutions with different implementation forms, compared to PROC MIXED.}
 
 \vspace*{2mm}
-
-\def\arraystretch{0.6} \begin{tabular}{cccccc}
+\resizebox{\textwidth}{!}{%
+\def\arraystretch{1} 
+\begin{tabular}{cccccc}
   \hline\hline
 &&\multicolumn{2}{c}{Split by split} & & PROC \\ 
 \cline{3-4}
@@ -6048,7 +6065,7 @@ Config.& & without loops &  using loops & Together & MIXED \\
 5  &Mean & 0.04030 & 0.27490 &\textbf{ 0.02130} & 629.58333 \\ 
   &S.D. & (0.01521) & (0.01941) & (0.00872) & (116.09435) \\ 
 \hline\hline
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 
@@ -6061,7 +6078,7 @@ Config.& & without loops &  using loops & Together & MIXED \\
 \vspace*{2mm}
 
 \resizebox{\textwidth}{!}{%
-\def\arraystretch{0.6} \begin{tabular}{rcccccccc} 
+\def\arraystretch{1} \begin{tabular}{rcccccccc} 
   \hline\hline
 & & Equal & Prop. & Approx.~sc.\ & Scalar & Approx.~opt. & MI & ML \\ 
   \hline
@@ -6088,7 +6105,7 @@ $\sigma^2$&   S.D. & (7.66500E-02) & (8.98881E-02) & (7.19708E-02) & (7.13441E-0
 
 \centering
 \resizebox{\textwidth}{!}{%
-\def\arraystretch{0.6} \begin{tabular}{rccccccccc}
+\def\arraystretch{1} \begin{tabular}{rccccccccc}
   \hline\hline
  & & Equal & Prop. & Approx.~sc. & Scalar & Simple opt. & Proper opt. & MI &ML \\   
   \hline
@@ -6120,7 +6137,7 @@ Comparing computation times, the closed-form approaches are the clear winners, f
 
 %% Ar1
 \setcounter{equation}{0}
-\section{The Balanced Conditionally Independent Model\label{bcim}}
+\section{The balanced conditionally independent model\label{bcim}}
 
 In this case, one imposes the following structure on (\ref{lmmhier}):
 \begin{itemize}
@@ -6173,12 +6190,12 @@ Sufficient statistics (\ref{suffstat1})--(\ref{suffstat4}) lead to the maximum l
 Note that the estimators for the fixed effects do not involve the variance components.
 
 \setcounter{equation}{0}
-\section{Algebraic Derivations in the AR(1) Case\label{ar1appendix}}
+\section{Algebraic derivations in the AR(1) case\label{ar1appendix}}
 
 Here, we present more detailed derivations of the key algebraic expressions presented in Sections~\ref{secmodel} and \ref{secestimators}.
 
 
-\subsection{Some Useful Expressions}\label{suppexp}
+\subsection{Some useful expressions}\label{suppexp}
 
 Consider,
 \begin{equation}
@@ -6244,7 +6261,7 @@ Also, considering the fact $CC^{-1}=I$, one can derive:
 \frac{\partial C^{-1}}{\partial \rho} = -C^{-1} \frac{\partial C}{\partial \rho} C^{-1}.
 \end{equation}
 
-\subsection{The Likelihood Estimators in a Given Cluster}
+\subsection{The likelihood estimators in a given cluster}
 
 The likelihood function for an $n_k$-dimensional multivariate normal sample of size $c_k$ has the following form:
 \begin{equation}
@@ -6439,7 +6456,7 @@ Therefore $f'(\rho)$ has no root and hence $f(\rho)$ is monotone. One may see $f
 This shows the unique $\widehat{\rho}$ can be easily estimated solving (\ref{nk_n_rho})  using Cardano's formula \citep{Cardano}.
 
 
-\subsection{Hessians, Covariance Matrices, and Optimal Weights}
+\subsection{Hessians, covariance matrices, and optimal weights}
 
 Given the MLEs for the AR(1) covariance structure,  the Hessians and covariance matrices of the MLEs can be derived. Following the general results obtained about optimal weights, they can be used to compute the exact optimal weights in the case of the AR(1) structure. As mean and variance parameters are orthogonal in the normal case, we can consider the second derivative for fixed effects and variance components separately.
 
@@ -6692,7 +6709,7 @@ Combining (\ref{betagenmeanff}) and (\ref{betagenmeansf}) the overall estimate e
 &=\sum_{i=1}^K \left( \sum_{m=1}^K F_{1m} \right)^{-1} F_{2k}
 \end{aligned}
 \end{equation}
-\subsection{Delta Method for the Mean Estimator}\label{suppdelta}
+\subsection{Delta method for the mean estimator}\label{suppdelta}
 
 By plugging in $\rho_k$ and defining $a_k'=c_k[n_k-(n_k-2)\rho_k]$, equation~(\ref{meanweight}) simplifies to
 \begin{equation}
@@ -6731,7 +6748,7 @@ and these can be combined using the delta method, resulting in (\ref{deltavareen
 
 \subsection{Calculating $\widehat{\rho}$ and $\widehat{\sigma}^2$ in R}
 
-In this section, we consider the implementation of the calculations for the variance components via the R [ackahe {\tt{fastAR1}}. This can be done with a few simple lines of code. For fixed $C_k=C$ and $n_k=n$, and given the data $y$, the function {\tt{est.ar1}} estimates the variance components and provides a plot for the third-degree polynomial in (\ref{nk_n_rho}). This visually underscores that there is only one root in $[-1,1]$. Figure \ref{3rd_poly} shows (\ref{nk_n_rho}) for 10 simulated data sets;  clearly, there is a single root only in $[-1,1]$. For convenience, the R code can be obtained via R package {\tt{fastAR1}}, see Section~\ref{fastar1}. Other functions to find variances and iterated optimal weights are also available.
+In this section, we consider the implementation of the calculations for the variance components via the R packahe {\tt{fastAR1}}. This can be done with a few simple lines of code. For fixed $C_k=C$ and $n_k=n$, and given the data $y$, the function {\tt{est.ar1}} estimates the variance components and provides a plot for the third-degree polynomial in (\ref{nk_n_rho}). This visually underscores that there is only one root in $[-1,1]$. Figure \ref{3rd_poly} shows (\ref{nk_n_rho}) for 10 simulated data sets;  clearly, there is a single root only in $[-1,1]$. For convenience, the R code can be obtained via R package {\tt{fastAR1}}, see Section~\ref{fastar1}. Other functions to find variances and iterated optimal weights are also available.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{3rd_poly.eps}
@@ -6739,9 +6756,9 @@ In this section, we consider the implementation of the calculations for the vari
 \end{figure}
 
 \setcounter{equation}{0}
-\section{Details on Additional Simulations\label{suppsimul}}
+\section{Details on additional simulations\label{suppsimul}}
 
-\subsection{Simulations with Proportional and Size-proportional Weights}
+\subsection{Simulations with proportional and size-proportional weights}
 
 Here we consider $C_1=500,  C_2=250 ,C_3=250, C_4= 500$, and $n_1=5,n_2= 10,n_3= 10,n_4=  5$. Parameters are set to $\mu=0$, $\sigma=2$ and $\rho=(0.1,0.5,0.8)$. The data are generated 100 times and the model is fitted using PROC MIXED in SAS (for a single overall intercept). For combining the results from different sub-samples we have used proportional weights and size-proportional weights:
 \begin{equation}
@@ -6798,7 +6815,7 @@ The results are compared with full likelihood (Table~\ref{table_comp1}). In cont
 \caption{Comparing proportional and size-proportional weights with full likelihood for $100$ replications with $\mu=0$, $\sigma^2=2$ and $\rho=0.8$.} \label{fig_rho3}
 \end{figure}
 
-\subsection{Simulations with Proportional and Size-proportional Weights: $\rho$ near 0/1}
+\subsection{Simulations with proportional and size-proportional weights: $\rho$ near 0/1}
 
 We now present a comparison between proportional and size-proportional weights. We see that,  for $\rho$'s near $1$ (i.e., near CS), size-proportional weights are worse than proportional weights.
 
@@ -6821,7 +6838,7 @@ Figure~\ref{fig_rho2b} shows this phenomenon more clearly, as for some selected 
 \end{figure}
 
 
-\subsection{Simulations With Optimal Weights}
+\subsection{Simulations with optimal weights}
 
 Given the  covariance matrix of the parameter estimators, finding the optimal weights is straightforward, but in practice the unknown parameters therein need to be estimated.  Here we compare the iterative weights with size-proportional weights and ML. See Figures \ref{fig_rho1_opt}, \ref{fig_rho2_opt}, \ref{fig_rho3_opt}, and Table \ref{table_comp1}.
 As expected, the optimal weights lead to estimates very close to the MLE; the difference between them being numerical. 
@@ -6847,7 +6864,7 @@ Size-proportional weights are used as the initial weights to begin the iterative
 \end{figure}
 
 
-\subsection{Simulations on Computation  Time}
+\subsection{Simulations on computation  time}
 Here, some summary tables are presented to summarize the results which are already presented via figures earlier. Furthermore, a table and a figure are added to compare computation time for closed form solutions to numerical ones.
 
 In each table the mean of the estimated parameter and its standard deviation using the $100$ replications are given, together with the standard deviation of those 100 numbers (in parentheses). If $\theta$ is the parameter of interest, $\widehat{\theta}$ is its estimate and $\theta_0$ is its real value, then the MSE is computed as follows:
@@ -6871,7 +6888,8 @@ To assess the effect of the overall size of the dataset, the model is fitted to 
 \label{sim_mu}
 
 \vspace*{2mm}
-
+\resizebox{\textwidth}{!} 
+{
 \begin{tabular}{cllcccc}
 \hline\hline
 $\rho_0$&method & mean($\widehat{\mu}$) (s.d.)  & mean(s.e.($\widehat{\mu}$)) (s.d.)  & MSE$\times 10^4$ \\
@@ -6896,7 +6914,7 @@ $\rho_0$&method & mean($\widehat{\mu}$) (s.d.)  & mean(s.e.($\widehat{\mu}$)) (s
   &Full & 0.00156 (0.03666) & 0.03597 (0.00064) &  13.3305 \\
    \hline
 \hline
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 
@@ -6994,12 +7012,12 @@ $\rho_0$&method& mean($\widehat{\sigma}^2$) (s.e.)  & mean(s.e.($\widehat{\sigma
 
 \begin{figure}[t]
 \centering
-\includegraphics[scale=1, trim= 0cm 4cm 0cm 4cm]{comp_time.eps}
+\includegraphics[width=\textwidth, trim= 0cm 4cm 0cm 4cm]{comp_time.eps}
 \caption[Simulation study. Comparing computation time using closed form and numerical solutions]{Simulation study. Comparing computation time using closed form (left) and numerical (right) solutions. The horizontal axis shows number of clusters ($c$) and the vertical axis shows the computation time in seconds.} \label{fig_comp_time}
 \end{figure}
 
 \setcounter{equation}{0}
-\section{Details on PANSS Data Analysis}\label{suppdata}
+\section{Details on PANSS data analysis}\label{suppdata}
 \vspace{-3.5mm}
 As one may see from Table~\ref{PANSSTab_freq}, by far the majority of the study subjects have complete data and hence belong to the first pattern.
 
@@ -7049,7 +7067,7 @@ $n$ & \multicolumn{10}{c}{Pattern}  & FIN-1 & FRA-3 & INT-2 & INT-3 & INT-7 &Tot
 
 \begin{figure}[ht]
 \centering
-\includegraphics[trim=2cm 5cm 2cm 5cm,scale=1]{all_first.eps}
+\includegraphics[width=0.8\textwidth, trim=2cm 5cm 2cm 5cm]{all_first.eps}
 \caption{PANSS data. Boxplots for the entire set of data, for the subject from the first pattern only, and for various split samples. } \label{fig_all_first}
 \end{figure}
 
@@ -7105,7 +7123,7 @@ The $95\%$ confidence intervals, accompanying (\ref{model_trial}), are presented
 
 
 \setcounter{equation}{0}
-\section{Fieller's method and Delta method}
+\section{Fieller's method and delta method}
 \label{app1}
 
 Here, the Fieller's method to construct a confidence interval for (\ref{nf_var_min_cs}) as well as the Delta method  are discussed. The ratio which we require a confidence interval for is:
