@@ -360,9 +360,13 @@ First, Xerxes’s agents collected ten thousands men in a single place and, havi
 
 King Xerxes could ask his agents to count the soldiers one by one. But as Herodotus \citep{flower2002herodotus}  mentioned, there were 1,700,000 men in his army, so it could take a long time to count them one by one. Instead, he counted them in groups of 10,000. That means counting 170 subjects instead of 1,700,000, hence, the counting task could be done a lot faster. Of course, when counting groups of 10,000 in the way described above, some errors could happen. There is no guarantee that every group of soldiers consists of exactly 10,000 men. However, the approximate estimate is accurate enough considering the time gain.
 
-Our aim in this thesis to explore this ancient idea: splitting a dataset into smaller chunks, analyzing them separately, and then combine to obtain the final results of interest. Considering the topic of my previous thesis \citep{nassiri2013robust} that was about dealing with high-dimensional data using sparse estimation, the current thesis is also in the same line. While in the previous thesis we were more concerned on the size of the parameter space, in the current work our interest is in the size of the sample itself.
+Our aim in this thesis is to explore this ancient idea: splitting a dataset into smaller chunks, analyzing them separately, and then combining them to obtain the final results of interest. Considering the topic of my previous thesis \citep{nassiri2013robust} that was about dealing with high-dimensional data using sparse estimation, the current thesis is also in the same line. While in the previous thesis we were more concerned on the size of the parameter space, in the current work our interest is in the size of the sample itself.
 
-What we will present in this manuscript is the result of collaborating with many great people I had the chance to know and work with during my four years in I-BioStat in Leuven. Above all, 
+What we will present in this manuscript is the result of collaborating with many great people I had the chance to know and work with during my four years in I-BioStat in Leuven. Above all, Geert Molenberghs and Geert Verbeke whose advises, ideas, and availability (literally any time of day or night) made the current work possible. I would never forget the first day I went to Geert Molenbergh's office, he told me `First ask, then Think!'. That sounded a bit strange to me until I realized what he really meant. There are wonderful people in I-BioStat whose expertise can save you a lot of time and solve problems in a more efficient way. I want to thank these colleagues: Wim Van der Elst, Anna Ivanova, Anikó Lovik, Martial Luyts, Lisa Hermans, Kris Bogaerts, Steffen Fieuws, Alvaro Florez Poveda. Also, thank Kirsten, There has been also people outside of I-BioStat who I had the chance to work with: Pavlos Mamouris, João Barbosa Breda, Luc Bijnens, 
+
+I would also like to speially thank Tobias Verbeke, director of Open Analytics, and all my colleagues there who made it possible for me to still work on my thesis and finish my PhD while working as a statistical consultant at OA. This  could not be written without their support.  
+
+I would also thank Bahar Mansoory for proofreading this manuscript. And Ali Rezayat for the very useful discussion of different matters. Then family...
 
 \tableofcontents
 \listoffigures
@@ -486,7 +490,6 @@ In developing these methodologies we will make sure to keep two promises:
 Before proceeding to the main topic of this thesis which is \emph{data splitting}, we may say a few words about \emph{mixed models}. These models are a main tool to analyze clustered data, and will be visited several times throughout this thesis. More technical details about mixed models can be found in \cite{Molenberghs2000} and \cite{molenberghs2005}, in this section we try to explain how mixed models extend the usual linear models to be useful for analyzing clustered data. 
 
 In the expression \emph{mixed model}, the model part is clear, so let us begin with the meaning of \emph{mixed}. Mixed here refers to including both random and structured components in our model. Considering this, indeed, every statistical model is a mixed model. As we have a structured part, and randomness of the error at the individual level. So while it is true that every statistical model is a mixture of structure and randomness, when we talk about a mixed model in particular, we mean other than the individual randomness (error of the model), we have some other random components in the model as well. Let us consider a usual linear model: 
-
 \begin{equation}
 \label{lin_model}
 y_i = \mathbf{x}_i\beta + \epsilon_i,
@@ -517,7 +520,6 @@ where $\mathrm{E}(y_i) = \mu_i = \mathbf{x}_i \beta$, and $\mathrm{Var}(\epsilon
 \end{multline}
 
 The covariance matrix on the right side of (\ref{cov_evolution}) is called unstructured. But depending on the problem, one can impose appropriate structures on this covariance matrix. The two famous structures that are used in different applications are compound-symmetry, and first order autoregressive (AR1) structures. A compound-symmetry structure is defined as follows:
-
 \begin{equation}
 \label{cov_cs}
 \left(
@@ -528,10 +530,7 @@ d & \sigma^2 + d & \ldots & d  \\
 d & d & \ldots & \sigma^2 + d \\
 \end{array} \right).
 \end{equation}
-
 As one may see in (\ref{cov_cs}), a compound-symmetry structure (CS) considers a constant variance equal to $\sigma^2 + d$ as well as a constant covariance equal to $d$. An AR1 structure would consider a constant variance equal to $\sigma^2$, but the correlations (off-diagonal elements) would depend on the distance between two components:
-
-
 \begin{equation}
 \label{cov_ar1}
 \left(
@@ -542,18 +541,15 @@ As one may see in (\ref{cov_cs}), a compound-symmetry structure (CS) considers a
 \sigma^2\rho & \sigma^2\rho^2 & \ldots & \sigma^2  \\
 \end{array} \right).
 \end{equation}
-
 In other words, CS covariance structure considers constant variance and covariance among different components, while the covariance in AR1 case decays as the distance between two component becomes larger. 
 
 We already have a complicated model that allows modeling clustered data. However, the only source of randomness in this model is still the error (randomness due to variability at the individual level). In some situations, the cluster itself could be a source of variation. 
 
 Take probably the most famous example in this setting: classes in the schools, and students in the classes. Of course, a source of variability here is coming from the students themselves. But schools are playing a role also. In other words, part of the variability in the students could come from the fact that they are all in the same school. In order to include this randomness in the model, the random-effects are introduced. Roughly speaking, random effects are cluster-specific parameters. A model that includes such parameters together with fixed effects (the overall effects) is called a mixed effect model. Such a model will extend the model in (\ref{lin_model}) as follows:
-
 \begin{equation}
 \label{mixed_model_intro}
 y_i = \mathbf{x}_i \beta + \mathbf{z}_i \mathbf{b}_i + \epsilon_i,
 \end{equation}
-
 comparing (\ref{lin_model}) and (\ref{mixed_model_intro}), we may see the difference is $\mathbf{z}_i \mathbf{b}_i$. The $\mathbf{b}_i$'s are indeed the cluster-specific parameters or random effects. They are (usually) considered to follow a multivariate normal distribution with mean $\mathbf{0}$ and covariance matrix $D$. We may still assume $\epsilon_i \sim N(\mathbf{0}, R_i)$. 
 
 \section{Data splitting: a unified approach}
@@ -595,46 +591,35 @@ To split the dataset of size $N$ into $M$ sub-samples, take $m = \floor{N/M}$ as
 Note that, $M$ should be carefully selected. Two main points to consider when selecting $M$ are first to make sure the resulting sub-samples are small enough to keep the computation time at an acceptable level. At the same time one needs to be careful that the sub-samples stay large enough, so the methodologies can still be applied on them in a valid way.
 
 Assume $\widehat{\theta}_1, \ldots, \widehat{\theta}_M$ are the estimated parameters from $M$ sub-samples, the data splitting estimate of this parameter can be computed as follows:
-
 \begin{equation}
 \label{eq_estimate}
 \widetilde{\theta} = \sum_{m=1}^M w_m\widehat{\theta_m},
 \end{equation}
 where $w_m$'s are the combination weights, and $\sum_{m=1}^M w_m = 1$. An appropriate set of weights could be assigned proportional to the size of each split, i.e., a larger split contributes more to the final estimate. We would call such weights proportional weights in this thesis:
-
 \begin{equation}
 \label{eq_prop_w} 
 w_{prop, i} = \frac{m_i}{N}.
 \end{equation}
-
 Of course, in case of random splitting, as the split sizes are roughly the same, one can simply assign equal weights to different sub-samples. Such weights are called equal (or constant) weights in this thesis:
-
 \begin{equation}
 \label{eq_equal_w}
 w_{equal,i} = \frac{1}{M}.
 \end{equation}
-
 The combination rule in case of horizontal splitting is simpler than vertical splitting. This comes from the fact that the sub-samples are independent in this case, therefore, one does not need to be concerned about the correlations between the estimates coming from different sub-samples. For a general weight $w_i$, consider $\mathrm{Var}(\widehat{\theta}_i) = \sigma^2_i$, then the variance of data splitting estimator can be computed as follows:
-
 \begin{equation}
 \label{eq_variance1}
 \mathrm{Var}_{horizontal}(\widetilde{\theta}) = \sum_{m=1}^M w_m^2 \sigma_m^2.
 \end{equation}
-
 As having a smaller variance is a desired property for an estimator, Equation (\ref{eq_variance1}) would give an idea about an alternative way of assigning weights to our estimates: the weights should be computed in a way that minimizes the variance in (\ref{eq_variance1}). In this thesis, such weights are called optimal weights. We define the optimal weights as the minimizer of the following objective function:
-
 \begin{equation}
 \label{eq_objective_opt_w}
 Q = \sum_{m=1}^M w_m^2 \sigma_m^2 - \lambda \left(\sum_{m=1}^M w_m -1 \right),
 \end{equation}
-
 where $\lambda$ is a Largange multiplier to make sure that the sum of estimated optimal weights is still 1. Solving the optimization problem in (\ref{eq_objective_opt_w}) would lead to the following optimal weights,
-
 \begin{equation}
 \label{eq_opt_w}
 w_{opt, i} = \frac{1/\sigma^2_i}{\sum_{m=1}^M 1/\sigma^2_m},
 \end{equation}
-
 As one may see, a larger weight is given to a sub-sample with a smaller variance.
 
 
@@ -678,12 +663,10 @@ As it was mentioned, there are several benefits for a balanced dataset. For clus
 In this thesis, we will study two models in details: clustered data with a compound-symmetry (CS) covariance structure, and clustered data with an autoregressive of order one (AR1) covariance structure. It worth to note that, even if the closed-form does not exist, with a balanced dataset one would have a faster and more stable convergence compared to unbalanced data.
 
 The two considered covariance structures would cover a wide range of applications: where the correlation between every two  members of a cluster is always the same (compound-symmetry), and when it decreases when the distance between the two observations becomes larger (AR1). For these two cases, the existence of the closed-form solutions are shown using sufficient complete statistics. Then these closed-form solutions are obtained, also various kinds of weights, including optimal weights are computed for each case. On top of the weights we have already discussed, as we have clusters of all different sizes in different sub-samples here, we have proposed another type of weights, as follows,
-
 \begin{equation}
 \label{eq_size_prop_w}
 w_{size-prop, i} = \frac{m_i n_i}{\sum_{k=1}^ M m_k n_k}.
 \end{equation}
-
 In some cases that the cluster size is also important (other than the number of clusters in each sub-sample), such weights would perform better. We have shown that AR(1) is one of these cases, while for the CS, proportional weights would work fine. 
 
 Note that, the structured horizontal splitting idea is very general and all the introduced methodologies regarding different weights, combination rules, etc., can be used for any suitable structure of splitting (as long as they are horizontal), but in this thesis we only consider the cases where the structure is defined based on size of the clusters. 
@@ -709,18 +692,15 @@ From Cram\'{e}r-Rao's lower bound \citep{casella2002statistical} we know that th
 Let us define the pseudo-likelihood in plain English. Assume we have a sample $\mathbf{y}$ and using that we want to estimate the parameters vector $\theta$ via the log-likelihood function $\ell(\theta; \mathbf{y})$. Using sample splitting, we split the sample $\mathbf{y}$ into $M$ sub-samples $\mathbf{y_1}, \ldots, \mathbf{y_M}$, then feed them to the same likelihood function and estimate the parameter vector, $\theta$, $M$ times. Under pseudo-likelihood paradigm, one can look at this as estimating a parameter vector $\Theta = (\theta_1, \theta_2, \ldots, \theta_M)$ using the sample $\mathbf{Y} = (\mathbf{y_1}, \ldots, \mathbf{y_M})$ via maximizing the pseudo-likelihood function $p\ell(\Theta, \mathbf{Y})$. Note that, $\theta_1 = \theta_2 = \theta_3 = \ldots = \theta_M$. 
 
 Now that the problem is defined under a pseudo-likelihood theory, all the results obtained there can be carried over to the data splitting as well. If we consider matrix $A$ that combines the estimates, i.e., $\widetilde{\theta} = A\widehat{\Theta}$, then the most important result we can present is:
-
 \begin{equation}
 \label{eq_clt_pseudolikelihood}
 \sqrt{N}(\widehat{\theta} - \theta) = \sqrt{N}(A\widehat{\Theta} - A\Theta) \stackrel{d}{\sim} N\left(\mathbf{0}, A I_0^{-1} I_1 I_0^{-1} A^{T}\right),
 \end{equation}
-
 where $T$ means the transpose, and $I_0$ and $I_1$ are defined as follows,
 \begin{equation}
 \label{eq_hessian_gradient_pl}
 I_0(\Theta) = \mathrm{E} \left(\frac{\partial^2 p\ell(\Theta; \mathbf{Y})}{\partial \Theta^T \partial \Theta} \right),\; I_1(\Theta) = \left[\left(\frac{\partial p\ell(\Theta)}{\partial \theta} \right)^T \frac{\partial p\ell(\Theta)}{\partial \theta}  \right].
 \end{equation}
-
 More details on pseudo-likelihood interpretation of the data splitting can be found in \cite{Iddi2011}. 
 
 However, a main difficulty to find the variance in (\ref{eq_clt_pseudolikelihood}) is the need for cluster-wise Hessian and gradient of the pseudo-likelihood function. This could easily become expensive. Also, depending on the gradient and Hessian means this variance estimator needs to be computed for each problem separately. For example, the results obtained for a logistic regression cannot used for another model without the necessary modification. To overcome these difficulties, we have considered an alternative solution proposed by \cite{hoffman2001} in a different context. Their approach is called within cluster re-sampling, which was later on extended and renamed to \emph{multiple outputation} (MO) by \cite{follmann2003}.
@@ -728,7 +708,6 @@ However, a main difficulty to find the variance in (\ref{eq_clt_pseudolikelihood
 In order to explain the motivation behind the multiple outputation technique, consider clustered data where each cluster consists of blood pressure of a patient visiting a hospital several times. The objective of the study is the severity of a disease which is highly correlated with blood pressure (more severe the disease, the larger the blood pressure). The blood pressure is measured every time the patient visits the hospital. Therefore, a larger cluster size means the patient has visited the hospital more often. Which indicates that the patient had more issues with the blood pressure, so a more severe state of the disease. In other words, the size of the cluster is also correlated with the response and objective of the study. Such situations are also called \emph{informative cluster size} in the literature. The correlation of cluster size and the response should be respected in the model, otherwise it could cause issues. Multiple outputation has been proposed to deal with this problem.
 
 Within cluster resampling proposed by \cite{hoffman2001} to deal with the so-called informative cluster size, when it is a nuisance parameter. \cite{hoffman2001} proposed to take sub-samples of size 1 from each cluster repeatedly to form a sample on non-clustered data every time. Then the conventional methods can be used for each of these non-clustered data. The results then can be combined via combination rules which are similar to (\ref{eq_estimate}) for the estimates. For the variance \cite{hoffman2001} proposed the following combination rule:
-
 \begin{equation}
 \label{eq_combination_variance}
 \mathrm{Var}(\widetilde{\theta}) = W - \left(1 + \frac{1}{M}\right) B,
@@ -738,19 +717,16 @@ where $W$ and $B$ are within and between sub-samples variances, respectively. Th
 \label{eq_W_B_Var}
 W = \frac{1}{M} \sum_{i=1}^M \sigma^2_m,\; B = \frac{1}{M-1} \sum_{i=1}^M \left(\widehat{\theta}_i - \widetilde{\theta} \right)^2.
 \end{equation}
-
 The combination rule for the variance in (\ref{eq_combination_variance}) is also intuitively interesting. It states, the variance of the vertical data splitting estimator is an average of the variances in different sub-samples, but when we subtract it from the sample variance of estimated parameter from different sub-samples. Looking at this combination rule, one might also understand the reason behind naming this method multiple outputation by \cite{follmann2003}. That is because of various similarities of this technique with multiple imputation. Although, these similarities are rather technical than literal. 
 
 First, let us say a word on multiple imputation itself. Multiple imputation (MI) is an effective way to deal with missing data issue. The traditional missingness remedies would try to either ignore that missing part of the sample, or replace it with a single plausible value. This way, one would treat a before-missing and now-imputed value the same as a value which is originally observed. In order to respect the fact that imputed values are actually imputed and as well could be any other value, \cite{rubin1978} proposed to replace each missing value with several plausible values. 
 
 
 Now we may look at similarities of MI and MO. As it was mentioned, multiple imputation creates artificial data and augment them to the incomplete sample to make it complete. On the contrary but in a similar way, multiple outputation would every time put some part of the sample out of the analysis. Therefore, multiple \textbf{im}putation increases the sample size by including new artificial data, while multiple \textbf{out}putation decreases the sample size by selecting only a subset of them. But in both of the methods, we will have several datasets to analyze rather than the one single original dataset. So, in both methods we estimate each parameter several times. This is also reflected in the variance estimator. Let us remind the combination rule for variance from \cite{rubin1987},
-
 \begin{equation}
 \label{eq_comb_var_MI}
 \mathrm{Var}(\widehat{\theta}_{MI}) = W + (1 + \frac{1}{M}) B.
 \end{equation}
-
 As one may see, the only difference of (\ref{eq_comb_var_MI}) and (\ref{eq_combination_variance}) is in the fact that MI would add the between datasets variability of the estimated parameters to the averaged variance, while MO would subtract this quantity. This would also make sense intuitively. In case of MI we artificially increase the sample size, so we would get a smaller variance which needs a correction (to become larger, as it should be), but in case of MO we decrease the sample size, so a larger variance would be obtained, which is then also corrected in the same was as MI just with a different sign. For this reason, MI and MO have several issues in common. Therefore, solutions found for one of them can be used for the other one as well. Considering the vast use of multiple imputation in practice, we have developed part of our contributions for MI. 
 
 We have extended the idea of within cluster re-sampling and multiple outputation to make them suitable for our purpose: analyzing clustered data with big clusters. The so-called iterative multiple outputation (IMO) procedure is proposed to fulfil this role. IMO is proposed as follows,
@@ -763,10 +739,12 @@ We have extended the idea of within cluster re-sampling and multiple outputation
 \label{intro_comb_rules}
 \widetilde{\bftheta}_{M_0} = \sum_{i=1}^{M_0} \widehat{\bftheta}_i,\;\; \Sigma_{\widetilde{\theta_{M_0}}}=\widehat{W}_{M_0} - \left( \frac{M_0+1}{M_0} \right) \widehat{B}_{M_0}.
 \end{equation}
-
-			\item \textbf{Update.} For $m>M_0$, \begin{equation}
+			\item \textbf{Update.} For $m>M_0$, 
+			\begin{equation}
 	\label{introupdate}
-	\widetilde{{\bftheta}}_{m+1}=\frac{m\widetilde{\bftheta}_m + \widehat{\bftheta}_{m+1}}{m+1},\; \Sigma_{\widetilde{\theta}_{m+1}}=\widehat{W}_{m+1} - \left( \frac{m+1}{m} \right) \widehat{B}_{m+1}.
+	 \begin{gathered}
+	\widetilde{{\bftheta}}_{m+1}=\frac{m\widetilde{\bftheta}_m + \widehat{\bftheta}_{m+1}}{m+1},\\ \Sigma_{\widetilde{\theta}_{m+1}}=\widehat{W}_{m+1} - \left( \frac{m+1}{m} \right) \widehat{B}_{m+1}.
+ \end{gathered}	
 	\end{equation}
 	\item \textbf{Distance.} Compute: $d_{m+1}=d(\widetilde{\bftheta}_{m+1},\widetilde{\bftheta}_{m})$ using an appropriate distance.
 	\item \textbf{Stopping rule.} $d_{j} < \varepsilon$ for $j=m+1,\ldots,m+k_0$.
@@ -775,7 +753,6 @@ Where for $m=r$ we have,
 \begin{equation}
 \widehat{W}_r= \frac{\sum_{i=1}^r \sigma_{\widehat{\theta}_i}}{r},\; \widehat{B}_r= \frac{\sum_{i=1}^r (\widehat{\theta}_i - \widetilde{\theta}_r)(\widehat{\theta}_i - \widetilde{\theta}_r)'}{r-1}.
 \end{equation}
-
 We may remark, there are cases that only $M=1$ sub-sample would be sufficient to obtain results almost as efficient as analyzing the full dataset. We have studied this matter in detail and called such estimators \textit{finite information limit estimators} (see Section~\ref{chap_FIL}). We have also proposed procedures to detect this property.
 
 A very useful dataset to illustrate the usefulness of random vertical splitting is the Amazon's book ratings dataset. This set of data consists of ratings of several books (from 1 to 5) on Amazon website. Each book is rated by different number of people, which could be as small as 1 and as large as 20,000. So we will deal with clustered data of very variable and large sizes. 
@@ -788,7 +765,6 @@ So far we have discussed random horizontal and random vertical splitting, as wel
 Jointly modeling several outcomes via random effects is a useful example for structured vertical splitting. Such a problem can easily become infeasible when the number of outcomes becomes large (even tens of them). \cite{Verbeke2006} and \cite{Verbeke2007} proposed to analyze all possible pairs of all outcomes instead of analyzing them simultaneously. Then use appropriate combination rules to find the parameters of the model of interest. To illustrate the problem, also to show similarities and differences of structured vertical splitting and the approach of \cite{Verbeke2006} and \cite{Verbeke2007}, we present a simple example. 
 
 Imagine we have 3 outcomes to be jointly modeled. A random effects approach would fit a separate mixed model to each outcome, then let them to be correlated by defining a joint distribution for their random effects. This joint distribution is usually normal where its covariance matrix would capture the dependencies between different outcomes. Let us elaborate more here. If the three separate models (all linear) for the three outcomes are defined using the following general form:
-
 \begin{equation}
 \label{eq_SV_models}
 \begin{cases}
@@ -844,13 +820,11 @@ as one may see in (\ref{eq_SV_pairs}), each $\bftheta^{(s)}$ ($s=1,2,3)$ is a su
 \end{multline}
 As one may see, the covariance parameters ($D_{12},D_{13}, D_{23}$) are only estimated once using their corresponding pair, but the rest of parameters are appearing in two out of three pairs. Therefore, to combine these estimates we cannot just average all estimates as we did in (\ref{eq_estimate}). The weight matrix to perform the appropriate combination can be defined as follows,
 \vspace*{2mm}
-
 \renewcommand{\kbldelim}{(}% Left delimiter
 \renewcommand{\kbrdelim}{)}% Right delimiter
-
 \[
  \resizebox{\textwidth}{!}{  
-  A = \kbordermatrix{
+  A = \hspace*{-3cm} \kbordermatrix{
     & \beta_{1_1}&\beta_{2_1}&D_{11_1}
 	&D_{22_1}&D_{12_1}& \beta_{1_2}&\beta_{3_2}&D_{11_2}
 	&D_{33_2}&D_{13_2}&\beta_{2_3}&\beta_{3_3}&D_{22_3}
@@ -867,8 +841,6 @@ As one may see, the covariance parameters ($D_{12},D_{13}, D_{23}$) are only est
   }
 }
 \] 
-
-
 \vspace*{2mm}
 \noindent Obviously, $\sum_i A_i$ (with $A_i$ the $i$th row of $A$) shows the number of times each parameter is estimated. Therefore, defining $W$ with each of its rows computed as $A_i / \sum_i A_i$, and pre-multiplying it by $\widehat{\boldsymbol{\Theta}}$ would provide the appropriate averaging. The same goes for the variance combination rule. \cite{Verbeke2006} and \cite{Verbeke2007} used a pseuo-likelihood approach to find the combined covariance matrix (the same as in \ref{eq_clt_pseudolikelihood}), we could show using (\ref{eq_combination_variance}) with appropriate weights works the same, but much faster.
 
@@ -964,9 +936,9 @@ We have published the work we have done during this PhD in form of scientific pa
 	
 	\item \textcolor[HTML]{222222}{Anikó Lovik, \textbf{Vahid Nassiri}, Geert Verbeke, Geert Molenberghs, and An Katrien Sodermans. "Psychometric properties and comparison of different techniques for factor analysis on the Big Five Inventory from a Flemish sample." \textit{Personality and Individual Differences} 117 (2017): 122-129.}
 
-	\item \textcolor[HTML]{222222}{Anikó Lovik, \textbf{Vahid Nassiri}, Geert Verbeke, and Geert Molenberghs. "Combining Factors from Different Factor Analyses Based on Factor Congruence." In \textit{The Annual Meeting of the Psychometric Society}, pp. 211-219. Springer, Cham, 2017.}
-
+	\item \textcolor[HTML]{222222}{Anikó Lovik, \textbf{Vahid Nassiri}, Geert Verbeke, and Geert Molenberghs. "Combining Factors from Different Factor Analyses Based on Factor Congruence." In \textit{In Wiberg, M., Culpepper, S.A., Janssen, R., González, J., and Molenaar, D. (Eds.) Quantitative Psychology: The 82nd Annual Meeting of the Psychometric Society, Zurich, Switzerland, 2017}, pp. 211-219. New York: Springer, 2018.}
 	
+
 \item Karel Van Keer, Jan Van Keer, João Barbosa Breda, \textbf{Vahid Nassiri}, Johan Van Cleemput, Luìs Abegão Pinto, Ingeborg Stalmans, Evelien Vandewalle, $``$Retinal oxygen saturation as a non‐invasive estimate for mixed venous oxygen saturation and cardiac output$"$ , \textit{Acta Ophthalmologica},  (2019) 97 (\textbf{2}).
 
 	\item {João Barbosa‐Breda, Karel Van Keer, Luis Abegão‐Pinto, \textbf{Vahid Nassiri}, Geert Molenberghs, Koen Willekens, Evelien Vandewalle, Amândio Rocha‐Sousa, and Ingeborg Stalmans. "Improved discrimination between normal‐tension and primary open‐angle glaucoma with advanced vascular examinations–the Leuven Eye Study." \textit{Acta ophthalmologica}, (2019) 97 (\textbf{1}).}
@@ -976,6 +948,10 @@ We have published the work we have done during this PhD in form of scientific pa
 	\item {Karel Van Keer, Jan Van Keer, João Barbosa Breda, \textbf{Vahid Nassiri}, Cathy De Deyne, Cornelia Genbrugge, Luis Abegao Pinto, Ingeborg Stalmans, and Evelien Vandewalle. "Non-invasive assessment of cerebral oxygenation: A comparison of retinal and transcranial oximetry." \textit{PloS one} 13, no. 1 (2018): e0190612.}
 
 	\item {João Barbosa Breda, K. Van Keer, L. Abegão Pinto, \textbf{Vahid Nassiri}, K. Willekens, E. Vandewalle, A. Rocha Sousa, and I. Stalmans. "Advanced vascular exams improve the accuracy of conventional parameters in distinguishing normal tension from primary open angle glaucoma." \textit{Acta Ophthalmologica} 95 (2017).}
+
+\item \textcolor[HTML]{222222}{Anikó Lovik, \textbf{Vahid Nassiri}, Geert Verbeke, and Geert Molenberghs. "A modified Tucker’s congruence coefficient for factor matching." In \textit{Methodology (in press)},  00(00), 00-00, 2019.}
+
+
 
 \end{enumerate}
 
@@ -1087,17 +1063,15 @@ However, the dis-advantage of this approach is the difficulties of fitting a mix
 \section{A mixed model solution}
 
 We proposed to use a linear mixed model to jointly model all 15 responses that are formed by combining 5 personality factors and 3 family roles. We call these 15 variables factor-role hereafter. Consider $y_{ijk}$ as the response for the $i$-th factor-role for $j$-th item in the $k$-th family. Then We need to fit the following mixed model,
-
 \begin{equation}
 \label{main_model}
 y_{ijk}=\beta_i + b_{ij} + \epsilon_{ijk},
 \end{equation}
 $b_{ij}$'s ($i=1,\ldots,15, j=1,\ldots,m_j$) are the random effects (latent variables) each representing one factor-role. As we are interested in the associations between all factor-roles, they all will be considered to be correlated following a normal distribution with mean zero and an unstructured covariance matrix $D$ presented in (\ref{D_matrix}). In there, the first letter corresponds to the factors (\textbf{A} for agreeableness, \textbf{C} for conscientiousness, \textbf{E} for extraversion, \textbf{N} for neuroticism, and \textbf{O} for openness,) and the second letter corresponds to the family roles (\textbf{c} for child, \textbf{m} for mother, and \textbf{f} for father). The error terms will also be considered to be correlated with an unstructured covariance matrix $R$. 
-
 %{\afterpage{\clearpage % begin landscape tables
 %   \begin{landscape}
 \begin{equation}
-\scalemath{0.5}{
+\scalemath{0.42}{
 \label{D_matrix}
  D= \left(
 \begin{array}{ccccccccccccccc}
@@ -1128,8 +1102,6 @@ d_{Ef,Em} & d_{Ef,Nc}& d_{Ef,Nf}& d_{Ef,Nm} & d_{Ef,Oc}& d_{Ef,Of}& d_{Ef,Om}\\
 }
 \end{equation}
 %\end{landscape}}}
-
-
 As one may see in (\ref{D_matrix}), by estimating the matrix $D$, all possible associations between personality factors and family roles can be derived. As it is already briefly discussed, the advantages of using a mixed model for this problem can be summarized as follows:
 \begin{itemize}
 \item Specifying the theory-based model in a straightforward fashion (the same as confirmatory factor analysis).
@@ -1152,7 +1124,6 @@ the sizes $1480,1480,$ and $1500$. Therefore, the proportional weights in (\ref{
 \label{prop_weights}
 W=(\frac{1480}{4460},\frac{1480}{4460},\frac{1500}{4460}).
 \end{equation}
-
 Now that the sub-samples are assigned and the proper weights are determined, we may fit the mixed model in (\ref{main_model}) to each of these sub-samples, obtain the parameters, and use combination rules with weights in (\ref{prop_weights}) to find the final estimates and their standard errors.
 
 A detailed summary on $\tilde{D}$ (data-splitting based estimate of $D$) is given in Table \ref{d_est}. The estimate for each of the 120 parameters together with standard deviation, $95\%$ confidence interval, $z$-value and $p$-value are given in this table. Figure \ref{d_ci} shows the 120 parameter estimates in $\tilde{D}$ with their corresponding $95\%$ confidence interval. Just to make drawing conclusions easier, Figure \ref{corr_sep} shows parts of the correlation matrix corresponds to each personality factor separately.
@@ -1520,7 +1491,7 @@ The data-dependent terms in the log-likelihood can  be written as:
 \sum_{k=1}^K\sum_{i=1}^{c_k}\frac{\mu}{\sigma^2+n_kd}\left(\sum_{j=1}^{n_k}Y_{ij}^{(k)}\right)
 -\frac{1}{2\sigma^2}
 \left(\sum_{k=1}^K\sum_{i=1}^{c_k}\sum_{j=1}^{n_k}Y_{ij}^{(k)2}\right)  \\
-&+&
+&&+
 \sum_{k=1}^K\sum_{i=1}^{c_k}\frac{d}{2\sigma^2(\sigma^2+n_kd)}\left(
 \sum_{j=1}^{n_k}Y_{ij}^{(k)}
 \right)^2.
@@ -1541,30 +1512,26 @@ Similar in spirit to (\ref{driestats}), but now using all terms, the log-likelih
 \ell(\mu,\sigma^2,d)=\sum_{k=1}^K\ell_k(\mu,\sigma^2,d),
 \end{equation}
 with the cluster size specific log-likelihood term
-
-
-\begin{equation}
+%\begin{equation}
+\begin{multline}
 \label{loglikcsk}
-\begin{aligned}
-&&\ell_k(\mu,\sigma^2,d)=
+\ell_k(\mu,\sigma^2,d)=
 -\frac{1}{2}\sum_{i=1}^{c_k}
 \left\{\ln
 \left[\sigma^{2n_k}+n_k\sigma^{2(n_k-1)}d\right]\phantom{\frac{d_m}{\sigma_m^2+nd_m}}
 \phantom{-\frac{1}{2}\sum_{i=1}^N} \right.\\
-&+&\left.(\BY_{i}^{(k)}-\mu\mathbf{1}_{n_k})'\frac{1}{\sigma^2}\left(I_{n_k}-\frac{d}{\sigma^2+n_kd}J_{n_k}\right)(\BY_{i}^{(k)}-\mu\mathbf{1}_{n_k})\right\}.
-\end{aligned}
-\end{equation}
-
-
++\left.(\BY_{i}^{(k)}-\mu\mathbf{1}_{n_k})'\frac{1}{\sigma^2}\left(I_{n_k}-\frac{d}{\sigma^2+n_kd}J_{n_k}\right)(\BY_{i}^{(k)}-\mu\mathbf{1}_{n_k})\right\}.
+\end{multline}
+%\end{equation}
 Using derivations similar to those in \cite{Iddi2011}, the cluster size specific log-likelihood can be maximized analytically {\em assuming that there is a separate parameter per cluster size}. By replacing $\ell_k(\mu,\sigma^2,d)$ by
 $\ell_k(\mu_k,\sigma^2_k,d_k)$, we can consider the kernel of the log-likelihood, in general for $K$ cluster sizes, and allowing for the parameter vector to change with cluster size:
-\begin{equation}
+\begin{multline}
    \label{jloglik}
-\begin{aligned}
-\ell\left(\left\{\mu_k\right\}_k,\left\{\sigma_k^2\right\}_k,\left\{d_k\right\}_k\right)  &\propto& - \frac{1}{2}\sum_{k=1}^K\sum_{i=1}^{c_k} \left\{\ln|\Sigma_{n_k}| \right. \\ 
-&+& \left. \left(\by_{i}^{(k)}-\bmu_{n_k}\right)'\Sigma_{n_k}^{-1} \left(\by_{i}^{(k)}-\bmu_{n_k}\right) \right\},
-\end{aligned}
-\end{equation}
+%\begin{aligned}
+\ell\left(\left\{\mu_k\right\}_k,\left\{\sigma_k^2\right\}_k,\left\{d_k\right\}_k\right)  \propto - \frac{1}{2}\sum_{k=1}^K\sum_{i=1}^{c_k} \left\{\ln|\Sigma_{n_k}| \right. \\ 
+\; + \left. \left(\by_{i}^{(k)}-\bmu_{n_k}\right)'\Sigma_{n_k}^{-1} \left(\by_{i}^{(k)}-\bmu_{n_k}\right) \right\},
+%\end{aligned}
+\end{multline}
 where $\bmu_k=\mu_k\mathbf{1}_{n_k}$  $\Sigma_{n_k}=\sigma_k^2 I_{n_k}+ d_k J_{n_k}$. The score functions are presented in Supplementary Materials Section~\ref{likelihoodapp}.
 %\ref{likelihoodapp}.
 Solving these score functions (\ref{jscore1})-(\ref{jscore1})
@@ -1589,8 +1556,10 @@ When the cluster size is constant, the compound-symmetry model has closed form M
 \mbox{var}(\widehat{\mu_k})=\frac{\sigma_k^2+n_kd_k}{c_kn_k}.
 \end{equation}
 The expressions for the variance-covariance structure of $(\widehat{\sigma^2_k},\widehat{d_k})$ is:
+
 \begin{equation}
 \label{varexprsigmakdk}
+\scalemath{0.975}{
 \mbox{var}\left(\begin{array}{c}\widehat{\sigma^2_k}\\ \widehat{d_k}\end{array}\right)=
 \frac{2\sigma^4_k}{c_kn_k(n_k-1)}
 \left(
@@ -1599,6 +1568,7 @@ n_k&-1\\
 -1&\frac{\sigma_k^4+2(n_k-1)d_k\sigma_k^2+n_k(n_k-1)d^2_k}{\sigma_k^4}
 \end{array}
 \right).
+}
 \end{equation}
 The mean parameter is independent of the variance components.
 
@@ -1857,8 +1827,6 @@ to the mean produces
 \widetilde{\mu}=\left(\sum_{k=1}^K\frac{c_kn_k}{\widehat{\sigma^2_k}+n_k\widehat{d_k}}\right)^{-1}
 \sum_{k=1}^K\frac{c_kn_k\widehat{\mu_k}}{\widehat{\sigma^2_k}+n_k\widehat{d_k}}.
 \end{equation}
-
-
 The corresponding estimators for the variance components, 
 specific to a cluster size, are given by (\ref{sigmak}) and (\ref{dk}). 
 Using them, and expression (\ref{varexprsigmakdk}) for the variance, 
@@ -1949,7 +1917,6 @@ V\sum_{k=1}^K\frac{c_kn_k}{2(\sigma^2+n_kd)}
 \right)
 .
 \end{equation}
-
 Expressions (\ref{meanident1}) and (\ref{ident1}) can be 
 used for approximate weighting, by plugging in, as is done, 
 on the right hand side, the cluster-size specific mean and 
@@ -2658,7 +2625,6 @@ It follows easily that, when $\rho=0$ both estimators are the same, as it should
 \widehat{\mu}(\rho=+1)&=&\frac{1}{c}\sum_{i=1}^c\frac{Y_{i1}+Y_{in}}{2},\\
 \widehat{\mu}(\rho=-1)&=&\frac{1}{c(n-1)}\sum_{i=1}^c\left(\sum_{j=1}^nY_{ij}-\frac{Y_{i1}+Y_{in}}{2}\right).
 \end{eqnarray}
-
 Turning to the score equations for the variance components, $\partial\ell/\partial\sigma^2$ leads to
 \begin{equation}
 \label{scoreforrho}
@@ -2670,11 +2636,11 @@ Through $C$, the right-hand side depends on $\rho$. For $\rho$, we find:
 \sigma^2\frac{2\rho}{1-\rho^2}=\frac{1}{c(n-1)}\sum_{i=1}^c(\by_i-\mathbf{\mu}_i)'F(\by_i-\mathbf{\mu}_i),
 \end{equation}
 with
-\begin{equation}
+\begin{multline}
 \label{fexpression}
-F=\frac{\partial C^{-1}}{\partial\rho}=\frac{1}{(1-\rho^2)^2}\mbox{tridiag}\left\{
-\left[2\rho,4\rho,\dots,4\rho,2\rho\right]';\left[-(1+\rho^2),\dots,-(1+\rho^2)\right]'\right\},
-\end{equation}
+F=\frac{\partial C^{-1}}{\partial\rho}=\frac{1}{(1-\rho^2)^2}\\ \mbox{tridiag}\left\{
+\left[2\rho,4\rho,\dots,4\rho,2\rho\right]'; \left[-(1+\rho^2),\dots,-(1+\rho^2)\right]'\right\},
+\end{multline}
 and with $\mbox{tridiag}(\bfv_1,\bfv_2)$ a tri-diagonal matrix with $\bfv_1$ along the main diagonal and $\bfv_2$ on the adjacent diagonals. Both (\ref{scoreforrho}) and (\ref{scoreforsigma2}) contain a summation that can be rewritten as $\tr(S\cdot Q)$, with
 $$S=\sum_{i=1}^c(\by_i-\mathbf{\mu}_i)(\by_i-\mathbf{\mu}_i)'$$ and $Q$ either $C^{-1}$ or $F$, as in (\ref{fexpression}), respectively.
 Using this formulation, and some straightforward but tedious algebra, produces:
@@ -2757,8 +2723,6 @@ yielding a very simple inverse:
 \right)
 .
 \end{equation}
-
-
 \subsection{Complete and incomplete sufficient statistics}
 \label{secincomplete}
 
@@ -3013,10 +2977,10 @@ $n$ &Pattern  & FIN-1 & FRA-3 & INT-2 & INT-3 & INT-7 & Total \\
 \end{table}
 
 For the sake of simplicity, we just take the most frequent cluster pattern for each cluster size. The model used to study the effect of the treatments on the response variable is as follows:
-\begin{equation}
+\begin{multline}
 \label{model_no_trial}
-Y_{ij}=\mu + \alpha_i + \beta t_{ij} + (\alpha\beta)_{ij} + \epsilon_{ij},\;i=1,\ldots,4,\;j=1,\ldots,n,\;\epsilon_{ij}\sim N_n(0,R),
-\end{equation}
+Y_{ij}=\mu + \alpha_i + \beta t_{ij} + (\alpha\beta)_{ij} + \epsilon_{ij},\;i=1,\ldots,4,\;j=1,\ldots,n,\\ \epsilon_{ij}\sim N_n(0,R),
+\end{multline}
 with $R_{\ell m}=\sigma^2 \rho^{|\ell-m|}$ as elements of $R$, $\beta$ as the time effect, $\alpha_i$ as the treatment effect, $(\alpha\beta)_{ij}$ as the time and treatment interaction, and $\mu$ as the overall mean. For dummy coding, perphenazine has been taken as the reference treatment level.
 
 Table~\ref{Tab_participate} shows the treatment levels which appear in the different splits. Not all the treatments are present in each split. In other words, not all the splits are contributing to the estimation of every parameter. This fact should be taken into account for constructing the weights. For example, for estimating levomepromazine effect, just the first two splits are contributing, therefore,  we have $(c_1=142, n_1=2)$ and $(c_2=143,n_2=3)$, which give proportional weights as $(0.498, 0.502)$, and the size-proportional weights as $(0.398, 0.602)$.
@@ -3163,14 +3127,10 @@ Where for $m=r$ we have,
 One important step in this procedure is the Stopping rule where we need to decide when to stop sub-sampling. It is important because early termination of the procedure would lead to imprecise results, and continuing too long would be against the initial motivation behind using such a procedure which was saving time. 
 
 The stopping rule in IMO is inspired by our work on iterative multiple imputation (Section~\ref{secc_IMI}). An important aspect of this procedure is to find an appropriate distance in step 3. The distance selected in this step will basically determine how many sub-samples are sufficient to obtain valid results. More details on different possible candidate distances and their pros and cons are discussed in Section~\ref{secc_IMI}. In brief, we propose to use Mahalanobis distance \citep{mahalanobis1936} between estimated parameters and their covariance matrices between two successive steps. 
-
-
-
 \begin{equation}
 \label{mal_dis0}
 d_{m+1}^{\mathrm{Mah}} = \sqrt{\left(\widetilde{\bftheta}_{m+1}- \widetilde{\bftheta}_{m}\right)^T S^{-1} \left(\widetilde{\bftheta}_{m+1}- \widetilde{\bftheta}_{m}\right)},
 \end{equation}
-
 For $S$ in (\ref{mal_dis0}) we proposed to use the combined covariance matrix at step $m+1$. More details on the reasons behind this choice can be found in Section \ref{secc_IMI}.
 
 Furthermore, as one may see, the procedure will terminate if the stopping rule stays valid for $k_0$ successive steps. That is to prevent an early termination, because the convergence here is not monotone. In an extensive simulation study we have observed $k_0=3$ is a reasonable choice (see Section \ref{secc_IMI}).
@@ -3333,12 +3293,10 @@ n_f= \frac{1-\rho}{\rho\varepsilon} = \frac{\sigma^2}{\tau \varepsilon}.
 For example, set $\varepsilon=0.01$, a very small increase of variability. For $\rho=0.5$, $n_f=100$ would reach this goal. Should $\rho=0.9$, then $n_f\simeq 11$ would fulfill the requirement. These are important reductions in big-data settings, or whenever $n_f/n$ becomes very small. The corresponding expression for finite (typically large) $n$ is:
 $$n_f=\frac{n(1-\rho)}{\varepsilon(1+\rho+n\rho)+1+\rho}.$$
 Considering (\ref{var_mu_cs}), with a cluster of infinite size, the variance is:
-
 \begin{equation}
 \label{var_min_cs}
 \lim_{n\rightarrow \infty} \frac{\sigma^2 + n \tau}{Nn} = \frac{\tau}{N}.
 \end{equation}
-
 In other words, with the given number of clusters, the minimum variance we can reach is (\ref{var_min_cs}). That is to say, in such a situation, for a given number of clusters, increasing the cluster sizes cannot make the variance smaller than a specific value. Obtaining a smaller variance is still possible by adding new clusters (increasing $N$). Such considerations can be found in the literature on determining sample and cluster sizes for cluster randomized trials. For example, \cite{teerenstra2008} have considered a 3-level model, with CS structure for variance at both levels (each with its own correlation); \cite{teerenstra2010} extended these calculations to generalized linear models. The information limit property of CS-based estimators is considered from a different point of view in \cite{feng2001}, \cite{guittet2005}, and \cite{hemming2011}.
 
 \subsection{Finite information limit (FIL) estimators}
@@ -3356,7 +3314,6 @@ While CS is a clear example, it is not the only one. Multivariate normal models 
 Consider a linear mixed model $\BY_i \sim N(X_i\beta, \Sigma_i)$, where $X_i\beta=\mu \mathbf{1}$ and $\Sigma_i=Z_i D Z_i + V_i$. Obviously, the $\mathbf{\bar{Y}}=1/n (\mathbf{1'}\BY_i) \sim N(\mu, 1/n^2 \mathbf{1'} \Sigma_i \mathbf{1})$. The FIL exists if the variance $1/n^2 \mathbf{1'} \Sigma_i \mathbf{1}$ does not go to zero when cluster size tends to infinity. In other words, for a $\sqrt{n}$-consistent estimator, FIL does not apply. 
 
 Evidently, a linear mixed model with only a random intercept and independent errors with variance $\sigma^2$ is identical to the CS model. We have already seen that FIL exists in such a case. For a linear mixed model with random intercept $b_{0i}$ and random slope $b_{1i}$ in time one can derive,
-
 $$\mathrm{Var}(\widehat{\mu_{IS}})= d_{22} \frac{(n+1)^2}{4} + d_{12} (n+1) + d_{11} + \frac{\sigma^2}{n},$$
 where $d_{11}=\mathrm{Var}(b_{0i})$, $d_{22}=\mathrm{Var}(b_{1i})$ and $d_{12}=\mathrm{Cov}(b_{0i},b_{1i})$. Also, $IS$ in $\mu_{IS}$ refers to a random intercept-slope model. Obviously, as $n\rightarrow\infty$, $\mathrm{Var}(\widehat{\mu_{IS}}) \rightarrow \infty$, so $\mathcal{I}_{\widehat{\mu_{IS}}}$ is finite and FIL applies in this case as well. If one also looks at the VDF here, it goes to zero at a cubic rate.
 
@@ -3426,7 +3383,6 @@ For the CS case, by pre-specifying the ARE rate, $1+\varepsilon$, one may use (\
 %As the $n_f$ using (\ref{nf_var_min_cs}) is calculated assuming the CS structure assumption for the variance is valid, one may also compute the variance using $n_f+\ell\; (\ell>0)$. If the CS assumption is true, then it does not imply much more additional efficiency using a sub-sample of size $n_f+\ell$.  
 
 While for a FIL estimator taking only one sub-sample can provide the desired efficiency compared with using the full sample, when computational power available, it worth to consider taking more sub-samples of smaller sizes. Assume a single cluster of size $N$ with multivariate normal distribution and CS structure for its covariance matrix. Suppose we take $M_0$ sub-samples of size $n_0$ from this cluster, we have derived:
-
 \begin{equation}
 \label{are2}
 \mathrm{ARE}= \frac{1}{2} + \frac{1}{2} \frac{N}{n_0} \frac{1+(n_0-1) \rho}{1+ (N-1) \rho}.
@@ -3462,11 +3418,6 @@ where,
 \label{mo_s2}
 S^2_{\bftheta} = \frac{1}{M-1} \sum_{m=1}^M (\widehat{\bftheta}_i-\widetilde{\bftheta}) (\widehat{\bftheta}_m-\widetilde{\bftheta})'.
 \end{equation}
-
-
-
-
-
 \subsubsection{Simulations II}
 \label{sub_sec_sim2}
 To study the performance of the proposed procedure in Section \ref{sec_detect} the simulation study in Subsection \ref{sub_sec_sim1} is extended by repeating the sub-sampling $M=1,3,5$ times. Again, a set of data is generated 50 times for each $\rho\in\{0.2,0.5,0.8\}$ and then the parameter $\mu$ and its variance are estimated for the full data using the MIXED procedure in SAS 9.4 for Windows. A sub-sample of size $n_f\in \{5,10,50\}$ is taken $M\in\{1,3,5\}$ times. Estimation of  $\mu$ and its variance is done in the same ways as in the first simulation. Two ARE's are computed. First, the variance of each sub-sample (for different combinations of $n_f$ and $M$) is compared with the one from the full data. Second, to study the performance of the detection method in Section~\ref{sec_detect}, the variance of each sub-sample, except the largest one ($n_f=50$, $M=5$) is compared with the variance of the largest sub-sample. Note that the negative ARE in some cases where $M>1$ occurs because of negative variance estimates using the correction in (\ref{mo_cov}). This matter is well-known \cite{follmann2003} and can be avoided by increasing $M$ or simply use $M=1$ with sufficiently large $n_f$.
@@ -3664,8 +3615,6 @@ For example, using a pairwise approach, each sub-sample consists of all the obse
 
 
 As one may have already noticed, some of the parameters in $\boldsymbol{\theta}$ would have more than one counterpart in $\boldsymbol{\Theta}$. In order to bring the $\boldsymbol{\Theta}$ back to the desired parameter space, one may take the average of possible several counterparts of each element of $\boldsymbol{\theta}$ in $\boldsymbol{\Theta}$. This can be done using an appropriate weight matrix pre-multiplied by $\boldsymbol{\Theta}$. Consider $A$, a $(p\times \sum_{s=1}^M p_s)$ matrix where its $(\ell,k)$th element, $\ell=1,\ldots,p$, $k=1,\ldots, (p\times \sum_{s=1}^M p_s)$, is defined as follows:
-
-
 \begin{equation}
 \label{matrix_A}
 A_{\ell,k} = \left\{
@@ -3674,8 +3623,6 @@ A_{\ell,k} = \left\{
 0 & \text{otherwise},
 \end{array} \right.
 \end{equation}
-
-
 where $\boldsymbol{\Theta}_{k}$ and $\boldsymbol{\theta}_{\ell}$ are the $k$th and $\ell$th elements in $\boldsymbol{\Theta}$ and $\boldsymbol{\theta}$, respectively. If $W$ is defined as $A$ but with the rows divided by their sum then the combination rules for combining the estimates from $M$ sub-samples are as follows,
 %\begin{equation}
 %\label{comb_rules}
@@ -3684,9 +3631,6 @@ where $\boldsymbol{\Theta}_{k}$ and $\boldsymbol{\theta}_{\ell}$ are the $k$th a
 %\mathrm{diag}\left\{\mathrm{Var}(\widetilde{\boldsymbol{\theta}} )\right\}=  W \boldsymbol{\Sigma}_{\boldsymbol{\Theta}} - \mathrm{diag}\left\{W \left(\widehat{\boldsymbol{\Theta}}-\bar{\boldsymbol{\Theta}} \right) \left(\widehat{\boldsymbol{\Theta}}-\bar{\boldsymbol{\Theta}} \right)' W'\right\},
 %\end{cases}
 %\end{equation}
-
-
-
 \begin{equation}
 \label{appendix_comb_rules}
 \begin{cases}
@@ -3694,7 +3638,6 @@ where $\boldsymbol{\Theta}_{k}$ and $\boldsymbol{\theta}_{\ell}$ are the $k$th a
 {\color{black}{\mathrm{diag}\left\{\mathrm{Var}(\widetilde{\boldsymbol{\theta}} )\right\}=  W \boldsymbol{\Sigma}_{\boldsymbol{\Theta}} - W \mathrm{diag}\left\{\left(\widehat{\boldsymbol{\Theta}}-\bar{\boldsymbol{\Theta}} \right) \left(\widehat{\boldsymbol{\Theta}}-\bar{\boldsymbol{\Theta}} \right)' \right\}}},
 \end{cases}
 \end{equation}
-
 where $A'$ is the transpose of $A$, and $\bar{\boldsymbol{\Theta}} = \widehat{\boldsymbol{\Theta}} - A' \tilde{\boldsymbol{\theta}}$. For the proof, see \citet[][Appendix 2]{hoffman2001}. These authors have shown that $I^{1/2} ( \widetilde{\boldsymbol{\theta}} - \boldsymbol{\theta}) \xrightarrow{d} N(0, \Sigma)$, where $\xrightarrow{d}$ means convergence in distribution and $\mathrm{Var}(\widetilde{\boldsymbol{\theta}} )$ is a consistent estimator of $\Sigma$.
 
 We may note that the combination rules in (\ref{appendix_comb_rules}) are only estimating the diagonal elements of the covariance matrix of $\widetilde{\boldsymbol{\theta}}$.  If one is interested in estimating the off-diagonal elements as well, the combination rules are the same. One would only need to construct $\boldsymbol{\Sigma}_{\boldsymbol{\Theta}}$, which takes into account the off-diagonal elements also, then an appropriate $W$ can be used to combine the estimated variances and covariances obtained from each sub-sample. The corresponding vector of unique parameters in this covariance matrix would be $p(p+1)/2$, where each sub-sample would estimate part of them. 
@@ -3722,7 +3665,6 @@ Consider the linear case with identity link in (\ref{mu_function}), as follows:
 \BY_i= X_i \beta + Z_i \Bb_i + \epsilon_i,
 \end{equation}
 where $X_i$ is the design matrix regarding fixed effects, $\beta$ represents the fixed effects, $Z_i$ is the design matrix related to the random effects, and $\Bb\sim N(0,D)$ shows the random effects. The errors are represented by $\epsilon_i\sim N(0,R)$. In order to evaluate the proposed method in a simulation study, consider the model in (\ref{lin_mixed}) with parameters:
-
 \begin{equation}
 \label{sim_params}
 \beta=(5,5,5,5), D= \left(
@@ -3782,7 +3724,6 @@ In order to analyze these 3 ordinal outcomes together, a joint modelling approac
 \mathrm{logit}[P(Y_{rij}<k)] = \xi_{r0k} + \xi_{r1} t_{ij} + \xi_{r2} X_{i} + b_{ri} + \epsilon_{rij},
 \end{equation}
 where $r=1,2,3$ indicates the outcome of interest, and $k=1,\ldots,K-1$ with $K$ as the number of levels of the corresponding outcome of interest. Furthermore, $X_i$ shows the gender of the subject, and $b_{ri}$'s are the random intercepts corresponding to each outcome. Following the mixed model approach for joint modelling of multiple outcomes, we assume the three random intercepts to be normally distributed with the following covariance matrix.
-
 \begin{equation}
 \label{sim2_random_effect_dist}
 \begin{bmatrix}
@@ -3847,11 +3788,10 @@ HbA1c vs. SBP&Cov RI's   &$D_{23}=1.393$ & 0.065 (0.014) & 0.065 (0.014) & 0.993
 To evaluate the hearing performance of a subject, hearing threshold sound pressure levels (measured in dB) are considered. By definition, a hearing threshold is the lowest signal intensity possible to perceive by a subject at a specific frequency. In a study considered in \cite{Molenberghs2000} and \cite{Verbeke2006}, hearing threshold measured in 11 different frequencies between 125 Hz and 8000 Hz for left and right ears obtained on 603 male participants from the Baltimore Longitudinal Study of Ageing, BLSA \citep{shock1984}. The number of visits for each subject which varies between 1 to 15 are unequally spaced. In this illustration all subjects with missing values are ignored to make a fair comparison between MO and sandwich corrections.
 
 In order to model different frequencies simultaneously, \cite{Verbeke2006} used a joint model approach. Because of several outcomes of interest, they have proposed a pairwise approach to jointly fit the model to the data. In this section we use this dataset to illustrate our proposal and compare it with the sandwich correction proposed in \cite{Verbeke2006}. Consider $y_i(t)$ as the hearing threshold for subject $i$ at time $t$ for some frequency. The mixed model fitted to this single response is as follows:
-
-\begin{equation}
+\begin{multline}
 \label{application_model}
-y_i(t)=(\beta_1 +\beta_2 Age_i + \beta_3 Age_i^2 + a_i) + (\beta_4 + \beta_5 \mathrm{Age}_i + b_i)t + \beta_6 V(t) + \epsilon_i(t),
-\end{equation}
+y_i(t)=(\beta_1 +\beta_2 Age_i + \beta_3 Age_i^2 + a_i) + (\beta_4 + \beta_5 \mathrm{Age}_i + b_i)t  \\ + \beta_6 V(t) + \epsilon_i(t),
+\end{multline}
 where $t$ represents time and $V(t)$ is a dummy variable indicating whether the measurement is taken at the first time visit to account for systematically higher response values at the first visit. Also, $Age$ indicates the age of the participant at first visit. Furthermore, $a_i$ and $b_i$ are the random intercepts and slopes, respectively; and $\epsilon$ is the error term. Using a joint modelling approach to model the hearing threshold at several frequencies one needs to let the random intercepts and slopes from various models to be jointly distributed. Here a multivariate normal distribution is considered.
 
 For the sake of our illustration, we consider two models: once three outcomes are modelled simultaneously (frequencies 125 Hz, 250Hz, and 500 Hz for the right ear) and once 5 outcomes are considered (frequencies 125 Hz, 250 Hz, 500 Hz, 750 Hz, and 1000 Hz for the right ear). A joint model of $m$ outcomes using (\ref{application_model}) for each response will have $6m$ fixed effects to estimate, as well as $2k (2k+1)/2$ parameters in $D$. For $k=3$ this is 39 parameters (on top of the parameters in the error matrix). Taking $k=5$ the number of parameters in fixed effects and $D$ matrix is $85$. A pairwise approach is used to estimate the parameters of such models. The precision of the parameter estimates are computed using MO and sandwich corrections. Whenever possible ($k=3$) the model is fitted directly using the full likelihood. 
@@ -4417,7 +4357,6 @@ Consider $X_{ij}^{(m)}$ as the observed value for $i$th subject ($i=1,\ldots,N$)
 $j$th variable ($j=1,\ldots,p$) in the $m$th imputed dataset. The eigenvector corresponding to the largest eigenvalue of $\Sigma^{(m)}=\mathrm{Cov}(X^{(m)})$ gives the structure related to the first latent factor, and  there is no guarantee that the eigenvector corresponding to the largest eigenvalue of $\Sigma^{(k)}=\mathrm{Cov}(X^{(k)})$ ($k\neq m$) is comparable with the one from the $m$th imputed data. In other words, averaging the eigenvectors (principal axes, factor loadings) using the order or the obtained eigenvalues of the covariance matrix estimated from each imputed set  is likely to lead to misleading or meaningless results. 
 
 In order to overcome this problem, \cite{dray2015} have averaged the imputed values to have one single complete dataset. Other authors like \cite{josse2011} and \cite{lorenzo2016} proposed to first impute the data, then perform the PCA or factor analysis on each imputed dataset separately. After obtaining the eigenvectors (factor loadings), because of the discussed problem of ordering, one needs an intermediate step before the usual averaging. This step consists of the use of the class of generalized procrustes rotations (\cite{ten1977}) to make these matrices as similar as possible. After rotating the obtained factor loadings simultaneously, the next step would be the usual averaging. 
-
 %As \cite{lorenzo2016} also mentioned, suppose $\mathbf{e^{(m)}}$ is the $p\times k$ matrix of eigenvalues (factor loadings) obtained from the $m$th imputed data, such a rotation tries to minimize the following function of $S_1,\ldots,S_k$ subject to $S_kS'_k = S'_{\ell}S_{\ell}= I$, where the vector $(S_1,\ldots,S_k)$ will be used as a rotation matrix.
 %
 %\begin{equation}
@@ -4425,7 +4364,6 @@ In order to overcome this problem, \cite{dray2015} have averaged the imputed val
 %g(S_1,\ldots,S_k) = \sum_{i=1}^k \sum_{\ell=1}^k \| \mathbf{e_i} S_i - \mathbf{e_{\ell}} S_{\ell}\|^2.
 %\end{equation}
 %After rotating the obtained factor loadings simultaneously, the next step would be the usual averaging. 
-
 \begin{sloppypar}
 One intermediate solution in place of averaging the imputed values \citep{dray2015} or averaging the factor loadings \citep{lorenzo2016} could be to estimate the covariance matrix from imputed sets of data using Rubin's rules first, and then apply the PCA or factor analysis on this combined covariance matrix. This proposal will be discussed in the next section.
 \end{sloppypar}
@@ -4444,14 +4382,12 @@ An important aspect of PCA or FA is determining the number of factors or princip
 \label{prop_variance}
 \gamma_k = \frac{\sum_{j=1}^k \lambda_j}{\sum_{j=1}^p \lambda_j},
 \end{equation}
-
 with $\lambda_j$ as in (\ref{pca}). When using MI, one needs to ensure the correct amount of information present in the data is used. This is also important when estimating $\gamma_k$. This can be done by constructing a confidence interval for $\gamma_k$ using the estimate and variance obtained by properly taking imputation into account. Consider $\Lambda=(\lambda_1,\ldots,\lambda_p)$ and $\Delta$ a diagonal matrix with $\lambda_1 \geq \ldots\geq \lambda_p$ as its diagonal elements. For large samples we have \citep{anderson1963,johnson1992,larsen2010}:
 \begin{equation}
 \label{dist_eigen}
 \widehat{\Lambda}\sim N_p \left(\Lambda, \frac{2}{N}\Delta^2\right).
 \end{equation}
 Therefore, for large $N$ the estimated eigenvalues become uncorrelated. Consider the pair $(\sum_{j=1}^k \widehat{\lambda_j},\sum_{j=1}^p \widehat{\lambda_j})$. Using (\ref{dist_eigen}) leads to:
-
 \begin{equation}
 \label{cov_delta1}
 \mathrm{Cov} = \left(
@@ -4488,9 +4424,7 @@ Then, using the Delta method, the variance of $\widehat{\gamma_k}$ can be writte
 \label{var_gamma_k}
 \mathrm{Var}(\widehat{\gamma_k})\approx \frac{2}{N}\left( \sum_{j=1}^p \widehat{\lambda_j} \right)^{-2} \left[(1- 2\widehat{\gamma_k}) \sigma_{11} + \widehat{\gamma_k}^2 \sigma_{22} \right]
 \end{equation}
-
 Now, equipped with $\widehat{\gamma_k}$ and $\mathrm{Var}(\widehat{\gamma_k})$, one finds the MI estimates of them using Rubin's rule. Consider $\widehat{\gamma_k}_m$ and $\mathrm{Var}(\widehat{\gamma_k}_m)$ the estimated $\gamma_k$ and its variance in the $m$th imputed data, then
-
 \begin{equation}
 \label{mi_gamma_k}
 \widetilde{\gamma_k}= \frac{1}{M} \sum_{m=1}^M \widehat{\gamma_k}_m,\;
@@ -4530,7 +4464,6 @@ L= \widehat{\gamma_k} \frac{1-z_{\alpha/2}^2 r C_1C_2 - z_{\alpha/2}\sqrt{A-B}}{
 \label{fieller_u}.
 U= \widehat{\gamma_k} \frac{1-z_{\alpha/2}^2 r C_1C_2 + z_{\alpha/2}\sqrt{A-B}}{1-z_{\alpha/2}^2C_2^2} 
 \end{equation}
-
 It is well-known \citep{Harville1997} that $\mathrm{tr}(\sum_{m=1}^M \Sigma_m) = \sum_{m=1}^M \mathrm{tr}(\Sigma_m)$ where $\mathrm{tr}$ denotes the trace of the matrix. As $\mathrm{tr}(A_n)=\sum_{j=1}^p \lambda_j$, where $\lambda_j$ ($j=1,\ldots,p $) are the eigenvalues, by estimating $\widetilde{\Sigma}$ using (\ref{mi_sigma}), the sum of all of the eigenvalues would not change. But unfortunately, as \cite{fan1949} has shown, for matrices $A$, $B$, and $C$, with eigenvalues $\alpha_i$, $\beta_i$,$\delta_i$ in descending order, respectively, for any $1\leq k\leq p$ we have,
 \begin{equation}
 \label{KyFan}
@@ -5066,13 +4999,14 @@ Function (4.4)
 can be turned into the log-likelihood kernel for the conventional situation where there is a common mean parameter and common variance components across all cluster sizes, i.e., $\ell(\mu,\sigma^2,d)$. The score functions follow from summing the terms in (\ref{jscore1})--(\ref{jscore3}) across cluster sizes:
 \begin{equation}
 \label{jscorelik}
+\begin{gathered}
 \frac{\partial \ell}{\partial \mu}=
-\sum_{k=1}^K\left.\frac{\partial \ell}{\partial \mu_k}\right|_{\mu_k=\mu},\qquad
+\sum_{k=1}^K\left.\frac{\partial \ell}{\partial \mu_k}\right|_{\mu_k=\mu},\\
 \frac{\partial \ell}{\partial \sigma^2}=
-\sum_{k=1}^K\left.\frac{\partial \ell}{\partial \sigma^2_k}\right|_{\sigma^2_k=\sigma^2},
-\qquad
+\sum_{k=1}^K\left.\frac{\partial \ell}{\partial \sigma^2_k}\right|_{\sigma^2_k=\sigma^2},\\
 \frac{\partial \ell}{\partial d}=
 \sum_{k=1}^K\left.\frac{\partial \ell}{\partial d_k}\right|_{d_k=d}.
+\end{gathered}
 \end{equation}
 Solving the score equation in (\ref{jscorelik}) for the mean, using that
 $$\Sigma_{n_k}^{-1}=\frac{1}{\sigma^2}I_{n_k}-\frac{d}{\sigma^2(\sigma^2+n_kd)}J_{n_k},$$
@@ -5106,8 +5040,6 @@ For the variance components, only implicit identities follow; they are functions
 Referring to the conventional situations, i.e. $\ell(\mu,\sigma^2,d)$ in (4.2)
 %(\ref{loglikcs}) 
 and the score equation in (\ref{jscorelik}), also second derivatives can be calculated:
-
-
 \begin{equation}
 \frac{\partial^2\ell}{\partial \mu^2}  = \sum_{k=1}^K\frac{-c_kn_k}{\sigma^2+n_kd} \label{jhessian1}
 \end{equation}
@@ -5120,33 +5052,22 @@ and the score equation in (\ref{jscorelik}), also second derivatives can be calc
 \begin{equation}
 \frac{\partial^2\ell}{\partial \mu \partial \sigma^2} = \sum_{k=1}^K \left(\frac{-1}{\sigma^4} + \frac{d(2\sigma^2+n_kd)n_k}{\sigma^4(\sigma^2+n_kd)^2} \right) \sum_{i=1}^{c_k}\sum_{j=1}^{n_k}Z_{ij}^{(k)} \label{jhessian4} 
 \end{equation}
-
 \begin{multline}
 \frac{\partial^2\ell}{(\partial \sigma^2)^2} = \sum_{k=1}^K\left( \frac{c_kn_k}{2\sigma^4} \cdot \frac{\sigma^2+(n_k-1)d}{\sigma^2+n_kd}- \frac{c_kn_k}{2\sigma^2} \cdot \frac{d}{(\sigma^2+n_kd)^2} - \frac{c_kn_k S_k}{\sigma^6} \right. \\
  \left.- d c_kn_kT_k \frac{\sigma^2(\sigma^2+n_kd)-(2\sigma^2+n_kd)^2}{\sigma^6(\sigma^2+n_kd)^3}\right) \label{jhessian5}
 \end{multline}
-
-\begin{equation}
-\frac{\partial^2\ell}{\partial d \partial \sigma^2} = \sum_{i=1}^K\left( \frac{c_kn_k}{2(\sigma^2+n_kd)}- \frac{c_kn_k T_k}{\sigma^4} \cdot \frac{(\sigma^2+n_kd)^2 - n_k d (2\sigma^2+n_kd)}{(\sigma^2+n_kd)^3} \right)\label{jhessian6}
-\end{equation}
-
+\begin{multline}
+\frac{\partial^2\ell}{\partial d \partial \sigma^2} = \\ \sum_{i=1}^K\left( \frac{c_kn_k}{2(\sigma^2+n_kd)}- \frac{c_kn_k T_k}{\sigma^4} \cdot \frac{(\sigma^2+n_kd)^2 - n_k d (2\sigma^2+n_kd)}{(\sigma^2+n_kd)^3} \right)\label{jhessian6}
+\end{multline}
 \begin{equation}
 \frac{\partial^2\ell}{\partial \mu \partial d} =\sum_{k=1}^K \frac{-n_k}{(\sigma^2+n_kd)^2}\sum_{i=1}^{c_k} \sum_{j=1}^{n_k} Z_{ij}^{(k)} \label{jhessian7}
 \end{equation}
-
 \begin{equation}
 \frac{\partial^2\ell}{\partial \sigma^2 \partial d} = \sum_{k=1}^K\left( \frac{c_kn_k}{2(\sigma^2+n_kd)^2}-\frac{c_kn_kT_k}{(\sigma^2+n_kd)^3} \right) \label{jhessian8}
 \end{equation}
-
 \begin{equation}
 \frac{\partial^2\ell}{\partial d^2} = \sum_{k=1}^K \left(\frac{c_kn_k^2}{2(\sigma^2+n_kd)^2}-\frac{c_kn_k^2T_k}{(\sigma^2+n_kd)^3} \right) \label{jhessian9} 
 \end{equation}
-
-
-
-
-
-
 Should we use conditional likelihood, then the log-likelihood's kernel equals:
 \begin{multline}
 L  \propto \prod^k_{i=1} \frac{1}{(2\pi)^{n_1/2}|\Sigma_{n_1}|^{1/2}} \exp \left\{ -\frac{1}{2}(\by_{i1}-\bmu_{n_1})'\Sigma_{n_1}^{-1} (\by_{i1}-\bmu_{n_1}) \right\}  \\
@@ -5154,7 +5075,6 @@ L  \propto \prod^k_{i=1} \frac{1}{(2\pi)^{n_1/2}|\Sigma_{n_1}|^{1/2}} \exp \left
 \times \prod^N_{i=k+1} \frac{1}{(2\pi)^{n_2/2}|\Sigma_{n_2}|^{1/2}}\exp \left\{ -\frac{1}{2}(\by_i-\bmu_{n_2})'\Sigma_{n_2}^{-1} (\by_i-\bmu_{n_2}) \right\} \\
 \qquad\times\left[ \frac{1-\Phi (\alpha + \by'_{i1} \bfbeta)}{1-\Phi\left( \frac{\alpha + \bmu_{n_1}'\bfbeta}{\sqrt{1+\bfbeta'\Sigma_{n_1}\bfbeta/n_1}} \right)} \right] \label{clik} 
 \end{multline}
-
 \begin{multline}
 \ell  \propto - \frac{1}{2} \sum_{i=1}^k \left\{ \ln|\Sigma_{n_1}| + (\by_{i}-\bmu_{n_1})'\Sigma_{n_1}^{-1} (\by_{i1}-\bmu_{n_1}) \right\}  \\
  - k \ln \Phi(\tilde{\alpha} + \bmu_{n_1}'\tilde{\bfbeta})  \\
@@ -5162,7 +5082,6 @@ L  \propto \prod^k_{i=1} \frac{1}{(2\pi)^{n_1/2}|\Sigma_{n_1}|^{1/2}} \exp \left
  -(N-k) \ln \left\{1-\Phi(\tilde{\alpha} + \bmu_{n_1}' \tilde{\bfbeta})\right\},  \label{cloglik} 
 \end{multline}
 with $\tilde{\alpha}=\frac{\alpha}{\sqrt{1+\bfbeta'\Sigma_{n_1}\bfbeta/n_1}}$ and  $\tilde{\bfbeta}=\frac{\bfbeta}{\sqrt{1+\bfbeta'\Sigma_{n_1}\bfbeta/n_1}}$
-
 The corresponding score equations are:
 \begin{equation}
 \begin{aligned}
@@ -5173,8 +5092,6 @@ The corresponding score equations are:
 \end{aligned}
 \end{equation}
 with $\frac{\partial\ell}{\partial \sigma^2}$ and $\frac{\partial\ell}{\partial d}$ identical to (\ref{jscore2}) and (\ref{jscore3}). The components of the Hessian are:
-
-
 \begin{equation}
 \begin{aligned}
 \frac{\partial^2\ell}{\partial \mu^2} & = &\frac{-kn_1}{\sigma^2+n_1d}-\frac{(N-k)n_2}{\sigma^2 +n_2d}  \\
@@ -5185,21 +5102,18 @@ with $\frac{\partial\ell}{\partial \sigma^2}$ and $\frac{\partial\ell}{\partial 
 && + \left. \frac{\phi^2(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta}) \cdot \mathbf{j_{n_1}'}\tilde{\bfbeta}}{(1-\Phi(\tilde{\alpha}+\bmu_{n_1}'\tilde{\bfbeta}))^2}\right]\label{chessian1}
 \end{aligned}
 \end{equation}
-
 \begin{equation}
 \begin{aligned}
 \frac{\partial^2\ell}{\partial \sigma^2 \partial \mu} & = &\frac{-1}{(\sigma^2+n_1d)^2} \left( \sum_{i=1}^k \sum_{j=1}^{n_1} \by_{ij}-k n_1 \mu\right) \\
 && - \frac{1}{(\sigma^2+n_2d)^2} \left( \sum_{i=k+1}^N \sum_{j=1}^{n_2} \by_{ij}-(N-k) n_2 \mu\right) \label{chessian2} 
 \end{aligned}
 \end{equation}
-
 \begin{equation}
 \begin{aligned}
 \frac{\partial^2\ell}{\partial d \partial \mu} & =& \frac{-n_1}{(\sigma^2+n_1d)^2} \left( \sum_{i=1}^k \sum_{j=1}^{n_1} \by_{ij}-k n_1 \mu\right) \\
 & &- \frac{n_2}{(\sigma^2+n_2d)^2} \left( \sum_{i=k+1}^N \sum_{j=1}^{n_2} \by_{ij}-(N-k) n_2 \mu\right) \label{chessian3}
 \end{aligned}
 \end{equation}
-
 with $\frac{\partial^2\ell}{\partial \mu \partial \sigma^2}$, $\frac{\partial^2\ell}{(\partial \sigma^2)^2}$, $\frac{\partial^2\ell}{\partial d \partial \sigma^2}$, $\frac{\partial^2\ell}{\partial \mu \partial d}$, $\frac{\partial^2\ell}{\partial \sigma^2 \partial d}$, and $\frac{\partial^2\ell}{\partial (d)^2}$ indentical to (\ref{jhessian4}),
 (\ref{jhessian5}), (\ref{jhessian6}), (\ref{jhessian7}), (\ref{jhessian8}), and (\ref{jhessian9}).
 
@@ -5230,8 +5144,6 @@ I_1(\bftheta)=E\left[
 \frac{\partial p\ell(\bftheta)}{\partial\bftheta}
 \right].
 \end{equation}
-
-
 \cite{Iddi2011} took a very similar route to partition a potentially large sample into sub-samples.
 
 To fix ideas, consider log-likelihood (4.4).
@@ -5270,7 +5182,6 @@ a block-diagonal matrix with blocks of the form $I_0(\bftheta_k)$. We now turn t
 
 \subsection{Pseudo-likelihood for split sample }
 \label{appC}
-
 
 {\cite{Iddi2011}  chose
 \begin{equation}
@@ -5337,7 +5248,6 @@ a_k&=&\frac{\lambda}{2}\frac{c_kn_k}{\sigma^2+n_k d},\\
 and hence
 $$ a_k= \frac{\frac{c_kn_k}{\sigma^2+n_k d}}{\sum_{m=1}^K\frac{c_m n_m}{\sigma^2+n_m d}}
 .$$
-
 In the same manner, expressions for $b_k$ and $g_k$ can be found, as we will show next.
 For $\sigma^2$:
 $$
@@ -6283,7 +6193,6 @@ As a general case, if we consider the mean as linear model with the form $\mu_i=
 \label{betahat}
 \frac{\partial \ell}{\partial \mu_i}=\Sigma^{-1} \sum_{i=1}^{C_k} (y_i-\mu_i) =0 \Rightarrow \widehat{\beta}=(X'X)^{-1} X'y.
 \end{equation}
-
 Now expanding the log-likelihood for $\sigma^2$ and $\rho$, we have:
 \begin{equation}
 \label{log_likelihood_variance_comp}
@@ -6312,7 +6221,6 @@ Setting $\frac{\partial \ell}{\partial \rho} =0$ gives:
 \label{rho_hat1}
 \widehat{\sigma}^2 \frac{2\widehat{\rho}}{1-\widehat{\rho}^2} = \frac{1}{C_k (n_k-1)} \sum_{i=1}^{C_k} (y_i-\mu_i)' \frac{\partial C^{-1}}{\partial \rho}  (y_i-\mu_i).
 \end{equation}
-
 Solving (\ref{sigma_2_hat1}) and (\ref{rho_hat1}) gives $\widehat{\sigma}^2$ and $\widehat{\rho}$. For any ($n_k\times n_k$) matrix $Q$,  $\sum_i (y_i- \mu_i)' Q (y_i-\mu_i)$ 
 equals $\mathrm{tr}\left\{ S Q \right\}$,
 where $\mathrm{tr}$ denotes the trace of a matrix, and $S=\sum_i (y_i-\mu_i)(y_i-m_i)'$. 
@@ -6377,7 +6285,6 @@ which gives:
 \label{n2_hat_sigma2}
 \widehat{\sigma}^2=\frac{S_{11}+S{22}}{2C_k}.
 \end{equation}
-
 For $n_k=3$:
 \[
 \begin{aligned}
@@ -6389,7 +6296,7 @@ S_{31} & S_{32} & S_{33}
 1 & -\rho & 0\\
 -\rho & 1+\rho^2 -\rho\\
 0 & -\rho & 1
-\end{pmatrix} \right ] \\ &=&S_{11}+S_{22}+S_{33} -2\rho (S_{12} +S_{23})  + \rho^2 S_{22},\\
+\end{pmatrix} \right ] \\ &=& S_{11}+S_{22}+S_{33} -2\rho (S_{12} +S_{23})  + \rho^2 S_{22},\\
 h&=&\mathrm{tr}\left[ \begin{pmatrix}
 S_{11} & S_{12} & S_{13} \\
 S_{21} & S_{22} & S_{23}\\
@@ -6416,7 +6323,6 @@ Using (\ref{finding_rho}):
 \label{n3}
 2S_{22}\rho^3 - R\rho^2 - (S+3 S_{22})\rho + 3R =0.
 \end{equation}
-
 Considering the results for $n_k=2$ and $n_k=3$, one can calculate (\ref{finding_rho}) for the general case $n_k=n$ as follows.
 \begin{equation}
 \label{nk_n_rho}
@@ -6446,7 +6352,6 @@ Consider:
   f''(\rho) &= 6(n-1)\tilde{S}\rho - 2(n-2) R
 \end{aligned}
 \end{equation*}
-
 The discriminant of $f'(\rho)$ is as follows:
 \begin{equation*}
 \Delta_{f'(\rho)}=(n-2)^2 R^2 + 3 (n\tilde{S}+S)(n-1) \tilde{S}\geq 0.
@@ -6470,10 +6375,10 @@ we have:
 \end{aligned}
 \end{equation*}
 For the special case of just an intercept $X_i=\mathbf{1}$:
-\begin{equation}
+\begin{multline}
 \label{var_mu}
-\mathrm{E}\left[\frac{\partial \ell}{\partial \beta} \left( \frac{\partial \ell}{\partial \beta}\right)' \right]= \sum_{i=1}^{C_k} \mathbf{1}' \Sigma^{-1} \mathbf{1}= \frac{C_k}{\sigma^2 (1-\rho^2)}\left[(n_k-2)\rho^2 - 2(n_k-1)\rho +n_k \right].
-\end{equation}
+\mathrm{E}\left[\frac{\partial \ell}{\partial \beta} \left( \frac{\partial \ell}{\partial \beta}\right)' \right]= \sum_{i=1}^{C_k} \mathbf{1}' \Sigma^{-1} \mathbf{1}= \\ \frac{C_k}{\sigma^2 (1-\rho^2)}\left[(n_k-2)\rho^2 - 2(n_k-1)\rho +n_k \right].
+\end{multline}
 Therefore, the variance for $\widehat{\mu}$ can be computed as inverse of (\ref{var_mu}).
 \subsubsection{Second derivative with respect to variance components}
 To calculate the derivatives with respect to variance components rather than
@@ -6487,16 +6392,16 @@ $\frac{\partial C^{-1}}{\partial \rho}$, we need $K=\frac{\partial C^{-1}}{\part
 \end{cases}
 \end{equation}
 it follows that
-\begin{equation}
+\begin{multline}
 \label{K}
-\frac{\partial C^{-1}}{\partial \rho^2} = K = \frac{1}{(1-\rho^2)^3}
+\frac{\partial C^{-1}}{\partial \rho^2} = K =  \frac{1}{(1-\rho^2)^3} \\
 \begin{pmatrix}
 2(1+3\rho^2) & -2\rho(3+\rho^2) &   & 0\\
 -2\rho(3+\rho^2) & 4(1+3\rho^2) & \ddots &  \ddots\\
  & \ddots & \ddots  & \ddots\\
  0&  &  -2\rho(3+\rho^2) & 2(1+3\rho^2).
 \end{pmatrix}
-\end{equation}
+\end{multline}
 The second-derivatives are:
 \begin{equation}
 \label{second_deriv_variance_comp}
@@ -6547,13 +6452,13 @@ The determinant of the Hessian in (\ref{Hessian}) is as follows:
 \mathrm{det}(H)=\frac{C_k^2(n_k-1)(n_k-(n_k-2)\rho^2)}{2(\sigma^2)^2 (1-\rho^2)^2}.
 \end{equation}
 So,
-\begin{equation}
+\begin{multline}
 \label{Covariance_biased}
--H^{-1}=\frac{1}{C_k(n_k-(n_k-2)\rho^2)} \begin{pmatrix}
+-H^{-1}=\\ \frac{1}{C_k(n_k-(n_k-2)\rho^2)} \begin{pmatrix}
 2(\sigma^2)^2 (1+\rho^2) & 2\rho \sigma^2 (1-\rho^2)\\
 2\rho \sigma^2 (1-\rho^2) & \frac{n_k}{n_k-1} (1-\rho^2)^2
 \end{pmatrix}.
-\end{equation}
+\end{multline}
 The Hessian for the unbiased estimator differs slightly from its MLE counterpart:
 \begin{eqnarray}
 \label{tilde_H}
@@ -6565,13 +6470,13 @@ The Hessian for the unbiased estimator differs slightly from its MLE counterpart
 \mathrm{det}(\tilde{H})&=&\frac{C_k^2 (n_k-1)^2}{2(\sigma^2)^2 (1-\rho^2)}.
 \end{eqnarray}
 Therefore,
-\begin{equation}
+\begin{multline}
 \label{covariance_unbiased}
--\tilde{H}^{-1}=\frac{1}{C_k(n_k-(n_k-2)\rho^2)} \begin{pmatrix}
+-\tilde{H}^{-1}=\\ \frac{1}{C_k(n_k-(n_k-2)\rho^2)} \begin{pmatrix}
 2(\sigma^2)^2 (1+\rho^2) & 2\rho \sigma^2 (1-\rho^2)\\
 2\rho \sigma^2 (1-\rho^2) &  (1-\rho^2)^2
 \end{pmatrix}.
-\end{equation}
+\end{multline}
 Having the covariance matrix, one may easily find the optimal weights using
 \begin{equation}
 \label{optimal_weights}
@@ -6659,7 +6564,6 @@ $$
 $$
 
 (\ref{betaffft}) simplifies to $(1+\rho^2)X_{i}^{(k)'}X_{i}^{(k)}$, while (\ref{betaffst}) equals
-
 \begin{equation}
 \scalemath{0.8}{
 \rho^2 \begin{pmatrix}
@@ -6670,7 +6574,6 @@ x_{ki11}^2+x_{kin_k1}^2 & x_{ki11}\cdot x_{ki22}+x_{kin_k1}\cdot x_{kin_k2} & \h
 \end{pmatrix}.
 }
 \end{equation}
-
 Defining $\boldsymbol{X}_{i1}^{(k)}=(x_{ki11} \ \hdots \ x_{ki1p})^t$ and $\boldsymbol{X}_{in_k}^{(k)}=(x_{kin_k1} \ \hdots \ x_{kin_kp})^t$, (\ref{betaffst}) equals
 \begin{equation}
 \rho^2[\boldsymbol{X}_{i1}^{(k)} \ 0 \hdots 0 \ \boldsymbol{X}_{in_k}^{(k)}] X_i^{(k)}.
@@ -6698,7 +6601,7 @@ x_{ki12}\cdot y_{ki1} + x_{kin_k2}\cdot y_{kin_k}  \\
 \vdots \\
 x_{ki1p}\cdot y_{ki1} + x_{kin_kp}\cdot y_{kin_k} \\
 \end{pmatrix}  \\
-&-\rho [X_i^{(k)-'} \cdot Y_i^{(k)+}+X_i^{(k)+'} \cdot Y_i^{(k)-}]  
+&-\rho [X_i^{(k)-'} \cdot Y_i^{(k)+}+X_i^{(k)+'} \cdot Y_i^{(k)-}]  \\
 &\overset{\text{not.}}= F_{2k}.\label{betagenmeansf}
 \end{aligned}
 \end{equation}
@@ -7161,19 +7064,16 @@ U=& \frac{\widehat{\sigma^2}}{\varepsilon\widehat{\tau}} \frac{1-z_{\alpha/2}^2 
 \end{aligned}
 \end{equation}
 One may take $n_f=\max\{L,U\}$. Of course, in case were $z_{\alpha/2}^2 C_2^2 <1$, there would be no finite interval. As it was mentioned, one may also use the Delta method as follows:
-
 \begin{equation}
 \label{var_delta_method}
 \mathrm{Var}(\frac{\widehat{\sigma^2}}{\varepsilon \widehat{\tau}}) \approx \frac{1}{\varepsilon^2 \widehat{\tau}^2} \left( s_{11} - 2 \frac{\sigma^2}{\tau} s_{12} + \frac{\sigma^4}{\tau^2} s_{22} \right).
 \end{equation}
-
 \setcounter{equation}{0}
 \section[Random vertical data splitting for CS]{Random vertical data splitting for compound-symmetry structure}
 \label{app2}
 Assume a single cluster of size $N$ with multivariate normal distribution and compound-symmetry structure for its covariance matrix, see Section~\ref{sec_CS_effect}. Suppose we take $M_0$ sub-samples of size $n_0$ from this cluster. Following \cite{hoffman2001}, the parameter $\mu$ should be estimated within each sub-sample, $\widehat{\mu}^{(m)}$ ($m=1,\ldots,M_0$) and then the overall estimate can be obtained by averaging these estimates. Furthermore, one needs the within and between sub-samples variabilities to compute the overall variability, see (\ref{mo_cov}).
 
 Within each sub-sample the variance of $\widehat{\mu}^{(m)}$ can be computed using the variance formula for a mean estimator in CS-multivariate normal \cite{Iddi2011} :
-
 \begin{equation}
 \label{within}
 S_W= \frac{\sigma^2}{n_0} \left[ 1+ (n_0-1) \rho \right ].
@@ -7206,10 +7106,10 @@ T_3 + T_4= - \frac{M_0-1}{M_0} \frac{\sigma^2 n_0^2}{N} \left[ 1+ (N_1) \rho \ri
 \end{cases}
 \end{equation}
 Therefore, the between variability can be computed as follows,
-\begin{equation}
+\begin{multline}
 \label{between}
-S_B=\mathrm{E} \left\{ (\widehat{\mu}^{(m)} - \bar{\mu} )^2 \right\} = \frac{M_0-1}{M_0} \left[\frac{1+(n_0-1)\rho}{n_0} - \frac{1+(N_1)\rho}{N} \right].
-\end{equation}
+S_B=\mathrm{E} \left\{ (\widehat{\mu}^{(m)} - \bar{\mu} )^2 \right\} = \\ \frac{M_0-1}{M_0} \left[\frac{1+(n_0-1)\rho}{n_0} - \frac{1+(N_1)\rho}{N} \right].
+\end{multline}
 Using (\ref{within}) and (\ref{between}), the total variability can be computed as follows,
 \begin{equation}
 \label{total_variability}
@@ -7288,6 +7188,7 @@ Furthermore, for the error terms,
 The parameters of interest for the surrogate evaluation are trial- and individual-level coefficients of determination, $R^2_{\mbox{\tiny trial}}$ and $R^2_{\mbox{\tiny indiv}}$, respectively:
 \begin{equation}
 \label{R2}
+\begin{gathered}
 R^2_{\mbox{\tiny trial}} = \frac{1}{d_{ab}}
 \left(
 \begin{array}{c}
@@ -7303,7 +7204,8 @@ d_{Sa} & d_{aa}
 \begin{array}{c}
 d_{Sb}  \\
 d_{ab}
-\end{array} \right),\quad R^2_{\mbox{\tiny indiv}}=\frac{\sigma_{ST}^2}{\sigma_{SS} \sigma_{TT}}.
+\end{array} \right),\\ R^2_{\mbox{\tiny indiv}}=\frac{\sigma_{ST}^2}{\sigma_{SS} \sigma_{TT}}.
+\end{gathered}
 \end{equation}
 
 \clearemptydoublepage
