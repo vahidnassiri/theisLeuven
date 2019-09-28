@@ -88,7 +88,13 @@
 %\fancyhead[RO,LE]{\thepage}
 %\fancyhead[LO]{\leftmark}
 %\fancyhead[RE]{\rightmark}
+\usepackage{afterpage}
 
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
 \usepackage{amssymb}
 \usepackage{fixltx2e}
 \usepackage{multirow}
@@ -352,10 +358,26 @@
  \input{titleLeuven.tex}
  \input{titlePage.tex}
  \thispagestyle{empty}
+ 
+\newpage
+\thispagestyle{empty}
+\clearpage
+\begin{flushleft}
+    \thispagestyle{empty}
+    \vspace*{\fill}
+    To The Memory of My Grandmother, Fatemehnesa Roostaei.
+    \vspace*{\fill}
+\end{flushleft}
+
+
+\phantom{a}
+\vfill
+\newpage\thispagestyle{empty} 
+ 
  \chapter*{Preface}
 %\addcontentsline{toc}{chapter}{Preface}  
 \begin{quotation}
-First, Xerxes’s agents collected ten thousands men in a single place and, having packed them together as close as possible, marked a circle around them. Next, they removed the men, had a dry-wall constructed on this circle, and proceeded to measure the remaining multitudes by herding them successively into this standard ten-thousand troop pen \citep{hamel2012reading}. 
+First, Xerxes’s agents collected ten thousands men in a single place and, having packed them together as close as possible, marked a circle around them. Next, they removed the men, had a dry-wall constructed on this circle, and proceeded to measure the remaining multitudes by herding them successively into this standard ten-thousand troop pen, \cite{hamel2012reading}. 
 \end{quotation}
 
 King Xerxes could ask his agents to count the soldiers one by one. But as Herodotus \citep{flower2002herodotus} mentioned, there were 1,700,000 men in his army, so it could take a long time to count them one by one. Instead, he counted them in groups of 10,000. That means counting 170 subjects instead of 1,700,000, hence, the counting task could be done a lot faster. Of course, when counting groups of 10,000 in the way described above, some errors could happen. There is no guarantee that every group of soldiers consists of exactly 10,000 men. However, the approximated estimate is accurate enough considering the time gain.
@@ -364,16 +386,25 @@ Our aim in this thesis is to explore this ancient idea:
 \begin{itemize}
 \item splitting a dataset into smaller chunks: 170 groups of 10,000 soldiers,
 \item analyzing the data in each chunk separately: filling the space within the walls with the soldiers,
-\item nd then combining them to obtain the final results: multiplying the number of packs of 10,000 soldiers by 10,000!
+\item and then combining them to obtain the final results: multiplying the number of packs of 10,000 soldiers by 10,000!
 \end{itemize}
 
-We will show that this idea can speed up analyzing \emph{big data} with little and sometimes negligible loss of efficiency. Considering the topic of my previous thesis \citep{nassiri2013robust}, dealing with high-dimensional data using sparse estimation, the current thesis is also in the same line. While in the previous work we were more concerned on the size of the parameter space, in the current work our interest is in the size of the sample itself. OF course, a large sample could also cause a large parameter space.
+We will show that this idea can speed up analyzing \emph{big data} with little and sometimes negligible loss of efficiency. Considering the topic of my previous thesis \citep{nassiri2013robust}, dealing with high-dimensional data using sparse estimation, the current thesis is also in the same line. While in the previous work we were more concerned on the size of the parameter space, in the current work our interest is in the size of the sample itself. Of course, a large sample could possibly create a large parameter space as well.
 
-What we will present in this manuscript is the result of collaborating with many great people I had the chance to know and work with during my four years in I-BioStat in Leuven. Above all, Geert Molenberghs and Geert Verbeke whose advises, ideas, and availability (literally any time of day or night) made the current work possible. I would never forget the first day I went to Geert Molenbergh's office, he told me `{\sc{First ask, then Think!}}'. That sounded a bit strange to me until I realized what he really meant. There are wonderful people in I-BioStat whose expertise can save you a lot of time and solve problems in a more efficient way. I want to thank these colleagues in particular: Wim Van der Elst, Anna Ivanova, Anikó Lovik, Martial Luyts, Lisa Hermans, Kris Bogaerts, Steffen Fieuws, and Alvaro Florez Poveda (add a few more from Bayesians). Also, want to thank Kirsten Verhaegen for all her helps when I was working in L-Biostat, and even afterwards. There has been also people outside of I-BioStat who I had the chance to work with, in particular Pavlos Mamouris, João Barbosa Breda, and Karel van Kir, it was a pleasure to see how the methodologies we develop can answer their questions. 
+What we will present in this manuscript is the result of collaborating with many great people who I had the chance to know and work with during my four years in I-BioStat. Above all, Geert Molenberghs and Geert Verbeke whose advises, ideas, and availability (literally any time of day or night!) made the current work possible. I would never forget the first day I went to Geert Molenbergh's office, he told me `{\sc{First ask, then Think!}}'. That sounded a bit strange to me until I realized what he really meant. There are wonderful people in I-BioStat whose expertise can save you a lot of time and solve your problems in a more efficient way. I want to thank these colleagues in particular: Wim Van der Elst, Anna Ivanova, Anikó Lovik, Martial Luyts, Adrian Quintero, Dung Trung Tran, Oludare Samuel Ariyo, Jeroen Sichien, Lisa Hermans, Alvaro Florez Poveda, Kris Bogaerts, and Steffen Fieuws. Also, I want to thank Kirsten Verhaegen for all her efficient helps when I was working in L-Biostat, and even afterwards. There has been people outside of I-BioStat who I had the chance to work with, in particular Pavlos Mamouris, João Barbosa Breda, and Karel van Keer, it was a pleasure to see how the methodologies we develop could answer their questions. 
 
-I would also like to specially thank Tobias Verbeke, director of Open Analytics, and all my colleagues there who made it possible for me to still work on my thesis and finish my PhD while working as a statistical consultant at OA. This manuscript could not be written in its current form without their support. I would also thank Bahar Mansoory for proofreading this manuscript, and for her very useful linguistic comments, And Ali Rezayat for the very useful discussion of different matters. Furthermore, my many thanks goes to Ignace Loris who had supervised my PhD thesis in Vrije Universiteit Brussel, I have learned a lot from him. Also, Adel Mohammadpour, the supervisor of my master thesis who taught me how to do research.
+I would like to specially thank Tobias Verbeke, the director of Open Analytics, and all my colleagues there who made it possible for me to still work on my thesis and finish my PhD while working as a statistical consultant at OA. This manuscript could not be written in its current form without their support. I would also thank Bahar Mansoory for proofreading this manuscript, and for her very useful linguistic and non-linguistic comments. I also like to thank Ali Rezayat for all his helps. Furthermore, my many thanks goes to Ignace Loris who had supervised my PhD thesis in Vrije Universiteit Brussel, I have learned a lot from him. Also, I thank Adel Mohammadpour, the supervisor of my master thesis who taught me how to do research and how to enjoy doing research. 
 
-And finally, I would like to thank my family, who were 5000 km away, but still...
+My KU Leuven jury members who have been supporting me since the very first year have a great influence in the direction of my research, also the way our findings are organized and presented. I would like to thank Prof. Marlies Lacante, Prof. Karl Meerbergen, and Prof. Philippe Lemey. I also thank the external jury members, Prof. Helena Geys, Prof. Dimitris Rizopoulos, and Prof. Katrijn Van Deun who have kindly accepted our request to review and evaluate this manuscript. I also thank the support of IAP research network, the European Seventh Framework programme FP7, and IWT-SBO Exa Science. Part of the computational resources and services used in this work were provided by the VSC (Flemish Supercomputer Center), funded by the Research Foundation - Flanders
+(FWO) and the Flemish Government department EWI. 
+
+And finally, I would like to thank my family, who despite the 5000 km distance, always support me. I hope I could properly express my gratitude to all these people by preparing this manuscript. Obviously, the responsibility for any shortcoming in this work is fully mine and I would be very thankful if one who finds something kindly let me know via vahid.nassiri@openanalytics.eu.
+
+
+\vspace{5mm}
+\begin{flushright}
+October, 2019 \\Vahid Nassiri
+\end{flushright}
 
 \tableofcontents
 \listoffigures
