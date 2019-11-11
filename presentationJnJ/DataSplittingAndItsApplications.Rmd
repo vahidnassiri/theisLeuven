@@ -1,0 +1,15 @@
+---
+title: "Data Splitting and Its Applications"
+author: Vahid Nassiri
+date: November 12, 2019
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Problem Statement
+
+* 
+

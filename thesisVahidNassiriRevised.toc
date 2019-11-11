@@ -1,0 +1,164 @@
+\babel@toc {english}{}
+\contentsline {chapter}{Contents}{vii}% 
+\contentsline {chapter}{List of Figures}{xv}% 
+\contentsline {chapter}{List of Tables}{xxiii}% 
+\contentsline {chapter}{\numberline {1}Introduction and general overview}{1}% 
+\contentsline {section}{\numberline {1.1}Large clustered data}{5}% 
+\contentsline {section}{\numberline {1.2}Evolution of a statistical model}{8}% 
+\contentsline {section}{\numberline {1.3}Data splitting: a unified approach}{12}% 
+\contentsline {section}{\numberline {1.4}Different types of splitting}{14}% 
+\contentsline {subsection}{\numberline {1.4.1}Random horizontal splitting}{14}% 
+\contentsline {subsection}{\numberline {1.4.2}Structured horizontal splitting}{18}% 
+\contentsline {subsection}{\numberline {1.4.3}Random vertical splitting}{21}% 
+\contentsline {subsection}{\numberline {1.4.4}Structured vertical splitting}{29}% 
+\contentsline {section}{\numberline {1.5}Supplementary topics}{34}% 
+\contentsline {subsection}{\numberline {1.5.1}How many sub-samples?}{34}% 
+\contentsline {subsection}{\numberline {1.5.2}Special case: where combination rule fails}{36}% 
+\contentsline {section}{\numberline {1.6}Software implementation}{38}% 
+\contentsline {section}{\numberline {1.7}Publications}{39}% 
+\contentsline {subsection}{\numberline {1.7.1}Publications covered in this thesis}{39}% 
+\contentsline {subsection}{\numberline {1.7.2}Publications not covered in this thesis}{40}% 
+\contentsline {chapter}{\numberline {2}Motivating datasets}{43}% 
+\contentsline {section}{\numberline {2.1}A developmental toxicity study}{44}% 
+\contentsline {section}{\numberline {2.2}Divorce in Flanders}{45}% 
+\contentsline {section}{\numberline {2.3}Hearing data}{47}% 
+\contentsline {section}{\numberline {2.4}Leuven diabetes project}{48}% 
+\contentsline {section}{\numberline {2.5}Amazon book ratings}{48}% 
+\contentsline {section}{\numberline {2.6}Clinical trials in schizophrenia}{49}% 
+\contentsline {section}{\numberline {2.7}Cholesterol data}{50}% 
+\contentsline {section}{\numberline {2.8}Age-related macular degeneration (ARMD)}{50}% 
+\contentsline {section}{\numberline {2.9}Leuven eye study}{51}% 
+\contentsline {chapter}{\numberline {3}Random horizontal splitting}{53}% 
+\contentsline {section}{\numberline {3.1}The research question}{54}% 
+\contentsline {section}{\numberline {3.2}A mixed model solution}{56}% 
+\contentsline {section}{\numberline {3.3}A data-splitting based remedy}{58}% 
+\contentsline {section}{\numberline {3.4}How precise are we?}{63}% 
+\contentsline {section}{\numberline {3.5}Conclusions}{65}% 
+\contentsline {chapter}{\numberline {4}Structured horizontal splitting}{67}% 
+\contentsline {section}{\numberline {4.1}Compound-symmetry structure}{68}% 
+\contentsline {subsection}{\numberline {4.1.1}Introduction}{68}% 
+\contentsline {subsection}{\numberline {4.1.2}Developmental toxicity study sets}{72}% 
+\contentsline {subsection}{\numberline {4.1.3}Incomplete sufficient statistics}{73}% 
+\contentsline {subsection}{\numberline {4.1.4}The compound-symmetry model}{74}% 
+\contentsline {subsubsection}{Incompleteness}{75}% 
+\contentsline {subsubsection}{Likelihood-based Estimation of the CS Model}{76}% 
+\contentsline {subsection}{\numberline {4.1.5}Split-sample methods for clusters of variable size}{79}% 
+\contentsline {subsection}{\numberline {4.1.6}Partitioned-sample analysis for the compound-symmetry model}{84}% 
+\contentsline {subsubsection}{Variable Cluster Size}{85}% 
+\contentsline {paragraph}{Optimal Weights}{85}% 
+\contentsline {paragraph}{Iterated and Approximate Optimal Weights}{86}% 
+\contentsline {paragraph}{Scalar Weights}{88}% 
+\contentsline {paragraph}{Approximate Optimal Scalar Weights}{90}% 
+\contentsline {subsubsection}{The Special Case of Common Cluster Size, Splits of (Un)equal Size}{91}% 
+\contentsline {subsubsection}{Cluster-by-cluster Analysis}{92}% 
+\contentsline {subsection}{\numberline {4.1.7}Simulation study}{92}% 
+\contentsline {subsection}{\numberline {4.1.8}Analysis of case study}{93}% 
+\contentsline {subsubsection}{Splitting by Cluster Size, No Dose Effect}{94}% 
+\contentsline {subsubsection}{Splitting by Cluster Size, With Dose Effect}{98}% 
+\contentsline {subsubsection}{Cluster-by-cluster Methods}{99}% 
+\contentsline {subsection}{\numberline {4.1.9}Ramifications and concluding remarks}{100}% 
+\contentsline {section}{\numberline {4.2}AR1 structure}{103}% 
+\contentsline {subsection}{\numberline {4.2.1}Introduction}{103}% 
+\contentsline {subsection}{\numberline {4.2.2}Model formulation}{106}% 
+\contentsline {subsection}{\numberline {4.2.3}Estimators}{107}% 
+\contentsline {subsection}{\numberline {4.2.4}Complete and incomplete sufficient statistics}{112}% 
+\contentsline {subsubsection}{Balanced conditionally independent model}{114}% 
+\contentsline {subsubsection}{AR(1) Model}{114}% 
+\contentsline {subsection}{\numberline {4.2.5}Clusters of variable size}{117}% 
+\contentsline {subsection}{\numberline {4.2.6}Computational considerations and simulation study}{122}% 
+\contentsline {subsection}{\numberline {4.2.7}Application: clinical trials in schizophrenia}{124}% 
+\contentsline {subsection}{\numberline {4.2.8}Concluding remarks}{126}% 
+\contentsline {chapter}{\numberline {5}Random vertical splitting}{133}% 
+\contentsline {section}{\numberline {5.1}Iterative multiple outputation}{134}% 
+\contentsline {subsection}{\numberline {5.1.1}Efficient sub-sampling}{136}% 
+\contentsline {section}{\numberline {5.2}Finite information limit estimators}{139}% 
+\contentsline {subsection}{\numberline {5.2.1}Introduction}{139}% 
+\contentsline {subsection}{\numberline {5.2.2}A compound-symmetry model}{143}% 
+\contentsline {subsection}{\numberline {5.2.3}Finite information limit (FIL) estimators}{147}% 
+\contentsline {subsubsection}{Simulations I}{152}% 
+\contentsline {subsection}{\numberline {5.2.4}Extensions}{154}% 
+\contentsline {subsubsection}{Simulations II}{157}% 
+\contentsline {subsection}{\numberline {5.2.5}Case study: amazon.com book ratings}{162}% 
+\contentsline {subsection}{\numberline {5.2.6}Conclusion}{166}% 
+\contentsline {chapter}{\numberline {6}Structured vertical splitting}{169}% 
+\contentsline {section}{\numberline {6.1}Fast precision estimation}{169}% 
+\contentsline {subsection}{\numberline {6.1.1}Introduction}{169}% 
+\contentsline {subsection}{\numberline {6.1.2}A fast variance estimator based on multiple outputation}{173}% 
+\contentsline {subsection}{\numberline {6.1.3}Simulations}{177}% 
+\contentsline {subsubsection}{Gaussian responses}{177}% 
+\contentsline {subsubsection}{Non-Gaussian responses}{179}% 
+\contentsline {subsection}{\numberline {6.1.4}Application}{181}% 
+\contentsline {subsection}{\numberline {6.1.5}Conclusions}{186}% 
+\contentsline {chapter}{\numberline {7}Supplementary topics}{191}% 
+\contentsline {section}{\numberline {7.1}Iterative multiple imputation}{192}% 
+\contentsline {subsection}{\numberline {7.1.1}Introduction}{192}% 
+\contentsline {subsection}{\numberline {7.1.2}Number of imputed datasets: a review}{193}% 
+\contentsline {subsection}{\numberline {7.1.3}Number of {\color {black}{imputed datasets}}: an alternative proposal}{197}% 
+\contentsline {subsection}{\numberline {7.1.4}Simulation study}{204}% 
+\contentsline {subsubsection}{Simulation plan}{204}% 
+\contentsline {subsubsection}{Simulation results}{207}% 
+\contentsline {subsection}{\numberline {7.1.5}Applications}{211}% 
+\contentsline {subsubsection}{Leuven Eye Study. Logistic regression}{211}% 
+\contentsline {subsubsection}{Cholesterol data. One sample $t$-test $p$-values}{214}% 
+\contentsline {subsection}{\numberline {7.1.6}Discussion and concluding remarks}{216}% 
+\contentsline {section}{\numberline {7.2}Multiple imputation for EFA}{219}% 
+\contentsline {subsection}{\numberline {7.2.1}Introduction}{219}% 
+\contentsline {subsection}{\numberline {7.2.2}Using multiple imputation with factor analysis: a review}{221}% 
+\contentsline {subsection}{\numberline {7.2.3}Using multiple imputation with factor analysis: a proposal}{223}% 
+\contentsline {subsection}{\numberline {7.2.4}Simulations}{227}% 
+\contentsline {subsection}{\numberline {7.2.5}Divorce in Flanders}{229}% 
+\contentsline {subsection}{\numberline {7.2.6}Conclusions}{230}% 
+\contentsline {chapter}{\numberline {8}Software packages}{235}% 
+\contentsline {section}{\numberline {8.1}R package {\tt {fastCS}}}{238}% 
+\contentsline {section}{\numberline {8.2}R package {\tt {fastAR1}}}{238}% 
+\contentsline {section}{\numberline {8.3}R package {\tt {miscVSS}}}{239}% 
+\contentsline {section}{\numberline {8.4}R package {\tt {imi}}}{239}% 
+\contentsline {section}{\numberline {8.5}R package {\tt {mifa}}}{240}% 
+\contentsline {chapter}{\numberline {9}Conclusions and future plan}{241}% 
+\contentsline {section}{\numberline {9.1}Conclusions}{241}% 
+\contentsline {section}{\numberline {9.2}Future research plan}{246}% 
+\contentsline {chapter}{Bibliography}{253}% 
+\contentsline {chapter}{Appendices}{273}% 
+\contentsline {section}{\numberline {A.1}Incompleteness in the CS model}{274}% 
+\contentsline {section}{\numberline {A.2}Likelihood-based estimation of the CS model}{276}% 
+\contentsline {subsection}{\numberline {A.2.1}Score functions}{276}% 
+\contentsline {subsection}{\numberline {A.2.2}Lack of closed-form solution when $K\ge 2$}{276}% 
+\contentsline {section}{\numberline {A.3}Full likelihood}{278}% 
+\contentsline {section}{\numberline {A.4}Pseudo-likelihood for split samples}{282}% 
+\contentsline {subsection}{\numberline {A.4.1}General considerations}{282}% 
+\contentsline {subsection}{\numberline {A.4.2}Pseudo-likelihood for split sample }{285}% 
+\contentsline {section}{\numberline {A.5}Optimal scalar weights for CS}{287}% 
+\contentsline {subsection}{\numberline {A.5.1}Cluster-by-cluster analysis}{289}% 
+\contentsline {subsubsection}{The Weighted Estimator for the Cluster-by-cluster Case}{290}% 
+\contentsline {subsubsection}{A Two-stage Estimator for Compound Symmetry}{291}% 
+\contentsline {subsubsection}{Connections Between Estimators}{293}% 
+\contentsline {section}{\numberline {A.6}Details about the first simulation study}{295}% 
+\contentsline {subsection}{\numberline {A.6.1}Simulation method}{295}% 
+\contentsline {subsection}{\numberline {A.6.2}Setting 1}{296}% 
+\contentsline {subsection}{\numberline {A.6.3}Setting 2}{297}% 
+\contentsline {subsection}{\numberline {A.6.4}Setting 3}{298}% 
+\contentsline {subsection}{\numberline {A.6.5}Optimal, approximate optimal, and iterated optimal weights}{299}% 
+\contentsline {section}{\numberline {A.7}Details about the second simulation study}{301}% 
+\contentsline {subsection}{\numberline {A.7.1}Simulation plan}{303}% 
+\contentsline {subsection}{\numberline {A.7.2}Simulation results}{313}% 
+\contentsline {section}{\numberline {A.8}The balanced conditionally independent model}{314}% 
+\contentsline {section}{\numberline {A.9}Algebraic derivations in the AR(1) case}{318}% 
+\contentsline {subsection}{\numberline {A.9.1}Some useful expressions}{319}% 
+\contentsline {subsection}{\numberline {A.9.2}The likelihood estimators in a given cluster}{322}% 
+\contentsline {subsection}{\numberline {A.9.3}Hessians, covariance matrices, and optimal weights}{327}% 
+\contentsline {subsubsection}{Second derivative with respect to fixed effects}{328}% 
+\contentsline {subsubsection}{Second derivative with respect to variance components}{329}% 
+\contentsline {subsection}{\numberline {A.9.4}Proof of Proposition~\ref {prop1}}{332}% 
+\contentsline {subsection}{\numberline {A.9.5}Optimal weights in case of a general mean structure $X_i^{(k)}\unhbox \voidb@x \hbox {\relax \mathversion {bold}$\beta $}$}{333}% 
+\contentsline {subsection}{\numberline {A.9.6}Delta method for the mean estimator}{337}% 
+\contentsline {subsection}{\numberline {A.9.7}Calculating $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \rho $}\mathaccent "0362{\rho }$ and $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \sigma $}\mathaccent "0362{\sigma }^2$ in R}{338}% 
+\contentsline {section}{\numberline {A.10}Details on additional simulations}{339}% 
+\contentsline {subsection}{\numberline {A.10.1}Simulations with proportional and size-proportional weights}{339}% 
+\contentsline {subsection}{\numberline {A.10.2}Simulations with proportional and size-proportional weights: $\rho $ near 0/1}{340}% 
+\contentsline {subsection}{\numberline {A.10.3}Simulations with optimal weights}{341}% 
+\contentsline {subsection}{\numberline {A.10.4}Simulations on computation time}{342}% 
+\contentsline {section}{\numberline {A.11}Details on PANSS data analysis}{344}% 
+\contentsline {section}{\numberline {A.12}Fieller's method and delta method}{347}% 
+\contentsline {section}{\numberline {A.13}Random vertical data splitting for CS}{350}% 
+\contentsline {section}{\numberline {A.14}Combination rule for $p$-values for MI}{352}% 
+\contentsline {section}{\numberline {A.15}The surrogate model}{353}% 
