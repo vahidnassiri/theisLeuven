@@ -1,0 +1,218 @@
+% LaTeX rebuttal letter example. 
+% 
+% Copyright 2019 Friedemann Zenke, fzenke.net
+%
+% Based on examples by Dirk Eddelbuettel, Fran and others from 
+% https://tex.stackexchange.com/questions/2317/latex-style-or-macro-for-detailed-response-to-referee-report
+% 
+% Licensed under cc by-sa 3.0 with attribution required.
+% See https://creativecommons.org/licenses/by-sa/3.0/
+% and https://stackoverflow.blog/2009/06/25/attribution-required/
+
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{lipsum} % to generate some filler text
+\usepackage{fullpage}
+
+% import Eq and Section references from the main manuscript where needed
+% \usepackage{xr}
+% \externaldocument{manuscript}
+
+% package needed for optional arguments
+\usepackage{xifthen}
+% define counters for reviewers and their points
+\newcounter{reviewer}
+\setcounter{reviewer}{0}
+\newcounter{point}[reviewer]
+\setcounter{point}{0}
+
+% This refines the format of how the reviewer/point reference will appear.
+\renewcommand{\thepoint}{P\,\thereviewer.\arabic{point}} 
+
+% command declarations for reviewer points and our responses
+\newcommand{\reviewersection}{\stepcounter{reviewer} \bigskip \hrule
+                  \section*{Reviewer \thereviewer}}
+
+\newenvironment{point}
+   {\refstepcounter{point} \bigskip \noindent {\textbf{Reviewer~Point~\thepoint} } ---\ }
+   {\par }
+
+\newcommand{\shortpoint}[1]{\refstepcounter{point}  \bigskip \noindent 
+	{\textbf{Reviewer~Point~\thepoint} } ---~#1\par }
+
+\newenvironment{reply}
+   {\medskip \noindent \begin{sf}\textbf{Reply}:\  }
+   {\medskip \end{sf}}
+
+\newcommand{\shortreply}[2][]{\medskip \noindent \begin{sf}\textbf{Reply}:\  #2
+	\ifthenelse{\equal{#1}{}}{}{ \hfill \footnotesize (#1)}%
+	\medskip \end{sf}}
+
+
+
+\begin{document}
+
+\section*{Response to the reviewers}
+% General intro text goes here
+We thank the reviewers for their critical assessment of our work. 
+In the following we address their concerns point by point. 
+
+% Let's start point-by-point with Reviewer 1
+\reviewersection
+
+% Point one description 
+\begin{point}
+	Page 56: $b_{ij} (i=1,..,15, j=1,…,m_j)$ -> Are those totals correct?
+\end{point}
+
+% Our reply
+\begin{reply}
+	We thank the reviewer to bring up this point. Indeed, the way we have displayed the totals could be misleading. In fact, $i$ goes from 1 to 15, as we have 5 personality factors, each for mother, father, and child. Then $j$ runs for various items in the 44-item BFI questionnaire correspond to each of these aspects. The number of items correspond to each personality aspect are not equal. Now, instead of $m_j$ we show these by $m_i$ as they corresponds to factor-role $i$. This is changed in the revised version as follows:
+	\begin{quote}
+	$b_{ij}$'s ($i=1,\ldots,15, j=1,\ldots,m_i$) are the random effects (latent variables) each representing one factor-role and $m_i$ is the number of items corresponds to factor-role $i$.
+	\end{quote}
+\end{reply}
+
+\begin{point}
+\begin{itemize}
+\item Page 65, +2: main concern in
+\item Page 80: eq. (ourgenpl)
+\item Page 133: iterative multiple outputation
+\item Page 186: preicisions
+\item Page 186: item 2: The MO correction
+\end{itemize}
+
+\end{point}
+
+\begin{reply}
+These are fixed in the revised version of the manuscript.
+\end{reply}
+
+\begin{point}
+Update. For $m>M_0$ (maybe a bit confusing to use the index $m$ again here?)
+\end{point}
+
+\begin{reply}
+We agree with the reviewer that it could be confusing here, and the sentence is corrected as `For sub-sampling size $m>M_0$' in the revised manuscript. In fact, $m$ is is not just the index, it is still the sub-sampling size which is increased by one unit in every iteration.
+\end{reply}
+
+
+\begin{point}
+Page 137 bottom: a 5x3 matrix is given and then columns are ordered and presented on top of page 138. However, the link with the indices of the ordered columns and the original matrix is not clear.
+\end{point}
+
+\begin{reply}
+The matrix matrix on page 138 show the index corresponds to each element in the sorted matrix on page 137. We agree with the reviewer that currently this connection is not sufficiently clear, so we have changed it in the revised manuscript as follows:
+
+\begin{quote}
+Order the columns of the matrix in the previous step. For example, the following matrix shows a permutation which rearranges columns of the matrix in the previous step in an ascending order:
+\end{quote}
+\end{reply}
+
+
+\begin{point}
+Page 174, last sentence of first paragraph may need rephrasing?
+\end{point}
+
+\begin{reply}
+
+We agree with the reviewer on this point. This is changed as `Therefore, each subject is only used in the sub-samples that the responses presented there are measured for it.' in the revised manuscript.
+
+\end{reply}
+
+\begin{point}
+Page 177, sub-section 6.1.3 is mentioned twice but it is really 2 different paragraphs within that subsection?
+\end{point}
+
+\begin{reply}
+We thank the reviewer for pointing this out. This is now corrected as follows:
+
+\begin{quote}
+In this section the proposed idea will be explored and examined via two simulations studies. Sub-section~6.1.3 considers 1- joint modelling of linear mixed models, and 2- a joint model of ordinal data in a generalized linear mixed models context.
+\end{quote}
+\end{reply}
+
+\reviewersection
+
+\begin{point}
+\begin{itemize}
+\item P3, first line: add ‘that’ -> when we realize THAT increasing….
+ \item Top p4: replace “are” with ‘can be done’ in “and analyzing these different sub-samples are independent of each other”
+ \item 2nd paragraph p4: add ‘the’ in front of ‘MapReduce Methodology’
+ \item P6, add ‘the’ in ‘size of THE dataset makes it eligible …’
+ \item Bottom p7: remove ‘s’ in ‘breakS down’
+ \item P13 top: replace ‘its’ by ‘his/her own approach’
+ \item P13 top: insert ‘the’ in ‘Typically, with THE data splitting …’
+ \item P13, third bullet: remover ‘of’ in ‘all of analysis results’
+ \item P13, bottom: add ‘and’ in ‘we will review different splitting approaches, AND also their appropriate combination rules’
+ \item P18 replace ‘that’ by ‘where’ in ‘An example in our motivation datasets WHERE random horizontal splitting can be beneficial is the Divorce in Flanders’
+ \item P18, insert ‘s’ in ‘deign’ -> design
+ \item P20, top: insert ‘is’ in ‘it IS worth …’
+ \item P26, top: insert ‘the’ in ‘with THE missing data issue’
+ \item P43, replace ‘that’ by ‘for which’ in ‘the ones FOR WHICH using our proposed methodology’
+ \item P45, replace ‘Big Five Inventory (BFI) is questionnaire’ by ‘THE Big Five Inventory (BFI) is A questionnaire’
+ \item P55: replace personalty by personality
+ \item P59, bottom: replace corresponds by corresponding
+ \item P65, second line: replace is by iN in ‘is this thesis’
+ \item P80, above Equation 4.12, please fix the reference to Eq. in ‘(see also Eq. (ourgenpl)).’
+ \item P 243, first line: insert ‘the’ in ‘during the drug development process’
+ \item P 246, replace ‘created’ by ‘create’ in ‘can be used to created’
+\end{itemize}
+\end{point}
+
+\begin{reply}
+These are fixed in the revised version of the manuscript.
+\end{reply}
+
+\begin{point}
+P3: something seems to miss with respect to explaining the predictor in the bullet point “Fitting a linear model to the generated sample as the predictor and y = 1 + 3x + \_, where \_ \_ N(0, 0.01).”
+\end{point}
+
+\begin{reply}
+We thank the reviewer to bring this up, indeed, the current sentence is vague. We meant the generated sample in the fist example as the predictor, but now it is changed as follows in the revised manuscript:
+
+\begin{quote}
+ Fitting a linear model to a random sample from standard normal as the predictor $x$, and $y = 1 + 3x + \epsilon$, where $\epsilon\sim N(0, 0.01)$.
+\end{quote}
+\end{reply}
+
+
+\begin{point}
+P4: please check the sentence containing “but for others, it would even speeds down with a sub-linear rate” -> the ‘s’ in speedS is grammatically not correct and you probably mean ‘slow down’
+\end{point}
+\begin{reply}
+Indeed, that was a mistake which is now corrected as follows:
+
+\begin{quote}
+As we may see, for some analyses, the computation time increases linearly as the sample size increases, but for others, it would even slow down with a sub-linear rate. 
+\end{quote}
+\end{reply}
+
+
+
+\begin{point}
+Chapter 3, section 3.1., first paragraph: I miss a reference to the BFI
+\end{point}
+
+\begin{response}
+We totally agree with the reviewer. The revised manuscript includes necessary references now:
+
+\begin{quote}
+Divorce in Flanders (Mortelmans et al., 2011) dataset presents data
+from Big Five Inventory (BFI) questionnaire (John and Srivastava, 1999;
+Denissen et al., 2008) answered by Flemish families.
+\end{quote}
+
+\reviewersection
+
+\begin{point}
+I did not find a definition of the symbol J. Therefore, I could not verify the result of Equation 4.1 on page 75.
+\end{point}
+
+\begin{response}
+$J$ indicates a matrix of ones. The revised manuscript now includes this information: `where $I$ indicates an identity matrix and $J$ indicates a matrix of ones.'
+\end{response}
+
+\end{document}
+
+
