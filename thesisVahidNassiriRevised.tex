@@ -350,6 +350,8 @@
 
 \makeatother
  
+ 
+
 \begin{document}
 %\pagestyle{fancy}
 \raggedbottom
@@ -365,7 +367,7 @@
 \begin{flushleft}
     \thispagestyle{empty}
     \vspace*{\fill}
-    To The Memory of My Grandmother, Fatemehnesa Roostaei.
+    To The Memory of My Grandmother, Fatemehnesa Roostaei Tilaki.
     \vspace*{\fill}
 \end{flushleft}
 
@@ -375,6 +377,7 @@
 \newpage\thispagestyle{empty} 
  
  \chapter*{Preface}
+ \addcontentsline{toc}{chapter}{Preface} 
 %\addcontentsline{toc}{chapter}{Preface}  
 \begin{quotation}
 First, Xerxes’s agents collected ten thousands men in a single place and, having packed them together as close as possible, marked a circle around them. Next, they removed the men, had a dry-wall constructed on this circle, and proceeded to measure the remaining multitudes by herding them successively into this standard ten-thousand troop pen, \cite{hamel2012reading}. 
@@ -405,10 +408,111 @@ And finally, I would like to thank my family, who despite the 5000 km distance, 
 October, 2019 \\Vahid Nassiri
 \end{flushright}
 
+
+\chapter*{Summary}
+\addcontentsline{toc}{chapter}{Summary} 
+%\begin{center}
+%{\Huge{Summary}}
+%\end{center}
+%\vspace{1cm}
+Sample size has always been an issue in statistical analyses. While for many years small sample sizes were a central issue, in recent years, large sample sizes too might confront the statistical analyst with serious problems. When large to huge sample sizes concur with complex models, prohibitive computation times, convergence issues, and the mere impossibility to analyze the data with the preferred inferential technique (e.g., full maximum likelihood) can ensue. 
+
+Furthermore, while in the simplest designs all measurements are independent, many designs lead to hierarchical (a.k.a., clustered, correlated, dependent) data. By `cluster' we mean a set of measurements repeatedly collected for one single unit (e.g., subject, household, trial, etc.). Therefore, the number of repetitions refers to the number of measurements available per cluster. Examples include: patients measured repeatedly over time, several patients attending the same general practitioner or clinic, several links clicked by a specific user, genetic data available for a person, etc. Some important examples of clustered data are repeated measurements, longitudinal data, multi-center studies, and meta-analysis. Accounting for correlations remains a challenge today, when the total number of clusters is large and/or there are a large number of repetitions per cluster. This would sometimes result in prohibitive computations. 
+
+In this thesis, we propose methodologies to deal with such problems using  so-called data splitting. In a nutshell, data splitting refers to splitting the difficult (sometimes infeasible) job of modelling a big dataset by splitting it into smaller chunks of manageable sub-data, analyzing each of them separately, and then combining the results of these analyses using appropriate combination rules. This would break a difficult task into several, often so-called embarrassingly parallel, simpler tasks. The data splitting approach consists of 3 steps:
+\begin{enumerate}
+\item Splitting the data;
+\item Performing the analysis on each sub-dataset;
+\item Efficiently combine the results from each sub-dataset to form an overall estimate with its precision.
+\end{enumerate}
+
+We could summarize various splitting strategies into four main approaches:
+\begin{itemize}
+\item \textbf{Random horizontal data splitting.} This approach is useful when the number of clusters is large, and preferably the clusters are roughly of equal size, i.e., an (almost) balanced design. This will produce several sub-datasets with smaller sample sizes which are easier to handle.
+\item \textbf{Structured horizontal data splitting.} This approach is useful when some specific clusters are more convenient to deal with when they are together. Therefore, instead of taking random sub-samples, the sub-sampling can be done based on this pre-specified structure. An important example of this approach which is considered in this thesis is splitting based on the cluster sizes, i.e., forming sub-samples consisting of clusters of equal size. This would lead to balanced sub-samples. We have established the existence of closed-form solutions, leading to faster convergence of model fitting procedures.
+\item \textbf{Random vertical data splitting.} This approach is useful when we are dealing with data with large numbers of measurements for each cluster per outcome. In this situation one can take sub-samples of each cluster of manageable size. 
+\item \textbf{Structured vertical data splitting.} This approach is useful when the number of outcomes of interest is large. While fitting a model to several outcomes could become heavy or infeasible, fitting models to all possible pairs (triples, etc.) of these outcomes is feasible. That means each sub-sample should consist of all of the measurements for each subject regarding the pair of interest. Therefore, the sub-samples are taken using a pre-specified structure.
+\end{itemize}
+
+For each of these splitting strategies appropriate and efficient combination rules are developed. We also have considered exceptional cases where the general methodologies would fail. Our findings are motivated and supported by various datasets. Furthermore, the methodologies we have developed are implemented in statistical computing language~R.
+\vspace{1cm}
+
+
+%\begin{center}
+%{\Huge{Samenvatting}}
+%\end{center}
+%\vspace{1cm}
+
+\chapter*{Samenvatting}
+\addcontentsline{toc}{chapter}{Samenvatting} 
+
+\begin{sloppypar}
+Steekproefgrootte is altijd een belangrijk thema geweest in de statistiek. Terwijl de problemen zich lange tijd situeerden ter hoogte van kleine steekproeven, is het nu zo dat ook (zeer) grote steekproeven voor problemen zorgen bij statistische analyse. Wanneer zeer grote steekproeven gebruikt worden samen met heel complexe modellen, dan kunnen er zich een reeks problemen voordoen, zoals bijvoorbeeld onrealistisch lange berekeningstijden, convergentieproblemen, tot en met de onmogelijkheid om de voorkeurstechniek (bijv.\ meest aannemelijke schatters) te gebruiken. 
+\end{sloppypar}
+
+\begin{sloppypar}
+Verder, terwijl in de eenvoudigste studies alle metingen onafhankelijk zijn, zien we vandaag heel veel zogenaamd hi\"erarchische gegevens (ook gekend onder de termen: clusters, gecorreleerde gegevens, afhankelijke gegevens). Met de term `cluster' verwijzen we naar metingen herhaald genomen aan eenzelfde eenheid (bijv.\ proefpersoon, huishouden, studie, enz.). Tegen die achtergrond verwijzen we met het aantal herhalingen naar het aantal metingen per cluster. Enkele voorbeelden: pati\"enten die herhaald doorheen de tijd worden gemeten; verscheidene pati\"enten van dezelfde huisarts of dezelfe kliniek, verscheidene web-links aangeklikt door dezelfde gebruiker, allerlei genetische informatie beschikbaar voor dezelfde persoon, enz. Belangrijke deelgebieden van cluster gegevens zijn herhaalde metingen, longitudinale gegevens, multi-centrische studies en meta-analyse. Ook vandaag is het in rekening brengen van correlatie binnen clusters een uitdagend probleem, vooral wanneer het totaal aantal clusters zeer groot is en/of wanneer een groot aantal metingen per cluster beschikbaar is. We worden dan veelal geconfronteerd met zo goed als onoverkomelijke problemen van berekenbaarheid. 
+\end{sloppypar}
+
+\begin{sloppypar}
+In deze thesis stellen we methdologie voor om de bovenstaande problemen aan te pakken op basis van zogenaamde data-splitsing. In een notendop verwijst data-splitsing naar het opdelen van een moeilijke (soms zelfs onmogelijke) taak zoals het modelleren van een zeer grote dataset, in kleinere deeltaken die elk wel overzichtelijk zijn. Een voorbeeld is het analyseren van delen van de dataset, \'e\'en voor \'e\'en, waarna de resultaten worden gecombineerd tot \'e\'en enkel resultaat. Als het aantal deeltaken zeer groot wordt spreken we in het Engels van {\em embarrassingly parallel tasks.} Data-splitsing bestaat uit drie deeltaken:
+\begin{enumerate}
+\item Splitsen van de data;
+\item Elk van de delen analyseren;
+\item Het effici\"ent combineren van de resultaten tot \'e\'en enkel eindresultaat. 
+\end{enumerate}
+\end{sloppypar}
+
+\begin{sloppypar}
+Er zijn verscheidene splitsings-strategie\"en. We kunnen ze in vier grote klasen opdelen:
+\begin{itemize}
+\item \textbf{Random horizontale splitsing.} 
+Deze methode is nutting wanneer het aantal clusters groot is; idealiter zijn de clusters van ongeveer gelijke grootte, d.w.z.\ een (bijna) gebalanceerd steekproefopzet. Deze methode leidt tot een aantal sub-datasets van kleinere omvang, die elk makkelijker te manipuleren zijn.
+\item \textbf{Gestructureerde horizontale data splitsing.} 
+Deze methode is nuttig wanneer sommige clusters makkelijker individueel te hanteren zijn dan in samenhang. Daarom, eerder dan willekeurige deel-steekproeven te nemen, maakt men hier gebruik van de vooraf aanwezige structuur. Een belangrijk voorbeeld, beschouwd in dit werk, is splitsing op basis van cluster-grootte. We vormen dus deel-datasets waarbinnen alle clusters dezelfde grootte hebben. Elk van deze deelsteekproeven is dan gebalanceerd. Voor dergelijke gebalanceerde deelsteekproeven hebben we het bestaan van gesloten schattingsvormen aangetoond. Dit leidt daarom tot bijzonder effici\"ente procedures. 
+\item \textbf{Random verticale data splitsing.} Deze methode is nuttig wanneer we een zeer groot aantal herhalingen hebben binnen een cluster. We splitsen clusters dus in deelclusters van een hanteerbare grootte.
+\item \textbf{Gestructureerde verticale data splitsing.} Deze aanpak is nuttig wanneer het aantal te bestuderen responsveranderlijken groot is. Het gemeenschappelijk analyseren van alle responsveranderlijken samen is vaak ondoenbaar, maar dat geldt niet voor alle mogelijke paren die we vormen uit de responsveranderlijken (of tripels, quadrupels, enz.). De deelsteekproeven bestaan dan uit alle gegevens beschikbaar voor het paar van veranderlijken dat wordt beschouwd. Deelsteekproeven respecteren dus deze specifieke structuur. 
+\end{itemize}
+\end{sloppypar}
+
+\begin{sloppypar}
+Voor elk van de splitsings-strategie\"en werden gepaste en effici\"ente combinatieregels opgesteld. Daarbij werden ook uitzonderlijke gevallen waar de algemene methodologie niet werkt in ogenschouw genomen. Onze resultaten werden gemotiveerd en ge\"{\i}llustreerd aan de hand van een reeks datasets. Tenslotte hebben we de voorgesltede methodologie ge\"{\i}mplementeerd in de statistische softwaretaal~R. 
+\end{sloppypar}
+\vspace{1cm}
+
+
+\chapter*{List of abbreviations}
+%\textsc{\vspace{2cm}
+
+%\begin{table}
+{\small{\begin{tabular}{ll}
+AR1 & First-order autoregressive \\ 
+ARMD & Age-related macular degeneration \\ 
+BFI & Big five inventory \\ 
+CS & Compound-symmetry \\ 
+DiF & Divorce in Flanders \\ 
+EFA & Exploratory factor analysis \\ 
+FIL & Finite information limit \\ 
+IMI & Iterative multiple imputation \\ 
+IMO & Iterative multiple outputation \\ 
+LES & Leuven eye study \\ 
+MAR & Missing at random \\ 
+MCAR & Missing completely at random \\ 
+MI & Multiple imputation \\ 
+MNAR & Missing not at random \\ 
+MO & Multiple Outputation \\ 
+PC & Principal  component \\ 
+PCA & Principal  component analysis \\ 
+
+\end{tabular}}}
+
+
 \tableofcontents
 \listoffigures
 \listoftables
 
+
+%\end{table}
 
 \clearemptydoublepage
 \mainmatter
@@ -451,24 +555,23 @@ In Table \ref{tab_comptime1} we compare the computation time for the sample size
 
 \begin{table}[ht]
 \centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lccccc}
   \hline \hline
-Sample size & Generation & Mean & Variance & LS & MAD \\ 
+$N$ & Generation & Mean & Variance & LS & MAD \\ 
   \hline
- $10$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\ 
- $10^2$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\ 
- $10^3$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\ 
- $10^4$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.06 \\ 
- $10^5$ & 0.00 & 0.00 & 0.00 & 0.01 & 3.75 \\ 
- $10^6$ & 0.08 & 0.01 & 0.00 & 0.32 & 764.37 \\ 
- $10^7$ & 1.05 & 0.01 & 0.06 & 3.46 & 60558.83 \\ 
+$10$ & 3.37 & 3.76 & 13.34 & 606.44 & 843.64 \\
+$10^2$ & 8.59 & 4.01 & 13.31 & 653.93 & 941.52 \\
+$10^3$ & 55.59 & 5.13 & 16.58 & 6556.18 & 1884.17 \\
+$10^4$ & 514.65 & 19.62 & 45.80 & 5277.53 & 45303.50 \\
+$10^5$ & 5548.44 & 165.05 & 338.17 & 63648.81 & 3785028.20 \\
+$10^6$ & 52107.15 & 1661.63 & 3364.90 & 677835.45 & 746370000.00 \\
+$10^7$ & 543018.13 & 16604.44 & 33645.15 & 8347072.97 & 60558830000.00 \\ 
    \hline \hline
-\end{tabular}
-\caption{Computation time (in seconds) of different methods for different sample sizes.} 
+\end{tabular}}
+\caption{Computation time (in microseconds) of different methods for different sample sizes ($N$).} 
 \label{tab_comptime1}
 \end{table}
-
-
 
 As we may see, for some analyses, the computation time increases linearly as the sample size increases, but for others, it would even slow down with a sub-linear rate. Once the cause of expensive computation time is the sample size, an effective solution could be to split the very large sample into smaller sub-samples and then analyze them separately. As each sub-sample has a smaller size, and analyzing these different sub-samples can be done independent of each other (can be run in parallel), the overall computation time can be decreased. 
 
@@ -4933,6 +5036,17 @@ Other than extending data splitting to be used to deal with small-sample issues,
 \bibliography{thesis_leuven_bib}{}
 \bibliographystyle{abbrvnat}
 
+%\begin{center}
+%{\large{\textbf{Professional Background}}}
+%\end{center}
+%\vspace{0.5cm}
+\chapter*{Professional Background}
+\addcontentsline{toc}{chapter}{Professional Background} 
+\vspace*{-1.5cm}
+
+{\small{Vahid Nassiri  has obtained a Bachelor in Statistics (2002) from the Shahid Beheshti Univerity in Tehran, Iran, and a Master in Mathematical Statistics (2008) from the Amirkabir University of Technology in Tehran, Iran. Afterwards, he has obtained a PhD in Applied Mathematics (2013) from Vrije Universiteit Brussel (VUB), Brussels, Belgium. His main research interests are in the field of Big Data and High-dimensional problems. While working on the sparse estimation of high-dimensional linear models in the sense of least squares and quantile regression in his former PhD, his current work is concerned on the fast computation of models for correlated data with possible missing values. His research expertise is mainly concerned with analyzing incomplete big correlated data using mixed models, multiple imputation, penalized likelihood, and related topics. He also has experience in consulting involving projects from pharmacology, biology, medicine, engineering, psychology, sociology, linguistics, and market research. He is now working as a statistical consultant at Open Analytics NV, Antwerp, Belgium.}}
+
+\thispagestyle{empty}
 
 
 \backmatter
