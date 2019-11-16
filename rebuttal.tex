@@ -13,7 +13,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lipsum} % to generate some filler text
 \usepackage{fullpage}
-
+\newcommand\Chapter[2]{
+  \chapter[#1: {\itshape#2}]{#1\\[2ex]\Large\itshape#2}
+}
 % import Eq and Section references from the main manuscript where needed
 % \usepackage{xr}
 % \externaldocument{manuscript}
@@ -51,14 +53,22 @@
 
 
 \begin{document}
-
+\begin{center}
+{\Large{{PhD Thesis}}}\\
+\vspace{2mm}
+{\LARGE{\textbf{Data Splitting and Its Applications}}}\\
+\vspace{5mm}
+{\Large{\textbf{Vahid Nassiri}}}
+\end{center}
+\vspace{1cm}
 \section*{Response to the reviewers}
+
 % General intro text goes here
 We thank the reviewers for their critical assessment of our work. 
 In the following we address their concerns point by point. 
 
 % Let's start point-by-point with Reviewer 1
-\reviewersection
+\reviewersection{\textbf{\large{Prof. Helena Geys}}}
 
 % Point one description 
 \begin{point}
@@ -132,11 +142,11 @@ In this section the proposed idea will be explored and examined via two simulati
 \end{quote}
 \end{reply}
 
-\reviewersection
+\reviewersection{\textbf{\large{Prof. Katrijn Van Deun}}}
 
 \begin{point}
 \begin{itemize}
-\item P3, first line: add ‘that’ -> when we realize THAT increasing….
+\item P3, first line: add ‘that’ $\rightarrow$ when we realize THAT increasing….
  \item Top p4: replace “are” with ‘can be done’ in “and analyzing these different sub-samples are independent of each other”
  \item 2nd paragraph p4: add ‘the’ in front of ‘MapReduce Methodology’
  \item P6, add ‘the’ in ‘size of THE dataset makes it eligible …’
@@ -146,7 +156,7 @@ In this section the proposed idea will be explored and examined via two simulati
  \item P13, third bullet: remover ‘of’ in ‘all of analysis results’
  \item P13, bottom: add ‘and’ in ‘we will review different splitting approaches, AND also their appropriate combination rules’
  \item P18 replace ‘that’ by ‘where’ in ‘An example in our motivation datasets WHERE random horizontal splitting can be beneficial is the Divorce in Flanders’
- \item P18, insert ‘s’ in ‘deign’ -> design
+ \item P18, insert ‘s’ in ‘deign’ $\rightarrow$ design
  \item P20, top: insert ‘is’ in ‘it IS worth …’
  \item P26, top: insert ‘the’ in ‘with THE missing data issue’
  \item P43, replace ‘that’ by ‘for which’ in ‘the ones FOR WHICH using our proposed methodology’
@@ -205,7 +215,15 @@ Denissen et al., 2008) answered by Flemish families.
 
 \end{reply}
 
-\reviewersection
+\reviewersection{\textbf{\large{Prof. Karl Meerbergen}}}
+
+\begin{point}
+Table 2.1 contains too few nonzero numbers to draw conclusions about the complexity of the faster methods. It may be better to use more digits behind the comma.
+\end{point}
+
+\begin{reply}
+We thank the reviewer for point out to this issue. In the revised manuscript, bench-marking is done again and now the computation times are displayed in microseconds, so the comparison becomes possible also for faster methods. 
+\end{reply}
 
 \begin{point}
 The font in Figure 3.1 is too small for my eyes.   
@@ -221,6 +239,37 @@ I did not find a definition of the symbol J. Therefore, I could not verify the r
 
 \begin{reply}
 $J$ indicates a matrix of ones. The revised manuscript now includes this information: `where $I$ indicates an identity matrix and $J$ indicates a matrix of ones.'
+\end{reply}
+
+
+
+\reviewersection{\textbf{\large{Prof. Philippe Lemey}}}
+
+\begin{point}
+The PhD candidate may consider including a list of abbreviations, but this is not absolutely necessary, so I leave this to his discretion. I will send the PhD candidate an annotated pdf version of thesis that marks a number of typos that can be corrected.
+\end{point}
+
+\begin{reply}
+The list of abbreviations are added to the revised manuscript. We also thank the reviewer for all his comments in the annotated PDF file. We have made sure all of the corrections are applied.
+\end{reply}
+
+\reviewersection{\textbf{\large{Prof. Peter Hoet}}}
+
+\begin{point}
+The manuscript form is not (clearly) in line with the instructions provided by the doctoral school. The manuscript is much longer than the suggested 150 pages, do not want to be too strict on this but 402 is more than two time exceeding. The candidate can consider e.g. whether chapter 7 is strictly needed (?) and/or to place the appendix after the bibliography (in fact the appendix is not a part of the manuscript).
+\end{point}
+
+\begin{reply}
+Chapter 7 is actually based on two of our publication, do despite its title, it is indeed necessary. But we totally agree with the reviewer and move the appendix after the bibliography.
+\end{reply}
+
+
+\begin{point}
+The final manuscript should contain a scientific abstract in Dutch and English and a short description of the professional background of the PhD researcher.
+\end{point}
+
+\begin{reply}
+The revised manuscript now contains a scientific abstract both in Dutch and English as well as a short description of professional background.
 \end{reply}
 
 \end{document}
